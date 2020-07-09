@@ -1,3 +1,4 @@
+import 'package:deal_o_round/home_page_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'home_page.dart';
@@ -31,7 +32,7 @@ class DealORoundApp extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: _getBackgroundGradient()
         ),
-        child: HomePage()
+        child: HomePage(child: HomePageWidget())
       )
     );
   }

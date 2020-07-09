@@ -1,17 +1,44 @@
-import 'package:flutter/material.dart';
-import 'home_center.dart';
-import 'left_example.dart';
-import 'right_example.dart';
+import 'dart:async';
 
-class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
+import 'package:flutter/material.dart';
+
+class _HomePageInherited extends InheritedWidget {
+  _HomePageInherited({
+    Key key,
+    @required Widget child,
+    @required this.data,
+  }) : super(key: key, child: child);
+
+  final HomePageState data;
 
   @override
-  _HomePageState createState() => _HomePageState();
+  bool updateShouldNotify(_HomePageInherited oldWidget) {
+    return true;
+  }
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePage extends StatefulWidget {
+  HomePage({
+    Key key,
+    this.child,
+  }) : super(key: key);
+
+  final Widget child;
+
+  @override
+  HomePageState createState() => HomePageState();
+
+  static HomePageState of(BuildContext context) {
+    return (context.dependOnInheritedWidgetOfExactType<_HomePageInherited>()).data;
+  }
+}
+
+class HomePageState extends State<HomePage> {
   int _counter = 0;
+  var _rightNow = DateTime.now();
+  Timer _timer;
+
+  DateTime get rightNow => _rightNow;
 
   void _incrementCounter() {
     setState(() {
@@ -20,19 +47,34 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _updateTime();
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  void _updateTime() {
+    setState(() {
+      _rightNow = DateTime.now();
+      // Update once per second, but make sure to do it at the beginning of each
+      // new second, so that the clock is accurate.
+      _timer = Timer(
+        Duration(seconds: 1) - Duration(milliseconds: _rightNow.millisecond),
+        _updateTime,
+      );
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            LeftExample(),
-            HomeCenter(),
-            RightExample()
-          ]
-        )
-      )
+    return new _HomePageInherited(
+      data: this,
+      child: widget.child,
     );
   }
 }
