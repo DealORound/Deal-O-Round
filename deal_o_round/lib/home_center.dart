@@ -78,7 +78,7 @@ class HomeCenter extends StatelessWidget {
                       launch(aboutUrl)
                     } else {
                       Scaffold.of(context).showSnackBar(SnackBar(
-                        content: Text('Cannot open URL'),
+                        content: Text('Cannot open URL')
                       ))
                     }
                   },
@@ -94,7 +94,7 @@ class HomeCenter extends StatelessWidget {
                       launch(helpUrl)
                     } else {
                       Scaffold.of(context).showSnackBar(SnackBar(
-                        content: Text('Cannot open URL'),
+                        content: Text('Cannot open URL')
                       ))
                     }
                   },

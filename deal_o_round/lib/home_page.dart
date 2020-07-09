@@ -29,10 +29,10 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             LeftExample(),
             HomeCenter(),
-            RightExample(),
-          ],
-        ),
-      ),
+            RightExample()
+          ]
+        )
+      )
     );
   }
 }

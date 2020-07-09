@@ -7,9 +7,9 @@ class LeftExample extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Text(
-          'Left!',
-        ),
-      ],
+          'Left!'
+        )
+      ]
     );
   }
 }
