@@ -4,48 +4,74 @@ import 'package:url_launcher/url_launcher.dart';
 class HomeCenter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    const String aboutUrl = "http://dealoround.com/about.html";
-    const String helpUrl = "http://dealoround.com/help.html";
+    const aboutUrl = "http://dealoround.com/about.html";
+    const helpUrl = "http://dealoround.com/help.html";
+    const size = 48.0;
+    const textStyle = TextStyle(
+      fontSize: size,
+      fontFamily: 'Musicals',
+      color: Colors.white
+    );
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Text(
-          'DEAL-O-ROUND',
+          'Deal-O-Round',
+          style: TextStyle(
+              fontSize: 72,
+              fontFamily: 'Musicals',
+              color: Colors.white
+          )
         ),
+        SizedBox(height: 20),
         Row(
           children: <Widget>[
             Column(
               children: <Widget>[
                 RaisedButton.icon(
-                  onPressed: null,
+                  onPressed: () => {
+                    debugPrint('Login!')
+                  },
                   color: Colors.green,
                   textColor: Colors.white,
-                  icon: Icon(Icons.person),
-                  label: Text("Login"),
+                  icon: Icon(Icons.person, size: size),
+                  label: Text("Login", style: textStyle)
                 ),
-                RaisedButton.icon(
-                  onPressed: null,
-                  icon: Icon(Icons.format_list_numbered),
-                  label: Text("Top Scores"),
-                ),
+                SizedBox(height: 10),
                 RaisedButton.icon(
                   onPressed: () => {
-                    debugPrint('Play!')
+                    debugPrint('Scores!')
                   },
-                  icon: Icon(Icons.settings),
-                  label: Text("Settings"),
+                  color: Colors.green,
+                  textColor: Colors.white,
+                  icon: Icon(Icons.format_list_numbered, size: size),
+                  label: Text("Scores", style: textStyle)
                 ),
-              ],
+                SizedBox(height: 10),
+                RaisedButton.icon(
+                  onPressed: () => {
+                    debugPrint('Settings!')
+                  },
+                  color: Colors.green,
+                  textColor: Colors.white,
+                  icon: Icon(Icons.settings, size: size),
+                  label: Text("Config", style: textStyle)
+                )
+              ]
             ),
+            SizedBox(width: 20),
             Column(
               children: <Widget>[
                 RaisedButton.icon(
                   onPressed: () => {
                     debugPrint('Play!')
                   },
-                  icon: Icon(Icons.play_arrow),
-                  label: Text("Play"),
+                  color: Colors.green,
+                  textColor: Colors.white,
+                  icon: Icon(Icons.play_arrow, size: size),
+                  label: Text("Play", style: textStyle)
                 ),
+                SizedBox(height: 10),
                 RaisedButton.icon(
                   onPressed: () async => {
                     if (await canLaunch(aboutUrl)) {
@@ -56,9 +82,12 @@ class HomeCenter extends StatelessWidget {
                       ))
                     }
                   },
-                  icon: Icon(Icons.info),
-                  label: Text("About"),
+                  color: Colors.green,
+                  textColor: Colors.white,
+                  icon: Icon(Icons.info, size: size),
+                  label: Text("About", style: textStyle)
                 ),
+                SizedBox(height: 10),
                 RaisedButton.icon(
                   onPressed: () async => {
                     if (await canLaunch(helpUrl)) {
@@ -69,14 +98,16 @@ class HomeCenter extends StatelessWidget {
                       ))
                     }
                   },
-                  icon: Icon(Icons.help),
-                  label: Text("Help"),
-                ),
-              ],
-            ),
-          ],
+                  color: Colors.green,
+                  textColor: Colors.white,
+                  icon: Icon(Icons.help, size: size),
+                  label: Text("Help", style: textStyle)
+                )
+              ]
+            )
+          ]
         )
-      ],
+      ]
     );
   }
 }

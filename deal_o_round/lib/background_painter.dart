@@ -9,7 +9,7 @@ class BackgroundPainter extends CustomPainter {
     return Path()
       ..moveTo(horizontalCenter, padding)
       ..lineTo(horizontalCenter + halfHeight, verticalCenter)
-      ..lineTo(horizontalCenter, size.height - padding)
+      ..lineTo(horizontalCenter, padding + 2 * halfHeight)
       ..lineTo(horizontalCenter - halfHeight, verticalCenter);
   }
 
@@ -18,7 +18,7 @@ class BackgroundPainter extends CustomPainter {
     final diamondPath = _diamondShape(canvas, size);
     diamondPath.close();
     final diamondStrokePaint = Paint()
-      ..color = Color(0xAAFFFFFF)
+      ..color = Color(0xCCFFFFFF)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 5
       ..isAntiAlias = true;
