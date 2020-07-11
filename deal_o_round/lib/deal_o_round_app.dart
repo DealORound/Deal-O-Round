@@ -28,11 +28,16 @@ class DealORoundApp extends StatelessWidget {
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity
       ),
-      home: Container(
-        decoration: BoxDecoration(
-          gradient: _getBackgroundGradient()
-        ),
-        child: HomePage(child: HomePageWidget())
+      home: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: _getBackgroundGradient()
+          ),
+          child: HomePage(
+            child: HomePageWidget()
+          )
+        )
       )
     );
   }

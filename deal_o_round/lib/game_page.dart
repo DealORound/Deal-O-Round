@@ -21,15 +21,12 @@ class _GamePageState extends State<GamePage> {
   Widget build(BuildContext context) {
     return CustomPaint(
       painter: BackgroundPainter(),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text("YO!")
-            ]
-          )
+      child: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text("YO!")
+          ]
         )
       )
     );

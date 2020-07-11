@@ -6,18 +6,13 @@ import 'right_example.dart';
 class HomePageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            LeftExample(),
-            HomeCenter(),
-            RightExample()
-          ]
-        )
-      )
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: <Widget>[
+        LeftExample(),
+        HomeCenter(),
+        RightExample()
+      ]
     );
   }
 }

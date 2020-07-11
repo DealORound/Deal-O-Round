@@ -42,13 +42,11 @@ class ChipWidget extends StatelessWidget {
       height: 80,
       child: CustomPaint(
         painter: ChipPainter(),
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          body: Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: text
-            )
+        child: Center(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: text
           )
         )
       )
