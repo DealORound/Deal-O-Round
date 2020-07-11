@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'chip_widget.dart';
 
 class RightExample extends StatelessWidget {
   @override
@@ -6,8 +7,21 @@ class RightExample extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Text(
-          'Right!'
+        Row(
+          children: <Widget>[
+            ChipWidget(suit: '3', value: '2'),
+          ]
+        ),
+        Row(
+          children: <Widget>[
+            ChipWidget(suit: 'S', value: 'A'),
+            ChipWidget(suit: 'C', value: 'J')
+          ]
+        ),
+        Row(
+          children: <Widget>[
+            ChipWidget(suit: '4', value: 'K')
+          ]
         )
       ]
     );
