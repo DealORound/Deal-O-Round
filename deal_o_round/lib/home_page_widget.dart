@@ -10,7 +10,7 @@ class HomePageWidget extends StatelessWidget {
       backgroundColor: Colors.transparent,
       body: Center(
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             LeftExample(),
             HomeCenter(),
