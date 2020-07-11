@@ -14,8 +14,11 @@ class ExampleGesturePainter extends CustomPainter {
     final yS = size.height / 6;
     Path path = Path()
       ..moveTo(xQ, yS)
-      ..quadraticBezierTo(3 * xQ, yS, 3 * xQ, 3 * yS)
-      ..quadraticBezierTo(3 * xQ, 5 * yS, xQ, 5 * yS);
+      ..lineTo(2 * xQ, yS)
+      ..quadraticBezierTo(3 * xQ, yS, 3 * xQ, 2 * yS)
+      ..lineTo(3 * xQ, 4 * yS)
+      ..quadraticBezierTo(3 * xQ, 5 * yS, 2 * xQ, 5 * yS)
+      ..lineTo(xQ, 5 * yS);
     canvas.drawPath(path, paint);
   }
 
