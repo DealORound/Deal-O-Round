@@ -30,3 +30,6 @@ flutter:
     - family: Musicals
       fonts:
         - asset: fonts/musicals.ttf
+    - family: Noto-Serif
+      fonts:
+        - asset: fonts/noto-serif.ttf
