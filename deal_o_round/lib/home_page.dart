@@ -33,18 +33,11 @@ class HomePage extends StatefulWidget {
   }
 }
 
-class HomePageState extends State<HomePage> {
-  int _counter = 0;
+class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   var _rightNow = DateTime.now();
   Timer _timer;
 
   DateTime get rightNow => _rightNow;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
 
   @override
   void initState() {

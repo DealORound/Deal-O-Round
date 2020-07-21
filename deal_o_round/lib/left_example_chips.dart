@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'chip_widget.dart';
-import 'example_gesture_painter.dart';
+import 'swipe_painter.dart';
 
 class LeftExampleChips extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      foregroundPainter: ExampleGesturePainter(),
+      foregroundPainter: SwipePainter(),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[

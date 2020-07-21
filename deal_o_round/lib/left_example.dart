@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'home_page.dart';
-import 'left_example_chips.dart';
+import 'swipe_animation.dart';
 
 class LeftExample extends StatelessWidget {
   @override
@@ -15,7 +15,7 @@ class LeftExample extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        LeftExampleChips(),
+        SwipeAnimation(),
         SizedBox(height: 10),
         Text("Full House!", style: textStyle)
       ]
