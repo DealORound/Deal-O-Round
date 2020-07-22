@@ -54,8 +54,8 @@ class SwipeAnimationState extends State<SwipeAnimation> with SingleTickerProvide
             child: LeftExampleChips(),
           ),
           Positioned(
-            top: calculate(_animation.value).dy - 40,
-            left: calculate(_animation.value).dx - 40,
+            top: calculate(_animation.value).dy - 35,
+            left: calculate(_animation.value).dx - 35,
             child: Container(
               decoration: BoxDecoration(
                 color: Color(0x99B2FF59),
