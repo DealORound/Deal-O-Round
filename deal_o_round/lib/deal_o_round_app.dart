@@ -1,7 +1,8 @@
-import 'package:deal_o_round/home_page_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'home_page.dart';
+import 'home_page_widget.dart';
+import 'settings_page.dart';
 
 class DealORoundApp extends StatelessWidget {
   RadialGradient _getBackgroundGradient() {
@@ -37,6 +38,7 @@ class DealORoundApp extends StatelessWidget {
           child: HomePage(
             child: HomePageWidget()
           )
+//          child: SettingsPage()
         )
       )
     );

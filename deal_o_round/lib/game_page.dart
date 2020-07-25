@@ -25,7 +25,7 @@ class _GamePageState extends State<GamePage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text("YO!")
+            const Text("YO!")
           ]
         )
       )

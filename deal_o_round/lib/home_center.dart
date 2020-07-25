@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'settings_page.dart';
 import 'title_line.dart';
 
 class HomeCenter extends StatelessWidget {
@@ -8,6 +9,7 @@ class HomeCenter extends StatelessWidget {
     const aboutUrl = "http://dealoround.com/about.html";
     const helpUrl = "http://dealoround.com/help.html";
     const size = 40.0;
+    // TODO make it dependent of screen size: MediaQuery.of(context).size
     const buttonWidth = 210.0;
     const buttonPadding = const EdgeInsets.all(10.0);
     const spacing = 10.0;
@@ -39,8 +41,8 @@ class HomeCenter extends StatelessWidget {
                     textColor: Colors.white,
                     shape: buttonShape,
                     padding: buttonPadding,
-                    icon: Icon(Icons.person, size: size),
-                    label: Text("Login", style: textStyle)
+                    icon: const Icon(Icons.person, size: size),
+                    label: const Text("Login", style: textStyle)
                   )
                 ),
                 SizedBox(height: spacing),
@@ -54,23 +56,22 @@ class HomeCenter extends StatelessWidget {
                     textColor: Colors.white,
                     shape: buttonShape,
                     padding: buttonPadding,
-                    icon: Icon(Icons.format_list_numbered, size: size),
-                    label: Text("Scores", style: textStyle)
+                    icon: const Icon(Icons.format_list_numbered, size: size),
+                    label: const Text("Scores", style: textStyle)
                   )
                 ),
                 SizedBox(height: spacing),
                 ButtonTheme(
                   minWidth: buttonWidth,
                   child: RaisedButton.icon(
-                    onPressed: () => {
-                      debugPrint('Settings!')
-                    },
+                    onPressed: () => Navigator.push(context,
+                      MaterialPageRoute(builder: (BuildContext context) => SettingsPage())),
                     color: Colors.green,
                     textColor: Colors.white,
                     shape: buttonShape,
                     padding: buttonPadding,
-                    icon: Icon(Icons.settings, size: size),
-                    label: Text("Config", style: textStyle)
+                    icon: const Icon(Icons.settings, size: size),
+                    label: const Text("Config", style: textStyle)
                   )
                 )
               ]
@@ -88,8 +89,8 @@ class HomeCenter extends StatelessWidget {
                     textColor: Colors.white,
                     shape: buttonShape,
                     padding: buttonPadding,
-                    icon: Icon(Icons.play_arrow, size: size),
-                    label: Text("Play", style: textStyle)
+                    icon: const Icon(Icons.play_arrow, size: size),
+                    label: const Text("Play", style: textStyle)
                   )
                 ),
                 SizedBox(height: spacing),
@@ -101,7 +102,7 @@ class HomeCenter extends StatelessWidget {
                         launch(aboutUrl)
                       } else {
                         Scaffold.of(context).showSnackBar(SnackBar(
-                          content: Text('Cannot open URL')
+                          content: const Text('Cannot open URL')
                         ))
                       }
                     },
@@ -109,8 +110,8 @@ class HomeCenter extends StatelessWidget {
                     textColor: Colors.white,
                     shape: buttonShape,
                     padding: buttonPadding,
-                    icon: Icon(Icons.info, size: size),
-                    label: Text("About", style: textStyle)
+                    icon: const Icon(Icons.info, size: size),
+                    label: const Text("About", style: textStyle)
                   )
                 ),
                 SizedBox(height: spacing),
@@ -122,7 +123,7 @@ class HomeCenter extends StatelessWidget {
                         launch(helpUrl)
                       } else {
                         Scaffold.of(context).showSnackBar(SnackBar(
-                          content: Text('Cannot open URL')
+                          content: const Text('Cannot open URL')
                         ))
                       }
                     },
@@ -130,8 +131,8 @@ class HomeCenter extends StatelessWidget {
                     textColor: Colors.white,
                     shape: buttonShape,
                     padding: buttonPadding,
-                    icon: Icon(Icons.help, size: size),
-                    label: Text("Help", style: textStyle)
+                    icon: const Icon(Icons.help, size: size),
+                    label: const Text("Help", style: textStyle)
                   )
                 )
               ]
