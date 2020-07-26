@@ -134,13 +134,13 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     const titleStyle = TextStyle(
         fontSize: 48,
-        fontFamily: 'Noto-Serif',
+        fontFamily: 'Roboto-Condensed',
         fontWeight: FontWeight.w700,
         color: Colors.lightGreenAccent
     );
     const textStyle = TextStyle(
       fontSize: 24,
-      fontFamily: 'Noto-Serif',
+      fontFamily: 'Roboto-Condensed',
       fontWeight: FontWeight.w700,
       color: Colors.white
     );

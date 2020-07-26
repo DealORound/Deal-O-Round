@@ -32,6 +32,9 @@ flutter:
     - family: Musicals
       fonts:
         - asset: fonts/musicals.ttf
-    - family: Noto-Serif
+    - family: Roboto-Condensed
       fonts:
-        - asset: fonts/noto-serif.ttf
+        - asset: fonts/roboto-condensed.ttf
+    - family: Stint-Ultra-Condensed
+      fonts:
+        - asset: fonts/stint-ultra-condensed.ttf

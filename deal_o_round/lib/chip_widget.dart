@@ -15,20 +15,20 @@ class ChipWidget extends StatelessWidget {
     final textColor = (this.suit == 'C' || this.suit == 'S') ?
       Colors.black : Colors.red;
     final suitStyle = TextStyle(
-      fontSize: 45,
+      fontSize: 50,
       fontFamily: 'Cards',
       color: textColor
     );
     final valueStyle = TextStyle(
-      fontSize: 45,
-      fontFamily: 'Noto-Serif',
+      fontSize: 50,
+      fontFamily: 'Stint-Ultra-Condensed',
       fontWeight: FontWeight.w700,
       color: textColor
     );
 
     final text = value.length > 1 ?
       <Widget>[
-        Text('I', style: valueStyle),
+        Text('1', style: valueStyle),
         Text(value[1], style: valueStyle),
         Text(suit, style: suitStyle),
       ] :
