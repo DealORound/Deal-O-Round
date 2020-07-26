@@ -22,7 +22,7 @@ class ChipWidget extends StatelessWidget {
     final valueStyle = TextStyle(
       fontSize: 50,
       fontFamily: 'Stint-Ultra-Condensed',
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w700,
       color: textColor
     );
 
