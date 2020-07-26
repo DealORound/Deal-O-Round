@@ -22,20 +22,9 @@ class ChipWidget extends StatelessWidget {
     final valueStyle = TextStyle(
       fontSize: 50,
       fontFamily: 'Stint-Ultra-Condensed',
-      fontWeight: FontWeight.w700,
+      fontWeight: FontWeight.w400,
       color: textColor
     );
-
-    final text = value.length > 1 ?
-      <Widget>[
-        Text('1', style: valueStyle),
-        Text(value[1], style: valueStyle),
-        Text(suit, style: suitStyle),
-      ] :
-      <Widget>[
-        Text(value, style: valueStyle),
-        Text(suit, style: suitStyle),
-      ];
 
     return SizedBox(
       width: 80,
@@ -46,7 +35,10 @@ class ChipWidget extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
-            children: text
+            children: <Widget>[
+              Text(value, style: valueStyle),
+              Text(suit, style: suitStyle),
+            ]
           )
         )
       )
