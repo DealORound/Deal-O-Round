@@ -133,15 +133,15 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     const titleStyle = TextStyle(
-        fontSize: 48,
+        fontSize: 56,
         fontFamily: 'Roboto-Condensed',
-        fontWeight: FontWeight.w700,
+        fontWeight: FontWeight.w400,
         color: Colors.lightGreenAccent
     );
     const textStyle = TextStyle(
-      fontSize: 24,
+      fontSize: 32,
       fontFamily: 'Roboto-Condensed',
-      fontWeight: FontWeight.w700,
+      fontWeight: FontWeight.w400,
       color: Colors.white
     );
     final size = MediaQuery.of(context).size;
@@ -186,7 +186,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         DropdownButton<String>(
                           value: _difficulty.inString,
                           icon: Icon(Icons.arrow_downward, color: Colors.green),
-                          iconSize: 30,
+                          iconSize: 40,
                           style: TextStyle(color: Colors.lightGreen),
                           underline: Container(
                             height: 2,
@@ -211,7 +211,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         DropdownButton<String>(
                           value: _layout.inString,
                           icon: Icon(Icons.arrow_downward, color: Colors.green),
-                          iconSize: 30,
+                          iconSize: 40,
                           style: TextStyle(color: Colors.lightGreen),
                           underline: Container(
                             height: 2,
@@ -286,15 +286,15 @@ class _SettingsPageState extends State<SettingsPage> {
                             maxValue: 100,
                             plusButton: SpinnerButtonStyle(
                               color: Colors.green,
-                              height: 30,
-                              width: 30,
-                              child: Icon(Icons.add, size: 25)
+                              height: 40,
+                              width: 40,
+                              child: Icon(Icons.add, size: 35)
                             ),
                             minusButton: SpinnerButtonStyle(
                               color: Colors.green,
-                              height: 30,
-                              width: 30,
-                              child: Icon(Icons.remove, size: 25)
+                              height: 40,
+                              width: 40,
+                              child: Icon(Icons.remove, size: 35)
                             ),
                             middleNumberWidth: 100,
                             middleNumberStyle: textStyle,
@@ -315,15 +315,15 @@ class _SettingsPageState extends State<SettingsPage> {
                             fractionDigits: 2,
                             plusButton: SpinnerButtonStyle(
                               color: Colors.green,
-                              height: 30,
-                              width: 30,
-                              child: Icon(Icons.add, size: 25)
+                              height: 40,
+                              width: 40,
+                              child: Icon(Icons.add, size: 35)
                             ),
                             minusButton: SpinnerButtonStyle(
                               color: Colors.green,
-                              height: 30,
-                              width: 30,
-                              child: Icon(Icons.remove, size: 25)
+                              height: 40,
+                              width: 40,
+                              child: Icon(Icons.remove, size: 35)
                             ),
                             middleNumberWidth: 100,
                             middleNumberStyle: textStyle,
@@ -343,15 +343,15 @@ class _SettingsPageState extends State<SettingsPage> {
                             step: 10,
                             plusButton: SpinnerButtonStyle(
                               color: Colors.green,
-                              height: 30,
-                              width: 30,
-                              child: Icon(Icons.add, size: 25)
+                              height: 40,
+                              width: 40,
+                              child: Icon(Icons.add, size: 35)
                             ),
                             minusButton: SpinnerButtonStyle(
                               color: Colors.green,
-                              height: 30,
-                              width: 30,
-                              child: Icon(Icons.remove, size: 25)
+                              height: 40,
+                              width: 40,
+                              child: Icon(Icons.remove, size: 35)
                             ),
                             middleNumberWidth: 100,
                             middleNumberStyle: textStyle,
@@ -371,15 +371,15 @@ class _SettingsPageState extends State<SettingsPage> {
                             step: 5,
                             plusButton: SpinnerButtonStyle(
                               color: Colors.green,
-                              height: 30,
-                              width: 30,
-                              child: Icon(Icons.add, size: 25)
+                              height: 40,
+                              width: 40,
+                              child: Icon(Icons.add, size: 35)
                             ),
                             minusButton: SpinnerButtonStyle(
                               color: Colors.green,
-                              height: 30,
-                              width: 30,
-                              child: Icon(Icons.remove, size: 25)
+                              height: 40,
+                              width: 40,
+                              child: Icon(Icons.remove, size: 35)
                             ),
                             middleNumberWidth: 100,
                             middleNumberStyle: textStyle,
