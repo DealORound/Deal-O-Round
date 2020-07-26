@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'settings_page.dart';
+import '../settings/settings_page.dart';
 import 'title_line.dart';
 
 class HomeCenter extends StatelessWidget {

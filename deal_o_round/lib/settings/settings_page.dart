@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spinner_input/spinner_input.dart';
-import 'background_gradient.dart';
+import '../background_gradient.dart';
 import 'settings_constants.dart';
 
 // Extension methods

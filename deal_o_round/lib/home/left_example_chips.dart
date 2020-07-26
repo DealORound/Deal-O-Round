@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'chip_widget.dart';
+import '../game/chip_widget.dart';
 import 'swipe_painter.dart';
 
 class LeftExampleChips extends StatelessWidget {
