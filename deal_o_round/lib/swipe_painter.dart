@@ -6,12 +6,12 @@ class SwipePainter extends CustomPainter {
     final wQ = width / 4;
     final hS = height / 6;
     return Path()
-      ..moveTo(wQ, hS)
+      ..moveTo(3 * wQ, hS)
       ..lineTo(2 * wQ, hS)
-      ..quadraticBezierTo(3 * wQ, hS, 3 * wQ, 2 * hS)
-      ..lineTo(3 * wQ, 4 * hS)
-      ..quadraticBezierTo(3 * wQ, 5 * hS, 2 * wQ, 5 * hS)
-      ..lineTo(wQ, 5 * hS);
+      ..quadraticBezierTo(wQ, hS, wQ, 2 * hS)
+      ..lineTo(wQ, 4 * hS)
+      ..quadraticBezierTo(wQ, 5 * hS, 2 * wQ, 5 * hS)
+      ..lineTo(3 * wQ, 5 * hS);
   }
 
   @override
