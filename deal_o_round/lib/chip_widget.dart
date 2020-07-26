@@ -32,13 +32,16 @@ class ChipWidget extends StatelessWidget {
       child: CustomPaint(
         painter: ChipPainter(),
         child: Center(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(value, style: valueStyle),
-              Text(suit, style: suitStyle),
-            ]
+          child: RichText(
+            maxLines: 1,
+            overflow: TextOverflow.visible,
+            text: TextSpan(
+              text: value,
+              style: valueStyle,
+              children: <TextSpan>[
+                TextSpan(text: suit, style: suitStyle)
+              ]
+            )
           )
         )
       )
