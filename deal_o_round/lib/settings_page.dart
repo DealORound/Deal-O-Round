@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spinner_input/spinner_input.dart';
-import 'background_painter.dart';
+import 'background_gradient.dart';
 import 'settings_constants.dart';
 
 // Extension methods
@@ -146,238 +146,258 @@ class _SettingsPageState extends State<SettingsPage> {
     );
     final size = MediaQuery.of(context).size;
 
-    return CustomPaint(
-      painter: BackgroundPainter(),
-      child:
-        Column(
-        children: <Widget>[
-        Text("Settings", style: titleStyle),
-        Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          SizedBox(
-            width: size.width / 2,
-            child:
-          GridView.count(
-            crossAxisCount: 2,
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            childAspectRatio: 4.0,
+    return Scaffold(
+        backgroundColor: Colors.transparent,
+        floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.only(top: 60.0),
+          child: FloatingActionButton(
+            onPressed: () => Navigator.pop(context),
+            child: Icon(Icons.arrow_back, size: 40),
+            backgroundColor: Colors.green,
+          ),
+        ),
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: getBackgroundGradient()
+          ),
+        child:
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const Text("Difficulty", style: textStyle),
-              DropdownButton<String>(
-                value: _difficulty.inString,
-                icon: Icon(Icons.arrow_downward, color: Colors.green),
-                iconSize: 30,
-                style: TextStyle(color: Colors.lightGreen),
-                underline: Container(
-                  height: 2,
-                  color: Colors.lightGreenAccent,
-                ),
-                dropdownColor: Colors.green.shade800,
-                onChanged: (String newValue) {
-                  setState(() {
-                    _difficulty = enumFromString(Difficulty.values, newValue);
-                    _prefs.setString(DIFFICULTY, newValue);
-                  });
-                },
-                items: <String>[Difficulty.Easy.inString, Difficulty.Medium.inString, Difficulty.Hard.inString]
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value, style: textStyle),
-                  );
-                }).toList(),
-              ),
-              const Text("Layout", style: textStyle),
-              DropdownButton<String>(
-                value: _layout.inString,
-                icon: Icon(Icons.arrow_downward, color: Colors.green),
-                iconSize: 30,
-                style: TextStyle(color: Colors.lightGreen),
-                underline: Container(
-                  height: 2,
-                  color: Colors.lightGreenAccent,
-                ),
-                dropdownColor: Colors.green.shade800,
-                onChanged: (String newValue) {
-                  setState(() {
-                    _layout = enumFromString(BoardLayout.values, newValue);
-                    _prefs.setString(BOARD_LAYOUT, newValue);
-                  });
-                },
-                items: <String>[BoardLayout.Square.inString, BoardLayout.Hexagonal.inString]
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value, style: textStyle),
-                  );
-                }).toList(),
-              ),
-              const Text("Game Music", style: textStyle),
-              Transform.scale(
-                scale: 1.2,
-                child: Switch(
-                  value: _music,
-                  activeColor: Colors.lightGreenAccent,
-                  activeTrackColor: Colors.green,
-                  inactiveThumbColor: Colors.red,
-                  inactiveTrackColor: Colors.brown,
-                  onChanged: (newValue) {
-                    setState(() {
-                      _music = newValue;
-                      _prefs.setBool(GAME_MUSIC, newValue);
-                    });
-                  }
-                )
-              ),
-              const Text("Sound Effects", style: textStyle),
-              Transform.scale(
-                scale: 1.2,
-                child: Switch(
-                  value: _soundEffects,
-                  activeColor: Colors.lightGreenAccent,
-                  activeTrackColor: Colors.green,
-                  inactiveThumbColor: Colors.red,
-                  inactiveTrackColor: Colors.brown,
-                  onChanged: (newValue) {
-                    setState(() {
-                      _soundEffects = newValue;
-                      _prefs.setBool(SOUND_EFFECTS, newValue);
-                    });
-                  }
-                )
+              const Text("Settings", style: titleStyle),
+              const SizedBox(height: 20),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(
+                    width: size.width / 2 - 10,
+                    child: GridView.count(
+                      crossAxisCount: 2,
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      childAspectRatio: 4.0,
+                      padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
+                      children: <Widget>[
+                        const Text("Difficulty", style: textStyle),
+                        DropdownButton<String>(
+                          value: _difficulty.inString,
+                          icon: Icon(Icons.arrow_downward, color: Colors.green),
+                          iconSize: 30,
+                          style: TextStyle(color: Colors.lightGreen),
+                          underline: Container(
+                            height: 2,
+                            color: Colors.lightGreenAccent,
+                          ),
+                          dropdownColor: Colors.green.shade800,
+                          onChanged: (String newValue) {
+                            setState(() {
+                              _difficulty = enumFromString(Difficulty.values, newValue);
+                              _prefs.setString(DIFFICULTY, newValue);
+                            });
+                          },
+                          items: <String>[Difficulty.Easy.inString, Difficulty.Medium.inString, Difficulty.Hard.inString]
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value, style: textStyle),
+                            );
+                          }).toList(),
+                        ),
+                        const Text("Layout", style: textStyle),
+                        DropdownButton<String>(
+                          value: _layout.inString,
+                          icon: Icon(Icons.arrow_downward, color: Colors.green),
+                          iconSize: 30,
+                          style: TextStyle(color: Colors.lightGreen),
+                          underline: Container(
+                            height: 2,
+                            color: Colors.lightGreenAccent,
+                          ),
+                          dropdownColor: Colors.green.shade800,
+                          onChanged: (String newValue) {
+                            setState(() {
+                              _layout = enumFromString(BoardLayout.values, newValue);
+                              _prefs.setString(BOARD_LAYOUT, newValue);
+                            });
+                          },
+                          items: <String>[BoardLayout.Square.inString, BoardLayout.Hexagonal.inString]
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value, style: textStyle),
+                            );
+                          }).toList(),
+                        ),
+                        const Text("Game Music", style: textStyle),
+                        Transform.scale(
+                          scale: 1.2,
+                          child: Switch(
+                            value: _music,
+                            activeColor: Colors.lightGreenAccent,
+                            activeTrackColor: Colors.green,
+                            inactiveThumbColor: Colors.red,
+                            inactiveTrackColor: Colors.brown,
+                            onChanged: (newValue) {
+                              setState(() {
+                                _music = newValue;
+                                _prefs.setBool(GAME_MUSIC, newValue);
+                              });
+                            }
+                          )
+                        ),
+                        const Text("Sound Effects", style: textStyle),
+                        Transform.scale(
+                          scale: 1.2,
+                          child: Switch(
+                            value: _soundEffects,
+                            activeColor: Colors.lightGreenAccent,
+                            activeTrackColor: Colors.green,
+                            inactiveThumbColor: Colors.red,
+                            inactiveTrackColor: Colors.brown,
+                            onChanged: (newValue) {
+                              setState(() {
+                                _soundEffects = newValue;
+                                _prefs.setBool(SOUND_EFFECTS, newValue);
+                              });
+                            }
+                          )
+                        )
+                      ],
+                    )),
+                    const SizedBox(width: 20),
+                    SizedBox(
+                      width: size.width / 2 - 10,
+                      child: GridView.count(
+                        crossAxisCount: 2,
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        childAspectRatio: 4.0,
+                        padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
+                        children: <Widget>[
+                          const Text("Volume", style: textStyle),
+                          SpinnerInput(
+                            spinnerValue: _volume,
+                            minValue: 0,
+                            maxValue: 100,
+                            plusButton: SpinnerButtonStyle(
+                              color: Colors.green,
+                              height: 30,
+                              width: 30,
+                              child: Icon(Icons.add, size: 25)
+                            ),
+                            minusButton: SpinnerButtonStyle(
+                              color: Colors.green,
+                              height: 30,
+                              width: 30,
+                              child: Icon(Icons.remove, size: 25)
+                            ),
+                            middleNumberWidth: 100,
+                            middleNumberStyle: textStyle,
+                            middleNumberBackground: Colors.green.shade800,
+                            onChange: (newValue) {
+                              setState(() {
+                                _volume = newValue;
+                                _prefs.setDouble(VOLUME, newValue);
+                              });
+                            }
+                          ),
+                          const Text("Screen Scale", style: textStyle),
+                          SpinnerInput(
+                            spinnerValue: _screenScale,
+                            minValue: 0.2,
+                            maxValue: 4.0,
+                            step: 0.05,
+                            fractionDigits: 2,
+                            plusButton: SpinnerButtonStyle(
+                              color: Colors.green,
+                              height: 30,
+                              width: 30,
+                              child: Icon(Icons.add, size: 25)
+                            ),
+                            minusButton: SpinnerButtonStyle(
+                              color: Colors.green,
+                              height: 30,
+                              width: 30,
+                              child: Icon(Icons.remove, size: 25)
+                            ),
+                            middleNumberWidth: 100,
+                            middleNumberStyle: textStyle,
+                            middleNumberBackground: Colors.green.shade800,
+                            onChange: (newValue) {
+                              setState(() {
+                                _screenScale = newValue;
+                                _prefs.setDouble(SCREEN_SCALE, newValue);
+                              });
+                            }
+                          ),
+                          const Text("Anim. Speed", style: textStyle),
+                          SpinnerInput(
+                            spinnerValue: _animationSpeed,
+                            minValue: 50,
+                            maxValue: 500,
+                            step: 10,
+                            plusButton: SpinnerButtonStyle(
+                              color: Colors.green,
+                              height: 30,
+                              width: 30,
+                              child: Icon(Icons.add, size: 25)
+                            ),
+                            minusButton: SpinnerButtonStyle(
+                              color: Colors.green,
+                              height: 30,
+                              width: 30,
+                              child: Icon(Icons.remove, size: 25)
+                            ),
+                            middleNumberWidth: 100,
+                            middleNumberStyle: textStyle,
+                            middleNumberBackground: Colors.green.shade800,
+                            onChange: (newValue) {
+                              setState(() {
+                                _animationSpeed = newValue;
+                                _prefs.setDouble(ANIMATION_SPEED, newValue);
+                              });
+                            }
+                          ),
+                          const Text("Refresh Rate", style: textStyle),
+                          SpinnerInput(
+                            spinnerValue: _refreshRate,
+                            minValue: 25,
+                            maxValue: 120,
+                            step: 5,
+                            plusButton: SpinnerButtonStyle(
+                              color: Colors.green,
+                              height: 30,
+                              width: 30,
+                              child: Icon(Icons.add, size: 25)
+                            ),
+                            minusButton: SpinnerButtonStyle(
+                              color: Colors.green,
+                              height: 30,
+                              width: 30,
+                              child: Icon(Icons.remove, size: 25)
+                            ),
+                            middleNumberWidth: 100,
+                            middleNumberStyle: textStyle,
+                            middleNumberBackground: Colors.green.shade800,
+                            onChange: (newValue) {
+                              setState(() {
+                                _refreshRate = newValue;
+                                _prefs.setDouble(REFRESH_RATE, newValue);
+                              });
+                            }
+                          ),
+                        ],
+                      )
+                    )
+                  ]
               )
-            ],
-          )),
-          SizedBox(
-            width: size.width / 2,
-//            height: size.height,
-            child:
-          GridView.count(
-            crossAxisCount: 2,
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            childAspectRatio: 4.0,
-            children: <Widget>[
-              const Text("Volume", style: textStyle),
-              SpinnerInput(
-                spinnerValue: _volume,
-                minValue: 0,
-                maxValue: 100,
-                plusButton: SpinnerButtonStyle(
-                  color: Colors.green,
-                  height: 30,
-                  width: 30,
-                  child: Icon(Icons.add, size: 25)
-                ),
-                minusButton: SpinnerButtonStyle(
-                  color: Colors.green,
-                  height: 30,
-                  width: 30,
-                  child: Icon(Icons.remove, size: 25)
-                ),
-                middleNumberWidth: 100,
-                middleNumberStyle: textStyle,
-                middleNumberBackground: Colors.green.shade800,
-                onChange: (newValue) {
-                  setState(() {
-                    _volume = newValue;
-                    _prefs.setDouble(VOLUME, newValue);
-                  });
-                }
-              ),
-              const Text("Screen Scale", style: textStyle),
-              SpinnerInput(
-                spinnerValue: _screenScale,
-                minValue: 0.2,
-                maxValue: 4.0,
-                step: 0.05,
-                plusButton: SpinnerButtonStyle(
-                  color: Colors.green,
-                  height: 30,
-                  width: 30,
-                  child: Icon(Icons.add, size: 25)
-                ),
-                minusButton: SpinnerButtonStyle(
-                  color: Colors.green,
-                  height: 30,
-                  width: 30,
-                  child: Icon(Icons.remove, size: 25)
-                ),
-                middleNumberWidth: 100,
-                middleNumberStyle: textStyle,
-                middleNumberBackground: Colors.green.shade800,
-                onChange: (newValue) {
-                  setState(() {
-                    _screenScale = newValue;
-                    _prefs.setDouble(SCREEN_SCALE, newValue);
-                  });
-                }
-              ),
-              const Text("Anim. Speed", style: textStyle),
-              SpinnerInput(
-                spinnerValue: _animationSpeed,
-                minValue: 50,
-                maxValue: 500,
-                step: 10,
-                plusButton: SpinnerButtonStyle(
-                  color: Colors.green,
-                  height: 30,
-                  width: 30,
-                  child: Icon(Icons.add, size: 25)
-                ),
-                minusButton: SpinnerButtonStyle(
-                  color: Colors.green,
-                  height: 30,
-                  width: 30,
-                  child: Icon(Icons.remove, size: 25)
-                ),
-                middleNumberWidth: 100,
-                middleNumberStyle: textStyle,
-                middleNumberBackground: Colors.green.shade800,
-                onChange: (newValue) {
-                  setState(() {
-                    _animationSpeed = newValue;
-                    _prefs.setDouble(ANIMATION_SPEED, newValue);
-                  });
-                }
-              ),
-              const Text("Refresh Rate", style: textStyle),
-              SpinnerInput(
-                spinnerValue: _refreshRate,
-                minValue: 25,
-                maxValue: 120,
-                step: 5,
-                plusButton: SpinnerButtonStyle(
-                  color: Colors.green,
-                  height: 30,
-                  width: 30,
-                  child: Icon(Icons.add, size: 25)
-                ),
-                minusButton: SpinnerButtonStyle(
-                  color: Colors.green,
-                  height: 30,
-                  width: 30,
-                  child: Icon(Icons.remove, size: 25)
-                ),
-                middleNumberWidth: 100,
-                middleNumberStyle: textStyle,
-                middleNumberBackground: Colors.green.shade800,
-                onChange: (newValue) {
-                  setState(() {
-                    _refreshRate = newValue;
-                    _prefs.setDouble(REFRESH_RATE, newValue);
-                  });
-                }
-              ),
-            ],
-          ))
-        ])
-        ]
+            ]
+          )
       )
     );
   }
