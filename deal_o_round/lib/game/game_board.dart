@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:deal_o_round/game/chip_widget.dart';
+import 'package:deal_o_round/settings/settings_constants.dart';
 import 'package:flutter/material.dart';
 import 'game_page.dart';
 
@@ -21,19 +22,23 @@ class GameBoard extends StatelessWidget {
   }
 
   Column getRandomColumn(int chipCount) {
-    return Column(children: <Widget>
-      [
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget> [
         for(var i = 0; i < chipCount; i += 1)
           ChipWidget(suit: getRandomSuit(), value: getRandomValue())
       ]
     );
   }
 
-  Row getRandomColumns(int chipCount) {
-    return Row(children: <Widget>
-      [
+  Row getRandomColumns(int chipCount, BoardLayout layout) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
         for(var i = 0; i < chipCount; i += 1)
-          getRandomColumn(chipCount)
+          getRandomColumn(chipCount + (layout == BoardLayout.Hexagonal && i % 2 == 0 ? -1 : 0))
       ]
     );
   }
@@ -41,6 +46,7 @@ class GameBoard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GameState state = GamePage.of(context);
+    final BoardLayout layout = state.layout;
     final greenDecoration = BoxDecoration(
       color: Colors.green.shade900,
       borderRadius: BorderRadius.circular(5.0),
@@ -51,17 +57,13 @@ class GameBoard extends StatelessWidget {
     );
     const size = 400.0;
 
-    return Center(
-      child: Container(
-        decoration: greenDecoration,
-        padding: const EdgeInsets.all(2.0),
-        child: SizedBox(
-          width: size,
-          height: size,
-          child: Center(
-            child: getRandomColumns(chipCount)
-          )
-        )
+    return Container(
+      decoration: greenDecoration,
+      padding: const EdgeInsets.all(2.0),
+      child: SizedBox(
+        width: size,
+        height: size,
+        child: getRandomColumns(chipCount, layout)
       )
     );
   }

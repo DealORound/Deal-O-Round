@@ -1,6 +1,13 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../settings/settings_constants.dart';
+
+extension on BoardLayout {
+  String get inString => describeEnum(this);
+}
 
 class _GamePageInherited extends InheritedWidget {
   _GamePageInherited({
@@ -41,6 +48,8 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   var _level;
   var _info;
   Timer _timer;
+  SharedPreferences _prefs;
+  BoardLayout layout;
 
   DateTime get rightNow => _rightNow;
   int get countDown => _countDown;
@@ -58,7 +67,23 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     _score = 0;
     _level = 1;
     _info = "Lorem ipsum dolor sit amet";
-    _updateTime();
+    SharedPreferences.getInstance().then((prefs) {
+      setState(() {
+        _prefs = prefs;
+        try {
+          final _storedLayout = _prefs.getString(BOARD_LAYOUT);
+          if (_storedLayout != null) {
+            layout = enumFromString(BoardLayout.values, _storedLayout);;
+          } else {
+            _prefs.setString(BOARD_LAYOUT, layout.inString);
+          }
+        }
+        on ArgumentError {
+          debugPrint("Could not read or write $BOARD_LAYOUT settings");
+        }
+      });
+      _updateTime();
+    });
   }
 
   @override
@@ -87,9 +112,16 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    const textStyle = TextStyle(
+        fontSize: 64,
+        fontFamily: 'Musicals',
+        color: Colors.white
+    );
+
     return new _GamePageInherited(
       data: this,
-      child: widget.child,
+      child: _prefs != null ? widget.child :
+        Center(child: Text("Loading...", style: textStyle))
     );
   }
 }
