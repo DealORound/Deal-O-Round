@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'settings_constants.dart';
 
 class EnumSettings<T> extends StatefulWidget {
   final List<T> values;
@@ -82,7 +81,7 @@ class _EnumSettingsState<T> extends State<EnumSettings> {
       onChanged: (String newValue) {
         setState(() {
           stringValue = newValue;
-          _prefs.setString(DIFFICULTY, newValue);
+          _prefs.setString(valueTag, newValue);
         });
       },
       items: stringValues.map<DropdownMenuItem<String>>((String value) {
