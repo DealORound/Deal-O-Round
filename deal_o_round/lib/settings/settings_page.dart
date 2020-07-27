@@ -29,6 +29,14 @@ class _SettingsPageState extends State<SettingsPage> {
       color: Colors.white
     );
     final size = MediaQuery.of(context).size;
+    final boxDecoration = BoxDecoration(
+      color: Colors.green.shade900.withOpacity(0.5),
+      borderRadius: BorderRadius.circular(5.0),
+      border: Border.all(
+        color: Colors.green.shade900,
+        width: 3.0
+      )
+    );
 
     return Scaffold(
         backgroundColor: Colors.transparent,
@@ -50,7 +58,11 @@ class _SettingsPageState extends State<SettingsPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const Text("Settings", style: titleStyle),
+              Container(
+                decoration: boxDecoration,
+                padding: const EdgeInsets.all(8.0),
+                child: const Text("Settings", style: titleStyle)
+              ),
               const SizedBox(height: 20),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -58,50 +70,58 @@ class _SettingsPageState extends State<SettingsPage> {
                 children: <Widget>[
                   SizedBox(
                     width: size.width / 2 - 10,
-                    child: GridView.count(
-                      crossAxisCount: 2,
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      childAspectRatio: 4.0,
-                      padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
-                      children: <Widget>[
-                        const Text("Difficulty", style: textStyle),
-                        EnumSettings<Difficulty>(
-                          values: Difficulty.values,
-                          defaultValue: Difficulty.Easy,
-                          valueTag: DIFFICULTY,
-                          textStyle: textStyle,
-                        ),
-                        const Text("Layout", style: textStyle),
-                        EnumSettings<BoardLayout>(
-                          values: BoardLayout.values,
-                          defaultValue: BoardLayout.Hexagonal,
-                          valueTag: BOARD_LAYOUT,
-                          textStyle: textStyle,
-                        ),
-                        const Text("Game Music", style: textStyle),
-                        BooleanSettings(
-                          defaultValue: false,
-                          valueTag: GAME_MUSIC
-                        ),
-                        const Text("Sound Effects", style: textStyle),
-                        BooleanSettings(
-                          defaultValue: true,
-                          valueTag: SOUND_EFFECTS
-                        )
-                      ],
-                    )),
-                    const SizedBox(width: 20),
-                    SizedBox(
-                      width: size.width / 2 - 10,
+                    child: Container(
+                      decoration: boxDecoration,
+                      padding: const EdgeInsets.all(2.0),
                       child: GridView.count(
                         crossAxisCount: 2,
                         physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
                         childAspectRatio: 4.0,
-                        padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
+                        padding: const EdgeInsets.symmetric(vertical: 1.0, horizontal: 8.0),
+                        children: <Widget>[
+                          const Text("Difficulty", style: textStyle),
+                          EnumSettings<Difficulty>(
+                            values: Difficulty.values,
+                            defaultValue: Difficulty.Easy,
+                            valueTag: DIFFICULTY,
+                            textStyle: textStyle,
+                          ),
+                          const Text("Layout", style: textStyle),
+                          EnumSettings<BoardLayout>(
+                            values: BoardLayout.values,
+                            defaultValue: BoardLayout.Hexagonal,
+                            valueTag: BOARD_LAYOUT,
+                            textStyle: textStyle,
+                          ),
+                          const Text("Game Music", style: textStyle),
+                          BooleanSettings(
+                            defaultValue: false,
+                            valueTag: GAME_MUSIC
+                          ),
+                          const Text("Sound Effects", style: textStyle),
+                          BooleanSettings(
+                            defaultValue: true,
+                            valueTag: SOUND_EFFECTS
+                          )
+                        ],
+                      )
+                    )
+                  ),
+                  const SizedBox(width: 20),
+                  SizedBox(
+                    width: size.width / 2 - 10,
+                    child: Container(
+                      decoration: boxDecoration,
+                      padding: const EdgeInsets.all(2.0),
+                      child: GridView.count(
+                        crossAxisCount: 2,
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        childAspectRatio: 4.0,
+                        padding: const EdgeInsets.symmetric(vertical: 1.0, horizontal: 8.0),
                         children: <Widget>[
                           const Text("Volume", style: textStyle),
                           SpinnerSettings(
@@ -142,7 +162,8 @@ class _SettingsPageState extends State<SettingsPage> {
                         ]
                       )
                     )
-                  ]
+                  )
+                ]
               )
             ]
           )

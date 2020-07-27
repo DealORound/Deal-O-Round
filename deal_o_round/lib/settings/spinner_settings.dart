@@ -95,7 +95,7 @@ class _SpinnerSettingsState extends State<SpinnerSettings> {
           width: 40,
           child: Icon(Icons.remove, size: 35)
         ),
-        middleNumberWidth: 100,
+        middleNumberWidth: 95,
         middleNumberStyle: textStyle,
         middleNumberBackground: Colors.green.shade800,
         onChange: (newValue) {
