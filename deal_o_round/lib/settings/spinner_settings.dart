@@ -78,32 +78,32 @@ class _SpinnerSettingsState extends State<SpinnerSettings> {
   @override
   Widget build(BuildContext context) {
     return SpinnerInput(
-        spinnerValue: doubleValue,
-        minValue: minValue,
-        maxValue: maxValue,
-        step: stepValue,
-        fractionDigits: fractionDigits,
-        plusButton: SpinnerButtonStyle(
-          color: Colors.green,
-          height: 40,
-          width: 40,
-          child: Icon(Icons.add, size: 35)
-        ),
-        minusButton: SpinnerButtonStyle(
-          color: Colors.green,
-          height: 40,
-          width: 40,
-          child: Icon(Icons.remove, size: 35)
-        ),
-        middleNumberWidth: 95,
-        middleNumberStyle: textStyle,
-        middleNumberBackground: Colors.green.shade800,
-        onChange: (newValue) {
-          setState(() {
-            doubleValue = newValue;
-            _prefs.setDouble(valueTag, newValue);
-          });
-        }
+      spinnerValue: doubleValue,
+      minValue: minValue,
+      maxValue: maxValue,
+      step: stepValue,
+      fractionDigits: fractionDigits,
+      plusButton: SpinnerButtonStyle(
+        color: Colors.green,
+        height: 40,
+        width: 40,
+        child: Icon(Icons.add, size: 35)
+      ),
+      minusButton: SpinnerButtonStyle(
+        color: Colors.green,
+        height: 40,
+        width: 40,
+        child: Icon(Icons.remove, size: 35)
+      ),
+      middleNumberWidth: 95,
+      middleNumberStyle: textStyle,
+      middleNumberBackground: Colors.green.shade800,
+      onChange: (newValue) {
+        setState(() {
+          doubleValue = newValue;
+          _prefs.setDouble(valueTag, newValue);
+        });
+      }
     );
   }
 }

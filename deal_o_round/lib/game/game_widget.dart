@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'background_painter.dart';
 //import 'game_board.dart';
 import 'left_display.dart';
-//import 'right_display.dart';
+import 'right_display.dart';
 
 class GameWidget extends StatelessWidget {
   @override
@@ -16,8 +16,8 @@ class GameWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               LeftDisplay(),
-      //        GameBoard(),
-      //        RightDisplay()
+              // GameBoard(),
+              RightDisplay()
             ]
           )
         )
