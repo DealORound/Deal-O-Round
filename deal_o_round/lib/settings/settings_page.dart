@@ -1,19 +1,10 @@
-import 'package:deal_o_round/settings/spinner_settings.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../background_gradient.dart';
 import 'boolean_settings.dart';
+import 'enum_settings.dart';
 import 'settings_constants.dart';
-
-// Extension methods
-extension on Difficulty {
-  String get inString => describeEnum(this);
-}
-
-extension on BoardLayout {
-  String get inString => describeEnum(this);
-}
+import 'spinner_settings.dart';
 
 class SettingsPage extends StatefulWidget {
   SettingsPage({Key key}) : super(key: key);
@@ -23,42 +14,6 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  SharedPreferences _prefs;
-  Difficulty _difficulty = Difficulty.Easy;
-  BoardLayout _layout = BoardLayout.Hexagonal;
-
-  @override
-  void initState() {
-    super.initState();
-    SharedPreferences.getInstance().then((prefs) {
-      setState(() {
-        _prefs = prefs;
-        try {
-          final _storedDifficulty = _prefs.getString(DIFFICULTY);
-          if (_storedDifficulty != null) {
-            _difficulty = enumFromString(Difficulty.values, _storedDifficulty);
-          } else {
-            _prefs.setString(DIFFICULTY, _difficulty.inString);
-          }
-        }
-        on ArgumentError {
-          debugPrint("Could not read or write difficulty settings");
-        }
-        try {
-          final _storedLayout = _prefs.getString(BOARD_LAYOUT);
-          if (_storedLayout != null) {
-            _layout = enumFromString(BoardLayout.values, _storedLayout);
-          } else {
-            _prefs.setString(BOARD_LAYOUT, _layout.inString);
-          }
-        }
-        on ArgumentError {
-          debugPrint("Could not read or write layout settings");
-        }
-      });
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     const titleStyle = TextStyle(
@@ -112,54 +67,18 @@ class _SettingsPageState extends State<SettingsPage> {
                       padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
                       children: <Widget>[
                         const Text("Difficulty", style: textStyle),
-                        DropdownButton<String>(
-                          value: _difficulty.inString,
-                          icon: Icon(Icons.arrow_downward, color: Colors.green),
-                          iconSize: 40,
-                          style: TextStyle(color: Colors.lightGreen),
-                          underline: Container(
-                            height: 2,
-                            color: Colors.lightGreenAccent,
-                          ),
-                          dropdownColor: Colors.green.shade800,
-                          onChanged: (String newValue) {
-                            setState(() {
-                              _difficulty = enumFromString(Difficulty.values, newValue);
-                              _prefs.setString(DIFFICULTY, newValue);
-                            });
-                          },
-                          items: <String>[Difficulty.Easy.inString, Difficulty.Medium.inString, Difficulty.Hard.inString]
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value, style: textStyle),
-                            );
-                          }).toList(),
+                        EnumSettings<Difficulty>(
+                          values: Difficulty.values,
+                          defaultValue: Difficulty.Easy,
+                          valueTag: DIFFICULTY,
+                          textStyle: textStyle,
                         ),
                         const Text("Layout", style: textStyle),
-                        DropdownButton<String>(
-                          value: _layout.inString,
-                          icon: Icon(Icons.arrow_downward, color: Colors.green),
-                          iconSize: 40,
-                          style: TextStyle(color: Colors.lightGreen),
-                          underline: Container(
-                            height: 2,
-                            color: Colors.lightGreenAccent,
-                          ),
-                          dropdownColor: Colors.green.shade800,
-                          onChanged: (String newValue) {
-                            setState(() {
-                              _layout = enumFromString(BoardLayout.values, newValue);
-                              _prefs.setString(BOARD_LAYOUT, newValue);
-                            });
-                          },
-                          items: <String>[BoardLayout.Square.inString, BoardLayout.Hexagonal.inString]
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value, style: textStyle),
-                            );
-                          }).toList(),
+                        EnumSettings<BoardLayout>(
+                          values: BoardLayout.values,
+                          defaultValue: BoardLayout.Hexagonal,
+                          valueTag: BOARD_LAYOUT,
+                          textStyle: textStyle,
                         ),
                         const Text("Game Music", style: textStyle),
                         BooleanSettings(
