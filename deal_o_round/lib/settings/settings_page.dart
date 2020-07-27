@@ -1,8 +1,9 @@
+import 'package:deal_o_round/settings/spinner_settings.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:spinner_input/spinner_input.dart';
 import '../background_gradient.dart';
+import 'boolean_settings.dart';
 import 'settings_constants.dart';
 
 // Extension methods
@@ -25,12 +26,6 @@ class _SettingsPageState extends State<SettingsPage> {
   SharedPreferences _prefs;
   Difficulty _difficulty = Difficulty.Easy;
   BoardLayout _layout = BoardLayout.Hexagonal;
-  bool _music = false;
-  bool _soundEffects = true;
-  double _volume = 15;
-  double _screenScale = 1.0;
-  double _animationSpeed = 200;
-  double _refreshRate = 60;
 
   @override
   void initState() {
@@ -60,72 +55,6 @@ class _SettingsPageState extends State<SettingsPage> {
         on ArgumentError {
           debugPrint("Could not read or write layout settings");
         }
-        try {
-          final _storedMusic = _prefs.getBool(GAME_MUSIC);
-          if (_storedMusic != null) {
-            _music = _storedMusic;
-          } else {
-            _prefs.setBool(GAME_MUSIC, _music);
-          }
-        }
-        on ArgumentError {
-          debugPrint("Could not read or write music settings");
-        }
-        try {
-          final _storedSoundEffects = _prefs.getBool(SOUND_EFFECTS);
-          if (_storedSoundEffects != null) {
-            _soundEffects = _storedSoundEffects;
-          } else {
-            _prefs.setBool(SOUND_EFFECTS, _soundEffects);
-          }
-        }
-        on ArgumentError {
-          debugPrint("Could not read or write sound effects settings");
-        }
-        try {
-          final _storedVolume = _prefs.getDouble(VOLUME);
-          if (_storedVolume != null) {
-            _volume = _storedVolume;
-          } else {
-            _prefs.setDouble(VOLUME, _volume);
-          }
-        }
-        on ArgumentError {
-          debugPrint("Could not read or write volume settings");
-        }
-        try {
-          final _storedScale = _prefs.getDouble(SCREEN_SCALE);
-          if (_storedScale != null) {
-            _screenScale = _storedScale;
-          } else {
-            _prefs.setDouble(SCREEN_SCALE, _screenScale);
-          }
-        }
-        on ArgumentError {
-          debugPrint("Could not read or write screen scale settings");
-        }
-        try {
-          final _storedSpeed = _prefs.getDouble(ANIMATION_SPEED);
-          if (_storedSpeed != null) {
-            _animationSpeed = _storedSpeed;
-          } else {
-            _prefs.setDouble(ANIMATION_SPEED, _animationSpeed);
-          }
-        }
-        on ArgumentError {
-          debugPrint("Could not read or write animation speed settings");
-        }
-        try {
-          final _storedRefreshRate = _prefs.getDouble(REFRESH_RATE);
-          if (_storedRefreshRate != null) {
-            _refreshRate = _storedRefreshRate;
-          } else {
-            _prefs.setDouble(REFRESH_RATE, _refreshRate);
-          }
-        }
-        on ArgumentError {
-          debugPrint("Could not read or write refresh rate settings");
-        }
       });
     });
   }
@@ -133,10 +62,10 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     const titleStyle = TextStyle(
-        fontSize: 56,
-        fontFamily: 'Roboto-Condensed',
-        fontWeight: FontWeight.w400,
-        color: Colors.lightGreenAccent
+      fontSize: 56,
+      fontFamily: 'Roboto-Condensed',
+      fontWeight: FontWeight.w400,
+      color: Colors.lightGreenAccent
     );
     const textStyle = TextStyle(
       fontSize: 32,
@@ -233,38 +162,14 @@ class _SettingsPageState extends State<SettingsPage> {
                           }).toList(),
                         ),
                         const Text("Game Music", style: textStyle),
-                        Transform.scale(
-                          scale: 1.2,
-                          child: Switch(
-                            value: _music,
-                            activeColor: Colors.lightGreenAccent,
-                            activeTrackColor: Colors.green,
-                            inactiveThumbColor: Colors.red,
-                            inactiveTrackColor: Colors.brown,
-                            onChanged: (newValue) {
-                              setState(() {
-                                _music = newValue;
-                                _prefs.setBool(GAME_MUSIC, newValue);
-                              });
-                            }
-                          )
+                        BooleanSettings(
+                          defaultValue: false,
+                          valueTag: GAME_MUSIC
                         ),
                         const Text("Sound Effects", style: textStyle),
-                        Transform.scale(
-                          scale: 1.2,
-                          child: Switch(
-                            value: _soundEffects,
-                            activeColor: Colors.lightGreenAccent,
-                            activeTrackColor: Colors.green,
-                            inactiveThumbColor: Colors.red,
-                            inactiveTrackColor: Colors.brown,
-                            onChanged: (newValue) {
-                              setState(() {
-                                _soundEffects = newValue;
-                                _prefs.setBool(SOUND_EFFECTS, newValue);
-                              });
-                            }
-                          )
+                        BooleanSettings(
+                          defaultValue: true,
+                          valueTag: SOUND_EFFECTS
                         )
                       ],
                     )),
@@ -280,118 +185,42 @@ class _SettingsPageState extends State<SettingsPage> {
                         padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
                         children: <Widget>[
                           const Text("Volume", style: textStyle),
-                          SpinnerInput(
-                            spinnerValue: _volume,
+                          SpinnerSettings(
                             minValue: 0,
                             maxValue: 100,
-                            plusButton: SpinnerButtonStyle(
-                              color: Colors.green,
-                              height: 40,
-                              width: 40,
-                              child: Icon(Icons.add, size: 35)
-                            ),
-                            minusButton: SpinnerButtonStyle(
-                              color: Colors.green,
-                              height: 40,
-                              width: 40,
-                              child: Icon(Icons.remove, size: 35)
-                            ),
-                            middleNumberWidth: 100,
-                            middleNumberStyle: textStyle,
-                            middleNumberBackground: Colors.green.shade800,
-                            onChange: (newValue) {
-                              setState(() {
-                                _volume = newValue;
-                                _prefs.setDouble(VOLUME, newValue);
-                              });
-                            }
+                            defaultValue: 15,
+                            valueTag: VOLUME,
+                            textStyle: textStyle,
                           ),
                           const Text("Screen Scale", style: textStyle),
-                          SpinnerInput(
-                            spinnerValue: _screenScale,
+                          SpinnerSettings(
                             minValue: 0.2,
                             maxValue: 4.0,
-                            step: 0.05,
+                            stepValue: 0.05,
                             fractionDigits: 2,
-                            plusButton: SpinnerButtonStyle(
-                              color: Colors.green,
-                              height: 40,
-                              width: 40,
-                              child: Icon(Icons.add, size: 35)
-                            ),
-                            minusButton: SpinnerButtonStyle(
-                              color: Colors.green,
-                              height: 40,
-                              width: 40,
-                              child: Icon(Icons.remove, size: 35)
-                            ),
-                            middleNumberWidth: 100,
-                            middleNumberStyle: textStyle,
-                            middleNumberBackground: Colors.green.shade800,
-                            onChange: (newValue) {
-                              setState(() {
-                                _screenScale = newValue;
-                                _prefs.setDouble(SCREEN_SCALE, newValue);
-                              });
-                            }
+                            defaultValue: 1.0,
+                            valueTag: SCREEN_SCALE,
+                            textStyle: textStyle,
                           ),
                           const Text("Anim. Speed", style: textStyle),
-                          SpinnerInput(
-                            spinnerValue: _animationSpeed,
+                          SpinnerSettings(
                             minValue: 50,
                             maxValue: 500,
-                            step: 10,
-                            plusButton: SpinnerButtonStyle(
-                              color: Colors.green,
-                              height: 40,
-                              width: 40,
-                              child: Icon(Icons.add, size: 35)
-                            ),
-                            minusButton: SpinnerButtonStyle(
-                              color: Colors.green,
-                              height: 40,
-                              width: 40,
-                              child: Icon(Icons.remove, size: 35)
-                            ),
-                            middleNumberWidth: 100,
-                            middleNumberStyle: textStyle,
-                            middleNumberBackground: Colors.green.shade800,
-                            onChange: (newValue) {
-                              setState(() {
-                                _animationSpeed = newValue;
-                                _prefs.setDouble(ANIMATION_SPEED, newValue);
-                              });
-                            }
+                            stepValue: 10,
+                            defaultValue: 200,
+                            valueTag: ANIMATION_SPEED,
+                            textStyle: textStyle,
                           ),
                           const Text("Refresh Rate", style: textStyle),
-                          SpinnerInput(
-                            spinnerValue: _refreshRate,
+                          SpinnerSettings(
                             minValue: 25,
                             maxValue: 120,
-                            step: 5,
-                            plusButton: SpinnerButtonStyle(
-                              color: Colors.green,
-                              height: 40,
-                              width: 40,
-                              child: Icon(Icons.add, size: 35)
-                            ),
-                            minusButton: SpinnerButtonStyle(
-                              color: Colors.green,
-                              height: 40,
-                              width: 40,
-                              child: Icon(Icons.remove, size: 35)
-                            ),
-                            middleNumberWidth: 100,
-                            middleNumberStyle: textStyle,
-                            middleNumberBackground: Colors.green.shade800,
-                            onChange: (newValue) {
-                              setState(() {
-                                _refreshRate = newValue;
-                                _prefs.setDouble(REFRESH_RATE, newValue);
-                              });
-                            }
-                          ),
-                        ],
+                            stepValue: 5,
+                            defaultValue: 60,
+                            valueTag: REFRESH_RATE,
+                            textStyle: textStyle,
+                          )
+                        ]
                       )
                     )
                   ]
