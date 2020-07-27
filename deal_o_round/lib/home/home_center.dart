@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../game/game_page.dart';
+import '../game/game_widget.dart';
 import '../settings/settings_page.dart';
 import 'title_line.dart';
 
@@ -65,7 +67,8 @@ class HomeCenter extends StatelessWidget {
                   minWidth: buttonWidth,
                   child: RaisedButton.icon(
                     onPressed: () => Navigator.push(context,
-                      MaterialPageRoute(builder: (BuildContext context) => SettingsPage())),
+                      MaterialPageRoute(builder: (BuildContext context) => SettingsPage())
+                    ),
                     color: Colors.green,
                     textColor: Colors.white,
                     shape: buttonShape,
@@ -82,9 +85,11 @@ class HomeCenter extends StatelessWidget {
                 ButtonTheme(
                   minWidth: buttonWidth,
                   child: RaisedButton.icon(
-                    onPressed: () => {
-                      debugPrint('Play!')
-                    },
+                    onPressed: () => Navigator.push(context,
+                      MaterialPageRoute(builder: (BuildContext context) => GamePage(
+                        child: GameWidget()
+                      ))
+                    ),
                     color: Colors.green,
                     textColor: Colors.white,
                     shape: buttonShape,
