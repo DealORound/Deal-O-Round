@@ -1,4 +1,6 @@
+import 'package:deal_o_round/background_gradient.dart';
 import 'package:flutter/widgets.dart';
+import '../background_gradient.dart';
 
 class BackgroundPainter extends CustomPainter {
   Path _diamondShape(Canvas canvas, Size size) {
@@ -15,6 +17,14 @@ class BackgroundPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    final gradientPaint = Paint()
+      ..shader = getBackgroundGradient()
+    .createShader(Rect.fromCircle(
+      center: Offset(size.width / 2, size.height / 2),
+      radius: size.height / 2,
+    ));
+    canvas.drawPaint(gradientPaint);
+
     final diamondPath = _diamondShape(canvas, size);
     diamondPath.close();
     final diamondStrokePaint = Paint()
