@@ -12,7 +12,7 @@ enum HandClass {
   StraightFlush4,
   Flush5,
   FullHouse,
-  FourOFAKind,  // Poker
+  FourOfAKind,  // Poker
   StraightFlush5,  // Royal Flush
   FiveOfAKind,
   Invalid
@@ -39,6 +39,9 @@ const handDisplayStrings = [
 ];
 
 String handDisplayString(HandClass handClass) {
+  if (handClass == null) {
+    return "";
+  }
   return handDisplayStrings[handClass.index];
 }
 
