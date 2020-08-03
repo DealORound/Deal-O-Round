@@ -12,6 +12,7 @@ enum Value {
   Queen,
   King,
   Ace,
+  Joker,
   Invalid
 }
 
@@ -21,7 +22,7 @@ enum Value {
 int valueScore(Value value) => value.index * 5;
 
 const valueCharacters = [
-  "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A", ""
+  "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A", "*", ""
 ];
 
 String valueCharacter(Value value) {
@@ -30,7 +31,7 @@ String valueCharacter(Value value) {
 
 const valueDisplayStrings = [
   "2", "3", "4", "5", "6", "7", "8", "9", "10",
-  "Jack", "Queen", "King", "Ace", ""
+  "Jack", "Queen", "King", "Ace", "Joker", ""
 ];
 
 String valueDisplay(Value value) {

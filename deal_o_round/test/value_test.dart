@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:deal_o_round/game/logic/value.dart';
 
-void main() {
+main() {
   group('Value tests', () {
     test('Two has right "value" (index)', () async {
       expect(Value.Two.index, 0);
@@ -53,6 +53,14 @@ void main() {
 
     test('Ace has right "value" (index)', () async {
       expect(Value.Ace.index, 12);
+    });
+
+    test('Joker has right "value" (index)', () async {
+      expect(Value.Joker.index, 13);
+    });
+
+    test('Invalid has right "value" (index)', () async {
+      expect(Value.Invalid.index, 14);
     });
 
     test('Two has right string value', () async {
@@ -107,6 +115,14 @@ void main() {
       expect(Value.Ace.toString().split('.').last, "Ace");
     });
 
+    test('Joker has right string value', () async {
+      expect(Value.Joker.toString().split('.').last, "Joker");
+    });
+
+    test('Invalid has right string value', () async {
+      expect(Value.Invalid.toString().split('.').last, "Invalid");
+    });
+
     test('Two has right value character', () async {
       expect(valueCharacter(Value.Two), "2");
     });
@@ -157,6 +173,14 @@ void main() {
 
     test('Ace has right "value" (index)', () async {
       expect(valueCharacter(Value.Ace), "A");
+    });
+
+    test('Joker has right "value" (index)', () async {
+      expect(valueCharacter(Value.Joker), "*");
+    });
+
+    test('Invalid has right "value" (index)', () async {
+      expect(valueCharacter(Value.Invalid), "");
     });
   });
 }
