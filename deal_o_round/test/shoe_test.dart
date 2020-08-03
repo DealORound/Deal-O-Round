@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:deal_o_round/game/logic/deck.dart';
 import 'package:deal_o_round/game/logic/play_card.dart';
@@ -103,7 +101,7 @@ main() {
 
   final maxShoeSizeToTest = 8;
 
-  group('Suit tests', () {
+  group('Shoe tests', () {
     test('Default deck is without Joker', () async {
       final deck = Deck();
       expect(deck.includeJokers, false);
