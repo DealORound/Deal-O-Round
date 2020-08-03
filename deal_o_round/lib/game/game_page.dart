@@ -4,8 +4,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../settings/settings_constants.dart';
+import 'logic/level_manager.dart';
+import 'logic/rules.dart';
+import 'loading_widget.dart';
 
 extension on BoardLayout {
+  String get inString => describeEnum(this);
+}
+
+extension on Difficulty {
   String get inString => describeEnum(this);
 }
 
@@ -50,6 +57,9 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   Timer _timer;
   SharedPreferences _prefs;
   BoardLayout layout = BoardLayout.Hexagonal;
+  Difficulty difficulty = Difficulty.Easy;
+  LevelManager _levelManager;
+  Rules _rules;
 
   DateTime get rightNow => _rightNow;
   int get countDown => _countDown;
@@ -62,10 +72,9 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     _rightNow = DateTime.now();
-    _countDown = 120;
-    _nextLevel = 7000;
+    _levelManager = LevelManager();
+    _rules = Rules();
     _score = 0;
-    _level = 1;
     _info = "Lorem ipsum dolor sit amet";
     SharedPreferences.getInstance().then((prefs) {
       setState(() {
@@ -73,7 +82,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
         try {
           final _storedLayout = _prefs.getString(BOARD_LAYOUT);
           if (_storedLayout != null) {
-            layout = enumFromString(BoardLayout.values, _storedLayout);;
+            layout = enumFromString(BoardLayout.values, _storedLayout);
           } else {
             _prefs.setString(BOARD_LAYOUT, layout.inString);
           }
@@ -81,6 +90,23 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
         on ArgumentError {
           debugPrint("Could not read or write $BOARD_LAYOUT settings");
         }
+
+        try {
+          final _storedDifficulty = _prefs.getString(DIFFICULTY);
+          if (_storedDifficulty != null) {
+            difficulty = enumFromString(Difficulty.values, _storedDifficulty);
+          } else {
+            _prefs.setString(DIFFICULTY, difficulty.inString);
+          }
+        }
+        on ArgumentError {
+          debugPrint("Could not read or write $DIFFICULTY settings");
+        }
+
+        _countDown = _levelManager.getCurrentLevelTimeLimit(difficulty);
+        _nextLevel = _levelManager.getCurrentLevelScoreLimit(difficulty);
+        _level = _levelManager.getCurrentLevelIndex();
+        _score = 0;
       });
       _updateTime();
     });
@@ -112,16 +138,9 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    const textStyle = TextStyle(
-        fontSize: 64,
-        fontFamily: 'Musicals',
-        color: Colors.white
-    );
-
     return new _GamePageInherited(
       data: this,
-      child: _prefs != null ? widget.child :
-        Center(child: Text("Loading...", style: textStyle))
+      child: _prefs == null ? LoadingWidget() : widget.child
     );
   }
 }

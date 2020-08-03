@@ -1,3 +1,5 @@
+import '../../settings/settings_constants.dart';
+
 class Level {
   double scoreMultiplier;
   List<int> scoreLimit;	// by difficulty
@@ -29,11 +31,11 @@ class Level {
     }
   }
 
-  int getScoreLimit(int difficultyIndex) {
-    return scoreLimit[difficultyIndex];
+  int getScoreLimit(Difficulty difficulty) {
+    return scoreLimit[difficulty.index];
   }
 
-  int getTimeLimit(int difficultyIndex) {
-    return timeLimit[difficultyIndex];
+  int getTimeLimit(Difficulty difficulty) {
+    return timeLimit[difficulty.index];
   }
 }

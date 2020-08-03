@@ -1,16 +1,14 @@
 import 'dart:math';
 
+import '../../settings/settings_constants.dart';
 import 'level.dart';
-import 'rules.dart';
 
 class LevelManager {
   List<Level> levels;
   int currentLevel;
-  Rules rules;
 
-  LevelManager({this.rules}) {
+  LevelManager() {
     currentLevel = 0;
-    rules = Rules();
     // Levels will proceed in the order they are added
     levels = [
       Level(scoreMultiplier: 1.0, timeMultiplier: 1.0),
@@ -38,19 +36,19 @@ class LevelManager {
     return levels[min(levels.length - 1, currentLevel)];
   }
 
-  int getCurrentLevelTimeLimit(int difficultyIndex) {
-    return getCurrentLevel().getTimeLimit(difficultyIndex);
+  int getCurrentLevelTimeLimit(Difficulty difficulty) {
+    return getCurrentLevel().getTimeLimit(difficulty);
   }
 
-  int getCurrentLevelScoreLimit(int difficultyIndex) {
-    return getCurrentLevel().getScoreLimit(difficultyIndex);
+  int getCurrentLevelScoreLimit(Difficulty difficulty) {
+    return getCurrentLevel().getScoreLimit(difficulty);
   }
 
-  int getAccumulatedScoreLimit(int difficultyIndex) {
+  int getAccumulatedScoreLimit(Difficulty difficulty) {
     int scoreLimit = 0;
     int lvlIndex = 0;
     for (Level level in levels) {
-      scoreLimit += level.getScoreLimit(difficultyIndex);
+      scoreLimit += level.getScoreLimit(difficulty);
       lvlIndex++;
       if (lvlIndex > currentLevel)
         break;
