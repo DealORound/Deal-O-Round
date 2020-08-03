@@ -27,8 +27,8 @@ class Scoring {
     if (handClass == HandClass.None) {
       return handString;
     }
-    if (lowCard.value == Value.Invalid || lowCard.suit == Suit.Invalid) {
-      return "Invalid";
+    if (lowCard == null || lowCard.value == Value.Invalid || lowCard.suit == Suit.Invalid) {
+      return "None";
     }
 
     String displayStr = "$handString of ";
@@ -48,7 +48,7 @@ class Scoring {
       case HandClass.Flush5: displayStr += suitString; break;
       case HandClass.FullHouse: displayStr += "$suitString, $lowCardValueString and up + " +
           highCard.suit.toString().split('.').last + ", " + valueDisplay(highCard.value) + " and up"; break;
-      case HandClass.FourOFAKind: displayStr += lowCardValueString; break;
+      case HandClass.FourOfAKind: displayStr += lowCardValueString; break;
       case HandClass.StraightFlush5: displayStr += "$suitString, $lowCardValueString and up"; break;
       default: break;
     }
