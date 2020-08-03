@@ -11,7 +11,7 @@ main() {
       deck.shuffle();
     }
     for(int i = 0; i < 52; i++) {
-      PlayCard playCard = deck.dealCard();
+      final playCard = deck.dealCard();
       final suitInt = playCard.suit.index;
       final valueInt = playCard.value.index;
       expect(suitInt >= 0 && suitInt < 4, true);
@@ -85,7 +85,7 @@ main() {
       final deck = Deck();
       int cardIndex = 0;
       while (deck.cardsLeft() > 0) {
-        PlayCard playCard = deck.dealCard();
+        final playCard = deck.dealCard();
         expect(playCard.suit.index, cardIndex ~/ (52 / 4));
         expect(playCard.value.index, cardIndex % (52 / 4));
         cardIndex++;
@@ -110,7 +110,7 @@ main() {
       int cardIndex = 0;
       bool sorted = true;
       while(deck.cardsLeft() > 0 && sorted) {
-        PlayCard card = deck.dealCard();
+        final card = deck.dealCard();
         sorted = sorted && (cardIndex ~/ (52 / 4) == card.suit.index);
         sorted = sorted && (cardIndex % (52 / 4) == card.value.index);
         cardIndex++;
