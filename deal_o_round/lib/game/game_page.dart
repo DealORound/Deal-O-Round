@@ -49,7 +49,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   var _info;
   Timer _timer;
   SharedPreferences _prefs;
-  BoardLayout layout;
+  BoardLayout layout = BoardLayout.Hexagonal;
 
   DateTime get rightNow => _rightNow;
   int get countDown => _countDown;

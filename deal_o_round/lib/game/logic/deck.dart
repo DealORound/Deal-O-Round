@@ -8,9 +8,10 @@ class Deck {
   final bool includeJokers;
 
   Deck({this.includeJokers: false}) {
+    deck = List<PlayCard>();
     for (int suitIndex = 0; suitIndex < 4; suitIndex++) {
       for (int valueIndex = 0; valueIndex < 13; valueIndex++) {
-        deck.add(new PlayCard(suit: Suit.values[suitIndex], value: Value.values[valueIndex]));
+        deck.add(PlayCard(suit: Suit.values[suitIndex], value: Value.values[valueIndex]));
       }
     }
     cardsUsed = 0;

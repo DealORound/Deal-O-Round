@@ -13,6 +13,7 @@ class GameBoard extends StatelessWidget {
 
   GameBoard() {
     shoe = Shoe(4);
+    shoe.shuffleAll();
   }
 
   Column getRandomColumn(int chipCount) {
