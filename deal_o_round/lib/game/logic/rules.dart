@@ -71,7 +71,7 @@ class Rules {
       default: break;
     }
     if (results.isNotEmpty) {
-      results.sort((ra, rb) => ra.score().compareTo(rb.score()));
+      results.sort((ra, rb) => rb.score().compareTo(ra.score()));
     }
 
     return results;
@@ -139,7 +139,7 @@ class Rules {
         hand[2].value == hand[3].value)
     {
       // Four of a kind
-      addToResults(results, Scoring(handClass: HandClass.FourOFAKind, lowCard: hand[0], handDigest: getHandDigest(hand, fast)), fast);
+      addToResults(results, Scoring(handClass: HandClass.FourOfAKind, lowCard: hand[0], handDigest: getHandDigest(hand, fast)), fast);
     }
     bool flush = (hand[0].suit == hand[1].suit && hand[1].suit == hand[2].suit && hand[2].suit == hand[3].suit);
     hand.sort((hi, hj) => hi.value.index.compareTo(hj.value.index));
