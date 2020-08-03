@@ -34,7 +34,7 @@ class _BooleanSettingsState extends State<BooleanSettings> {
   });
 
   @override
-  void initState() {
+  initState() {
     super.initState();
     SharedPreferences.getInstance().then((prefs) {
       setState(() {

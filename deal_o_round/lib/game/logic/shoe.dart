@@ -15,7 +15,7 @@ class Shoe {
     decksUsed = 0;
   }
 
-  void shuffleAll() {
+  shuffleAll() {
     for(Deck deck in decks) {
       deck.shuffle();
     }

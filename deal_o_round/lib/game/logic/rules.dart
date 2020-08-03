@@ -77,7 +77,7 @@ class Rules {
     return results;
   }
 
-  void rankTwoCards(List<PlayCard> hand, List<Scoring> results, bool fast) {
+  rankTwoCards(List<PlayCard> hand, List<Scoring> results, bool fast) {
     if (hand.length <= 1) {
       return;
     }
@@ -92,7 +92,7 @@ class Rules {
     }
   }
 
-  void rankThreeCards(List<PlayCard> hand, int subHandDrillDown, List<Scoring> results, bool fast) {
+  rankThreeCards(List<PlayCard> hand, int subHandDrillDown, List<Scoring> results, bool fast) {
     if (hand.length <= 2) {
       return;
     }
@@ -129,7 +129,7 @@ class Rules {
     }
   }
 
-  void rankFourCards(List<PlayCard> hand, int subHandDrillDown, List<Scoring> results, bool fast) {
+  rankFourCards(List<PlayCard> hand, int subHandDrillDown, List<Scoring> results, bool fast) {
     if (hand.length <= 3) {
       return;
     }
@@ -179,7 +179,7 @@ class Rules {
     }
   }
 
-  void rankFiveCards(List<PlayCard> hand, int subHandDrillDown, List<Scoring> results, bool fast) {
+  rankFiveCards(List<PlayCard> hand, int subHandDrillDown, List<Scoring> results, bool fast) {
     if (hand.length <= 4) {
       return;
     }

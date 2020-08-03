@@ -15,7 +15,7 @@ class SwipePainter extends CustomPainter {
   }
 
   @override
-  void paint(Canvas canvas, Size size) {
+  paint(Canvas canvas, Size size) {
     Paint paint = Paint()
       ..color = Color(0x668BC34A)
       ..style = PaintingStyle.stroke

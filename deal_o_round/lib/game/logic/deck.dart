@@ -19,7 +19,7 @@ class Deck {
 
   int cardsLeft() => deck.length - cardsUsed;
 
-  void shuffle() {
+  shuffle() {
     deck.shuffle();
     cardsUsed = 0;
   }

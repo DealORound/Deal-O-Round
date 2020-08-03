@@ -19,7 +19,7 @@ class SwipeAnimationState extends State<SwipeAnimation> with SingleTickerProvide
   Path _path;
 
   @override
-  void initState() {
+  initState() {
     _animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 2000),
@@ -71,7 +71,7 @@ class SwipeAnimationState extends State<SwipeAnimation> with SingleTickerProvide
   }
 
   @override
-  void dispose() {
+  dispose() {
     _animationController.dispose();
     super.dispose();
   }

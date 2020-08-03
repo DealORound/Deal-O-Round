@@ -40,18 +40,18 @@ class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin 
   DateTime get rightNow => _rightNow;
 
   @override
-  void initState() {
+  initState() {
     super.initState();
     _updateTime();
   }
 
   @override
-  void dispose() {
+  dispose() {
     _timer?.cancel();
     super.dispose();
   }
 
-  void _updateTime() {
+  _updateTime() {
     setState(() {
       _rightNow = DateTime.now();
       // Update once per second, but make sure to do it at the beginning of each

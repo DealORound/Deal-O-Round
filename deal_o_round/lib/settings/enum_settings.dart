@@ -46,7 +46,7 @@ class _EnumSettingsState<T> extends State<EnumSettings> {
   }
 
   @override
-  void initState() {
+  initState() {
     super.initState();
     SharedPreferences.getInstance().then((prefs) {
       setState(() {

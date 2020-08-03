@@ -55,7 +55,7 @@ class _SpinnerSettingsState extends State<SpinnerSettings> {
   });
 
   @override
-  void initState() {
+  initState() {
     super.initState();
     SharedPreferences.getInstance().then((prefs) {
       setState(() {

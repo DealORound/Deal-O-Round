@@ -16,7 +16,7 @@ class BackgroundPainter extends CustomPainter {
   }
 
   @override
-  void paint(Canvas canvas, Size size) {
+  paint(Canvas canvas, Size size) {
     final gradientPaint = Paint()
       ..shader = getBackgroundGradient()
     .createShader(Rect.fromCircle(

@@ -69,7 +69,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   String get info => _info;
 
   @override
-  void initState() {
+  initState() {
     super.initState();
     _rightNow = DateTime.now();
     _levelManager = LevelManager();
@@ -113,12 +113,12 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   }
 
   @override
-  void dispose() {
+  dispose() {
     _timer?.cancel();
     super.dispose();
   }
 
-  void _updateTime() {
+  _updateTime() {
     setState(() {
       _rightNow = DateTime.now();
       if (_countDown > 0) {

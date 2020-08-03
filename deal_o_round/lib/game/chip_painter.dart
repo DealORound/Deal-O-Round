@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 
 class ChipPainter extends CustomPainter {
   @override
-  void paint(Canvas canvas, Size size) {
+  paint(Canvas canvas, Size size) {
     final verticalCenter = size.height / 2;
     final horizontalCenter = size.width / 2;
     final center = Offset(horizontalCenter, verticalCenter);
