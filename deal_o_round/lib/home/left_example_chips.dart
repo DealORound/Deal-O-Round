@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import '../game/logic/play_card.dart';
+import '../game/logic/suit.dart';
+import '../game/logic/value.dart';
 import '../game/chip_widget.dart';
 import 'swipe_painter.dart';
 
@@ -12,20 +15,20 @@ class LeftExampleChips extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              ChipWidget(suit: '3', value: 'Q'),
-              ChipWidget(suit: 'C', value: '6')
+              ChipWidget(card: PlayCard(suit: Suit.Hearts, value: Value.Queen)),
+              ChipWidget(card: PlayCard(suit: Suit.Clubs, value: Value.Six))
             ]
           ),
           Row(
             children: <Widget>[
-              ChipWidget(suit: 'S', value: 'Q'),
-              ChipWidget(suit: '3', value: '10')
+              ChipWidget(card: PlayCard(suit: Suit.Spades, value: Value.Queen)),
+              ChipWidget(card: PlayCard(suit: Suit.Hearts, value: Value.Ten))
             ]
           ),
           Row(
             children: <Widget>[
-              ChipWidget(suit: 'C', value: 'Q'),
-              ChipWidget(suit: '4', value: '6')
+              ChipWidget(card: PlayCard(suit: Suit.Clubs, value: Value.Queen)),
+              ChipWidget(card: PlayCard(suit: Suit.Diamonds, value: Value.Six))
             ]
           ),
         ]

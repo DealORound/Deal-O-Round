@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
+import '../game/logic/play_card.dart';
+import '../game/logic/suit.dart';
+import '../game/logic/value.dart';
 import 'chip_painter.dart';
 
 class ChipWidget extends StatelessWidget {
-  ChipWidget({
-    this.suit,
-    this.value
-  });
+  final PlayCard card;
+  String _suit;
+  String _value;
 
-  final String suit;
-  final String value;
+  ChipWidget({
+    this.card,
+  }) {
+    this._suit = suitCharacter(card.suit);
+    this._value = valueCharacter(card.value);
+  }
 
   @override
   Widget build(BuildContext context) {
-    final textColor = (this.suit == 'C' || this.suit == 'S') ?
+    final textColor = (_suit == 'C' || _suit == 'S') ?
       Colors.black : Colors.red;
     final suitStyle = TextStyle(
       fontSize: 50,
@@ -36,10 +42,10 @@ class ChipWidget extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.visible,
             text: TextSpan(
-              text: value,
+              text: _value,
               style: valueStyle,
               children: <TextSpan>[
-                TextSpan(text: suit, style: suitStyle)
+                TextSpan(text: _suit, style: suitStyle)
               ]
             )
           )

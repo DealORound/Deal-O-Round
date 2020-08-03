@@ -1,21 +1,21 @@
-import 'card.dart';
 import 'hand_class.dart';
+import 'play_card.dart';
 import 'scoring.dart';
 import 'value.dart';
 
 class Rules {
-  String getHandDigest(List<Card> hand, bool fast) {
+  String getHandDigest(List<PlayCard> hand, bool fast) {
     if (fast) {
       return null;
     }
 
-    List<Card> handClone = List<Card>();
-    for (Card card in hand) {
+    List<PlayCard> handClone = List<PlayCard>();
+    for (PlayCard card in hand) {
       handClone.add(card);
     }
     hand.sort((hi, hj) => hi.compareTo(hj));
     String handString = "";
-    for (Card card in handClone) {
+    for (PlayCard card in handClone) {
       handString += (
         card.suit.index.toString() + "_" + card.value.index.toString() + "_"
       );
@@ -42,9 +42,9 @@ class Rules {
   }
 
   // Conversion method
-  Scoring rankHandPlayCard(List<Card> hand, int subHandDrillDown, bool bestOnTop, bool fast) {
-    List<Card> cards = List<Card>();
-    for (Card card in hand) {
+  Scoring rankHandPlayCard(List<PlayCard> hand, int subHandDrillDown, bool bestOnTop, bool fast) {
+    List<PlayCard> cards = List<PlayCard>();
+    for (PlayCard card in hand) {
       cards.add(card);
     }
     List<Scoring> results = rankHand(cards, subHandDrillDown, false, bestOnTop, fast);
@@ -55,13 +55,13 @@ class Rules {
   }
 
   // Accessing directly for testing only
-  List<Scoring> rankHand(List<Card> cards, int subHandDrillDown, bool shouldClone, bool bestOnTop, bool fast) {
+  List<Scoring> rankHand(List<PlayCard> cards, int subHandDrillDown, bool shouldClone, bool bestOnTop, bool fast) {
     List<Scoring> results = new List<Scoring>();
 
     if (cards == null) {
       return results;
     }
-    List<Card> hand = [...cards];
+    List<PlayCard> hand = [...cards];
 
     switch(hand.length) {
       case 2: rankTwoCards(hand, results, fast); break;
@@ -77,7 +77,7 @@ class Rules {
     return results;
   }
 
-  void rankTwoCards(List<Card> hand, List<Scoring> results, bool fast) {
+  void rankTwoCards(List<PlayCard> hand, List<Scoring> results, bool fast) {
     if (hand.length <= 1) {
       return;
     }
@@ -92,7 +92,7 @@ class Rules {
     }
   }
 
-  void rankThreeCards(List<Card> hand, int subHandDrillDown, List<Scoring> results, bool fast) {
+  void rankThreeCards(List<PlayCard> hand, int subHandDrillDown, List<Scoring> results, bool fast) {
     if (hand.length <= 2) {
       return;
     }
@@ -122,14 +122,14 @@ class Rules {
     if (subHandDrillDown > 0) {
       rankTwoCards(hand.sublist(0, 2), results, fast);
       rankTwoCards(hand.sublist(1, 3), results, fast);
-      List<Card> firstAndLast = List<Card>();
+      List<PlayCard> firstAndLast = List<PlayCard>();
       firstAndLast.add(hand[0]);
       firstAndLast.add(hand[2]);
       rankTwoCards(firstAndLast, results, fast);
     }
   }
 
-  void rankFourCards(List<Card> hand, int subHandDrillDown, List<Scoring> results, bool fast) {
+  void rankFourCards(List<PlayCard> hand, int subHandDrillDown, List<Scoring> results, bool fast) {
     if (hand.length <= 3) {
       return;
     }
@@ -179,7 +179,7 @@ class Rules {
     }
   }
 
-  void rankFiveCards(List<Card> hand, int subHandDrillDown, List<Scoring> results, bool fast) {
+  void rankFiveCards(List<PlayCard> hand, int subHandDrillDown, List<Scoring> results, bool fast) {
     if (hand.length <= 4) {
       return;
     }

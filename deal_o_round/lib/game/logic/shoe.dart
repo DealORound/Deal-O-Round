@@ -1,16 +1,16 @@
-import 'package:deal_o_round/game/logic/card.dart';
-import 'package:deal_o_round/game/logic/suit.dart';
-import 'package:deal_o_round/game/logic/value.dart';
-
 import 'deck.dart';
+import 'play_card.dart';
+import 'suit.dart';
+import 'value.dart';
 
 class Shoe {
   List<Deck> decks;
   int decksUsed;
 
   Shoe(int deckCount) {
-    for (int i = 0; i < deckCount; i++)
+    for (int i = 0; i < deckCount; i++) {
       decks.add(new Deck());
+    }
     decksUsed = 0;
   }
 
@@ -21,9 +21,9 @@ class Shoe {
     decksUsed = 0;
   }
 
-  Card dealCard() {
+  PlayCard dealCard() {
     if (decks.length <= 0) {
-      return Card(suit: Suit.Invalid, value: Value.Invalid);
+      return PlayCard(suit: Suit.Invalid, value: Value.Invalid);
     }
 
     if (decks[decksUsed].cardsLeft() <= 0) {

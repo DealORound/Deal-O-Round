@@ -1,24 +1,24 @@
 import 'suit.dart';
 import 'value.dart';
 
-class Card implements Comparable<Card> {
+class PlayCard implements Comparable<PlayCard> {
   final Suit suit;
   final Value value;
 
-  Card({
+  PlayCard({
     this.suit,
     this.value
   });
 
   @override
-  int compareTo(Card other) {
+  int compareTo(PlayCard other) {
     final valueDiff = value.index - other.value.index;
     final suitDiff = suit.index - other.suit.index;
     return valueDiff != 0 ? valueDiff : suitDiff;
   }
 }
 
-String cardDisplay(Card card) {
+String cardDisplay(PlayCard card) {
   if (card.suit == Suit.Invalid || card.value == Value.Invalid) {
     return "Invalid";
   }

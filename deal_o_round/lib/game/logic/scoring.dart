@@ -1,12 +1,12 @@
-import 'card.dart';
 import 'hand_class.dart';
+import 'play_card.dart';
 import 'suit.dart';
 import 'value.dart';
 
 class Scoring {
   HandClass handClass;
-  Card lowCard;
-  Card highCard;
+  PlayCard lowCard;
+  PlayCard highCard;
   String handDigest;
 
   Scoring({this.handClass, this.lowCard, this.highCard, this.handDigest});

@@ -1,16 +1,16 @@
-import 'card.dart';
+import 'play_card.dart';
 import 'suit.dart';
 import 'value.dart';
 
 class Deck {
-  List<Card> deck;
+  List<PlayCard> deck;
   int cardsUsed;
   final bool includeJokers;
 
   Deck({this.includeJokers: false}) {
     for (int suitIndex = 0; suitIndex < 4; suitIndex++) {
       for (int valueIndex = 0; valueIndex < 13; valueIndex++) {
-        deck.add(new Card(suit: Suit.values[suitIndex], value: Value.values[valueIndex]));
+        deck.add(new PlayCard(suit: Suit.values[suitIndex], value: Value.values[valueIndex]));
       }
     }
     cardsUsed = 0;
@@ -23,9 +23,9 @@ class Deck {
     cardsUsed = 0;
   }
 
-  Card dealCard() {
+  PlayCard dealCard() {
     if (cardsUsed == deck.length) {
-      return Card(suit: Suit.Invalid, value: Value.Invalid);
+      return PlayCard(suit: Suit.Invalid, value: Value.Invalid);
     }
 
     cardsUsed++;

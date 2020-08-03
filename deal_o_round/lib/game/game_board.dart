@@ -1,24 +1,18 @@
 import 'dart:math';
 
-import 'package:deal_o_round/game/chip_widget.dart';
 import 'package:deal_o_round/settings/settings_constants.dart';
 import 'package:flutter/material.dart';
+import 'logic/shoe.dart';
+import 'chip_widget.dart';
 import 'game_page.dart';
 
 class GameBoard extends StatelessWidget {
-  static const suits = <String>['3', '4', 'S', 'C'];
-  static const suitCount = 4;
-  static const values = <String>['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
-  static const valueCount = 14;
   // list.toList()..shuffle()
   static const chipCount = 5;
+  Shoe shoe;
 
-  String getRandomSuit() {
-    return suits[Random().nextInt(suitCount)];
-  }
-
-  String getRandomValue() {
-    return values[Random().nextInt(valueCount)];
+  GameBoard() {
+    shoe = Shoe(4);
   }
 
   Column getRandomColumn(int chipCount) {
@@ -27,7 +21,7 @@ class GameBoard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget> [
         for(var i = 0; i < chipCount; i += 1)
-          ChipWidget(suit: getRandomSuit(), value: getRandomValue())
+          ChipWidget(card: shoe.dealCard())
       ]
     );
   }

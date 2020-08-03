@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import '../game/logic/play_card.dart';
+import '../game/logic/suit.dart';
+import '../game/logic/value.dart';
 import '../game/chip_widget.dart';
 
 class RightExample extends StatelessWidget {
@@ -9,18 +12,18 @@ class RightExample extends StatelessWidget {
       children: <Widget>[
         Row(
           children: <Widget>[
-            ChipWidget(suit: '3', value: '2'),
+            ChipWidget(card: PlayCard(suit: Suit.Hearts, value: Value.Two)),
           ]
         ),
         Row(
           children: <Widget>[
-            ChipWidget(suit: 'S', value: 'A'),
-            ChipWidget(suit: 'C', value: 'J')
+            ChipWidget(card: PlayCard(suit: Suit.Spades, value: Value.Ace)),
+            ChipWidget(card: PlayCard(suit: Suit.Clubs, value: Value.Jack))
           ]
         ),
         Row(
           children: <Widget>[
-            ChipWidget(suit: '4', value: 'K')
+            ChipWidget(card: PlayCard(suit: Suit.Diamonds, value: Value.King))
           ]
         )
       ]

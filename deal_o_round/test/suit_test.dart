@@ -44,23 +44,23 @@ void main() {
     });
 
     test('Spades has right character string', () async {
-      expect(suiteCharacter(Suit.Spades), "S");
+      expect(suitCharacter(Suit.Spades), "S");
     });
 
     test('Clubs has right character string', () async {
-      expect(suiteCharacter(Suit.Clubs), "C");
+      expect(suitCharacter(Suit.Clubs), "C");
     });
 
     test('Diamonds has right character string', () async {
-      expect(suiteCharacter(Suit.Diamonds), "4");
+      expect(suitCharacter(Suit.Diamonds), "4");
     });
 
     test('Hearts has right character string', () async {
-      expect(suiteCharacter(Suit.Hearts), "3");
+      expect(suitCharacter(Suit.Hearts), "3");
     });
 
     test('Invalid has right character string', () async {
-      expect(suiteCharacter(Suit.Invalid), "");
+      expect(suitCharacter(Suit.Invalid), "");
     });
   });
 }
