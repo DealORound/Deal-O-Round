@@ -3,17 +3,28 @@ import '../game/logic/play_card.dart';
 import '../game/logic/suit.dart';
 import '../game/logic/value.dart';
 import 'chip_painter.dart';
+import 'chip_selection_painter.dart';
 
 class ChipWidget extends StatelessWidget {
   final PlayCard card;
   String _suit;
   String _value;
+  bool _selected = false;
+  bool _neighbor = false;
 
   ChipWidget({
-    this.card,
+    this.card
   }) {
     this._suit = suitCharacter(card.suit);
     this._value = valueCharacter(card.value);
+  }
+
+  setSelected() {
+    _selected = true;
+  }
+
+  setNeighbor() {
+    _neighbor = true;
   }
 
   @override
@@ -37,6 +48,8 @@ class ChipWidget extends StatelessWidget {
       height: 80,
       child: CustomPaint(
         painter: ChipPainter(),
+        foregroundPainter: ChipSelectionPainter(
+            selected: _selected, neighbor: _neighbor),
         child: Center(
           child: RichText(
             maxLines: 1,
