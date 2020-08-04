@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -52,6 +53,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   static const size = 5;
 
   var _rightNow;
+  var _started;
   var _countDown;
   var _nextLevel;
   var _score;
@@ -64,14 +66,27 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   LevelManager _levelManager;
   Board _board;
   Rules _rules;
+  int _selected;
+  int _elapsed;
+  double _refreshRate;
+  int _timerDelay;
 
   DateTime get rightNow => _rightNow;
-  int get countDown => _countDown;
+  int get countDown => max(_countDown - _elapsed, 0);
+  int get elapsed => _elapsed;
   int get nextLevel => _nextLevel;
   int get score => _score;
   int get level => _level;
   Board get board => _board;
   String get info => _info;
+
+  incrementSelected() {
+    _selected += 0;
+  }
+
+  setElapsed(int seconds) {
+    _elapsed = seconds;
+  }
 
   @override
   initState() {
@@ -80,6 +95,9 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     _levelManager = LevelManager();
     _rules = Rules();
     _score = 0;
+    _selected = 0;
+    _refreshRate = 60;
+    _elapsed = 0;
     _info = "Lorem ipsum dolor sit amet";
     SharedPreferences.getInstance().then((prefs) {
       setState(() {
@@ -108,13 +126,26 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
           debugPrint("Could not read or write $DIFFICULTY settings");
         }
 
+        try {
+          final _storedRefreshRate = _prefs.getDouble(REFRESH_RATE);
+          if (_storedRefreshRate != null) {
+            _refreshRate = _storedRefreshRate;
+          } else {
+            _prefs.setDouble(REFRESH_RATE, _refreshRate);
+          }
+        }
+        on ArgumentError {
+          debugPrint("Could not read or write $DIFFICULTY settings");
+        }
+
         _countDown = _levelManager.getCurrentLevelTimeLimit(difficulty);
         _nextLevel = _levelManager.getCurrentLevelScoreLimit(difficulty);
         _level = _levelManager.getCurrentLevelIndex();
         _board = Board(layout: layout, size: size);
-        _score = 0;
+        _started = DateTime.now();
+        _timerDelay = 1000 ~/ _refreshRate;
+        _updateTime();
       });
-      _updateTime();
     });
   }
 
@@ -127,16 +158,12 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   _updateTime() {
     setState(() {
       _rightNow = DateTime.now();
-      if (_countDown > 0) {
-        _countDown -= 1;
-      } else if (_countDown == 0) {
-        // End game
-        _countDown = -1;
-      }
+      Duration difference = _rightNow.difference(_started);
+      setElapsed(difference.inSeconds);
       // Update once per second, but make sure to do it at the beginning of each
       // new second, so that the clock is accurate.
       _timer = Timer(
-        Duration(seconds: 1) - Duration(milliseconds: _rightNow.millisecond),
+        Duration(milliseconds: _timerDelay),
         _updateTime,
       );
     });
