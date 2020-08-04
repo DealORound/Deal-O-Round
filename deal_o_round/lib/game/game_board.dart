@@ -49,7 +49,16 @@ class GameBoard extends StatelessWidget {
       child: SizedBox(
         width: size,
         height: size,
-        child: getRandomColumns(GameState.size, layout, board)
+        child: Listener(
+//          onPointerDown: (PointerEvent details) => {
+//
+//          },
+//          onPointerMove: (PointerEvent details) => {
+//          },
+//          onPointerUp: (PointerEvent details) => {
+//          },
+          child: getRandomColumns(GameState.size, layout, board)
+        )
       )
     );
   }
