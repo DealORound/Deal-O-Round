@@ -66,6 +66,7 @@ class ChipWidgetState extends State<ChipWidget> {
             now = DateTime.now();
             debugPrint("onTap setState1 at $now!");
             toggleSelected();
+            (context as Element).markNeedsBuild();
             final state = GamePage.of(context);
             state.setState(() {
               now = DateTime.now();
