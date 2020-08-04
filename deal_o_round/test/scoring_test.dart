@@ -1082,7 +1082,7 @@ main() {
         PlayCard(suit: Suit.Diamonds, value: Value.values[i]),
         PlayCard(suit: Suit.Hearts, value: Value.values[i]),
         PlayCard(suit: Suit.Spades, value: Value.values[i + 1]),
-        PlayCard(suit: Suit.Invalid, value: Value.values[i + 1])
+        PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1])
       ];
       toDisplayHand(hand, HandClass.FullHouse);
     }
@@ -1093,7 +1093,7 @@ main() {
         PlayCard(suit: Suit.Diamonds, value: Value.values[i]),
         PlayCard(suit: Suit.Hearts, value: Value.values[i + 1]),
         PlayCard(suit: Suit.Spades, value: Value.values[i + 1]),
-        PlayCard(suit: Suit.Invalid, value: Value.values[i + 1])
+        PlayCard(suit: Suit.Clubs, value: Value.values[i + 1])
       ];
       toDisplayHand(hand, HandClass.FullHouse);
     }
@@ -1104,7 +1104,7 @@ main() {
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]),
         PlayCard(suit: Suit.Hearts, value: Value.values[i + 1]),
         PlayCard(suit: Suit.Spades, value: Value.values[i]),
-        PlayCard(suit: Suit.Invalid, value: Value.values[i])
+        PlayCard(suit: Suit.Hearts, value: Value.values[i])
       ];
       toDisplayHand(hand, HandClass.FullHouse);
     }
@@ -1115,7 +1115,7 @@ main() {
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]),
         PlayCard(suit: Suit.Hearts, value: Value.values[i]),
         PlayCard(suit: Suit.Spades, value: Value.values[i]),
-        PlayCard(suit: Suit.Invalid, value: Value.values[i])
+        PlayCard(suit: Suit.Diamonds, value: Value.values[i])
       ];
       toDisplayHand(hand, HandClass.FullHouse);
     }
@@ -1126,7 +1126,7 @@ main() {
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]),
         PlayCard(suit: Suit.Hearts, value: Value.values[i]),
         PlayCard(suit: Suit.Spades, value: Value.values[i + 1]),
-        PlayCard(suit: Suit.Invalid, value: Value.values[i])
+        PlayCard(suit: Suit.Spades, value: Value.values[i])
       ];
       toDisplayHand(hand, HandClass.FullHouse);
     }
@@ -1137,7 +1137,7 @@ main() {
         PlayCard(suit: Suit.Diamonds, value: Value.values[i]),
         PlayCard(suit: Suit.Hearts, value: Value.values[i + 1]),
         PlayCard(suit: Suit.Spades, value: Value.values[i]),
-        PlayCard(suit: Suit.Invalid, value: Value.values[i + 1])
+        PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1])
       ];
       toDisplayHand(hand, HandClass.FullHouse);
     }
