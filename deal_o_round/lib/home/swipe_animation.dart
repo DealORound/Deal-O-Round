@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'left_example_chips.dart';
 import 'swipe_painter.dart';
 
-class SwipeAnimation extends StatefulWidget{
+class SwipeAnimation extends StatefulWidget {
   SwipeAnimation();
 
   @override
@@ -62,7 +62,7 @@ class SwipeAnimationState extends State<SwipeAnimation> with SingleTickerProvide
                 borderRadius: BorderRadius.circular(35)
               ),
               width: 70,
-              height: 70,
+              height: 70
             )
           )
         ]
