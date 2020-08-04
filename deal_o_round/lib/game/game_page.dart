@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../settings/settings_constants.dart';
+import 'logic/board.dart';
 import 'logic/level_manager.dart';
 import 'logic/rules.dart';
 import 'loading_widget.dart';
@@ -48,6 +49,8 @@ class GamePage extends StatefulWidget {
 }
 
 class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
+  static const size = 5;
+
   var _rightNow;
   var _countDown;
   var _nextLevel;
@@ -59,6 +62,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   BoardLayout layout = BoardLayout.Hexagonal;
   Difficulty difficulty = Difficulty.Easy;
   LevelManager _levelManager;
+  Board _board;
   Rules _rules;
 
   DateTime get rightNow => _rightNow;
@@ -66,6 +70,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   int get nextLevel => _nextLevel;
   int get score => _score;
   int get level => _level;
+  Board get board => _board;
   String get info => _info;
 
   @override
@@ -106,6 +111,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
         _countDown = _levelManager.getCurrentLevelTimeLimit(difficulty);
         _nextLevel = _levelManager.getCurrentLevelScoreLimit(difficulty);
         _level = _levelManager.getCurrentLevelIndex();
+        _board = Board(layout: layout, size: size);
         _score = 0;
       });
       _updateTime();

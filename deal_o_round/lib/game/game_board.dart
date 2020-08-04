@@ -1,47 +1,38 @@
-import 'dart:math';
-
-import 'package:deal_o_round/settings/settings_constants.dart';
 import 'package:flutter/material.dart';
-import 'logic/shoe.dart';
+import '../settings/settings_constants.dart';
+import 'logic/board.dart';
 import 'chip_widget.dart';
 import 'game_page.dart';
 
 class GameBoard extends StatelessWidget {
-  // list.toList()..shuffle()
-  static const chipCount = 5;
-  Shoe shoe;
-
-  GameBoard() {
-    shoe = Shoe(4);
-    shoe.shuffleAll();
-  }
-
-  Column getRandomColumn(int chipCount) {
+  Column getRandomColumn(int row, int size, Board board) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget> [
-        for(var i = 0; i < chipCount; i += 1)
-          ChipWidget(card: shoe.dealCard())
+        for(var i = 0; i < size; i += 1)
+          ChipWidget(card: board.board[row][i])
       ]
     );
   }
 
-  Row getRandomColumns(int chipCount, BoardLayout layout) {
+  Row getRandomColumns(int size, BoardLayout layout, Board board) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        for(var i = 0; i < chipCount; i += 1)
-          getRandomColumn(chipCount + (layout == BoardLayout.Hexagonal && i % 2 == 0 ? -1 : 0))
+        for(var i = 0; i < size; i += 1)
+          getRandomColumn(i, size +
+              (layout == BoardLayout.Hexagonal && i % 2 == 0 ? -1 : 0), board)
       ]
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final GameState state = GamePage.of(context);
-    final BoardLayout layout = state.layout;
+    final state = GamePage.of(context);
+    final layout = state.layout;
+    final board = state.board;
     final greenDecoration = BoxDecoration(
       color: Colors.green.shade900,
       borderRadius: BorderRadius.circular(5.0),
@@ -58,7 +49,7 @@ class GameBoard extends StatelessWidget {
       child: SizedBox(
         width: size,
         height: size,
-        child: getRandomColumns(chipCount, layout)
+        child: getRandomColumns(GameState.size, layout, board)
       )
     );
   }
