@@ -5,7 +5,7 @@ import 'left_example_chips.dart';
 import 'swipe_painter.dart';
 
 class SwipeAnimation extends StatefulWidget {
-  SwipeAnimation();
+  SwipeAnimation({Key key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
