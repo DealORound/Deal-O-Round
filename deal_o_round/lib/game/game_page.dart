@@ -70,6 +70,9 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   int _elapsed;
   double _refreshRate;
   int _timerDelay;
+  bool _inGesture;
+  int _lastSelectedX;
+  int _lastSelectedY;
 
   DateTime get rightNow => _rightNow;
   int get countDown => max(_countDown - _elapsed, 0);
@@ -86,6 +89,45 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
 
   setElapsed(int seconds) {
     _elapsed = seconds;
+  }
+
+  hitTest(PointerEvent details, String tag) {
+    final dxStr = details.position.dx.toString();
+    final dyStr = details.position.dy.toString();
+    debugPrint("$tag $dxStr, $dyStr");
+    if (_inGesture) {
+      return;
+    }
+    final cx = details.position.dx ~/ 80;
+    final cy = details.position.dy ~/ 80;
+    if (cx != _lastSelectedX && cy != _lastSelectedY || details.pressure > 2.0) {
+      final dx = cx * 80 + 40 - details.position.dx;
+      final dy = cy * 80 + 40 - details.position.dy;
+      if (dx * dx + dy * dy < 40 * 40) {
+        bool selected = _board.board[size - cy - 1][cx].selected;
+        _board.board[size - cy - 1][cx].selected = !selected;
+        _lastSelectedX = cx;
+        _lastSelectedY = cy;
+      }
+    }
+  }
+
+  onPointerDown(PointerEvent details) {
+    _inGesture = true;
+    _lastSelectedX = -1;
+    _lastSelectedY = -1;
+    hitTest(details, "onPointerDown");
+  }
+
+  onPointerMove(PointerEvent details) {
+    hitTest(details, "onPointerMove");
+  }
+
+  onPointerUp(PointerEvent details) {
+    _inGesture = false;
+    hitTest(details, "onPointerDown");
+    _lastSelectedX = -1;
+    _lastSelectedY = -1;
   }
 
   @override
