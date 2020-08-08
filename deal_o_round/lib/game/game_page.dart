@@ -92,20 +92,20 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   }
 
   hitTest(PointerEvent details, String tag) {
-    final dxStr = details.position.dx.toString();
-    final dyStr = details.position.dy.toString();
+    final dxStr = details.localPosition.dx.toString();
+    final dyStr = details.localPosition.dy.toString();
     debugPrint("$tag $dxStr, $dyStr");
     if (_inGesture) {
       return;
     }
-    final cx = details.position.dx ~/ 80;
-    final cy = details.position.dy ~/ 80;
+    final cx = details.localPosition.dx ~/ 80;
+    final cy = details.localPosition.dy ~/ 80;
     if (cx != _lastSelectedX && cy != _lastSelectedY || details.pressure > 2.0) {
-      final dx = cx * 80 + 40 - details.position.dx;
-      final dy = cy * 80 + 40 - details.position.dy;
+      final dx = cx * 80 + 40 - details.localPosition.dx;
+      final dy = cy * 80 + 40 - details.localPosition.dy;
       if (dx * dx + dy * dy < 40 * 40) {
-        bool selected = _board.board[size - cy - 1][cx].selected;
-        _board.board[size - cy - 1][cx].selected = !selected;
+        bool selected = _board.board[cx][cy].selected;  // size - cy - 1
+        _board.board[cx][cy].selected = !selected;  // size - cy - 1
         _lastSelectedX = cx;
         _lastSelectedY = cy;
       }
