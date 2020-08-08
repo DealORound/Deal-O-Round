@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:deal_o_round/game/chip_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -50,7 +51,7 @@ class GamePage extends StatefulWidget {
 }
 
 class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
-  static const size = 5;
+  static const boardSize = 5;
 
   var _rightNow;
   var _started;
@@ -98,14 +99,14 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     if (_inGesture) {
       return;
     }
-    final cx = details.localPosition.dx ~/ 80;
-    final cy = details.localPosition.dy ~/ 80;
+    final cx = details.localPosition.dx ~/ ChipWidgetState.chipSize;
+    final cy = details.localPosition.dy ~/ ChipWidgetState.chipSize;
     if (cx != _lastSelectedX && cy != _lastSelectedY || details.pressure > 2.0) {
-      final dx = cx * 80 + 40 - details.localPosition.dx;
-      final dy = cy * 80 + 40 - details.localPosition.dy;
-      if (dx * dx + dy * dy < 40 * 40) {
-        bool selected = _board.board[cx][cy].selected;  // size - cy - 1
-        _board.board[cx][cy].selected = !selected;  // size - cy - 1
+      final dx = cx * ChipWidgetState.chipSize + ChipWidgetState.chipRadius - details.localPosition.dx;
+      final dy = cy * ChipWidgetState.chipSize + ChipWidgetState.chipRadius - details.localPosition.dy;
+      if (dx * dx + dy * dy < ChipWidgetState.chipRadius * ChipWidgetState.chipRadius) {
+        bool selected = _board.board[cx][cy].selected;
+        _board.board[cx][cy].selected = !selected;
         _lastSelectedX = cx;
         _lastSelectedY = cy;
       }
@@ -183,7 +184,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
         _countDown = _levelManager.getCurrentLevelTimeLimit(difficulty);
         _nextLevel = _levelManager.getCurrentLevelScoreLimit(difficulty);
         _level = _levelManager.getCurrentLevelIndex();
-        _board = Board(layout: layout, size: size);
+        _board = Board(layout: layout, size: boardSize);
         _started = DateTime.now();
         _timerDelay = 1000 ~/ _refreshRate;
         _updateTime();

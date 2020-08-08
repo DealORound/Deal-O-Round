@@ -41,7 +41,7 @@ class GameBoard extends StatelessWidget {
         width: 3.0
       )
     );
-    const size = 400.0;
+    const size = ChipWidgetState.chipSize * GameState.boardSize;
 
     return Container(
       decoration: greenDecoration,
@@ -53,7 +53,7 @@ class GameBoard extends StatelessWidget {
           onPointerDown: (PointerEvent details) => state.onPointerDown(details),
           onPointerMove: (PointerEvent details) => state.onPointerMove(details),
           onPointerUp: (PointerEvent details) => state.onPointerUp(details),
-          child: getRandomColumns(GameState.size, layout, board)
+          child: getRandomColumns(GameState.boardSize, layout, board)
         )
       )
     );

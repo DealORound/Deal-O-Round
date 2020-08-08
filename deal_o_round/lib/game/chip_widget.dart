@@ -16,6 +16,9 @@ class ChipWidget extends StatefulWidget {
 }
 
 class ChipWidgetState extends State<ChipWidget> {
+  static const chipSize = 80.0;
+  static const chipRadius = chipSize / 2;
+
   final PlayCard card;
   String _suit;
   String _value;
@@ -44,8 +47,8 @@ class ChipWidgetState extends State<ChipWidget> {
     );
 
     return SizedBox(
-      width: 80,
-      height: 80,
+      width: chipSize,
+      height: chipSize,
       child: CustomPaint(
         painter: ChipPainter(),
         foregroundPainter: ChipSelectionPainter(
