@@ -53,13 +53,13 @@ class GamePage extends StatefulWidget {
 class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   static const boardSize = 5;
 
-  var _rightNow;
-  var _started;
-  var _countDown;
-  var _nextLevel;
-  var _score;
-  var _level;
-  var _info;
+  DateTime _rightNow;
+  DateTime _started;
+  int _countDown;
+  int _nextLevel;
+  int _score;
+  int _level;
+  String _info;
   Timer _timer;
   SharedPreferences _prefs;
   BoardLayout layout = BoardLayout.Hexagonal;
@@ -67,13 +67,17 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   LevelManager _levelManager;
   Board _board;
   Rules _rules;
-  int _selected;
   int _elapsed;
   double _refreshRate;
   int _timerDelay;
   bool _inGesture;
-  int _lastSelectedX;
-  int _lastSelectedY;
+  Point<int> _firstTouched;
+  Point<int> _lastFlipped;
+  bool _swipeGesture;
+  int _selected;
+  bool _paused;
+  DateTime _pauseStarted;
+  int _totalPaused;
 
   DateTime get rightNow => _rightNow;
   int get countDown => max(_countDown - _elapsed, 0);
@@ -83,13 +87,42 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   int get level => _level;
   Board get board => _board;
   String get info => _info;
+  bool get paused => _paused;
 
-  incrementSelected() {
-    _selected += 0;
+  togglePause() {
+    if (_paused) {
+      Duration difference = _rightNow.difference(_pauseStarted);
+      _totalPaused += difference.inSeconds;
+    } else {
+      _pauseStarted = DateTime.now();
+    }
+    _paused = !_paused;
   }
 
-  setElapsed(int seconds) {
-    _elapsed = seconds;
+  List<Point<int>> getNeighbors(Point<int> cell) {
+    final neighbors = List<Point<int>>();
+    if (cell.x > 0) {
+      neighbors.add(Point(cell.x - 1, cell.y));
+    }
+    if (cell.y > 0) {
+      neighbors.add(Point(cell.x, cell.y - 1));
+    }
+    if (cell.x < boardSize - 1) {
+      neighbors.add(Point(cell.x + 1, cell.y));
+    }
+    if (cell.y < boardSize - 1) {
+      neighbors.add(Point(cell.x, cell.y + 1));
+    }
+    return neighbors;
+  }
+
+  correctNeighbors(Point<int> cell) {
+    for (Point<int> neighbor in getNeighbors(cell)) {
+      final neighborsOfNeighbor = getNeighbors(neighbor);
+      _board.board[neighbor.x][neighbor.y].neighbor =
+          neighborsOfNeighbor.fold(false, (f, n) =>
+              f || _board.board[n.x][n.y].selected);
+    }
   }
 
   hitTest(PointerEvent details, String tag) {
@@ -99,24 +132,46 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     if (_inGesture) {
       return;
     }
-    final cx = details.localPosition.dx ~/ ChipWidgetState.chipSize;
-    final cy = details.localPosition.dy ~/ ChipWidgetState.chipSize;
-    if (cx != _lastSelectedX && cy != _lastSelectedY || details.pressure > 2.0) {
-      final dx = cx * ChipWidgetState.chipSize + ChipWidgetState.chipRadius - details.localPosition.dx;
-      final dy = cy * ChipWidgetState.chipSize + ChipWidgetState.chipRadius - details.localPosition.dy;
-      if (dx * dx + dy * dy < ChipWidgetState.chipRadius * ChipWidgetState.chipRadius) {
-        bool selected = _board.board[cx][cy].selected;
-        _board.board[cx][cy].selected = !selected;
-        _lastSelectedX = cx;
-        _lastSelectedY = cy;
+    final cell = Point<int>(
+        details.localPosition.dx ~/ ChipWidgetState.chipSize,
+        details.localPosition.dy ~/ ChipWidgetState.chipSize
+    );
+    final dx = cell.x * (ChipWidgetState.chipRadius * 2 + 1) -
+        details.localPosition.dx;
+    final dy = cell.y * (ChipWidgetState.chipRadius * 2 + 1) -
+        details.localPosition.dy;
+    // Check if the point within the cell is inside the chip circle
+    // so corners won't trigger selection
+    final rSquare = ChipWidgetState.chipRadius * ChipWidgetState.chipRadius;
+    if (dx * dx + dy * dy < rSquare) {
+      if (_firstTouched.x == -1) {
+        _firstTouched = cell;
+      } else if (cell.x != _firstTouched.x && cell.y != _firstTouched.y) {
+        _swipeGesture = true;
+      }
+      if (cell.x != _lastFlipped.x && cell.y != _lastFlipped.y) {
+        bool selected = _board.board[cell.x][cell.y].selected;
+        if (selected) {
+          assert(_selected > 0);
+          _selected -= 1;
+        } else {
+          _selected += 1;
+        }
+        if (selected || _selected < 4) {
+          // TODO: things to do with the selection
+          _board.board[cell.x][cell.y].selected = !selected;
+          if (difficulty == Difficulty.Easy) {
+            correctNeighbors(cell);
+          }
+          _lastFlipped = cell;
+        }
       }
     }
   }
 
   onPointerDown(PointerEvent details) {
     _inGesture = true;
-    _lastSelectedX = -1;
-    _lastSelectedY = -1;
+    _lastFlipped = Point<int>(-1, -1);
     hitTest(details, "onPointerDown");
   }
 
@@ -125,10 +180,12 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   }
 
   onPointerUp(PointerEvent details) {
-    _inGesture = false;
     hitTest(details, "onPointerDown");
-    _lastSelectedX = -1;
-    _lastSelectedY = -1;
+    // TODO eval selection if it was swipe
+    _inGesture = false;
+    _swipeGesture = false;
+    _lastFlipped = Point<int>(-1, -1);
+    _firstTouched = Point<int>(-1, -1);
   }
 
   @override
@@ -142,6 +199,9 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     _refreshRate = 60;
     _elapsed = 0;
     _info = "Lorem ipsum dolor sit amet";
+    _inGesture = false;
+    _paused = false;
+    _totalPaused = 0;
     SharedPreferences.getInstance().then((prefs) {
       setState(() {
         _prefs = prefs;
@@ -201,8 +261,10 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   _updateTime() {
     setState(() {
       _rightNow = DateTime.now();
-      Duration difference = _rightNow.difference(_started);
-      setElapsed(difference.inSeconds);
+      if (!_paused) {
+        Duration difference = _rightNow.difference(_started);
+        _elapsed = difference.inSeconds - _totalPaused;
+      }
       // Update once per second, but make sure to do it at the beginning of each
       // new second, so that the clock is accurate.
       _timer = Timer(
