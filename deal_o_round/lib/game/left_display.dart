@@ -4,7 +4,7 @@ import 'game_page.dart';
 class LeftDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final GameState state = GamePage.of(context);
+    final state = GamePage.of(context);
     final countDown = state.countDown;
     final nextLevel = state.nextLevel;
     const size = 32.0;
@@ -63,15 +63,13 @@ class LeftDisplay extends StatelessWidget {
         ButtonTheme(
           minWidth: width,
           child: RaisedButton.icon(
-            onPressed: () => {
-              debugPrint('Pause!')
-            },
+            onPressed: () => state.togglePause(),
             color: Colors.grey,
             textColor: Colors.white,
             shape: buttonShape,
             padding: buttonPadding,
-            icon: const Icon(Icons.pause, size: size),
-            label: const Text("Pause", style: textStyle)
+            icon: Icon(state.paused ? Icons.play_arrow : Icons.pause, size: size),
+            label: Text(state.paused ? "Play" : "Pause", style: textStyle)
           )
         ),
         SizedBox(height: spacing),

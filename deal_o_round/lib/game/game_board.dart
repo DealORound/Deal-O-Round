@@ -42,6 +42,11 @@ class GameBoard extends StatelessWidget {
       )
     );
     const size = ChipWidgetState.chipSize * GameState.boardSize;
+    const textStyle = TextStyle(
+        fontSize: 32.0,
+        fontFamily: 'Roboto Condensed',
+        color: Colors.white
+    );
 
     return Container(
       decoration: greenDecoration,
@@ -49,12 +54,13 @@ class GameBoard extends StatelessWidget {
       child: SizedBox(
         width: size,
         height: size,
-        child: Listener(
-          onPointerDown: (PointerEvent details) => state.onPointerDown(details),
-          onPointerMove: (PointerEvent details) => state.onPointerMove(details),
-          onPointerUp: (PointerEvent details) => state.onPointerUp(details),
-          child: getRandomColumns(GameState.boardSize, layout, board)
-        )
+        child: state.paused ? Center(child: Text("Paused...", style: textStyle)) :
+          Listener(
+            onPointerDown: (PointerEvent details) => state.onPointerDown(details),
+            onPointerMove: (PointerEvent details) => state.onPointerMove(details),
+            onPointerUp: (PointerEvent details) => state.onPointerUp(details),
+            child: getRandomColumns(GameState.boardSize, layout, board)
+          )
       )
     );
   }
