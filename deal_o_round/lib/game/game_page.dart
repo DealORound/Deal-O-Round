@@ -129,16 +129,16 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     final dxStr = details.localPosition.dx.toString();
     final dyStr = details.localPosition.dy.toString();
     debugPrint("$tag $dxStr, $dyStr");
-    if (_inGesture) {
+    if (!_inGesture) {
       return;
     }
     final cell = Point<int>(
         details.localPosition.dx ~/ ChipWidgetState.chipSize,
         details.localPosition.dy ~/ ChipWidgetState.chipSize
     );
-    final dx = cell.x * (ChipWidgetState.chipRadius * 2 + 1) -
+    final dx = ChipWidgetState.chipRadius * (cell.x * 2 + 1) -
         details.localPosition.dx;
-    final dy = cell.y * (ChipWidgetState.chipRadius * 2 + 1) -
+    final dy = ChipWidgetState.chipRadius * (cell.y * 2 + 1) -
         details.localPosition.dy;
     // Check if the point within the cell is inside the chip circle
     // so corners won't trigger selection
@@ -171,6 +171,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
 
   onPointerDown(PointerEvent details) {
     _inGesture = true;
+    _firstTouched = Point<int>(-1, -1);
     _lastFlipped = Point<int>(-1, -1);
     hitTest(details, "onPointerDown");
   }
@@ -184,8 +185,6 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     // TODO eval selection if it was swipe
     _inGesture = false;
     _swipeGesture = false;
-    _lastFlipped = Point<int>(-1, -1);
-    _firstTouched = Point<int>(-1, -1);
   }
 
   @override
