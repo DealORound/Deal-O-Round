@@ -91,9 +91,7 @@ class LeftDisplay extends StatelessWidget {
         ButtonTheme(
           minWidth: width,
           child: RaisedButton.icon(
-            onPressed: () => {
-              debugPrint('Eval!')
-            },
+            onPressed: () => state.evaluateAndProcessHand(),
             color: Colors.grey,
             textColor: Colors.white,
             shape: buttonShape,

@@ -231,6 +231,14 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     }
   }
 
+  evaluateAndProcessHand() {
+    if (_selection.length < 2) {
+      // Nothing to evaluate
+      return;
+    }
+    // TODO: check that the selection doesn't have unnecessary items
+  }
+
   onPointerDown(PointerEvent details) {
     _inGesture = true;
     _firstTouched = Point<int>(-1, -1);
