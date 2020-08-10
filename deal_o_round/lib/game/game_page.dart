@@ -1,14 +1,16 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:deal_o_round/game/chip_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../settings/settings_constants.dart';
 import 'logic/board.dart';
 import 'logic/level_manager.dart';
+import 'logic/play_card.dart';
 import 'logic/rules.dart';
+import 'logic/scoring.dart';
+import 'chip_widget.dart';
 import 'loading_widget.dart';
 
 extension on BoardLayout {
@@ -74,7 +76,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   Point<int> _firstTouched;
   Point<int> _lastFlipped;
   bool _swipeGesture;
-  int _selected;
+  List<Point<int>> _selection;
   bool _paused;
   DateTime _pauseStarted;
   int _totalPaused;
@@ -116,13 +118,31 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     return neighbors;
   }
 
-  correctNeighbors(Point<int> cell) {
-    for (Point<int> neighbor in getNeighbors(cell)) {
+  bool hasSelected(List<Point<int>> cells) {
+    return cells.fold(false, (f, n) => f || _board.board[n.x][n.y].selected);
+  }
+
+  correctNeighbors(List<Point<int>> neighbors) {
+    for (Point<int> neighbor in neighbors) {
       final neighborsOfNeighbor = getNeighbors(neighbor);
       _board.board[neighbor.x][neighbor.y].neighbor =
-          neighborsOfNeighbor.fold(false, (f, n) =>
-              f || _board.board[n.x][n.y].selected);
+          hasSelected(neighborsOfNeighbor);
     }
+  }
+
+  clearSelection(Difficulty difficulty) {
+    for (var cell in _selection) {
+      _board.board[cell.x][cell.y].selected = false;
+    }
+    if (difficulty == Difficulty.Easy) {
+      final indexes = Iterable<int>.generate(boardSize).toList();
+      for (var x in indexes) {
+        for (var y in indexes) {
+          _board.board[x][y].neighbor = false;
+        }
+      }
+    }
+    _selection.clear();
   }
 
   hitTest(PointerEvent details, String tag) {
@@ -140,6 +160,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
         details.localPosition.dx;
     final dy = ChipWidgetState.chipRadius * (cell.y * 2 + 1) -
         details.localPosition.dy;
+
     // Check if the point within the cell is inside the chip circle
     // so corners won't trigger selection
     final rSquare = ChipWidgetState.chipRadius * ChipWidgetState.chipRadius;
@@ -151,19 +172,60 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
       }
       if (cell.x != _lastFlipped.x && cell.y != _lastFlipped.y) {
         bool selected = _board.board[cell.x][cell.y].selected;
-        if (selected) {
-          assert(_selected > 0);
-          _selected -= 1;
-        } else {
-          _selected += 1;
-        }
-        if (selected || _selected < 4) {
-          // TODO: things to do with the selection
+        if (selected || _selection.length < 5) {
+          List<Point<int>> neighbors;
+          if (selected) {
+            assert(_selection.length > 0);
+            // Check if the remaining selection is adjacent
+            _selection.remove(cell);
+            // Don't check if the removed chip was at a tip of a selection
+            if (_selection.length > 1) {
+              neighbors = getNeighbors(cell);
+              if (neighbors.length > 1) {
+                List<int> vs = neighbors.map((c) =>
+                  getNeighbors(c).length).toList();
+                int vProd = vs.fold(1, (f, n) => f * n);
+                // If any selected don't have selected neighbors OR
+                // If more than two selected but there are no selection with
+                // two or more neighbors (vProd < 2) OR
+                // If four selected and there are more than two with 1 neighbor
+                if (vProd == 0 || neighbors.length >= 3 && vProd < 2 ||
+                  neighbors.length == 4 &&
+                    vs.fold(0, (f, n) => f + (n == 1 ? 1 : 0)) > 2)
+                {
+                  clearSelection(difficulty);
+                }
+              }
+            }
+          } else {
+            if (_selection.length > 0) {
+              // There were already some selected
+              // Deselect them if the new selection is not adjacent
+              neighbors = getNeighbors(cell);
+              if (!hasSelected(neighbors)) {
+                clearSelection(difficulty);
+              }
+            }
+            _selection.add(cell);
+          }
           _board.board[cell.x][cell.y].selected = !selected;
           if (difficulty == Difficulty.Easy) {
-            correctNeighbors(cell);
+            if (neighbors == null) {
+              neighbors = getNeighbors(cell);
+            }
+            correctNeighbors(neighbors);
           }
           _lastFlipped = cell;
+
+          // Update info
+          List<PlayCard> cards = _selection.map((s) =>
+            _board.board[s.x][s.y]).toList();
+          List<Scoring> hands = _rules.rankHand(cards, 0, false, true, true);
+          if (hands.length > 0) {
+            _info = hands[0].toStringDisplay();
+          } else {
+            _info = "-";
+          }
         }
       }
     }
@@ -194,10 +256,10 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     _levelManager = LevelManager();
     _rules = Rules();
     _score = 0;
-    _selected = 0;
+    _selection = List<Point<int>>();
     _refreshRate = 60;
     _elapsed = 0;
-    _info = "Lorem ipsum dolor sit amet";
+    _info = "-";
     _inGesture = false;
     _paused = false;
     _totalPaused = 0;
