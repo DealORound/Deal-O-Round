@@ -2,8 +2,8 @@ import '../../settings/settings_constants.dart';
 import '../game_page.dart';
 import 'play_card.dart';
 import 'shoe.dart';
-import 'suit.dart';
-import 'value.dart';
+//import 'suit.dart';
+//import 'value.dart';
 
 class Board {
   final shoe = Shoe(4);
@@ -27,6 +27,7 @@ class Board {
 
   removeHand() {
     // TODO: animate remove cards
+    /*
     // Step 1: bubble the removed cards to the top
     for (var x in indexes) {
       int displacement = 0;
@@ -47,6 +48,14 @@ class Board {
         if (board[x][y].selected) {
           board[x][y] = shoe.dealCard();
         }
+      }
+    }
+  */
+    for (var x in indexes) {
+      final selCount = board[x].fold(0, (f, n) => f + (n.selected ? 1 : 0));
+      if (selCount > 0) {
+        board[x] = List.generate(selCount, (i) => shoe.dealCard()) +
+            board[x].where((c) => !c.selected).toList();
       }
     }
   }

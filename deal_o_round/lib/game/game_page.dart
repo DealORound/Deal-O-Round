@@ -246,8 +246,10 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   }
 
   removeHand() {
-    _board.removeHand();
-    _selection.clear();
+    setState(() {
+      _board.removeHand();
+      _selection.clear();
+    });
   }
 
   evaluateAndProcessHand() {
