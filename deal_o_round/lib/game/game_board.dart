@@ -5,7 +5,7 @@ import 'chip_widget.dart';
 import 'game_page.dart';
 
 class GameBoard extends StatelessWidget {
-  Column getRandomColumn(int row, int size, Board board) {
+  Column getColumn(int row, int size, Board board) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -16,13 +16,14 @@ class GameBoard extends StatelessWidget {
     );
   }
 
-  Row getRandomColumns(int size, BoardLayout layout, Board board) {
+  Row getColumns(int size, BoardLayout layout, Board board) {
+    debugPrint("redraw");
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         for(var i = 0; i < size; i += 1)
-          getRandomColumn(i, size +
+          getColumn(i, size +
               (layout == BoardLayout.Hexagonal && i % 2 == 0 ? -1 : 0), board)
       ]
     );
@@ -54,13 +55,14 @@ class GameBoard extends StatelessWidget {
       child: SizedBox(
         width: size,
         height: size,
-        child: state.paused ? Center(child: Text("Paused...", style: textStyle)) :
-          Listener(
-            onPointerDown: (PointerEvent details) => state.onPointerDown(details),
-            onPointerMove: (PointerEvent details) => state.onPointerMove(details),
-            onPointerUp: (PointerEvent details) => state.onPointerUp(details),
-            child: getRandomColumns(GameState.boardSize, layout, board)
-          )
+        child: state.paused ?
+        Center(child: Text("Paused...", style: textStyle)) :
+        Listener(
+          onPointerDown: (PointerEvent details) => state.onPointerDown(details),
+          onPointerMove: (PointerEvent details) => state.onPointerMove(details),
+          onPointerUp: (PointerEvent details) => state.onPointerUp(details),
+          child: getColumns(GameState.boardSize, layout, board)
+        )
       )
     );
   }

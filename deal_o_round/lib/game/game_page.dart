@@ -271,6 +271,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     if (clear) {
       clearSelection(difficulty);
     }
+    _info = "-";
   }
 
   onPointerDown(PointerEvent details) {
