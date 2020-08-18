@@ -5,9 +5,6 @@ class RightDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GameState state = GamePage.of(context);
-    final score = state.score;
-    final level = state.level;
-    final info = state.info;
     const size = 32.0;
     const textStyle = TextStyle(
       fontSize: size,
@@ -43,7 +40,7 @@ class RightDisplay extends StatelessWidget {
           child: SizedBox(
             width: width,
             child: Center(
-              child: Text("$score", style: textStyle)
+              child: Text("${state.score}", style: textStyle)
             )
           )
         ),
@@ -54,7 +51,7 @@ class RightDisplay extends StatelessWidget {
           child: SizedBox(
             width: width,
             child: Center(
-              child: Text("Level $level", style: textStyle)
+              child: Text("Level ${state.level}", style: textStyle)
             )
           )
         ),
@@ -67,7 +64,7 @@ class RightDisplay extends StatelessWidget {
             child: RichText(
               textAlign: TextAlign.center,
               text: TextSpan(
-                text: info,
+                text: state.info,
                 style: textStyle
               )
             )

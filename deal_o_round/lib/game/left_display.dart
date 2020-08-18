@@ -5,8 +5,6 @@ class LeftDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = GamePage.of(context);
-    final countDown = state.countDown;
-    final nextLevel = state.nextLevel;
     const size = 32.0;
     const textStyle = TextStyle(
       fontSize: size,
@@ -40,7 +38,7 @@ class LeftDisplay extends StatelessWidget {
           child: SizedBox(
             width: width,
             child: Center(
-              child: Text("$countDown", style: textStyle)
+              child: Text("${state.countDown}", style: textStyle)
             )
           )
         ),
@@ -54,7 +52,7 @@ class LeftDisplay extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text("Next level", style: textStyle),
-                Text("$nextLevel", style: textStyle)
+                Text("${state.nextLevel}", style: textStyle)
               ]
             )
           )
