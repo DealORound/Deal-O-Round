@@ -1,31 +1,29 @@
 import 'package:flutter/material.dart';
 import '../settings/settings_constants.dart';
 import 'logic/board.dart';
+import 'logic/play_card.dart';
 import 'chip_widget.dart';
 import 'game_page.dart';
 
 class GameBoard extends StatelessWidget {
-  Column getColumn(int row, int size, Board board) {
+  Column getColumn(String columnString) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget> [
-        for(var i = 0; i < size; i += 1)
-          ChipWidget(card: board.board[row][i])
-      ]
+      children: columnString.split('_').map((c) {
+        final strs = c.split('-');
+        final card = PlayCard.fromString(strs[0], strs[1], strs[2], strs[3]);
+        return ChipWidget(card: card);
+      }).toList()
     );
   }
 
-  Row getColumns(int size, BoardLayout layout, Board board) {
+  Row getColumns(BoardLayout layout, String boardString) {
     debugPrint("redraw");
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        for(var i = 0; i < size; i += 1)
-          getColumn(i, size +
-              (layout == BoardLayout.Hexagonal && i % 2 == 0 ? -1 : 0), board)
-      ]
+      children: boardString.split('|').map((col) => getColumn(col)).toList()
     );
   }
 
@@ -33,7 +31,7 @@ class GameBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = GamePage.of(context);
     final layout = state.layout;
-    final board = state.board;
+    final boardString = state.boardString;
     final greenDecoration = BoxDecoration(
       color: Colors.green.shade900,
       borderRadius: BorderRadius.circular(5.0),
@@ -61,7 +59,7 @@ class GameBoard extends StatelessWidget {
           onPointerDown: (PointerEvent details) => state.onPointerDown(details),
           onPointerMove: (PointerEvent details) => state.onPointerMove(details),
           onPointerUp: (PointerEvent details) => state.onPointerUp(details),
-          child: getColumns(GameState.boardSize, layout, board)
+          child: getColumns(layout, boardString)
         )
       )
     );

@@ -69,6 +69,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   Difficulty difficulty = Difficulty.Easy;
   LevelManager _levelManager;
   Board _board;
+  String _boardString;
   Rules _rules;
   int _elapsed;
   double _refreshRate;
@@ -90,6 +91,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   int get score => _score;
   int get level => _level;
   Board get board => _board;
+  String get boardString => _boardString;
   String get info => _info;
   bool get paused => _paused;
 
@@ -231,6 +233,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
               correctNeighbors(neighbors);
             }
             _lastFlipped = cell;
+            _boardString = _board.toString();
 
             // Update info
             List<Scoring> hands = getSelectedHands();
@@ -249,6 +252,8 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     setState(() {
       _board.removeHand();
       _selection.clear();
+      _boardString = _board.toString();
+      // (widget.child as Element).markNeedsBuild();
     });
   }
 
@@ -272,6 +277,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     }
     if (clear) {
       clearSelection(difficulty);
+      _boardString = _board.toString();
     }
     _info = "-";
   }
@@ -353,6 +359,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
         _nextLevel = _levelManager.getCurrentLevelScoreLimit(difficulty);
         _level = _levelManager.getCurrentLevelIndex();
         _board = Board(layout: layout, size: boardSize);
+        _boardString = _board.toString();
         _started = DateTime.now();
         _timerDelay = 1000 ~/ _refreshRate;
         _updateTime();
