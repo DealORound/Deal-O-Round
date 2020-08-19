@@ -1,31 +1,24 @@
 import 'package:flutter/material.dart';
 import '../settings/settings_constants.dart';
-import 'logic/board.dart';
+import 'logic/play_card.dart';
 import 'chip_widget.dart';
 import 'game_page.dart';
 
 class GameBoard extends StatelessWidget {
-  Column getColumn(int row, int size, Board board) {
+  Column getColumn(List<PlayCard> column) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget> [
-        for(var i = 0; i < size; i += 1)
-          ChipWidget(card: board.board[row][i])
-      ]
+      children: column.map((c) => ChipWidget(card: c)).toList()
     );
   }
 
-  Row getColumns(int size, BoardLayout layout, Board board) {
+  Row getColumns(BoardLayout layout, List<List<PlayCard>> board) {
     debugPrint("redraw");
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        for(var i = 0; i < size; i += 1)
-          getColumn(i, size +
-              (layout == BoardLayout.Hexagonal && i % 2 == 0 ? -1 : 0), board)
-      ]
+      children: board.map((col) => getColumn(col)).toList()
     );
   }
 
@@ -61,7 +54,7 @@ class GameBoard extends StatelessWidget {
           onPointerDown: (PointerEvent details) => state.onPointerDown(details),
           onPointerMove: (PointerEvent details) => state.onPointerMove(details),
           onPointerUp: (PointerEvent details) => state.onPointerUp(details),
-          child: getColumns(GameState.boardSize, layout, board)
+          child: getColumns(layout, board.board)
         )
       )
     );
