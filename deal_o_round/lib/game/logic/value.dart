@@ -16,9 +16,6 @@ enum Value {
   Invalid
 }
 
-// Value.Two.index // == 0
-// Value.Three.index // == 1
-
 int valueScore(Value value) => value.index * 5;
 
 const valueCharacters = [

@@ -6,9 +6,6 @@ enum Suit {
   Invalid
 }
 
-// Suit.Spades.index // == 0
-// Suit.Clubs.index // == 1
-
 const suitCharacters = [
   "S", "C", "4", "3", ""
 ];
