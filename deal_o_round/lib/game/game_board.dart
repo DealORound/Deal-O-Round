@@ -7,6 +7,7 @@ import 'game_page.dart';
 class GameBoard extends StatelessWidget {
   Column getColumn(List<PlayCard> column) {
     return Column(
+      key: Key(column.map((c) => c.toString()).toList().join('_')),
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: column.map((c) => ChipWidget(card: c)).toList()
