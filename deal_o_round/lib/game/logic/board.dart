@@ -21,6 +21,13 @@ class Board {
     }
   }
 
+  @override
+  String toString() {
+    return board.map(
+      (col) => col.map((c) => c.toString()).toList().join('_')
+    ).toList().join('|');
+  }
+
   List<PlayCard> getRandomCards(int size) {
     return List<PlayCard>.generate(size, (i) => shoe.dealCard());
   }

@@ -16,3 +16,8 @@ const suitCharacters = [
 String suitCharacter(Suit suit) {
   return suitCharacters[suit.index];
 }
+
+Suit suitFromCharacter(String suit) {
+  final index = suitCharacters.indexOf(suit);
+  return Suit.values[index];
+}

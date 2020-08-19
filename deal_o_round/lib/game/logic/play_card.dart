@@ -4,19 +4,34 @@ import 'value.dart';
 class PlayCard implements Comparable<PlayCard> {
   final Suit suit;
   final Value value;
-  bool selected = false;
-  bool neighbor = false;
+  var selected = false;
+  var neighbor = false;
 
   PlayCard({
     this.suit,
     this.value
   });
 
+  PlayCard.fromString(String suitStr, String valueStr, String selectedChar, String neighborChar) :
+    suit = suitFromCharacter(suitStr),
+    value = valueFromCharacter(valueStr),
+    selected = selectedChar == '1',
+    neighbor = neighborChar == '1';
+
   @override
   int compareTo(PlayCard other) {
     final valueDiff = value.index - other.value.index;
     final suitDiff = suit.index - other.suit.index;
     return valueDiff != 0 ? valueDiff : suitDiff;
+  }
+
+  @override
+  String toString() {
+    final suitChar = suitCharacter(suit);
+    final valueChar = valueCharacter(value);
+    final selectedChar = selected ? "1" : "0";
+    final neighborChar = neighbor ? "1" : "0";
+    return "${suitChar}-$valueChar-$selectedChar-$neighborChar";
   }
 }
 

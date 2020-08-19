@@ -37,3 +37,8 @@ const valueDisplayStrings = [
 String valueDisplay(Value value) {
   return valueDisplayStrings[value.index];
 }
+
+Value valueFromCharacter(String value) {
+  final index = valueCharacters.indexOf(value);
+  return Value.values[index];
+}
