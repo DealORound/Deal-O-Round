@@ -104,19 +104,54 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   }
 
   List<Point<int>> getNeighbors(Point<int> cell) {
-    // TODO: change this for hexagonal
     final neighbors = List<Point<int>>();
-    if (cell.x > 0) {
-      neighbors.add(Point(cell.x - 1, cell.y));
-    }
     if (cell.y > 0) {
       neighbors.add(Point(cell.x, cell.y - 1));
     }
-    if (cell.x < boardSize - 1) {
-      neighbors.add(Point(cell.x + 1, cell.y));
-    }
-    if (cell.y < boardSize - 1) {
-      neighbors.add(Point(cell.x, cell.y + 1));
+    final maxIndex = boardSize - 1;
+    if (layout == BoardLayout.Square) {
+      if (cell.y < maxIndex) {
+        neighbors.add(Point(cell.x, cell.y + 1));
+      }
+      if (cell.x > 0) {
+        neighbors.add(Point(cell.x - 1, cell.y));
+      }
+      if (cell.x < maxIndex) {
+        neighbors.add(Point(cell.x + 1, cell.y));
+      }
+    } else {
+      final shortColumn = cell.x % 2 == 0;
+      final colHeight = maxIndex - (shortColumn ? 1 : 0);
+      if (cell.y < colHeight) {
+        neighbors.add(Point(cell.x, cell.y + 1));
+      }
+      if (shortColumn) {
+        if (cell.x > 0) {
+          neighbors.add(Point(cell.x - 1, cell.y));
+          neighbors.add(Point(cell.x - 1, cell.y + 1));
+        }
+        if (cell.x < maxIndex) {
+          neighbors.add(Point(cell.x + 1, cell.y));
+          neighbors.add(Point(cell.x + 1, cell.y + 1));
+        }
+      } else {
+        if (cell.x > 0) {
+          if (cell.y > 0) {
+            neighbors.add(Point(cell.x - 1, cell.y - 1));
+          }
+          if (cell.y < maxIndex) {
+            neighbors.add(Point(cell.x - 1, cell.y));
+          }
+        }
+        if (cell.x < maxIndex) {
+          if (cell.y > 0) {
+            neighbors.add(Point(cell.x + 1, cell.y - 1));
+          }
+          if (cell.y < maxIndex) {
+            neighbors.add(Point(cell.x + 1, cell.y));
+          }
+        }
+      }
     }
     return neighbors;
   }

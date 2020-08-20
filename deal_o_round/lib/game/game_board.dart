@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../settings/settings_constants.dart';
 import 'logic/board.dart';
 import 'logic/play_card.dart';
 import 'chip_widget.dart';
@@ -15,7 +14,7 @@ class GameBoard extends StatelessWidget {
     );
   }
 
-  Row getColumns(BoardLayout layout, Board board) {
+  Row getColumns(Board board) {
     debugPrint("redraw");
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -27,7 +26,6 @@ class GameBoard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = GamePage.of(context);
-    final layout = state.layout;
     final board = state.board;
     final greenDecoration = BoxDecoration(
       color: Colors.green.shade900,
@@ -56,7 +54,7 @@ class GameBoard extends StatelessWidget {
           onPointerDown: (PointerEvent details) => state.onPointerDown(details),
           onPointerMove: (PointerEvent details) => state.onPointerMove(details),
           onPointerUp: (PointerEvent details) => state.onPointerUp(details),
-          child: getColumns(layout, board)
+          child: getColumns(board)
         )
       )
     );
