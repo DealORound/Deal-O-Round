@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../background_gradient.dart';
 import 'boolean_settings.dart';
 import 'enum_settings.dart';
@@ -28,7 +29,7 @@ class _SettingsPageState extends State<SettingsPage> {
       fontWeight: FontWeight.w400,
       color: Colors.white
     );
-    final size = MediaQuery.of(context).size;
+    final size = Get.mediaQuery.size;
     final boxDecoration = BoxDecoration(
       color: Colors.green.shade900.withOpacity(0.5),
       borderRadius: BorderRadius.circular(5.0),
@@ -44,7 +45,7 @@ class _SettingsPageState extends State<SettingsPage> {
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(top: 60.0),
         child: FloatingActionButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Get.back(),
           child: Icon(Icons.arrow_back, size: 40),
           backgroundColor: Colors.green,
         ),

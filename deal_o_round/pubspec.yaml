@@ -12,6 +12,7 @@ dependencies:
   url_launcher: ^5.5.0
   shared_preferences: ^0.5.8
   spinner_input: ^0.1.2
+  get: ^3.4.6
   flutter:
     sdk: flutter
 
