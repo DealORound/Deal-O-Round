@@ -37,9 +37,7 @@ class HomeCenter extends StatelessWidget {
                 ButtonTheme(
                   minWidth: buttonWidth,
                   child: RaisedButton.icon(
-                    onPressed: () => {
-                      debugPrint('Login!')
-                    },
+                    onPressed: () => debugPrint('Login!'),
                     color: Colors.green,
                     textColor: Colors.white,
                     shape: buttonShape,
@@ -52,9 +50,7 @@ class HomeCenter extends StatelessWidget {
                 ButtonTheme(
                   minWidth: buttonWidth,
                   child: RaisedButton.icon(
-                    onPressed: () => {
-                      debugPrint('Scores!')
-                    },
+                    onPressed: () => debugPrint('Scores!'),
                     color: Colors.green,
                     textColor: Colors.white,
                     shape: buttonShape,
@@ -84,9 +80,7 @@ class HomeCenter extends StatelessWidget {
                 ButtonTheme(
                   minWidth: buttonWidth,
                   child: RaisedButton.icon(
-                    onPressed: () => Get.to(GamePage(
-                        child: GameWidget()
-                    )),
+                    onPressed: () => Get.to(GamePage(child: GameWidget())),
                     color: Colors.green,
                     textColor: Colors.white,
                     shape: buttonShape,
