@@ -95,6 +95,9 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   bool get paused => _paused;
 
   togglePause() {
+    if (countDown <= 0) {
+      return;
+    }
     if (_paused) {
       Duration difference = _rightNow.difference(_pauseStarted);
       _totalPaused += difference.inSeconds;
@@ -102,6 +105,13 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
       _pauseStarted = DateTime.now();
     }
     _paused = !_paused;
+  }
+
+  spin() {
+    if (countDown <= 0) {
+      return;
+    }
+    debugPrint('Spin!');
   }
 
   List<Point<int>> getNeighbors(Point<int> cell) {
@@ -292,6 +302,9 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   }
 
   evaluateAndProcessHand() {
+    if (countDown <= 0) {
+      return;
+    }
     bool clear = true;
     if (_selection.length >= 2 && countDown > 0) {
       List<Scoring> hands = getSelectedHands();

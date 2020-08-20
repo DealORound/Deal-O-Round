@@ -74,9 +74,7 @@ class LeftDisplay extends StatelessWidget {
         ButtonTheme(
           minWidth: width,
           child: RaisedButton.icon(
-            onPressed: () => {
-              debugPrint('Spin!')
-            },
+            onPressed: () => state.spin(),
             color: Colors.grey,
             textColor: Colors.white,
             shape: buttonShape,
