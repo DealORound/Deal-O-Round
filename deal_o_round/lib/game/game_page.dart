@@ -255,7 +255,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
 
   evaluateAndProcessHand() {
     bool clear = true;
-    if (_selection.length >= 2) {
+    if (_selection.length >= 2 && countDown > 0) {
       List<Scoring> hands = getSelectedHands();
       if (hands.length > 0) {
         clear = false;
@@ -274,7 +274,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     if (clear) {
       clearSelection(difficulty);
     }
-    _info = "-";
+    _info = (countDown > 0) ? "-" : "Game ended";
   }
 
   onPointerDown(PointerEvent details) {
