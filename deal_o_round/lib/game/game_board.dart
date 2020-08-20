@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../settings/settings_constants.dart';
+import 'logic/board.dart';
 import 'logic/play_card.dart';
 import 'chip_widget.dart';
 import 'game_page.dart';
@@ -14,12 +15,12 @@ class GameBoard extends StatelessWidget {
     );
   }
 
-  Row getColumns(BoardLayout layout, List<List<PlayCard>> board) {
+  Row getColumns(BoardLayout layout, Board board) {
     debugPrint("redraw");
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: board.map((col) => getColumn(col)).toList()
+      children: board.board.map((col) => getColumn(col)).toList()
     );
   }
 
@@ -55,7 +56,7 @@ class GameBoard extends StatelessWidget {
           onPointerDown: (PointerEvent details) => state.onPointerDown(details),
           onPointerMove: (PointerEvent details) => state.onPointerMove(details),
           onPointerUp: (PointerEvent details) => state.onPointerUp(details),
-          child: getColumns(layout, board.board)
+          child: getColumns(layout, board)
         )
       )
     );

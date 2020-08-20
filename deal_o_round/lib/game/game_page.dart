@@ -249,6 +249,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     setState(() {
       _board.removeHand();
       _selection.clear();
+      clearSelection(difficulty);
     });
   }
 
