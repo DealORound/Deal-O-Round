@@ -82,6 +82,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   DateTime _pauseStarted;
   int _totalPaused;
   final indexes = Iterable<int>.generate(boardSize).toList();
+  final indexesEven = Iterable<int>.generate(boardSize - 1).toList();
 
   DateTime get rightNow => _rightNow;
   int get countDown => max(_countDown - _elapsed, 0);
@@ -168,13 +169,15 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     }
   }
 
-  clearSelection(Difficulty difficulty) {
+  clearSelection() {
     for (var cell in _selection) {
       _board.board[cell.x][cell.y].selected = false;
     }
     if (difficulty == Difficulty.Easy) {
       for (var x in indexes) {
-        for (var y in indexes) {
+        final ixs = (layout == BoardLayout.Hexagonal && x % 2 == 0) ?
+          indexesEven : indexes;
+        for (var y in ixs) {
           _board.board[x][y].neighbor = false;
         }
       }
@@ -195,19 +198,19 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     if (!_inGesture) {
       return;
     }
-    final cell = Point<int>(
-        details.localPosition.dx ~/ ChipWidgetState.chipSize,
-        details.localPosition.dy ~/ ChipWidgetState.chipSize
-    );
-    final dx = ChipWidgetState.chipRadius * (cell.x * 2 + 1) -
+    final xIndex = details.localPosition.dx ~/ ChipWidgetState.chipSize;
+    final colAdj = (layout == BoardLayout.Hexagonal && xIndex % 2 == 0) ? 1 : 0;
+    final yAdj = details.localPosition.dy - colAdj * ChipWidgetState.chipRadius;
+    final cell = Point<int>(xIndex, yAdj ~/ ChipWidgetState.chipSize);
+    final dX = ChipWidgetState.chipRadius * (cell.x * 2 + 1) -
         details.localPosition.dx;
-    final dy = ChipWidgetState.chipRadius * (cell.y * 2 + 1) -
+    final dY = ChipWidgetState.chipRadius * (cell.y * 2 + 1 + colAdj) -
         details.localPosition.dy;
 
     // Check if the point within the cell is inside the chip circle
     // so corners won't trigger selection
     final rSquare = ChipWidgetState.chipRadius * ChipWidgetState.chipRadius;
-    if (dx * dx + dy * dy < rSquare) {
+    if (dX * dX + dY * dY < rSquare) {
       if (_firstTouched.x == -1) {
         _firstTouched = cell;
       } else if (cell.x != _firstTouched.x && cell.y != _firstTouched.y) {
@@ -240,7 +243,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
                       neighbors.length == 4 &&
                           vs.fold(0, (f, n) => f + (n == 1 ? 1 : 0)) > 2)
                   {
-                    clearSelection(difficulty);
+                    clearSelection();
                   }
                 }
               }
@@ -251,7 +254,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
               // Deselect them if the new selection is not adjacent
               neighbors = getNeighbors(cell);
               if (!hasSelected(neighbors)) {
-                clearSelection(difficulty);
+                clearSelection();
               }
             }
             _selection.add(cell);
@@ -284,7 +287,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     setState(() {
       _board.removeHand();
       _selection.clear();
-      clearSelection(difficulty);
+      clearSelection();
     });
   }
 
@@ -307,7 +310,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
       }
     }
     if (clear) {
-      clearSelection(difficulty);
+      clearSelection();
     }
     _info = (countDown > 0) ? "-" : "Game ended";
   }
