@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../services/settings_constants.dart';
+import '../services/sound.dart';
 
 class BooleanSettings extends StatefulWidget {
   final double scale;
@@ -52,9 +54,21 @@ class _BooleanSettingsState extends State<BooleanSettings> {
         inactiveThumbColor: Colors.red,
         inactiveTrackColor: Colors.brown,
         onChanged: (newValue) {
+          debugPrint("onChanged $valueTag $newValue");
           setState(() {
             booleanValue = newValue;
             _prefs.setBool(valueTag, newValue);
+            debugPrint("setState $valueTag $newValue");
+            if (valueTag == SOUND_EFFECTS) {
+              final soundUtils = Get.find<SoundUtils>();
+              if (newValue) {
+                soundUtils.loadSoundEffects();
+              } else {
+                soundUtils.stopAllSoundEffects();
+              }
+            } else if (valueTag == GAME_MUSIC) {
+              ;
+            }
           });
         }
       )

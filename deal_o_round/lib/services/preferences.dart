@@ -3,8 +3,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'settings_constants.dart';
 
 class PreferencesUtils {
-  static void registerService() {
-    Get.putAsync<SharedPreferences>(() async {
+  static Future<SharedPreferences> registerService() async {
+    return Get.putAsync<SharedPreferences>(() async {
       final prefs = await SharedPreferences.getInstance();
       String storedString = prefs.getString(DIFFICULTY);
       if (storedString == null) {

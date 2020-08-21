@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../services/settings_constants.dart';
+import '../services/sound.dart';
 import 'logic/board.dart';
 import 'logic/hand_class.dart';
 import 'logic/level_manager.dart';
@@ -14,14 +15,6 @@ import 'logic/rules.dart';
 import 'logic/scoring.dart';
 import 'chip_widget.dart';
 import 'loading_widget.dart';
-
-extension on BoardLayout {
-  String get inString => describeEnum(this);
-}
-
-extension on Difficulty {
-  String get inString => describeEnum(this);
-}
 
 class _GamePageInherited extends InheritedWidget {
   _GamePageInherited({
@@ -50,7 +43,8 @@ class GamePage extends StatefulWidget {
   GameState createState() => GameState();
 
   static GameState of(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<_GamePageInherited>()).data;
+    return (
+        context.dependOnInheritedWidgetOfExactType<_GamePageInherited>()).data;
   }
 }
 
@@ -294,7 +288,10 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     }
   }
 
-  removeHand() {
+  removeHand() async {
+    await Get.find<SoundUtils>().playSoundEffect(
+      SoundEffect.PokerChips);
+
     setState(() {
       _board.removeHand();
       _selection.clear();
@@ -302,7 +299,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     });
   }
 
-  evaluateAndProcessHand() {
+  evaluateAndProcessHand() async {
     if (countDown <= 0) {
       return;
     }
@@ -320,7 +317,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
           _countDown += _levelManager.getCurrentLevelTimeLimit(_difficulty);
           _nextLevel += _levelManager.getCurrentLevelScoreLimit(_difficulty);
         }
-        removeHand();
+        await removeHand();
       }
     }
     if (clear) {
@@ -329,21 +326,21 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     _info = (countDown > 0) ? "-" : "Game ended";
   }
 
-  onPointerDown(PointerEvent details) {
+  onPointerDown(PointerEvent details) async {
     _inGesture = true;
     _firstTouched = Point<int>(-1, -1);
     _lastFlipped = Point<int>(-1, -1);
     hitTest(details, "onPointerDown");
   }
 
-  onPointerMove(PointerEvent details) {
+  onPointerMove(PointerEvent details) async {
     hitTest(details, "onPointerMove");
   }
 
-  onPointerUp(PointerEvent details) {
+  onPointerUp(PointerEvent details) async {
     hitTest(details, "onPointerDown");
     if (_inGesture) {
-      evaluateAndProcessHand();
+      await evaluateAndProcessHand();
     }
     _inGesture = false;
     _swipeGesture = false;
@@ -381,6 +378,8 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
       _started = DateTime.now();
       _timerDelay = 1000 ~/ _refreshRate;
       _updateTime();
+      Get.find<SoundUtils>().playSoundEffect(
+        SoundEffect.LongCardShuffle);
     });
   }
 

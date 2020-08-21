@@ -1,6 +1,8 @@
 import 'dart:ui';
 
+import 'package:deal_o_round/services/sound.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'left_example_chips.dart';
 import 'swipe_painter.dart';
 
@@ -31,8 +33,10 @@ class SwipeAnimationState extends State<SwipeAnimation> with SingleTickerProvide
         setState(() {
         });
       })
-      ..addStatusListener((status) {
+      ..addStatusListener((status) async {
         if (status == AnimationStatus.completed) {
+          await Get.find<SoundUtils>().playSoundEffect(
+            SoundEffect.ShortCardShuffle);
           _animationController.reverse();
         } else if (status == AnimationStatus.dismissed) {
           _animationController.forward();
