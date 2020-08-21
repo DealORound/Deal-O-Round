@@ -12,7 +12,7 @@ class HomeCenter extends StatelessWidget {
     const aboutUrl = "http://dealoround.com/about.html";
     const helpUrl = "http://dealoround.com/help.html";
     const size = 40.0;
-    // TODO make it dependent of screen size: Get.mediaQuery.size
+    // TODO make it dependent of screen size: context.mediaQuerySize
     const buttonWidth = 210.0;
     const buttonPadding = const EdgeInsets.all(10.0);
     const spacing = 10.0;

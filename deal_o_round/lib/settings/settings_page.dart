@@ -29,7 +29,7 @@ class _SettingsPageState extends State<SettingsPage> {
       fontWeight: FontWeight.w400,
       color: Colors.white
     );
-    final size = Get.mediaQuery.size;
+    final size = context.mediaQuerySize;
     final boxDecoration = BoxDecoration(
       color: Colors.green.shade900.withOpacity(0.5),
       borderRadius: BorderRadius.circular(5.0),
