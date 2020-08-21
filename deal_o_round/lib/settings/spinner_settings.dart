@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spinner_input/spinner_input.dart';
 
@@ -57,22 +58,8 @@ class _SpinnerSettingsState extends State<SpinnerSettings> {
   @override
   initState() {
     super.initState();
-    SharedPreferences.getInstance().then((prefs) {
-      setState(() {
-        _prefs = prefs;
-        try {
-          final _storedValue = _prefs.getDouble(valueTag);
-          if (_storedValue != null) {
-            doubleValue = _storedValue;
-          } else {
-            _prefs.setDouble(valueTag, doubleValue);
-          }
-        }
-        on ArgumentError {
-          debugPrint("Could not read or write $valueTag settings");
-        }
-      });
-    });
+    _prefs = Get.find<SharedPreferences>();
+    doubleValue = _prefs.getDouble(valueTag);
   }
 
   @override

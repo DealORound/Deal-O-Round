@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import '../../settings/settings_constants.dart';
+import '../../services/settings_constants.dart';
 import 'level.dart';
 
 class LevelManager {

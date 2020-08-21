@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BooleanSettings extends StatefulWidget {
@@ -36,22 +37,8 @@ class _BooleanSettingsState extends State<BooleanSettings> {
   @override
   initState() {
     super.initState();
-    SharedPreferences.getInstance().then((prefs) {
-      setState(() {
-        _prefs = prefs;
-        try {
-          final _storedValue = _prefs.getBool(valueTag);
-          if (_storedValue != null) {
-            booleanValue = _storedValue;
-          } else {
-            _prefs.setBool(valueTag, booleanValue);
-          }
-        }
-        on ArgumentError {
-          debugPrint("Could not read or write $valueTag settings");
-        }
-      });
-    });
+    _prefs = Get.find<SharedPreferences>();
+    booleanValue = _prefs.getBool(valueTag);
   }
 
   @override

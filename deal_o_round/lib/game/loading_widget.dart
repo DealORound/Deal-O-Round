@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'background_painter.dart';
 
-class LoadingWidget extends StatelessWidget {
+class GameOverWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const textStyle = TextStyle(
@@ -15,7 +15,7 @@ class LoadingWidget extends StatelessWidget {
       body: CustomPaint(
         painter: BackgroundPainter(),
         child: Center(
-          child: Text("Loading...", style: textStyle)
+          child: Text("Game Over", style: textStyle)
         )
       )
     );

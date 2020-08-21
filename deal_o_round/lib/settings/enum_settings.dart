@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class EnumSettings<T> extends StatefulWidget {
@@ -48,22 +49,8 @@ class _EnumSettingsState<T> extends State<EnumSettings> {
   @override
   initState() {
     super.initState();
-    SharedPreferences.getInstance().then((prefs) {
-      setState(() {
-        _prefs = prefs;
-        try {
-          final _storedValue = _prefs.getString(valueTag);
-          if (_storedValue != null) {
-            stringValue = _storedValue;
-          } else {
-            _prefs.setString(valueTag, stringValue);
-          }
-        }
-        on ArgumentError {
-          debugPrint("Could not read or write $valueTag settings");
-        }
-      });
-    });
+    _prefs = Get.find<SharedPreferences>();
+    stringValue = _prefs.getString(valueTag);
   }
 
   @override

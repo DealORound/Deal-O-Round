@@ -3,8 +3,9 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../settings/settings_constants.dart';
+import '../services/settings_constants.dart';
 import 'logic/board.dart';
 import 'logic/hand_class.dart';
 import 'logic/level_manager.dart';
@@ -65,8 +66,8 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   String _info;
   Timer _timer;
   SharedPreferences _prefs;
-  BoardLayout layout = BoardLayout.Hexagonal;
-  Difficulty difficulty = Difficulty.Easy;
+  BoardLayout _layout = BoardLayout.Hexagonal;
+  Difficulty _difficulty = Difficulty.Easy;
   LevelManager _levelManager;
   Board _board;
   Rules _rules;
@@ -120,7 +121,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
       neighbors.add(Point(cell.x, cell.y - 1));
     }
     final maxIndex = boardSize - 1;
-    if (layout == BoardLayout.Square) {
+    if (_layout == BoardLayout.Square) {
       if (cell.y < maxIndex) {
         neighbors.add(Point(cell.x, cell.y + 1));
       }
@@ -183,9 +184,9 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     for (var cell in _selection) {
       _board.board[cell.x][cell.y].selected = false;
     }
-    if (difficulty == Difficulty.Easy) {
+    if (_difficulty == Difficulty.Easy) {
       for (var x in indexes) {
-        final ixs = (layout == BoardLayout.Hexagonal && x % 2 == 0) ?
+        final ixs = (_layout == BoardLayout.Hexagonal && x % 2 == 0) ?
           indexesEven : indexes;
         for (var y in ixs) {
           _board.board[x][y].neighbor = false;
@@ -209,7 +210,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
       return;
     }
     final xIndex = details.localPosition.dx ~/ ChipWidgetState.chipSize;
-    final colAdj = (layout == BoardLayout.Hexagonal && xIndex % 2 == 0) ? 1 : 0;
+    final colAdj = _layout == BoardLayout.Hexagonal && xIndex % 2 == 0 ? 1 : 0;
     final yAdj = details.localPosition.dy - colAdj * ChipWidgetState.chipRadius;
     final cell = Point<int>(xIndex, yAdj ~/ ChipWidgetState.chipSize);
     final dX = ChipWidgetState.chipRadius * (cell.x * 2 + 1) -
@@ -272,7 +273,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
           }
           if (shouldAdjust) {
             _board.board[cell.x][cell.y].selected = !selected;
-            if (difficulty == Difficulty.Easy) {
+            if (_difficulty == Difficulty.Easy) {
               if (neighbors == null) {
                 neighbors = getNeighbors(cell);
               }
@@ -316,8 +317,8 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
         while (_score > _nextLevel) {
           _levelManager.advanceLevel();
           _level = _levelManager.getCurrentLevelIndex();
-          _countDown += _levelManager.getCurrentLevelTimeLimit(difficulty);
-          _nextLevel += _levelManager.getCurrentLevelScoreLimit(difficulty);
+          _countDown += _levelManager.getCurrentLevelTimeLimit(_difficulty);
+          _nextLevel += _levelManager.getCurrentLevelScoreLimit(_difficulty);
         }
         removeHand();
       }
@@ -362,53 +363,24 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     _inGesture = false;
     _paused = false;
     _totalPaused = 0;
-    SharedPreferences.getInstance().then((prefs) {
-      setState(() {
-        _prefs = prefs;
-        try {
-          final _storedLayout = _prefs.getString(BOARD_LAYOUT);
-          if (_storedLayout != null) {
-            layout = enumFromString(BoardLayout.values, _storedLayout);
-          } else {
-            _prefs.setString(BOARD_LAYOUT, layout.inString);
-          }
-        }
-        on ArgumentError {
-          debugPrint("Could not read or write $BOARD_LAYOUT settings");
-        }
-
-        try {
-          final _storedDifficulty = _prefs.getString(DIFFICULTY);
-          if (_storedDifficulty != null) {
-            difficulty = enumFromString(Difficulty.values, _storedDifficulty);
-          } else {
-            _prefs.setString(DIFFICULTY, difficulty.inString);
-          }
-        }
-        on ArgumentError {
-          debugPrint("Could not read or write $DIFFICULTY settings");
-        }
-
-        try {
-          final _storedRefreshRate = _prefs.getDouble(REFRESH_RATE);
-          if (_storedRefreshRate != null) {
-            _refreshRate = _storedRefreshRate;
-          } else {
-            _prefs.setDouble(REFRESH_RATE, _refreshRate);
-          }
-        }
-        on ArgumentError {
-          debugPrint("Could not read or write $DIFFICULTY settings");
-        }
-
-        _countDown = _levelManager.getCurrentLevelTimeLimit(difficulty);
-        _nextLevel = _levelManager.getCurrentLevelScoreLimit(difficulty);
-        _level = _levelManager.getCurrentLevelIndex();
-        _board = Board(layout: layout, size: boardSize);
-        _started = DateTime.now();
-        _timerDelay = 1000 ~/ _refreshRate;
-        _updateTime();
-      });
+    _prefs = Get.find<SharedPreferences>();
+    setState(() {
+      _difficulty = enumFromString(
+        Difficulty.values,
+        _prefs.getString(DIFFICULTY)
+      );
+      _layout = enumFromString(
+          BoardLayout.values,
+          _prefs.getString(BOARD_LAYOUT)
+      );
+      _refreshRate = _prefs.getDouble(REFRESH_RATE);
+      _countDown = _levelManager.getCurrentLevelTimeLimit(_difficulty);
+      _nextLevel = _levelManager.getCurrentLevelScoreLimit(_difficulty);
+      _level = _levelManager.getCurrentLevelIndex();
+      _board = Board(layout: _layout, size: boardSize);
+      _started = DateTime.now();
+      _timerDelay = 1000 ~/ _refreshRate;
+      _updateTime();
     });
   }
 
@@ -438,7 +410,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return new _GamePageInherited(
       data: this,
-      child: _prefs == null ? LoadingWidget() : widget.child
+      child: countDown > 0 ? widget.child : GameOverWidget()
     );
   }
 }

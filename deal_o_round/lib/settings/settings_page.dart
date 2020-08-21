@@ -2,9 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../background_gradient.dart';
+import '../services/settings_constants.dart';
 import 'boolean_settings.dart';
 import 'enum_settings.dart';
-import 'settings_constants.dart';
 import 'spinner_settings.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -84,25 +84,25 @@ class _SettingsPageState extends State<SettingsPage> {
                         const Text("Difficulty", style: textStyle),
                         EnumSettings<Difficulty>(
                           values: Difficulty.values,
-                          defaultValue: Difficulty.Easy,
+                          defaultValue: DIFFICULTY_DEFAULT_VALUE,
                           valueTag: DIFFICULTY,
                           textStyle: textStyle,
                         ),
                         const Text("Layout", style: textStyle),
                         EnumSettings<BoardLayout>(
                           values: BoardLayout.values,
-                          defaultValue: BoardLayout.Hexagonal,
+                          defaultValue: BOARD_LAYOUT_DEFAULT_VALUE,
                           valueTag: BOARD_LAYOUT,
                           textStyle: textStyle,
                         ),
                         const Text("Game Music", style: textStyle),
                         BooleanSettings(
-                          defaultValue: false,
+                          defaultValue: GAME_MUSIC_DEFAULT,
                           valueTag: GAME_MUSIC
                         ),
                         const Text("Sound Effects", style: textStyle),
                         BooleanSettings(
-                          defaultValue: true,
+                          defaultValue: SOUND_EFFECTS_DEFAULT,
                           valueTag: SOUND_EFFECTS
                         )
                       ]
@@ -127,7 +127,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         SpinnerSettings(
                           minValue: 0,
                           maxValue: 100,
-                          defaultValue: 15,
+                          defaultValue: VOLUME_DEFAULT,
                           valueTag: VOLUME,
                           textStyle: textStyle,
                         ),
@@ -137,7 +137,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           maxValue: 4.0,
                           stepValue: 0.05,
                           fractionDigits: 2,
-                          defaultValue: 1.0,
+                          defaultValue: SCREEN_SCALE_DEFAULT,
                           valueTag: SCREEN_SCALE,
                           textStyle: textStyle,
                         ),
@@ -146,7 +146,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           minValue: 50,
                           maxValue: 500,
                           stepValue: 10,
-                          defaultValue: 200,
+                          defaultValue: ANIMATION_SPEED_DEFAULT,
                           valueTag: ANIMATION_SPEED,
                           textStyle: textStyle,
                         ),
@@ -155,7 +155,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           minValue: 25,
                           maxValue: 120,
                           stepValue: 5,
-                          defaultValue: 60,
+                          defaultValue: REFRESH_RATE_DEFAULT,
                           valueTag: REFRESH_RATE,
                           textStyle: textStyle,
                         )
