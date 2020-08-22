@@ -149,15 +149,6 @@ class _SettingsPageState extends State<SettingsPage> {
                           defaultValue: ANIMATION_SPEED_DEFAULT,
                           valueTag: ANIMATION_SPEED,
                           textStyle: textStyle,
-                        ),
-                        const Text("Refresh Rate", style: textStyle),
-                        SpinnerSettings(
-                          minValue: 25,
-                          maxValue: 120,
-                          stepValue: 5,
-                          defaultValue: REFRESH_RATE_DEFAULT,
-                          valueTag: REFRESH_RATE,
-                          textStyle: textStyle,
                         )
                       ]
                     )

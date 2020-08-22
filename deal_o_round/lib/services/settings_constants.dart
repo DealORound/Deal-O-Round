@@ -17,8 +17,6 @@ const SCREEN_SCALE = 'screen_scale';
 const SCREEN_SCALE_DEFAULT = 1.0;
 const ANIMATION_SPEED = 'anim_speed';
 const ANIMATION_SPEED_DEFAULT = 200.0;
-const REFRESH_RATE = 'refresh_rate';
-const REFRESH_RATE_DEFAULT = 60.0;
 
 T enumFromString<T>(Iterable<T> values, String value) {
   return values.firstWhere((type) => type.toString().split(".").last == value,

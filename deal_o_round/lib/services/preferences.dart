@@ -34,10 +34,6 @@ class PreferencesUtils {
       if (storedNumber == null) {
         await prefs.setDouble(ANIMATION_SPEED, ANIMATION_SPEED_DEFAULT);
       }
-      storedNumber = prefs.getDouble(REFRESH_RATE);
-      if (storedNumber == null) {
-        await prefs.setDouble(REFRESH_RATE, REFRESH_RATE_DEFAULT);
-      }
       return prefs;
     });
   }
