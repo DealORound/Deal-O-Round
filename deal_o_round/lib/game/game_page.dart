@@ -86,6 +86,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   Board get board => _board;
   String get info => _info;
   bool get paused => _paused;
+  BoardLayout get layout => _layout;
 
   togglePause() {
     if (countDown <= 0) {

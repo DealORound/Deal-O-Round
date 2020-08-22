@@ -1,31 +1,40 @@
 import 'package:flutter/material.dart';
+import '../services/settings_constants.dart';
 import 'logic/board.dart';
 import 'logic/play_card.dart';
 import 'chip_widget.dart';
 import 'game_page.dart';
 
 class GameBoard extends StatelessWidget {
-  Column getColumn(List<PlayCard> column) {
+  Column getColumn(List<PlayCard> column, int index, BoardLayout layout) {
+    final key = column.map((c) => c.toString()).toList().join('_');
+    final items = column.map((c) => ChipWidget(card: c) as Widget).toList();
+    if (index % 2 == 0 && layout == BoardLayout.Hexagonal) {
+      items.add(SizedBox(height: ChipWidgetState.chipRadius));
+    }
     return Column(
-      key: Key(column.map((c) => c.toString()).toList().join('_')),
-      mainAxisAlignment: MainAxisAlignment.center,
+      key: Key(key),
+      mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: column.map((c) => ChipWidget(card: c)).toList()
+      children: items
     );
   }
 
-  Row getColumns(Board board) {
+  Row getColumns(Board board, BoardLayout layout) {
+    List<Widget> columns = [];
+    board.board.asMap().forEach((index, column) =>
+      columns.add(getColumn(column, index, layout))
+    );
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: board.board.map((col) => getColumn(col)).toList()
+      children: columns
     );
   }
 
   @override
   Widget build(BuildContext context) {
     final state = GamePage.of(context);
-    final board = state.board;
     final greenDecoration = BoxDecoration(
       color: Colors.green.shade900,
       borderRadius: BorderRadius.circular(5.0),
@@ -53,7 +62,7 @@ class GameBoard extends StatelessWidget {
           onPointerDown: (PointerEvent details) => state.onPointerDown(details),
           onPointerMove: (PointerEvent details) => state.onPointerMove(details),
           onPointerUp: (PointerEvent details) => state.onPointerUp(details),
-          child: getColumns(board)
+          child: getColumns(state.board, state.layout)
         )
       )
     );
