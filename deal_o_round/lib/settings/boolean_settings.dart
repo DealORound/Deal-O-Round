@@ -59,15 +59,19 @@ class _BooleanSettingsState extends State<BooleanSettings> {
             booleanValue = newValue;
             _prefs.setBool(valueTag, newValue);
             debugPrint("setState $valueTag $newValue");
+            final soundUtils = Get.find<SoundUtils>();
             if (valueTag == SOUND_EFFECTS) {
-              final soundUtils = Get.find<SoundUtils>();
               if (newValue) {
                 soundUtils.loadSoundEffects();
               } else {
                 soundUtils.stopAllSoundEffects();
               }
             } else if (valueTag == GAME_MUSIC) {
-              ;
+              if (newValue) {
+                soundUtils.playSoundTrack(SoundTrack.SaloonMusic);
+              } else {
+                soundUtils.stopAllSoundTracks();
+              }
             }
           });
         }

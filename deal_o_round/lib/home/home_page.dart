@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../services/sound.dart';
 
 class _HomePageInherited extends InheritedWidget {
   _HomePageInherited({
@@ -42,6 +44,7 @@ class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin 
   @override
   initState() {
     super.initState();
+    Get.find<SoundUtils>().playSoundTrack(SoundTrack.SaloonMusic);
     _updateTime();
   }
 

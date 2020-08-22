@@ -14,7 +14,7 @@ import 'logic/play_card.dart';
 import 'logic/rules.dart';
 import 'logic/scoring.dart';
 import 'chip_widget.dart';
-import 'loading_widget.dart';
+import 'game_over_widget.dart';
 
 class _GamePageInherited extends InheritedWidget {
   _GamePageInherited({
@@ -378,8 +378,12 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
       _started = DateTime.now();
       _timerDelay = 1000 ~/ _refreshRate;
       _updateTime();
-      Get.find<SoundUtils>().playSoundEffect(
-        SoundEffect.LongCardShuffle);
+
+      final soundUtils = Get.find<SoundUtils>();
+      soundUtils.playSoundEffect(
+        SoundEffect.ShortCardShuffle).then(
+          (c) async => await soundUtils.playSoundTrack(SoundTrack.GuitarMusic)
+      );
     });
   }
 
@@ -395,9 +399,15 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
       if (!_paused) {
         Duration difference = _rightNow.difference(_started);
         _elapsed = difference.inSeconds - _totalPaused;
+        if (countDown <= 0) {
+          final soundUtils = Get.find<SoundUtils>();
+          soundUtils.playSoundTrack(SoundTrack.EndMusic);
+          Get.close(1);
+          Get.to(GameOverWidget());
+        }
       }
-      // Update once per second, but make sure to do it at the beginning of each
-      // new second, so that the clock is accurate.
+      // Update once per second, but make sure to do it at the beginning
+      // of each new second, so that the clock is accurate.
       _timer = Timer(
         Duration(milliseconds: _timerDelay),
         _updateTime,
@@ -407,9 +417,6 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return new _GamePageInherited(
-      data: this,
-      child: countDown > 0 ? widget.child : GameOverWidget()
-    );
+    return new _GamePageInherited(data: this, child: widget.child);
   }
 }

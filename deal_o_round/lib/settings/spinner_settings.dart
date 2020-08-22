@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spinner_input/spinner_input.dart';
+import '../services/settings_constants.dart';
+import '../services/sound.dart';
 
 class SpinnerSettings extends StatefulWidget {
   final double minValue;
@@ -89,6 +91,10 @@ class _SpinnerSettingsState extends State<SpinnerSettings> {
         setState(() {
           doubleValue = newValue;
           _prefs.setDouble(valueTag, newValue);
+          if (valueTag == VOLUME) {
+            final soundUtils = Get.find<SoundUtils>();
+            soundUtils.updateVolume(newValue);
+          }
         });
       }
     );
