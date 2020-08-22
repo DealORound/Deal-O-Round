@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:games_services/games_services.dart';
 import 'package:get/get.dart';
+import 'package:universal_platform/universal_platform.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../game/game_page.dart';
 import '../game/game_widget.dart';
@@ -37,7 +39,17 @@ class HomeCenter extends StatelessWidget {
                 ButtonTheme(
                   minWidth: buttonWidth,
                   child: RaisedButton.icon(
-                    onPressed: () => debugPrint('Login!'),
+                    onPressed: () async {
+                      if (UniversalPlatform.isAndroid || UniversalPlatform.isIOS) {
+                        await GamesServices.signIn();
+                      } else {
+                        Get.snackbar(
+                          "Sign In",
+                          "Game Services is only available on Android and " +
+                          "Game Center is only available on iOS"
+                        );
+                      }
+                    },
                     color: Colors.green,
                     textColor: Colors.white,
                     shape: buttonShape,
@@ -50,7 +62,16 @@ class HomeCenter extends StatelessWidget {
                 ButtonTheme(
                   minWidth: buttonWidth,
                   child: RaisedButton.icon(
-                    onPressed: () => debugPrint('Scores!'),
+                    onPressed: () async {
+                      if (UniversalPlatform.isAndroid || UniversalPlatform.isIOS) {
+                        await GamesServices.showLeaderboards();
+                      } else {
+                        Get.snackbar(
+                          "Scores",
+                          "Only available on Android or iOS devices"
+                        );
+                      }
+                    },
                     color: Colors.green,
                     textColor: Colors.white,
                     shape: buttonShape,
