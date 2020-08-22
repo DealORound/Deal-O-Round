@@ -66,8 +66,6 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   Board _board;
   Rules _rules;
   int _elapsed;
-  double _refreshRate;
-  int _timerDelay;
   bool _inGesture;
   Point<int> _firstTouched;
   Point<int> _lastFlipped;
@@ -364,7 +362,6 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     _rules = Rules();
     _score = 0;
     _selection = List<Point<int>>();
-    _refreshRate = 60;
     _elapsed = 0;
     _info = "-";
     _inGesture = false;
@@ -379,13 +376,11 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
         BoardLayout.values,
         _prefs.getString(BOARD_LAYOUT)
     );
-    _refreshRate = _prefs.getDouble(REFRESH_RATE);
     _countDown = _levelManager.getCurrentLevelTimeLimit(_difficulty);
     _nextLevel = _levelManager.getCurrentLevelScoreLimit(_difficulty);
     _level = _levelManager.getCurrentLevelIndex();
     _board = Board(layout: _layout, size: boardSize);
     _started = DateTime.now();
-    _timerDelay = 1000 ~/ _refreshRate;
     _updateTime();
 
     final soundUtils = Get.find<SoundUtils>();
