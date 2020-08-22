@@ -15,7 +15,6 @@ class GameBoard extends StatelessWidget {
   }
 
   Row getColumns(Board board) {
-    debugPrint("redraw");
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,

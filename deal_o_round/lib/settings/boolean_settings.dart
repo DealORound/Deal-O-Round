@@ -54,11 +54,9 @@ class _BooleanSettingsState extends State<BooleanSettings> {
         inactiveThumbColor: Colors.red,
         inactiveTrackColor: Colors.brown,
         onChanged: (newValue) {
-          debugPrint("onChanged $valueTag $newValue");
           setState(() {
             booleanValue = newValue;
             _prefs.setBool(valueTag, newValue);
-            debugPrint("setState $valueTag $newValue");
             final soundUtils = Get.find<SoundUtils>();
             if (valueTag == SOUND_EFFECTS) {
               if (newValue) {
