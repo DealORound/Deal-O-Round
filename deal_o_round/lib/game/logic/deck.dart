@@ -12,7 +12,10 @@ class Deck {
     final valueLimit = includeJokers ? 14 : 13;
     for (int suitIndex = 0; suitIndex < 4; suitIndex++) {
       for (int valueIndex = 0; valueIndex < valueLimit; valueIndex++) {
-        deck.add(PlayCard(suit: Suit.values[suitIndex], value: Value.values[valueIndex]));
+        deck.add(PlayCard(
+          suit: Suit.values[suitIndex],
+          value: Value.values[valueIndex]
+        ));
       }
     }
     cardsUsed = 0;
