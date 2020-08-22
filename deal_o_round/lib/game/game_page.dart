@@ -175,19 +175,21 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   }
 
   clearSelection() {
-    for (var cell in _selection) {
-      _board.board[cell.x][cell.y].selected = false;
-    }
-    if (_difficulty == Difficulty.Easy) {
-      for (var x in indexes) {
-        final ixs = (_layout == BoardLayout.Hexagonal && x % 2 == 0) ?
+    setState(() {
+      for (var cell in _selection) {
+        _board.board[cell.x][cell.y].selected = false;
+      }
+      if (_difficulty == Difficulty.Easy) {
+        for (var x in indexes) {
+          final ixs = (_layout == BoardLayout.Hexagonal && x % 2 == 0) ?
           indexesEven : indexes;
-        for (var y in ixs) {
-          _board.board[x][y].neighbor = false;
+          for (var y in ixs) {
+            _board.board[x][y].neighbor = false;
+          }
         }
       }
-    }
-    _selection.clear();
+      _selection.clear();
+    });
   }
 
   List<Scoring> getSelectedHands() {
@@ -262,26 +264,30 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
                 clearSelection();
               }
             }
-            _selection.add(cell);
+            setState(() {
+              _selection.add(cell);
+            });
             shouldAdjust = true;
           }
           if (shouldAdjust) {
-            _board.board[cell.x][cell.y].selected = !selected;
-            if (_difficulty == Difficulty.Easy) {
-              if (neighbors == null) {
-                neighbors = getNeighbors(cell);
+            setState(() {
+              _board.board[cell.x][cell.y].selected = !selected;
+              if (_difficulty == Difficulty.Easy) {
+                if (neighbors == null) {
+                  neighbors = getNeighbors(cell);
+                }
+                correctNeighbors(neighbors);
               }
-              correctNeighbors(neighbors);
-            }
-            _lastFlipped = cell;
+              _lastFlipped = cell;
 
-            // Update info
-            List<Scoring> hands = getSelectedHands();
-            if (hands.length > 0) {
-              _info = hands[0].toStringDisplay();
-            } else {
-              _info = "-";
-            }
+              // Update info
+              List<Scoring> hands = getSelectedHands();
+              if (hands.length > 0) {
+                _info = hands[0].toStringDisplay();
+              } else {
+                _info = "-";
+              }
+            });
           }
         }
       }
@@ -307,23 +313,27 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     if (_selection.length >= 2 && countDown > 0) {
       List<Scoring> hands = getSelectedHands();
       if (hands.length > 0) {
-        clear = false;
-        Scoring hand = hands.first;
-        _score += hand.score();
-        _countDown += getTimeBonus(hand.handClass);
-        while (_score > _nextLevel) {
-          _levelManager.advanceLevel();
-          _level = _levelManager.getCurrentLevelIndex();
-          _countDown += _levelManager.getCurrentLevelTimeLimit(_difficulty);
-          _nextLevel += _levelManager.getCurrentLevelScoreLimit(_difficulty);
-        }
+        setState(() {
+          clear = false;
+          Scoring hand = hands.first;
+          _score += hand.score();
+          _countDown += getTimeBonus(hand.handClass);
+          while (_score > _nextLevel) {
+            _levelManager.advanceLevel();
+            _level = _levelManager.getCurrentLevelIndex();
+            _countDown += _levelManager.getCurrentLevelTimeLimit(_difficulty);
+            _nextLevel += _levelManager.getCurrentLevelScoreLimit(_difficulty);
+          }
+        });
         await removeHand();
       }
     }
     if (clear) {
       clearSelection();
     }
-    _info = (countDown > 0) ? "-" : "Game ended";
+    setState(() {
+      _info = "-";
+    });
   }
 
   onPointerDown(PointerEvent details) async {
@@ -361,30 +371,28 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     _paused = false;
     _totalPaused = 0;
     _prefs = Get.find<SharedPreferences>();
-    setState(() {
-      _difficulty = enumFromString(
-        Difficulty.values,
-        _prefs.getString(DIFFICULTY)
-      );
-      _layout = enumFromString(
-          BoardLayout.values,
-          _prefs.getString(BOARD_LAYOUT)
-      );
-      _refreshRate = _prefs.getDouble(REFRESH_RATE);
-      _countDown = _levelManager.getCurrentLevelTimeLimit(_difficulty);
-      _nextLevel = _levelManager.getCurrentLevelScoreLimit(_difficulty);
-      _level = _levelManager.getCurrentLevelIndex();
-      _board = Board(layout: _layout, size: boardSize);
-      _started = DateTime.now();
-      _timerDelay = 1000 ~/ _refreshRate;
-      _updateTime();
+    _difficulty = enumFromString(
+      Difficulty.values,
+      _prefs.getString(DIFFICULTY)
+    );
+    _layout = enumFromString(
+        BoardLayout.values,
+        _prefs.getString(BOARD_LAYOUT)
+    );
+    _refreshRate = _prefs.getDouble(REFRESH_RATE);
+    _countDown = _levelManager.getCurrentLevelTimeLimit(_difficulty);
+    _nextLevel = _levelManager.getCurrentLevelScoreLimit(_difficulty);
+    _level = _levelManager.getCurrentLevelIndex();
+    _board = Board(layout: _layout, size: boardSize);
+    _started = DateTime.now();
+    _timerDelay = 1000 ~/ _refreshRate;
+    _updateTime();
 
-      final soundUtils = Get.find<SoundUtils>();
-      soundUtils.playSoundEffect(
-        SoundEffect.ShortCardShuffle).then(
-          (c) async => await soundUtils.playSoundTrack(SoundTrack.GuitarMusic)
-      );
-    });
+    final soundUtils = Get.find<SoundUtils>();
+    soundUtils.playSoundEffect(
+      SoundEffect.ShortCardShuffle).then(
+        (c) async => await soundUtils.playSoundTrack(SoundTrack.GuitarMusic)
+    );
   }
 
   @override
@@ -409,7 +417,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
       // Update once per second, but make sure to do it at the beginning
       // of each new second, so that the clock is accurate.
       _timer = Timer(
-        Duration(milliseconds: _timerDelay),
+        Duration(milliseconds: 1000 - _rightNow.millisecond),
         _updateTime,
       );
     });
