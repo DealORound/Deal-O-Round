@@ -222,71 +222,69 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
         _swipeGesture = true;
       }
       // debugPrint("c $cell, l $_lastFlipped");
-      if (cell.x != _lastFlipped.x || cell.y != _lastFlipped.y) {
+      if ((cell.x != _lastFlipped.x || cell.y != _lastFlipped.y) && _selection.length < 5) {
         bool selected = _board.board[cell.x][cell.y].selected;
-        if (selected || _selection.length < 5) {
-          bool shouldAdjust = false;
-          List<Point<int>> neighbors;
-          if (selected) {
-            if (!_swipeGesture) {
-              assert(_selection.length > 0);
-              // Check if the remaining selection is adjacent
-              _selection.remove(cell);
-              shouldAdjust = true;
-              // Don't check if the removed chip was at a tip of a selection
-              if (_selection.length > 1) {
-                neighbors = getNeighbors(cell);
-                if (neighbors.length > 1) {
-                  List<int> vs = neighbors.map((c) =>
-                  getNeighbors(c).length).toList();
-                  int vProd = vs.fold(1, (f, n) => f * n);
-                  // If any selected don't have selected neighbors OR
-                  // If more than 2 selected but there are no selection with
-                  // 2 or more neighbors (vProd < 2) OR
-                  // If 4 selected and there are more than two with 1 neighbor
-                  if (vProd == 0 || neighbors.length >= 3 && vProd < 2 ||
-                      neighbors.length == 4 &&
-                          vs.fold(0, (f, n) => f + (n == 1 ? 1 : 0)) > 2)
-                  {
-                    clearSelection();
-                  }
-                }
-              }
-            }
-          } else {
-            if (_selection.length > 0) {
-              // There were already some selected
-              // Deselect them if the new selection is not adjacent
-              neighbors = getNeighbors(cell);
-              if (!hasSelected(neighbors)) {
-                clearSelection();
-              }
-            }
-            setState(() {
-              _selection.add(cell);
-            });
+        bool shouldAdjust = false;
+        List<Point<int>> neighbors;
+        if (selected) {
+          if (!_swipeGesture) {
+            assert(_selection.length > 0);
+            // Check if the remaining selection is adjacent
+            _selection.remove(cell);
             shouldAdjust = true;
-          }
-          if (shouldAdjust) {
-            setState(() {
-              _board.board[cell.x][cell.y].selected = !selected;
-              if (_difficulty == Difficulty.Easy) {
-                if (neighbors == null) {
-                  neighbors = getNeighbors(cell);
+            // Don't check if the removed chip was at a tip of a selection
+            if (_selection.length > 1) {
+              neighbors = getNeighbors(cell);
+              if (neighbors.length > 1) {
+                List<int> vs = neighbors.map((c) =>
+                getNeighbors(c).length).toList();
+                int vProd = vs.fold(1, (f, n) => f * n);
+                // If any selected don't have selected neighbors OR
+                // If more than 2 selected but there are no selection with
+                // 2 or more neighbors (vProd < 2) OR
+                // If 4 selected and there are more than two with 1 neighbor
+                if (vProd == 0 || neighbors.length >= 3 && vProd < 2 ||
+                    neighbors.length == 4 &&
+                        vs.fold(0, (f, n) => f + (n == 1 ? 1 : 0)) > 2)
+                {
+                  clearSelection();
                 }
-                correctNeighbors(neighbors);
               }
-              _lastFlipped = cell;
-
-              // Update info
-              List<Scoring> hands = getSelectedHands();
-              if (hands.length > 0) {
-                _info = hands[0].toStringDisplay();
-              } else {
-                _info = "-";
-              }
-            });
+            }
           }
+        } else {
+          if (_selection.length > 0) {
+            // There were already some selected
+            // Deselect them if the new selection is not adjacent
+            neighbors = getNeighbors(cell);
+            if (!hasSelected(neighbors)) {
+              clearSelection();
+            }
+          }
+          setState(() {
+            _selection.add(cell);
+          });
+          shouldAdjust = true;
+        }
+        if (shouldAdjust) {
+          setState(() {
+            _board.board[cell.x][cell.y].selected = !selected;
+            if (_difficulty == Difficulty.Easy) {
+              if (neighbors == null) {
+                neighbors = getNeighbors(cell);
+              }
+              correctNeighbors(neighbors);
+            }
+            _lastFlipped = cell;
+
+            // Update info
+            List<Scoring> hands = getSelectedHands();
+            if (hands.length > 0) {
+              _info = hands[0].toStringDisplay();
+            } else {
+              _info = "-";
+            }
+          });
         }
       }
     }
@@ -347,7 +345,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
 
   onPointerUp(PointerEvent details) async {
     hitTest(details, "onPointerDown");
-    if (_inGesture) {
+    if (_inGesture && _swipeGesture) {
       await evaluateAndProcessHand();
     }
     _inGesture = false;
