@@ -34,7 +34,7 @@ const handDisplayStrings = [
   "Full house",
   "Four of a kind",
   "Straight Flush",
-  "FiveOfAKind",
+  "Five of a kind",
   "Invalid"
 ];
 

@@ -2104,6 +2104,29 @@ main() {
     }
   });
 
+  // Tests for 5 card combinations
+
+  test('Five of a kind worth the right points', () async {
+    for(Value value in Value.values) {
+      if (value.index < 13) {
+        final hand = [
+          PlayCard(suit: Suit.Clubs, value: value),
+          PlayCard(suit: Suit.Diamonds, value: value),
+          PlayCard(suit: Suit.Spades, value: value),
+          PlayCard(suit: Suit.Hearts, value: value),
+          PlayCard(suit: Suit.Clubs, value: value)
+        ];
+        int offset = offsetRank(hand[0]);
+        assertCombination(RuleTestInput(hand: hand,
+            subHandDrillDownLevel: 0,
+            expectedScore: 10000 + offset));
+        assertCombination(RuleTestInput(hand: hand,
+            subHandDrillDownLevel: 4,
+            expectedScore: 10000 + offset));
+      }
+    }
+  });
+
   test('Flush of 5 worth the right points', () async {
     // Basis case
     for(Suit suit in Suit.values) {

@@ -184,6 +184,15 @@ class Rules {
       return;
     }
 
+    if (hand[0].value == hand[1].value &&
+        hand[1].value == hand[2].value &&
+        hand[2].value == hand[3].value &&
+        hand[3].value == hand[4].value)
+    {
+      // Five of a kind
+      addToResults(results, Scoring(handClass: HandClass.FiveOfAKind, lowCard: hand[0], handDigest: getHandDigest(hand, fast)), fast);
+    }
+
     hand.sort((hi, hj) => hi.value.index.compareTo(hj.value.index));
     /*if (hand[1].getValue() == hand[2].getValue() &&
 			hand[2].getValue() == hand[3].getValue() &&

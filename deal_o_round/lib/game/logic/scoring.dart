@@ -50,6 +50,7 @@ class Scoring {
           highCard.suit.toString().split('.').last + ", " + valueDisplay(highCard.value) + " and up"; break;
       case HandClass.FourOfAKind: displayStr += lowCardValueString; break;
       case HandClass.StraightFlush5: displayStr += "$suitString, $lowCardValueString and up"; break;
+      case HandClass.FiveOfAKind: displayStr += lowCardValueString; break;
       default: break;
     }
     return displayStr;

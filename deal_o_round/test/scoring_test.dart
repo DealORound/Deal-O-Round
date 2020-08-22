@@ -720,6 +720,21 @@ main() {
 
   // tests for hands of 5 cards
 
+  test('Five of a kind to display', () async {
+    for(Value value in Value.values) {
+      if (value.index < 13) {
+        final hand = [
+          PlayCard(suit: Suit.Clubs, value: value),
+          PlayCard(suit: Suit.Diamonds, value: value),
+          PlayCard(suit: Suit.Spades, value: value),
+          PlayCard(suit: Suit.Hearts, value: value),
+          PlayCard(suit: Suit.Clubs, value: value)
+        ];
+        toDisplayHand(hand, HandClass.FiveOfAKind);
+      }
+    }
+  });
+
   test('Flush of 5 to display', () async {
     // Basis case
     for(Suit suit in Suit.values) {
