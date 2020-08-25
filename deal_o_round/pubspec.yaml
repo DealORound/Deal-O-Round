@@ -1,4 +1,4 @@
-name: Deal-O-Round
+name: deal_o_round
 description: Flutter port of the deprecated PlayN based Deal-O-Round game.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
