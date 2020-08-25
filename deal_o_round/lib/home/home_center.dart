@@ -41,7 +41,15 @@ class HomeCenter extends StatelessWidget {
                   child: RaisedButton.icon(
                     onPressed: () async {
                       if (UniversalPlatform.isAndroid || UniversalPlatform.isIOS) {
-                        await GamesServices.signIn();
+                        try {
+                          await GamesServices.signIn();
+                        }
+                        catch(e) {
+                          Get.snackbar(
+                            "Error",
+                            "Could not sign in (${e.toString()})"
+                          );
+                        }
                       } else {
                         Get.snackbar(
                           "Sign In",
@@ -64,7 +72,15 @@ class HomeCenter extends StatelessWidget {
                   child: RaisedButton.icon(
                     onPressed: () async {
                       if (UniversalPlatform.isAndroid || UniversalPlatform.isIOS) {
-                        await GamesServices.showLeaderboards();
+                        try {
+                          await GamesServices.showLeaderboards();
+                        }
+                        catch(e) {
+                          Get.snackbar(
+                            "Error",
+                            "Could not fetch leaderboard (${e.toString()})"
+                          );
+                        }
                       } else {
                         Get.snackbar(
                           "Scores",
