@@ -1,4 +1,4 @@
-package dev.csaba.deal_o_round
+package com.dealoround.android
 
 import io.flutter.embedding.android.FlutterActivity
 
