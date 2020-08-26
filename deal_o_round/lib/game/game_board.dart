@@ -61,7 +61,7 @@ class GameBoard extends StatelessWidget {
         width: size,
         height: size,
         child: state.paused ?
-        Center(child: Text("Paused...", style: textStyle)) :
+        Center(child: Text("Paused\u{2026}", style: textStyle)) :
         Listener(
           onPointerDown: (PointerEvent details) => state.onPointerDown(details),
           onPointerMove: (PointerEvent details) => state.onPointerMove(details),
