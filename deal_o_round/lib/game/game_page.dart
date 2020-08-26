@@ -96,7 +96,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     }
     if (_paused) {
       Duration difference = _rightNow.difference(_pauseStarted);
-      _totalPaused += difference.inSeconds;
+      _totalPaused += difference.inSeconds + 1;
     } else {
       _pauseStarted = DateTime.now();
     }
