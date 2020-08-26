@@ -217,7 +217,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     if (dX * dX + dY * dY < radius * radius) {
       if (_firstTouched.x == -1) {
         _firstTouched = cell;
-      } else if (cell.x != _firstTouched.x && cell.y != _firstTouched.y) {
+      } else if (cell.x != _firstTouched.x || cell.y != _firstTouched.y) {
         _swipeGesture = true;
       }
       debugPrint("c $cell, l $_lastFlipped");
