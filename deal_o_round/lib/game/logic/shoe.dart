@@ -10,7 +10,7 @@ class Shoe {
   Shoe(int deckCount) {
     decks = List<Deck>();
     for (int i = 0; i < deckCount; i++) {
-      decks.add(Deck());
+      decks.add(Deck(index: i));
     }
     decksUsed = 0;
   }

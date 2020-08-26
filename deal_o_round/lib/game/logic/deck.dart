@@ -6,15 +6,17 @@ class Deck {
   List<PlayCard> deck;
   int cardsUsed;
   final bool includeJokers;
+  final index;
 
-  Deck({this.includeJokers: false}) {
+  Deck({this.includeJokers: false, this.index}) {
     deck = List<PlayCard>();
     final valueLimit = includeJokers ? 14 : 13;
     for (int suitIndex = 0; suitIndex < 4; suitIndex++) {
       for (int valueIndex = 0; valueIndex < valueLimit; valueIndex++) {
         deck.add(PlayCard(
           suit: Suit.values[suitIndex],
-          value: Value.values[valueIndex]
+          value: Value.values[valueIndex],
+          deck: index,
         ));
       }
     }
