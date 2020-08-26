@@ -23,8 +23,7 @@ class Rules {
     return handString.toString();
   }
 
-  bool addToResults(List<Scoring> results, Scoring scoring, bool fast)
-  {
+  bool addToResults(List<Scoring> results, Scoring scoring, bool fast) {
     if (!fast) {
       for (Scoring result in results) {
         if (result.score() != scoring.score()) {
@@ -56,7 +55,7 @@ class Rules {
 
   // Accessing directly for testing only
   List<Scoring> rankHand(List<PlayCard> cards, int subHandDrillDown, bool shouldClone, bool bestOnTop, bool fast) {
-    List<Scoring> results = new List<Scoring>();
+    final results = List<Scoring>();
 
     if (cards == null) {
       return results;
@@ -213,18 +212,18 @@ class Rules {
       // It's a straight
       if (flush) {
         // It's a flush too, making it a straight flush
-        addToResults(results, new Scoring(handClass: HandClass.StraightFlush5, lowCard: possibleWheel ? hand[1] : hand[0], handDigest: getHandDigest(hand, fast)), fast);
+        addToResults(results, Scoring(handClass: HandClass.StraightFlush5, lowCard: possibleWheel ? hand[1] : hand[0], handDigest: getHandDigest(hand, fast)), fast);
       }
-      addToResults(results, new Scoring(handClass: HandClass.Straight5, lowCard: possibleWheel ? hand[1] : hand[0], handDigest: getHandDigest(hand, fast)), fast);
+      addToResults(results, Scoring(handClass: HandClass.Straight5, lowCard: possibleWheel ? hand[1] : hand[0], handDigest: getHandDigest(hand, fast)), fast);
     }
     if (flush) {
-      addToResults(results, new Scoring(handClass: HandClass.Flush5, lowCard: hand[0], handDigest: getHandDigest(hand, fast)), fast);
+      addToResults(results, Scoring(handClass: HandClass.Flush5, lowCard: hand[0], handDigest: getHandDigest(hand, fast)), fast);
     }
     // Look for full house
     if (hand[0].value == hand[1].value && hand[3].value == hand[4].value &&
         (hand[1].value == hand[2].value || hand[2].value == hand[3].value))
     {
-      addToResults(results, new Scoring(handClass: HandClass.FullHouse, lowCard: hand[0], highCard: hand[4], handDigest: getHandDigest(hand, fast)), fast);
+      addToResults(results, Scoring(handClass: HandClass.FullHouse, lowCard: hand[0], highCard: hand[4], handDigest: getHandDigest(hand, fast)), fast);
     }
 
     // Check maybe four card combinations

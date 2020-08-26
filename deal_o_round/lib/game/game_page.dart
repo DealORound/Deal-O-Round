@@ -441,6 +441,6 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return new _GamePageInherited(data: this, child: widget.child);
+    return _GamePageInherited(data: this, child: widget.child);
   }
 }
