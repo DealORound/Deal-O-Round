@@ -8,29 +8,79 @@ import 'game_page.dart';
 
 class GameBoard extends StatelessWidget {
   Column getColumn(List<PlayCard> column, int index, BoardLayout layout,
-      double radius)
+      GlobalKey<AnimatedListState> listKey, double diameter)
   {
-    final key = column.map((c) => c.toString()).toList().join('_');
-    final items = column.map((c) => ChipWidget(card: c) as Widget).toList();
+    var height = 0.0;
+    var itemCount = GameState.boardSize;
     if (index % 2 == 0 && layout == BoardLayout.Hexagonal) {
-      items.add(SizedBox(height: radius));
+      height = diameter / 2;
+      itemCount--;
     }
     return Column(
-      key: Key(key),
       mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: items
+      children: [
+        SizedBox(
+          height: itemCount * diameter,
+          width: diameter,
+          child: AnimatedList(
+            key: listKey,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index, animation) =>
+              slideIt(context, index, animation, column),
+          )
+        ),
+        SizedBox(height: height, width: diameter)
+      ]
     );
   }
 
-  Row getColumns(Board board, BoardLayout layout, double radius) {
+  Widget slideIt(BuildContext context, int index, animation,
+      List<PlayCard> column)
+  {
+    // debugPrint("slideIt $index ${column.length}");
+    if (index > column.length - 1) {
+      return SizedBox(width: 40, height: 0);
+    }
+
+    final card = column[index];
+    return SlideTransition(
+      position: Tween<Offset>(
+        begin: const Offset(0, -1),
+        end: Offset(0, 0),
+      ).animate(CurvedAnimation(
+        parent: animation,
+        curve: Curves.easeInOut,
+        reverseCurve: Curves.easeInOutBack)
+      ),
+      child: RotationTransition(
+        turns: animation,
+        child: SizeTransition(
+          axis: Axis.vertical,
+          sizeFactor: animation,
+          child: ChipWidget(key: Key(card.toString()), card: card),
+        ),
+      )
+    );
+    /*
+    return RotationTransition(
+      turns: animation,
+      child: ChipWidget(key: Key(card.toString()), card: card),
+    );
+   */
+  }
+
+  Row getColumns(Board board, BoardLayout layout,
+      List<GlobalKey<AnimatedListState>> listKeys, double diameter)
+  {
     List<Widget> columns = [];
     board.board.asMap().forEach((index, column) =>
-      columns.add(getColumn(column, index, layout, radius))
+      columns.add(getColumn(column, index, layout, listKeys[index], diameter))
     );
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: columns
     );
   }
@@ -49,9 +99,9 @@ class GameBoard extends StatelessWidget {
     final diameter = chipSize(context);
     final size = diameter * GameState.boardSize;
     final textStyle = TextStyle(
-        fontSize: diameter * 0.4,  // ~32
-        fontFamily: 'Roboto Condensed',
-        color: Colors.white
+      fontSize: diameter * 0.4,  // ~32
+      fontFamily: 'Roboto Condensed',
+      color: Colors.white
     );
 
     return Container(
@@ -66,7 +116,7 @@ class GameBoard extends StatelessWidget {
           onPointerDown: (PointerEvent details) => state.onPointerDown(details),
           onPointerMove: (PointerEvent details) => state.onPointerMove(details),
           onPointerUp: (PointerEvent details) => state.onPointerUp(details),
-          child: getColumns(state.board, state.layout, diameter / 2)
+          child: getColumns(state.board, state.layout, state.listKeys, diameter)
         )
       )
     );

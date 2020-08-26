@@ -76,6 +76,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   int _totalPaused;
   final indexes = Iterable<int>.generate(boardSize).toList();
   final indexesEven = Iterable<int>.generate(boardSize - 1).toList();
+  List<GlobalKey<AnimatedListState>> _listKeys;
 
   DateTime get rightNow => _rightNow;
   int get countDown => max(_countDown - _elapsed, 0);
@@ -87,6 +88,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   String get info => _info;
   bool get paused => _paused;
   BoardLayout get layout => _layout;
+  List<GlobalKey<AnimatedListState>> get listKeys => _listKeys;
 
   togglePause() {
     if (countDown <= 0) {
@@ -108,7 +110,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     debugPrint('Spin!');
   }
 
-  List<Point<int>> getNeighbors(Point<int> cell) {
+  List<Point<int>> _getNeighbors(Point<int> cell) {
     final neighbors = List<Point<int>>();
     if (cell.y > 0) {
       neighbors.add(Point(cell.x, cell.y - 1));
@@ -161,19 +163,19 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     return neighbors;
   }
 
-  bool hasSelected(List<Point<int>> cells) {
+  bool _hasSelected(List<Point<int>> cells) {
     return cells.fold(false, (f, n) => f || _board.board[n.x][n.y].selected);
   }
 
-  correctNeighbors(List<Point<int>> neighbors) {
+  _correctNeighbors(List<Point<int>> neighbors) {
     for (Point<int> neighbor in neighbors) {
-      final neighborsOfNeighbor = getNeighbors(neighbor);
+      final neighborsOfNeighbor = _getNeighbors(neighbor);
       _board.board[neighbor.x][neighbor.y].neighbor =
-          hasSelected(neighborsOfNeighbor);
+        _hasSelected(neighborsOfNeighbor);
     }
   }
 
-  clearSelection() {
+  _clearSelection() {
     setState(() {
       for (var cell in _selection) {
         _board.board[cell.x][cell.y].selected = false;
@@ -181,7 +183,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
       if (_difficulty == Difficulty.Easy) {
         for (var x in indexes) {
           final ixs = (_layout == BoardLayout.Hexagonal && x % 2 == 0) ?
-          indexesEven : indexes;
+            indexesEven : indexes;
           for (var y in ixs) {
             _board.board[x][y].neighbor = false;
           }
@@ -191,16 +193,13 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     });
   }
 
-  List<Scoring> getSelectedHands() {
+  List<Scoring> _getSelectedHands() {
     List<PlayCard> cards = _selection.map((s) =>
       _board.board[s.x][s.y]).toList();
     return _rules.rankHand(cards, 0, false, true, true);
   }
 
-  hitTest(PointerEvent details, String tag) {
-    // final dxStr = details.localPosition.dx.toString();
-    // final dyStr = details.localPosition.dy.toString();
-    // debugPrint("$tag $dxStr, $dyStr; $_swipeGesture");
+  _hitTest(PointerEvent details) {
     if (!_inGesture) {
       return;
     }
@@ -221,7 +220,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
       } else if (cell.x != _firstTouched.x && cell.y != _firstTouched.y) {
         _swipeGesture = true;
       }
-      // debugPrint("c $cell, l $_lastFlipped");
+      debugPrint("c $cell, l $_lastFlipped");
       if ((cell.x != _lastFlipped.x || cell.y != _lastFlipped.y) && _selection.length < 5) {
         bool selected = _board.board[cell.x][cell.y].selected;
         bool shouldAdjust = false;
@@ -234,10 +233,10 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
             shouldAdjust = true;
             // Don't check if the removed chip was at a tip of a selection
             if (_selection.length > 1) {
-              neighbors = getNeighbors(cell);
+              neighbors = _getNeighbors(cell);
               if (neighbors.length > 1) {
                 List<int> vs = neighbors.map((c) =>
-                getNeighbors(c).length).toList();
+                _getNeighbors(c).length).toList();
                 int vProd = vs.fold(1, (f, n) => f * n);
                 // If any selected don't have selected neighbors OR
                 // If more than 2 selected but there are no selection with
@@ -247,7 +246,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
                     neighbors.length == 4 &&
                         vs.fold(0, (f, n) => f + (n == 1 ? 1 : 0)) > 2)
                 {
-                  clearSelection();
+                  _clearSelection();
                 }
               }
             }
@@ -256,9 +255,9 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
           if (_selection.length > 0) {
             // There were already some selected
             // Deselect them if the new selection is not adjacent
-            neighbors = getNeighbors(cell);
-            if (!hasSelected(neighbors)) {
-              clearSelection();
+            neighbors = _getNeighbors(cell);
+            if (!_hasSelected(neighbors)) {
+              _clearSelection();
             }
           }
           setState(() {
@@ -268,17 +267,18 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
         }
         if (shouldAdjust) {
           setState(() {
+            debugPrint("sel ${cell.x} ${cell.y} ${!selected}");
             _board.board[cell.x][cell.y].selected = !selected;
             if (_difficulty == Difficulty.Easy) {
               if (neighbors == null) {
-                neighbors = getNeighbors(cell);
+                neighbors = _getNeighbors(cell);
               }
-              correctNeighbors(neighbors);
+              _correctNeighbors(neighbors);
             }
             _lastFlipped = cell;
 
             // Update info
-            List<Scoring> hands = getSelectedHands();
+            List<Scoring> hands = _getSelectedHands();
             if (hands.length > 0) {
               _info = hands[0].toStringDisplay();
             } else {
@@ -290,14 +290,15 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     }
   }
 
-  removeHand() async {
+  _removeHand() async {
     await Get.find<SoundUtils>().playSoundEffect(
       SoundEffect.PokerChips);
 
     setState(() {
+      // TODO: animate removal and insertion (we have the _listKeys here)
       _board.removeHand();
       _selection.clear();
-      clearSelection();
+      _clearSelection();
     });
   }
 
@@ -307,7 +308,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     }
     bool clear = true;
     if (_selection.length >= 2 && countDown > 0) {
-      List<Scoring> hands = getSelectedHands();
+      List<Scoring> hands = _getSelectedHands();
       if (hands.length > 0) {
         setState(() {
           clear = false;
@@ -321,11 +322,11 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
             _nextLevel += _levelManager.getCurrentLevelScoreLimit(_difficulty);
           }
         });
-        await removeHand();
+        await _removeHand();
       }
     }
     if (clear) {
-      clearSelection();
+      _clearSelection();
     }
     setState(() {
       _info = "-";
@@ -337,15 +338,15 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     _swipeGesture = false;
     _firstTouched = Point<int>(-1, -1);
     _lastFlipped = Point<int>(-1, -1);
-    hitTest(details, "onPointerDown");
+    _hitTest(details);
   }
 
   onPointerMove(PointerEvent details) async {
-    hitTest(details, "onPointerMove");
+    _hitTest(details);
   }
 
   onPointerUp(PointerEvent details) async {
-    hitTest(details, "onPointerDown");
+    _hitTest(details);
     if (_inGesture && _swipeGesture) {
       await evaluateAndProcessHand();
     }
@@ -379,14 +380,35 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     _nextLevel = _levelManager.getCurrentLevelScoreLimit(_difficulty);
     _level = _levelManager.getCurrentLevelIndex();
     _board = Board(layout: _layout, size: boardSize);
-    _started = DateTime.now();
-    _updateTime();
+    _listKeys = indexes.map((i) => GlobalKey<AnimatedListState>()).toList();
+    _populateBoard();
 
     final soundUtils = Get.find<SoundUtils>();
     soundUtils.playSoundEffect(
       SoundEffect.ShortCardShuffle).then(
         (c) async => await soundUtils.playSoundTrack(SoundTrack.GuitarMusic)
     );
+  }
+
+  void _populateBoard() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      var future = Future(() {});
+      for (int i = 0; i < boardSize; i++) {
+        future = future.then((_) {
+          return Future.delayed(Duration(milliseconds: 200), () {
+            for (int j = 0; j < boardSize; j++) {
+              if (i < boardSize - 1 || j % 2 == 1 || layout == BoardLayout.Square) {
+                _listKeys[j].currentState.insertItem(i);
+              }
+            }
+            if (i == boardSize - 1) {
+              _started = DateTime.now();
+              _updateTime();
+            }
+          });
+        });
+      }
+    });
   }
 
   @override

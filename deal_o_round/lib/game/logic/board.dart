@@ -33,7 +33,7 @@ class Board {
   }
 
   removeHand() {
-    // TODO: animate remove cards
+    // TODO: animate removal and insertion of cards; needs _listKeys
     /*
     // Step 1: bubble the removed cards to the top
     for (var x in indexes) {
