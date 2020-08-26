@@ -334,6 +334,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
 
   onPointerDown(PointerEvent details) async {
     _inGesture = true;
+    _swipeGesture = false;
     _firstTouched = Point<int>(-1, -1);
     _lastFlipped = Point<int>(-1, -1);
     hitTest(details, "onPointerDown");
