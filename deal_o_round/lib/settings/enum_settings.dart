@@ -9,21 +9,16 @@ class EnumSettings<T> extends StatefulWidget {
   final String valueTag;
   final TextStyle textStyle;
 
-  const EnumSettings({
-    Key key,
-    this.values,
-    this.defaultValue,
-    this.valueTag,
-    this.textStyle
-  }) : super(key: key);
+  const EnumSettings(
+      {Key key, this.values, this.defaultValue, this.valueTag, this.textStyle})
+      : super(key: key);
 
   @override
   _EnumSettingsState createState() => _EnumSettingsState<T>(
-    values: values,
-    enumValue: defaultValue,
-    valueTag: valueTag,
-    textStyle: textStyle
-  );
+      values: values,
+      enumValue: defaultValue,
+      valueTag: valueTag,
+      textStyle: textStyle);
 }
 
 class _EnumSettingsState<T> extends State<EnumSettings> {
@@ -35,12 +30,8 @@ class _EnumSettingsState<T> extends State<EnumSettings> {
   final String valueTag;
   final TextStyle textStyle;
 
-  _EnumSettingsState({
-    this.values,
-    this.enumValue,
-    this.valueTag,
-    this.textStyle
-  }) {
+  _EnumSettingsState(
+      {this.values, this.enumValue, this.valueTag, this.textStyle}) {
     this.stringValues = values.map<String>((T val) {
       return val.toString().split('.').last;
     }).toList();

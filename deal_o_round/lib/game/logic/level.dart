@@ -2,9 +2,9 @@ import '../../services/settings_constants.dart';
 
 class Level {
   double scoreMultiplier;
-  List<int> scoreLimit;	// by difficulty
+  List<int> scoreLimit; // by difficulty
   double timeMultiplier;
-  List<int> timeLimit;	// by difficulty
+  List<int> timeLimit; // by difficulty
   static const SCORE_THRESHOLD_BASE = 7000;
   static const TIME_THRESHOLD_BASE = 120;
 

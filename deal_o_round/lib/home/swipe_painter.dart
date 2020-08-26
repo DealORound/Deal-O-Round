@@ -20,7 +20,7 @@ class SwipePainter extends CustomPainter {
       ..color = Color(0x668BC34A)
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
-      ..strokeWidth = size.width / 2 - 10;  // ~70
+      ..strokeWidth = size.width / 2 - 10; // ~70
 
     canvas.drawPath(swipePath(size.width, size.height), paint);
   }

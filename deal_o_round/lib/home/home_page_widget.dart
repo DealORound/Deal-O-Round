@@ -7,12 +7,7 @@ class HomePageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: <Widget>[
-        LeftExample(),
-        HomeCenter(),
-        RightExample()
-      ]
-    );
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[LeftExample(), HomeCenter(), RightExample()]);
   }
 }

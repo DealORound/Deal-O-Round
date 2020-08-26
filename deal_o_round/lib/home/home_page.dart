@@ -31,11 +31,13 @@ class HomePage extends StatefulWidget {
   HomePageState createState() => HomePageState();
 
   static HomePageState of(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<_HomePageInherited>()).data;
+    return (context.dependOnInheritedWidgetOfExactType<_HomePageInherited>())
+        .data;
   }
 }
 
-class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+class HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   var _rightNow = DateTime.now();
   Timer _timer;
 

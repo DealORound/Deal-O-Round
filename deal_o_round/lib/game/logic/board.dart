@@ -16,16 +16,17 @@ class Board {
     shoe.shuffleAll();
     board = List<List<PlayCard>>();
     for (int i = 0; i < size; i++) {
-      board.add(getRandomCards(size +
-          (layout == BoardLayout.Hexagonal && i % 2 == 0 ? -1 : 0)));
+      board.add(getRandomCards(
+          size + (layout == BoardLayout.Hexagonal && i % 2 == 0 ? -1 : 0)));
     }
   }
 
   @override
   String toString() {
-    return board.map(
-      (col) => col.map((c) => c.toString()).toList().join('_')
-    ).toList().join('|');
+    return board
+        .map((col) => col.map((c) => c.toString()).toList().join('_'))
+        .toList()
+        .join('|');
   }
 
   List<PlayCard> getRandomCards(int size) {

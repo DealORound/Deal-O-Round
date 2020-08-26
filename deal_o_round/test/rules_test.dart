@@ -12,12 +12,11 @@ class RuleTestInput {
   int expectedScore;
   HandClass expectedHand;
 
-  RuleTestInput({
-    this.hand,
-    this.subHandDrillDownLevel = 0,
-    this.expectedScore = 0,
-    this.expectedHand = HandClass.None
-  });
+  RuleTestInput(
+      {this.hand,
+      this.subHandDrillDownLevel = 0,
+      this.expectedScore = 0,
+      this.expectedHand = HandClass.None});
 }
 
 main() {
@@ -27,17 +26,20 @@ main() {
 
   void assertCombination(RuleTestInput ruleTestInput) {
     final rules = Rules();
-    final results = rules.rankHand(ruleTestInput.hand, ruleTestInput.subHandDrillDownLevel, true, true, true);
+    final results = rules.rankHand(ruleTestInput.hand,
+        ruleTestInput.subHandDrillDownLevel, true, true, true);
     final score = results.isNotEmpty ? results[0].score() : 0;
     expect(ruleTestInput.expectedScore, score);
   }
 
   void assertHand(RuleTestInput ruleTestInput) {
     final rules = Rules();
-    final results = rules.rankHand(ruleTestInput.hand, ruleTestInput.subHandDrillDownLevel, true, false, true);
+    final results = rules.rankHand(ruleTestInput.hand,
+        ruleTestInput.subHandDrillDownLevel, true, false, true);
     bool hasExpectedHand = false;
     for (Scoring result in results) {
-      if (handBaseValue(result.handClass) == handBaseValue(ruleTestInput.expectedHand)) {
+      if (handBaseValue(result.handClass) ==
+          handBaseValue(ruleTestInput.expectedHand)) {
         hasExpectedHand = true;
         break;
       }
@@ -46,20 +48,18 @@ main() {
   }
 
   test('Null hand worth nothing', () async {
-    assertCombination(RuleTestInput(
-        hand: null, subHandDrillDownLevel: 0, expectedScore: 0));
-    assertCombination(RuleTestInput(
-        hand: null, subHandDrillDownLevel: 4, expectedScore: 0));
+    assertCombination(
+        RuleTestInput(hand: null, subHandDrillDownLevel: 0, expectedScore: 0));
+    assertCombination(
+        RuleTestInput(hand: null, subHandDrillDownLevel: 4, expectedScore: 0));
   });
 
   test('Single hand worth nothing', () async {
-    final hand = [
-      PlayCard(suit: Suit.Clubs, value: Value.Ten)
-    ];
-    assertCombination(RuleTestInput(
-        hand: hand, subHandDrillDownLevel: 0, expectedScore: 0));
-    assertCombination(RuleTestInput(
-        hand: hand, subHandDrillDownLevel: 4, expectedScore: 0));
+    final hand = [PlayCard(suit: Suit.Clubs, value: Value.Ten)];
+    assertCombination(
+        RuleTestInput(hand: hand, subHandDrillDownLevel: 0, expectedScore: 0));
+    assertCombination(
+        RuleTestInput(hand: hand, subHandDrillDownLevel: 4, expectedScore: 0));
   });
 
   test('Worthless two hand worth nothing', () async {
@@ -67,14 +67,14 @@ main() {
       PlayCard(suit: Suit.Clubs, value: Value.Ten),
       PlayCard(suit: Suit.Diamonds, value: Value.Nine)
     ];
-    assertCombination(RuleTestInput(
-        hand: hand, subHandDrillDownLevel: 0, expectedScore: 0));
-    assertCombination(RuleTestInput(
-        hand: hand, subHandDrillDownLevel: 4, expectedScore: 0));
+    assertCombination(
+        RuleTestInput(hand: hand, subHandDrillDownLevel: 0, expectedScore: 0));
+    assertCombination(
+        RuleTestInput(hand: hand, subHandDrillDownLevel: 4, expectedScore: 0));
   });
 
   test('Pair worth the right points', () async {
-    for(Value value in Value.values) {
+    for (Value value in Value.values) {
       if (value.index < 13) {
         final hand = [
           PlayCard(suit: Suit.Clubs, value: value),
@@ -92,7 +92,7 @@ main() {
   // Tests for 3 card combinations
 
   test('Three of a kind worth the right points', () async {
-    for(Value value in Value.values) {
+    for (Value value in Value.values) {
       if (value.index < 13) {
         final hand = [
           PlayCard(suit: Suit.Clubs, value: value),
@@ -110,7 +110,7 @@ main() {
 
   test('Pair from 3 worth the right points', () async {
     // When beginning does not match up
-    for(int i = 0; i < 13; i++) {
+    for (int i = 0; i < 13; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i == 0 ? 1 : 0]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i]),
@@ -123,7 +123,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 1 + offset));
     }
     // When middle does not match up
-    for(int i = 0; i < 13; i++) {
+    for (int i = 0; i < 13; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i == 0 ? 1 : 0]),
@@ -136,7 +136,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 1 + offset));
     }
     // When end does not match up
-    for(int i = 0; i < 13; i++) {
+    for (int i = 0; i < 13; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i]),
@@ -152,21 +152,21 @@ main() {
 
   test('Flush of 3 worth the right points', () async {
     // Basis case
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Two),
           PlayCard(suit: suit, value: Value.Four),
           PlayCard(suit: suit, value: Value.Six)
         ];
-        assertCombination(
-            RuleTestInput(hand: hand, subHandDrillDownLevel: 0, expectedScore: 15));
-        assertCombination(
-            RuleTestInput(hand: hand, subHandDrillDownLevel: 1, expectedScore: 15));
+        assertCombination(RuleTestInput(
+            hand: hand, subHandDrillDownLevel: 0, expectedScore: 15));
+        assertCombination(RuleTestInput(
+            hand: hand, subHandDrillDownLevel: 1, expectedScore: 15));
       }
     }
     // descending order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Six),
@@ -180,7 +180,7 @@ main() {
       }
     }
     // mixed order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Four),
@@ -193,10 +193,10 @@ main() {
             hand: hand, subHandDrillDownLevel: 1, expectedScore: 15));
       }
     }
-  
+
     // Same with higher hand
     // Basis case
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Seven),
@@ -211,7 +211,7 @@ main() {
       }
     }
     // descending order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Jack),
@@ -226,7 +226,7 @@ main() {
       }
     }
     // mixed order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Nine),
@@ -244,7 +244,7 @@ main() {
 
   test('Straight of 3 worth the right points', () async {
     // Basis case
-    for(int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]),
@@ -257,7 +257,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 30 + offset));
     }
     // descending order
-    for(int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i + 2]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]),
@@ -270,7 +270,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 30 + offset));
     }
     // mixed order
-    for(int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++) {
       final hand = [
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 2]),
@@ -354,7 +354,7 @@ main() {
 
   test('Straight flush of 3 worth the right points', () async {
     // Basis case
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Two),
@@ -367,9 +367,9 @@ main() {
             hand: hand, subHandDrillDownLevel: 1, expectedScore: 50));
       }
     }
-      
+
     // descending order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Four),
@@ -383,7 +383,7 @@ main() {
       }
     }
     // mixed order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Three),
@@ -396,10 +396,10 @@ main() {
             hand: hand, subHandDrillDownLevel: 1, expectedScore: 50));
       }
     }
-  
+
     // Same with higher hand
     // Basis case
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Queen),
@@ -414,7 +414,7 @@ main() {
       }
     }
     // descending order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Ace),
@@ -430,7 +430,7 @@ main() {
     }
 
     // mixed order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.King),
@@ -448,7 +448,7 @@ main() {
 
   test('Straight wheel flush of 3 worth the right points', () async {
     // Basis case 1
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Two),
@@ -464,7 +464,7 @@ main() {
     }
 
     // Basis case 2
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Ace),
@@ -479,7 +479,7 @@ main() {
       }
     }
     // descending order 1
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Ace),
@@ -494,7 +494,7 @@ main() {
       }
     }
     // descending order 2
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Three),
@@ -509,7 +509,7 @@ main() {
       }
     }
     // mixed order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Two),
@@ -528,7 +528,7 @@ main() {
   // Tests for 4 card combinations
 
   test('Four of a kind worth the right points', () async {
-    for(Value value in Value.values) {
+    for (Value value in Value.values) {
       if (value.index < 13) {
         final hand = [
           PlayCard(suit: Suit.Clubs, value: value),
@@ -537,10 +537,12 @@ main() {
           PlayCard(suit: Suit.Hearts, value: value)
         ];
         int offset = offsetRank(hand[0]);
-        assertCombination(RuleTestInput(hand: hand,
+        assertCombination(RuleTestInput(
+            hand: hand,
             subHandDrillDownLevel: 0,
             expectedScore: 2000 + offset));
-        assertCombination(RuleTestInput(hand: hand,
+        assertCombination(RuleTestInput(
+            hand: hand,
             subHandDrillDownLevel: 4,
             expectedScore: 2000 + offset));
       }
@@ -549,7 +551,7 @@ main() {
 
   test('Pair from 4 worth the right points', () async {
     // When beginning does not match up
-    for(int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[11]),
         PlayCard(suit: Suit.Clubs, value: Value.values[12]),
@@ -565,7 +567,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 2, expectedScore: 1 + offset));
     }
     // When middle does not match up
-    for(int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[11]),
@@ -581,7 +583,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 2, expectedScore: 1 + offset));
     }
     // When end does not match up
-    for(int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i]),
@@ -600,7 +602,7 @@ main() {
 
   test('Two pairs worth the expected score', () async {
     // Ascending
-    for(int i = 0; i < 11; i++) {
+    for (int i = 0; i < 11; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i]),
@@ -609,15 +611,17 @@ main() {
       ];
       int offset1 = offsetRank(hand[0]);
       int offset2 = offsetRank(hand[2]);
-      assertCombination(RuleTestInput(hand: hand,
+      assertCombination(RuleTestInput(
+          hand: hand,
           subHandDrillDownLevel: 0,
           expectedScore: 150 + offset1 + 2 * offset2));
-      assertCombination(RuleTestInput(hand: hand,
+      assertCombination(RuleTestInput(
+          hand: hand,
           subHandDrillDownLevel: 1,
           expectedScore: 150 + offset1 + 2 * offset2));
     }
     // Descending
-    for(int i = 0; i < 11; i++) {
+    for (int i = 0; i < 11; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i + 1]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]),
@@ -626,15 +630,17 @@ main() {
       ];
       int offset1 = offsetRank(hand[2]);
       int offset2 = offsetRank(hand[0]);
-      assertCombination(RuleTestInput(hand: hand,
+      assertCombination(RuleTestInput(
+          hand: hand,
           subHandDrillDownLevel: 0,
           expectedScore: 150 + offset1 + 2 * offset2));
-      assertCombination(RuleTestInput(hand: hand,
+      assertCombination(RuleTestInput(
+          hand: hand,
           subHandDrillDownLevel: 1,
           expectedScore: 150 + offset1 + 2 * offset2));
     }
     // mixed 1
-    for(int i = 0; i < 11; i++) {
+    for (int i = 0; i < 11; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]),
@@ -643,15 +649,17 @@ main() {
       ];
       int offset1 = offsetRank(hand[0]);
       int offset2 = offsetRank(hand[1]);
-      assertCombination(RuleTestInput(hand: hand,
+      assertCombination(RuleTestInput(
+          hand: hand,
           subHandDrillDownLevel: 0,
           expectedScore: 150 + offset1 + 2 * offset2));
-      assertCombination(RuleTestInput(hand: hand,
+      assertCombination(RuleTestInput(
+          hand: hand,
           subHandDrillDownLevel: 1,
           expectedScore: 150 + offset1 + 2 * offset2));
     }
     // mixed 2
-    for(int i = 0; i < 11; i++) {
+    for (int i = 0; i < 11; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i + 1]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i]),
@@ -660,17 +668,19 @@ main() {
       ];
       int offset1 = offsetRank(hand[1]);
       int offset2 = offsetRank(hand[0]);
-      assertCombination(RuleTestInput(hand: hand,
+      assertCombination(RuleTestInput(
+          hand: hand,
           subHandDrillDownLevel: 0,
           expectedScore: 150 + offset1 + 2 * offset2));
-      assertCombination(RuleTestInput(hand: hand,
+      assertCombination(RuleTestInput(
+          hand: hand,
           subHandDrillDownLevel: 1,
           expectedScore: 150 + offset1 + 2 * offset2));
     }
   });
 
   test('Two pairs out of 5 found', () async {
-    for(int i = 0; i < 11; i++) {
+    for (int i = 0; i < 11; i++) {
       final hand = [
         PlayCard(suit: Suit.Hearts, value: Value.values[(i + 3) % 13]),
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
@@ -678,11 +688,12 @@ main() {
         PlayCard(suit: Suit.Diamonds, value: Value.values[i]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1])
       ];
-      assertHand(RuleTestInput(hand: hand,
+      assertHand(RuleTestInput(
+          hand: hand,
           subHandDrillDownLevel: 1,
           expectedHand: HandClass.TwoPair));
     }
-    for(int i = 0; i < 11; i++) {
+    for (int i = 0; i < 11; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
         PlayCard(suit: Suit.Hearts, value: Value.values[(i + 3) % 13]),
@@ -690,11 +701,12 @@ main() {
         PlayCard(suit: Suit.Diamonds, value: Value.values[i]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1])
       ];
-      assertHand(RuleTestInput(hand: hand,
+      assertHand(RuleTestInput(
+          hand: hand,
           subHandDrillDownLevel: 1,
           expectedHand: HandClass.TwoPair));
     }
-    for(int i = 0; i < 11; i++) {
+    for (int i = 0; i < 11; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
         PlayCard(suit: Suit.Clubs, value: Value.values[i + 1]),
@@ -702,11 +714,12 @@ main() {
         PlayCard(suit: Suit.Diamonds, value: Value.values[i]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1])
       ];
-      assertHand(RuleTestInput(hand: hand,
+      assertHand(RuleTestInput(
+          hand: hand,
           subHandDrillDownLevel: 1,
           expectedHand: HandClass.TwoPair));
     }
-    for(int i = 0; i < 11; i++) {
+    for (int i = 0; i < 11; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
         PlayCard(suit: Suit.Clubs, value: Value.values[i + 1]),
@@ -714,11 +727,12 @@ main() {
         PlayCard(suit: Suit.Hearts, value: Value.values[(i + 3) % 13]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1])
       ];
-      assertHand(RuleTestInput(hand: hand,
+      assertHand(RuleTestInput(
+          hand: hand,
           subHandDrillDownLevel: 1,
           expectedHand: HandClass.TwoPair));
     }
-    for(int i = 0; i < 11; i++) {
+    for (int i = 0; i < 11; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
         PlayCard(suit: Suit.Clubs, value: Value.values[i + 1]),
@@ -726,12 +740,13 @@ main() {
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]),
         PlayCard(suit: Suit.Hearts, value: Value.values[(i + 3) % 13])
       ];
-      assertHand(RuleTestInput(hand: hand,
+      assertHand(RuleTestInput(
+          hand: hand,
           subHandDrillDownLevel: 1,
           expectedHand: HandClass.TwoPair));
     }
 
-    for(int i = 0; i < 11; i++) {
+    for (int i = 0; i < 11; i++) {
       final hand = [
         PlayCard(suit: Suit.Hearts, value: Value.values[(i + 3) % 13]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]),
@@ -739,11 +754,12 @@ main() {
         PlayCard(suit: Suit.Clubs, value: Value.values[i + 1]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i])
       ];
-      assertHand(RuleTestInput(hand: hand,
+      assertHand(RuleTestInput(
+          hand: hand,
           subHandDrillDownLevel: 1,
           expectedHand: HandClass.TwoPair));
     }
-    for(int i = 0; i < 11; i++) {
+    for (int i = 0; i < 11; i++) {
       final hand = [
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]),
         PlayCard(suit: Suit.Hearts, value: Value.values[(i + 3) % 13]),
@@ -751,11 +767,12 @@ main() {
         PlayCard(suit: Suit.Clubs, value: Value.values[i + 1]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i])
       ];
-      assertHand(RuleTestInput(hand: hand,
+      assertHand(RuleTestInput(
+          hand: hand,
           subHandDrillDownLevel: 1,
           expectedHand: HandClass.TwoPair));
     }
-    for(int i = 0; i < 11; i++) {
+    for (int i = 0; i < 11; i++) {
       final hand = [
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]),
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
@@ -763,11 +780,12 @@ main() {
         PlayCard(suit: Suit.Clubs, value: Value.values[i + 1]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i])
       ];
-      assertHand(RuleTestInput(hand: hand,
+      assertHand(RuleTestInput(
+          hand: hand,
           subHandDrillDownLevel: 1,
           expectedHand: HandClass.TwoPair));
     }
-    for(int i = 0; i < 11; i++) {
+    for (int i = 0; i < 11; i++) {
       final hand = [
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]),
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
@@ -775,11 +793,12 @@ main() {
         PlayCard(suit: Suit.Hearts, value: Value.values[(i + 3) % 13]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i])
       ];
-      assertHand(RuleTestInput(hand: hand,
+      assertHand(RuleTestInput(
+          hand: hand,
           subHandDrillDownLevel: 1,
           expectedHand: HandClass.TwoPair));
     }
-    for(int i = 0; i < 11; i++) {
+    for (int i = 0; i < 11; i++) {
       final hand = [
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]),
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
@@ -787,7 +806,8 @@ main() {
         PlayCard(suit: Suit.Diamonds, value: Value.values[i]),
         PlayCard(suit: Suit.Hearts, value: Value.values[(i + 3) % 13])
       ];
-      assertHand(RuleTestInput(hand: hand,
+      assertHand(RuleTestInput(
+          hand: hand,
           subHandDrillDownLevel: 1,
           expectedHand: HandClass.TwoPair));
     }
@@ -850,7 +870,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 15 + offset));
     }
     // descending order
-    for(int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
       final hand = [
         PlayCard(suit: Suit.values[i], value: Value.Jack),
         PlayCard(suit: Suit.values[i], value: Value.Nine),
@@ -864,7 +884,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 15 + offset));
     }
     // mixed order
-    for(int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
       final hand = [
         PlayCard(suit: Suit.values[i], value: Value.Nine),
         PlayCard(suit: Suit.values[i], value: Value.Seven),
@@ -881,7 +901,7 @@ main() {
 
   test('Straight of 3 from 4 worth the right points', () async {
     // Basis case
-    for(int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]),
@@ -889,13 +909,13 @@ main() {
         PlayCard(suit: Suit.Spades, value: Value.values[i < 2 ? 10 : 0])
       ];
       int offset = offsetRank(hand[0]);
-      assertCombination(
-          RuleTestInput(hand: hand, subHandDrillDownLevel: 0, expectedScore: 0));
+      assertCombination(RuleTestInput(
+          hand: hand, subHandDrillDownLevel: 0, expectedScore: 0));
       assertCombination(RuleTestInput(
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 30 + offset));
     }
     // descending order
-    for(int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i + 2]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]),
@@ -909,7 +929,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 30 + offset));
     }
     // mixed order
-    for(int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i + 1]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 2]),
@@ -926,7 +946,7 @@ main() {
 
   test('Straight flush of 3 from 4 worth the right points', () async {
     // Basis case
-    for(int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
       final hand = [
         PlayCard(suit: Suit.values[i], value: Value.Two),
         PlayCard(suit: Suit.values[i], value: Value.Three),
@@ -939,7 +959,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 50));
     }
     // descending order
-    for(int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
       final hand = [
         PlayCard(suit: Suit.values[i], value: Value.Four),
         PlayCard(suit: Suit.values[i], value: Value.Three),
@@ -952,7 +972,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 50));
     }
     // mixed order
-    for(int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
       final hand = [
         PlayCard(suit: Suit.values[i], value: Value.Three),
         PlayCard(suit: Suit.values[i], value: Value.Two),
@@ -967,7 +987,7 @@ main() {
 
     // Same with higher hand
     // Basis case
-    for(int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
       final hand = [
         PlayCard(suit: Suit.values[i], value: Value.Queen),
         PlayCard(suit: Suit.values[i], value: Value.King),
@@ -981,7 +1001,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 50 + offset));
     }
     // descending order
-    for(int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
       final hand = [
         PlayCard(suit: Suit.values[i], value: Value.Ace),
         PlayCard(suit: Suit.values[i], value: Value.King),
@@ -995,7 +1015,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 50 + offset));
     }
     // mixed order
-    for(int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
       final hand = [
         PlayCard(suit: Suit.values[i], value: Value.King),
         PlayCard(suit: Suit.values[i], value: Value.Ace),
@@ -1012,7 +1032,7 @@ main() {
 
   test('Flush of 4 worth the right points', () async {
     // Basis case
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Two),
@@ -1027,7 +1047,7 @@ main() {
       }
     }
     // descending order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Eight),
@@ -1042,7 +1062,7 @@ main() {
       }
     }
     // mixed order 1
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Four),
@@ -1057,7 +1077,7 @@ main() {
       }
     }
     // mixed order 2
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Eight),
@@ -1074,7 +1094,7 @@ main() {
 
     // Same with higher hand
     // Basis case
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Seven),
@@ -1090,7 +1110,7 @@ main() {
       }
     }
     // descending order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.King),
@@ -1106,7 +1126,7 @@ main() {
       }
     }
     // mixed order 3
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Nine),
@@ -1122,7 +1142,7 @@ main() {
       }
     }
     // mixed order 4
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Nine),
@@ -1141,7 +1161,7 @@ main() {
 
   test('Straight of 4 worth the right points', () async {
     // Basis case
-    for(int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]),
@@ -1155,7 +1175,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 125 + offset));
     }
     // descending order
-    for(int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i + 3]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 2]),
@@ -1169,7 +1189,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 125 + offset));
     }
     // mixed order
-    for(int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++) {
       final hand = [
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 2]),
         PlayCard(suit: Suit.Clubs, value: Value.values[i + 1]),
@@ -1259,7 +1279,7 @@ main() {
 
   test('Straight flush of 4 worth the right points', () async {
     // Basis case
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Two),
@@ -1274,7 +1294,7 @@ main() {
       }
     }
     // descending order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Five),
@@ -1289,7 +1309,7 @@ main() {
       }
     }
     // mixed order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Three),
@@ -1306,7 +1326,7 @@ main() {
 
     // Same with higher hand
     // Basis case
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Jack),
@@ -1322,7 +1342,7 @@ main() {
       }
     }
     // descending order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Ace),
@@ -1338,7 +1358,7 @@ main() {
       }
     }
     // mixed order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.King),
@@ -1357,7 +1377,7 @@ main() {
 
   test('Straight wheel flush of 4 worth the right points', () async {
     // Basis case 1
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Two),
@@ -1373,7 +1393,7 @@ main() {
       }
     }
     // Basis case 2
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Ace),
@@ -1389,7 +1409,7 @@ main() {
       }
     }
     // descending order 1
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Ace),
@@ -1405,7 +1425,7 @@ main() {
       }
     }
     // descending order 2
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Four),
@@ -1421,7 +1441,7 @@ main() {
       }
     }
     // mixed order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Four),
@@ -1441,7 +1461,7 @@ main() {
   // tests for hands of 5 cards
 
   test('Four of a kind in 5 worth the right points', () async {
-    for(int i = 0; i < 13; i++) {
+    for (int i = 0; i < 13; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i]),
@@ -1462,7 +1482,7 @@ main() {
 
   test('Pair worth expected points', () async {
     // When beginning does not match up
-    for(int i = 1; i < 9; i++) {
+    for (int i = 1; i < 9; i++) {
       final hand = [
         PlayCard(suit: Suit.Hearts, value: Value.values[0]),
         PlayCard(suit: Suit.Hearts, value: Value.values[11]),
@@ -1480,7 +1500,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 3, expectedScore: 1 + offset));
     }
     // When middle does not match up
-    for(int i = 1; i < 9; i++) {
+    for (int i = 1; i < 9; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[0]),
@@ -1498,7 +1518,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 3, expectedScore: 1 + offset));
     }
     // When end does not match up
-    for(int i = 1; i < 9; i++) {
+    for (int i = 1; i < 9; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i]),
@@ -1519,7 +1539,7 @@ main() {
 
   test('Two pairs from 5 worth the expected score', () async {
     // Ascending
-    for(int i = 2; i < 11; i++) {
+    for (int i = 2; i < 11; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i]),
@@ -1534,7 +1554,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 150 + offset));
     }
     // Descending
-    for(int i = 2; i < 11; i++) {
+    for (int i = 2; i < 11; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i + 1]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]),
@@ -1549,7 +1569,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 150 + offset));
     }
     // mixed 1
-    for(int i = 2; i < 11; i++) {
+    for (int i = 2; i < 11; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]),
@@ -1564,7 +1584,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 150 + offset));
     }
     // mixed 2
-    for(int i = 2; i < 11; i++) {
+    for (int i = 2; i < 11; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i + 1]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i]),
@@ -1582,7 +1602,7 @@ main() {
 
   test('Flush of 3 from 5 worth the right points', () async {
     // Basis case
-    for(int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
       final hand = [
         PlayCard(suit: Suit.values[i], value: Value.Two),
         PlayCard(suit: Suit.values[i], value: Value.Four),
@@ -1598,7 +1618,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 2, expectedScore: 15));
     }
     // descending order
-    for(int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
       final hand = [
         PlayCard(suit: Suit.values[i], value: Value.Six),
         PlayCard(suit: Suit.values[i], value: Value.Four),
@@ -1614,7 +1634,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 2, expectedScore: 15));
     }
     // mixed order
-    for(int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
       final hand = [
         PlayCard(suit: Suit.values[i], value: Value.Four),
         PlayCard(suit: Suit.values[i], value: Value.Two),
@@ -1632,7 +1652,7 @@ main() {
 
     // Same with higher hand
     // Basis case
-    for(int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
       final hand = [
         PlayCard(suit: Suit.values[i], value: Value.Seven),
         PlayCard(suit: Suit.values[i], value: Value.Nine),
@@ -1649,7 +1669,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 2, expectedScore: 15 + offset));
     }
     // descending order
-    for(int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
       final hand = [
         PlayCard(suit: Suit.values[i], value: Value.Jack),
         PlayCard(suit: Suit.values[i], value: Value.Nine),
@@ -1666,7 +1686,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 2, expectedScore: 15 + offset));
     }
     // mixed order
-    for(int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
       final hand = [
         PlayCard(suit: Suit.values[i], value: Value.Nine),
         PlayCard(suit: Suit.values[i], value: Value.Seven),
@@ -1686,7 +1706,7 @@ main() {
 
   test('Straight of 3 from 5 worth the right points', () async {
     // Basis case
-    for(int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]),
@@ -1703,7 +1723,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 2, expectedScore: 30 + offset));
     }
     // descending order
-    for(int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i + 2]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]),
@@ -1720,7 +1740,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 2, expectedScore: 30 + offset));
     }
     // mixed order
-    for(int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i + 1]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 2]),
@@ -1845,7 +1865,7 @@ main() {
 
   test('Flush of 4 from 5 worth the right points', () async {
     // Basis case
-    for(int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
       final hand = [
         PlayCard(suit: Suit.values[i], value: Value.Two),
         PlayCard(suit: Suit.values[i], value: Value.Four),
@@ -1859,7 +1879,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 170));
     }
     // descending order
-    for(int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
       final hand = [
         PlayCard(suit: Suit.values[i], value: Value.Eight),
         PlayCard(suit: Suit.values[i], value: Value.Six),
@@ -1873,7 +1893,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 170));
     }
     // mixed order 1
-    for(int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
       final hand = [
         PlayCard(suit: Suit.values[i], value: Value.Four),
         PlayCard(suit: Suit.values[i], value: Value.Two),
@@ -1887,7 +1907,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 170));
     }
     // mixed order 2
-    for(int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
       final hand = [
         PlayCard(suit: Suit.values[i], value: Value.Eight),
         PlayCard(suit: Suit.values[i], value: Value.Four),
@@ -1903,7 +1923,7 @@ main() {
 
     // Same with higher hand
     // Basis case
-    for(int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
       final hand = [
         PlayCard(suit: Suit.values[i], value: Value.Seven),
         PlayCard(suit: Suit.values[i], value: Value.Nine),
@@ -1918,7 +1938,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 170 + offset));
     }
     // descending order
-    for(int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
       final hand = [
         PlayCard(suit: Suit.values[i], value: Value.King),
         PlayCard(suit: Suit.values[i], value: Value.Jack),
@@ -1933,7 +1953,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 170 + offset));
     }
     // mixed order 3
-    for(int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
       final hand = [
         PlayCard(suit: Suit.values[i], value: Value.Nine),
         PlayCard(suit: Suit.values[i], value: Value.King),
@@ -1948,7 +1968,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 170 + offset));
     }
     // mixed order 4
-    for(int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
       final hand = [
         PlayCard(suit: Suit.values[i], value: Value.Nine),
         PlayCard(suit: Suit.values[i], value: Value.Seven),
@@ -1966,7 +1986,7 @@ main() {
 
   test('Straight of 4 from 5 worth the right points', () async {
     // Basis case
-    for(int i = 2; i < 10; i++) {
+    for (int i = 2; i < 10; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]),
@@ -1981,7 +2001,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 125 + offset));
     }
     // descending order
-    for(int i = 2; i < 10; i++) {
+    for (int i = 2; i < 10; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i + 3]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 2]),
@@ -1996,7 +2016,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 125 + offset));
     }
     // mixed order
-    for(int i = 2; i < 10; i++) {
+    for (int i = 2; i < 10; i++) {
       final hand = [
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 2]),
         PlayCard(suit: Suit.Clubs, value: Value.values[i + 1]),
@@ -2014,7 +2034,7 @@ main() {
 
   test('Straight flush of 4 from 5 worth the right points', () async {
     // Basis case
-    for(int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
       final hand = [
         PlayCard(suit: Suit.values[i], value: Value.Two),
         PlayCard(suit: Suit.values[i], value: Value.Three),
@@ -2028,7 +2048,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 250));
     }
     // descending order
-    for(int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
       final hand = [
         PlayCard(suit: Suit.values[i == 0 ? 1 : 0], value: Value.King),
         PlayCard(suit: Suit.values[i], value: Value.Five),
@@ -2042,7 +2062,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 250));
     }
     // mixed order
-    for(int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
       final hand = [
         PlayCard(suit: Suit.values[i], value: Value.Three),
         PlayCard(suit: Suit.values[i], value: Value.Two),
@@ -2058,7 +2078,7 @@ main() {
 
     // Same with higher hand
     // Basis case
-    for(int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
       final hand = [
         PlayCard(suit: Suit.values[i == 0 ? 1 : 0], value: Value.Two),
         PlayCard(suit: Suit.values[i], value: Value.Jack),
@@ -2073,7 +2093,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 250 + offset));
     }
     // descending order
-    for(int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
       final hand = [
         PlayCard(suit: Suit.values[i], value: Value.Ace),
         PlayCard(suit: Suit.values[i], value: Value.King),
@@ -2088,7 +2108,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 250 + offset));
     }
     // mixed order
-    for(int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
       final hand = [
         PlayCard(suit: Suit.values[i], value: Value.King),
         PlayCard(suit: Suit.values[i], value: Value.Ace),
@@ -2107,7 +2127,7 @@ main() {
   // Tests for 5 card combinations
 
   test('Five of a kind worth the right points', () async {
-    for(Value value in Value.values) {
+    for (Value value in Value.values) {
       if (value.index < 13) {
         final hand = [
           PlayCard(suit: Suit.Clubs, value: value),
@@ -2117,10 +2137,12 @@ main() {
           PlayCard(suit: Suit.Clubs, value: value)
         ];
         int offset = offsetRank(hand[0]);
-        assertCombination(RuleTestInput(hand: hand,
+        assertCombination(RuleTestInput(
+            hand: hand,
             subHandDrillDownLevel: 0,
             expectedScore: 10000 + offset));
-        assertCombination(RuleTestInput(hand: hand,
+        assertCombination(RuleTestInput(
+            hand: hand,
             subHandDrillDownLevel: 4,
             expectedScore: 10000 + offset));
       }
@@ -2129,7 +2151,7 @@ main() {
 
   test('Flush of 5 worth the right points', () async {
     // Basis case
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Two),
@@ -2145,7 +2167,7 @@ main() {
       }
     }
     // descending order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Ten),
@@ -2161,7 +2183,7 @@ main() {
       }
     }
     // mixed order 1
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Four),
@@ -2177,7 +2199,7 @@ main() {
       }
     }
     // mixed order 2
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Eight),
@@ -2195,7 +2217,7 @@ main() {
 
     // Same with higher hand
     // Basis case
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Five),
@@ -2212,7 +2234,7 @@ main() {
       }
     }
     // descending order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.King),
@@ -2229,7 +2251,7 @@ main() {
       }
     }
     // mixed order 3
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Nine),
@@ -2246,7 +2268,7 @@ main() {
       }
     }
     // mixed order 4
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Nine),
@@ -2266,7 +2288,7 @@ main() {
 
   test('Straight of 5 worth the right points', () async {
     // Basis case
-    for(int i = 0; i < 9; i++) {
+    for (int i = 0; i < 9; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]),
@@ -2281,7 +2303,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 200 + offset));
     }
     // descending order
-    for(int i = 0; i < 9; i++) {
+    for (int i = 0; i < 9; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i + 4]),
         PlayCard(suit: Suit.Clubs, value: Value.values[i + 3]),
@@ -2296,7 +2318,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 200 + offset));
     }
     // mixed order
-    for(int i = 0; i < 9; i++) {
+    for (int i = 0; i < 9; i++) {
       final hand = [
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 2]),
         PlayCard(suit: Suit.Clubs, value: Value.values[i + 1]),
@@ -2392,7 +2414,7 @@ main() {
 
   test('Straight flush worth the right points', () async {
     // Basis case
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Two),
@@ -2408,7 +2430,7 @@ main() {
       }
     }
     // descending order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Six),
@@ -2424,7 +2446,7 @@ main() {
       }
     }
     // mixed order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Three),
@@ -2442,7 +2464,7 @@ main() {
 
     // Same with higher hand
     // Basis case
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Ten),
@@ -2452,16 +2474,18 @@ main() {
           PlayCard(suit: suit, value: Value.Ace)
         ];
         int offset = offsetRank(hand[0]);
-        assertCombination(RuleTestInput(hand: hand,
+        assertCombination(RuleTestInput(
+            hand: hand,
             subHandDrillDownLevel: 0,
             expectedScore: 5000 + offset));
-        assertCombination(RuleTestInput(hand: hand,
+        assertCombination(RuleTestInput(
+            hand: hand,
             subHandDrillDownLevel: 1,
             expectedScore: 5000 + offset));
       }
     }
     // descending order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Ace),
@@ -2471,16 +2495,18 @@ main() {
           PlayCard(suit: suit, value: Value.Ten)
         ];
         int offset = offsetRank(hand[4]);
-        assertCombination(RuleTestInput(hand: hand,
+        assertCombination(RuleTestInput(
+            hand: hand,
             subHandDrillDownLevel: 0,
             expectedScore: 5000 + offset));
-        assertCombination(RuleTestInput(hand: hand,
+        assertCombination(RuleTestInput(
+            hand: hand,
             subHandDrillDownLevel: 1,
             expectedScore: 5000 + offset));
       }
     }
     // mixed order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.King),
@@ -2490,10 +2516,12 @@ main() {
           PlayCard(suit: suit, value: Value.Jack)
         ];
         int offset = offsetRank(hand[2]);
-        assertCombination(RuleTestInput(hand: hand,
+        assertCombination(RuleTestInput(
+            hand: hand,
             subHandDrillDownLevel: 0,
             expectedScore: 5000 + offset));
-        assertCombination(RuleTestInput(hand: hand,
+        assertCombination(RuleTestInput(
+            hand: hand,
             subHandDrillDownLevel: 1,
             expectedScore: 5000 + offset));
       }
@@ -2502,7 +2530,7 @@ main() {
 
   test('Straight wheel flush worth the right points', () async {
     // Basis case 1
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Two),
@@ -2512,16 +2540,18 @@ main() {
           PlayCard(suit: suit, value: Value.Ace)
         ];
         int offset = offsetRank(hand[1]);
-        assertCombination(RuleTestInput(hand: hand,
+        assertCombination(RuleTestInput(
+            hand: hand,
             subHandDrillDownLevel: 0,
             expectedScore: 5000 + offset));
-        assertCombination(RuleTestInput(hand: hand,
+        assertCombination(RuleTestInput(
+            hand: hand,
             subHandDrillDownLevel: 1,
             expectedScore: 5000 + offset));
       }
     }
     // Basis case 2
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Ace),
@@ -2531,16 +2561,18 @@ main() {
           PlayCard(suit: suit, value: Value.Two)
         ];
         int offset = offsetRank(hand[3]);
-        assertCombination(RuleTestInput(hand: hand,
+        assertCombination(RuleTestInput(
+            hand: hand,
             subHandDrillDownLevel: 0,
             expectedScore: 5000 + offset));
-        assertCombination(RuleTestInput(hand: hand,
+        assertCombination(RuleTestInput(
+            hand: hand,
             subHandDrillDownLevel: 1,
             expectedScore: 5000 + offset));
       }
     }
     // descending order 1
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Ace),
@@ -2550,16 +2582,18 @@ main() {
           PlayCard(suit: suit, value: Value.Two)
         ];
         int offset = offsetRank(hand[3]);
-        assertCombination(RuleTestInput(hand: hand,
+        assertCombination(RuleTestInput(
+            hand: hand,
             subHandDrillDownLevel: 0,
             expectedScore: 5000 + offset));
-        assertCombination(RuleTestInput(hand: hand,
+        assertCombination(RuleTestInput(
+            hand: hand,
             subHandDrillDownLevel: 1,
             expectedScore: 5000 + offset));
       }
     }
     // descending order 2
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Five),
@@ -2569,16 +2603,18 @@ main() {
           PlayCard(suit: suit, value: Value.Ace)
         ];
         int offset = offsetRank(hand[2]);
-        assertCombination(RuleTestInput(hand: hand,
+        assertCombination(RuleTestInput(
+            hand: hand,
             subHandDrillDownLevel: 0,
             expectedScore: 5000 + offset));
-        assertCombination(RuleTestInput(hand: hand,
+        assertCombination(RuleTestInput(
+            hand: hand,
             subHandDrillDownLevel: 1,
             expectedScore: 5000 + offset));
       }
     }
     // mixed order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Four),
@@ -2588,10 +2624,12 @@ main() {
           PlayCard(suit: suit, value: Value.Three)
         ];
         int offset = offsetRank(hand[4]);
-        assertCombination(RuleTestInput(hand: hand,
+        assertCombination(RuleTestInput(
+            hand: hand,
             subHandDrillDownLevel: 0,
             expectedScore: 5000 + offset));
-        assertCombination(RuleTestInput(hand: hand,
+        assertCombination(RuleTestInput(
+            hand: hand,
             subHandDrillDownLevel: 1,
             expectedScore: 5000 + offset));
       }
@@ -2600,7 +2638,7 @@ main() {
 
   test('Full house worth the right points', () async {
     // Basic case
-    for(int i = 0; i < 11; i++) {
+    for (int i = 0; i < 11; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i]),
@@ -2615,7 +2653,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 350 + offset));
     }
     // Other end
-    for(int i = 0; i < 11; i++) {
+    for (int i = 0; i < 11; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i]),
@@ -2630,7 +2668,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 350 + offset));
     }
     // descending order 1
-    for(int i = 0; i < 11; i++) {
+    for (int i = 0; i < 11; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i + 1]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]),
@@ -2645,7 +2683,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 350 + offset));
     }
     // descending order 2
-    for(int i = 0; i < 11; i++) {
+    for (int i = 0; i < 11; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i + 1]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]),
@@ -2660,7 +2698,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 350 + offset));
     }
     // mixed order 1
-    for(int i = 0; i < 11; i++) {
+    for (int i = 0; i < 11; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]),
@@ -2675,7 +2713,7 @@ main() {
           hand: hand, subHandDrillDownLevel: 1, expectedScore: 350 + offset));
     }
     // mixed order 2
-    for(int i = 0; i < 11; i++) {
+    for (int i = 0; i < 11; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i + 1]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i]),

@@ -18,11 +18,10 @@ class BackgroundPainter extends CustomPainter {
   @override
   paint(Canvas canvas, Size size) {
     final gradientPaint = Paint()
-      ..shader = getBackgroundGradient()
-    .createShader(Rect.fromCircle(
-      center: Offset(size.width / 2, size.height / 2),
-      radius: size.height / 2,
-    ));
+      ..shader = getBackgroundGradient().createShader(Rect.fromCircle(
+        center: Offset(size.width / 2, size.height / 2),
+        radius: size.height / 2,
+      ));
     canvas.drawPaint(gradientPaint);
 
     final diamondPath = _diamondShape(canvas, size);

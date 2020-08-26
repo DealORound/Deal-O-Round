@@ -34,7 +34,7 @@ main() {
   });
 
   test('Pair to display', () async {
-    for(Value value in Value.values) {
+    for (Value value in Value.values) {
       if (value.index < 13) {
         final hand = [
           PlayCard(suit: Suit.Clubs, value: value),
@@ -47,7 +47,7 @@ main() {
 
   // Tests for 3 card combinations
   test('Three of a kind to display', () async {
-    for(Value value in Value.values) {
+    for (Value value in Value.values) {
       if (value.index < 13) {
         final hand = [
           PlayCard(suit: Suit.Clubs, value: value),
@@ -61,7 +61,7 @@ main() {
 
   test('Flush of 3 to display', () async {
     // Basis case
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Two),
@@ -72,7 +72,7 @@ main() {
       }
     }
     // descending order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Six),
@@ -83,7 +83,7 @@ main() {
       }
     }
     // mixed order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Four),
@@ -96,7 +96,7 @@ main() {
 
     // Same with higher hand
     // Basis case
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Seven),
@@ -107,7 +107,7 @@ main() {
       }
     }
     // descending order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Jack),
@@ -118,7 +118,7 @@ main() {
       }
     }
     // mixed order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Nine),
@@ -132,7 +132,7 @@ main() {
 
   test('Straight of 3 to display', () async {
     // Basis case
-    for(int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]),
@@ -141,7 +141,7 @@ main() {
       toDisplayHand(hand, HandClass.Straight3);
     }
     // descending order
-    for(int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i + 2]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]),
@@ -150,7 +150,7 @@ main() {
       toDisplayHand(hand, HandClass.Straight3);
     }
     // mixed order
-    for(int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++) {
       final hand = [
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 2]),
@@ -210,7 +210,7 @@ main() {
 
   test('Straight flush of 3 to display', () async {
     // Basis case
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Two),
@@ -221,7 +221,7 @@ main() {
       }
     }
     // descending order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Four),
@@ -232,7 +232,7 @@ main() {
       }
     }
     // mixed order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Three),
@@ -245,7 +245,7 @@ main() {
 
     // Same with higher hand
     // Basis case
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Queen),
@@ -256,7 +256,7 @@ main() {
       }
     }
     // descending order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Ace),
@@ -267,7 +267,7 @@ main() {
       }
     }
     // mixed order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.King),
@@ -281,17 +281,18 @@ main() {
 
   test('Straight wheel flush of 3 to display', () async {
     // Basis case 1
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Two),
           PlayCard(suit: suit, value: Value.Three),
-          PlayCard(suit: suit, value: Value.Ace)];
+          PlayCard(suit: suit, value: Value.Ace)
+        ];
         toDisplayHand(hand, HandClass.StraightFlush3);
       }
     }
     // Basis case 2
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Ace),
@@ -302,7 +303,7 @@ main() {
       }
     }
     // descending order 1
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Ace),
@@ -313,7 +314,7 @@ main() {
       }
     }
     // descending order 2
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Three),
@@ -324,7 +325,7 @@ main() {
       }
     }
     // mixed order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Two),
@@ -339,7 +340,7 @@ main() {
   // Tests for 4 card combinations
 
   test('Four of a kind to display', () async {
-    for(Value value in Value.values) {
+    for (Value value in Value.values) {
       if (value.index < 13) {
         final hand = [
           PlayCard(suit: Suit.Clubs, value: value),
@@ -354,7 +355,7 @@ main() {
 
   test('Two pairs to display', () async {
     // Ascending
-    for(int i = 0; i < 11; i++) {
+    for (int i = 0; i < 11; i++) {
       final hand = List<PlayCard>();
       hand.add(PlayCard(suit: Suit.Clubs, value: Value.values[i]));
       hand.add(PlayCard(suit: Suit.Diamonds, value: Value.values[i]));
@@ -363,7 +364,7 @@ main() {
       toDisplayHand(hand, HandClass.TwoPair);
     }
     // Descending
-    for(int i = 0; i < 11; i++) {
+    for (int i = 0; i < 11; i++) {
       final hand = List<PlayCard>();
       hand.add(PlayCard(suit: Suit.Clubs, value: Value.values[i + 1]));
       hand.add(PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]));
@@ -372,7 +373,7 @@ main() {
       toDisplayHand(hand, HandClass.TwoPair);
     }
     // mixed 1
-    for(int i = 0; i < 11; i++) {
+    for (int i = 0; i < 11; i++) {
       final hand = List<PlayCard>();
       hand.add(PlayCard(suit: Suit.Clubs, value: Value.values[i]));
       hand.add(PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]));
@@ -381,7 +382,7 @@ main() {
       toDisplayHand(hand, HandClass.TwoPair);
     }
     // mixed 2
-    for(int i = 0; i < 11; i++) {
+    for (int i = 0; i < 11; i++) {
       final hand = List<PlayCard>();
       hand.add(PlayCard(suit: Suit.Clubs, value: Value.values[i + 1]));
       hand.add(PlayCard(suit: Suit.Diamonds, value: Value.values[i]));
@@ -393,7 +394,7 @@ main() {
 
   test('Flush of 4 to display', () async {
     // Basis case
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Two),
@@ -405,7 +406,7 @@ main() {
       }
     }
     // descending order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Eight),
@@ -417,7 +418,7 @@ main() {
       }
     }
     // mixed order 1
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Four),
@@ -429,7 +430,7 @@ main() {
       }
     }
     // mixed order 2
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Eight),
@@ -443,7 +444,7 @@ main() {
 
     // Same with higher hand
     // Basis case
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Seven),
@@ -455,7 +456,7 @@ main() {
       }
     }
     // descending order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.King),
@@ -467,7 +468,7 @@ main() {
       }
     }
     // mixed order 3
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Nine),
@@ -479,7 +480,7 @@ main() {
       }
     }
     // mixed order 4
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Nine),
@@ -494,7 +495,7 @@ main() {
 
   test('Straight of 4 to display', () async {
     // Basis case
-    for(int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]),
@@ -504,7 +505,7 @@ main() {
       toDisplayHand(hand, HandClass.Straight4);
     }
     // descending order
-    for(int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i + 3]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 2]),
@@ -514,7 +515,7 @@ main() {
       toDisplayHand(hand, HandClass.Straight4);
     }
     // mixed order
-    for(int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++) {
       final hand = [
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 2]),
         PlayCard(suit: Suit.Clubs, value: Value.values[i + 1]),
@@ -580,7 +581,7 @@ main() {
 
   test('Straight flush of 4 to display', () async {
     // Basis case
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Two),
@@ -592,7 +593,7 @@ main() {
       }
     }
     // descending order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Five),
@@ -604,7 +605,7 @@ main() {
       }
     }
     // mixed order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Three),
@@ -618,7 +619,7 @@ main() {
 
     // Same with higher hand
     // Basis case
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Jack),
@@ -630,7 +631,7 @@ main() {
       }
     }
     // descending order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Ace),
@@ -642,7 +643,7 @@ main() {
       }
     }
     // mixed order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.King),
@@ -657,7 +658,7 @@ main() {
 
   test('Straight wheel flush of 4 to display', () async {
     // Basis case 1
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Two),
@@ -669,7 +670,7 @@ main() {
       }
     }
     // Basis case 2
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Ace),
@@ -681,7 +682,7 @@ main() {
       }
     }
     // descending order 1
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Ace),
@@ -693,7 +694,7 @@ main() {
       }
     }
     // descending order 2
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Four),
@@ -705,7 +706,7 @@ main() {
       }
     }
     // mixed order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Four),
@@ -721,7 +722,7 @@ main() {
   // tests for hands of 5 cards
 
   test('Five of a kind to display', () async {
-    for(Value value in Value.values) {
+    for (Value value in Value.values) {
       if (value.index < 13) {
         final hand = [
           PlayCard(suit: Suit.Clubs, value: value),
@@ -737,7 +738,7 @@ main() {
 
   test('Flush of 5 to display', () async {
     // Basis case
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Two),
@@ -750,7 +751,7 @@ main() {
       }
     }
     // descending order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Ten),
@@ -763,7 +764,7 @@ main() {
       }
     }
     // mixed order 1
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Four),
@@ -776,7 +777,7 @@ main() {
       }
     }
     // mixed order 2
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Eight),
@@ -791,7 +792,7 @@ main() {
 
     // Same with higher hand
     // Basis case
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Five),
@@ -804,7 +805,7 @@ main() {
       }
     }
     // descending order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.King),
@@ -817,7 +818,7 @@ main() {
       }
     }
     // mixed order 3
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Nine),
@@ -830,7 +831,7 @@ main() {
       }
     }
     // mixed order 4
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Nine),
@@ -940,7 +941,7 @@ main() {
 
   test('Straight flush to display', () async {
     // Basis case
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Two),
@@ -953,7 +954,7 @@ main() {
       }
     }
     // descending order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Six),
@@ -966,7 +967,7 @@ main() {
       }
     }
     // mixed order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Three),
@@ -981,7 +982,7 @@ main() {
 
     // Same with higher hand
     // Basis case
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Ten),
@@ -994,7 +995,7 @@ main() {
       }
     }
     // descending order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Ace),
@@ -1007,7 +1008,7 @@ main() {
       }
     }
     // mixed order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.King),
@@ -1023,7 +1024,7 @@ main() {
 
   test('Straight wheel flush to display', () async {
     // Basis case 1
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Two),
@@ -1036,7 +1037,7 @@ main() {
       }
     }
     // Basis case 2
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Ace),
@@ -1049,7 +1050,7 @@ main() {
       }
     }
     // descending order 1
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Ace),
@@ -1062,7 +1063,7 @@ main() {
       }
     }
     // descending order 2
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Five),
@@ -1075,7 +1076,7 @@ main() {
       }
     }
     // mixed order
-    for(Suit suit in Suit.values) {
+    for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
           PlayCard(suit: suit, value: Value.Four),
@@ -1091,7 +1092,7 @@ main() {
 
   test('Full house to display', () async {
     // Basic case
-    for(int i = 0; i < 11; i++) {
+    for (int i = 0; i < 11; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i]),
@@ -1102,7 +1103,7 @@ main() {
       toDisplayHand(hand, HandClass.FullHouse);
     }
     // Other end
-    for(int i = 0; i < 11; i++) {
+    for (int i = 0; i < 11; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i]),
@@ -1113,7 +1114,7 @@ main() {
       toDisplayHand(hand, HandClass.FullHouse);
     }
     // descending order 1
-    for(int i = 0; i < 11; i++) {
+    for (int i = 0; i < 11; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i + 1]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]),
@@ -1124,7 +1125,7 @@ main() {
       toDisplayHand(hand, HandClass.FullHouse);
     }
     // descending order 2
-    for(int i = 0; i < 11; i++) {
+    for (int i = 0; i < 11; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i + 1]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]),
@@ -1135,7 +1136,7 @@ main() {
       toDisplayHand(hand, HandClass.FullHouse);
     }
     // mixed order 1
-    for(int i = 0; i < 11; i++) {
+    for (int i = 0; i < 11; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i + 1]),
@@ -1146,7 +1147,7 @@ main() {
       toDisplayHand(hand, HandClass.FullHouse);
     }
     // mixed order 2
-    for(int i = 0; i < 11; i++) {
+    for (int i = 0; i < 11; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i + 1]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i]),

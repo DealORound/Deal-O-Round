@@ -43,8 +43,8 @@ class GamePage extends StatefulWidget {
   GameState createState() => GameState();
 
   static GameState of(BuildContext context) {
-    return (
-        context.dependOnInheritedWidgetOfExactType<_GamePageInherited>()).data;
+    return (context.dependOnInheritedWidgetOfExactType<_GamePageInherited>())
+        .data;
   }
 }
 
@@ -171,7 +171,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     for (Point<int> neighbor in neighbors) {
       final neighborsOfNeighbor = _getNeighbors(neighbor);
       _board.board[neighbor.x][neighbor.y].neighbor =
-        _hasSelected(neighborsOfNeighbor);
+          _hasSelected(neighborsOfNeighbor);
     }
   }
 
@@ -182,8 +182,9 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
       }
       if (_difficulty == Difficulty.Easy) {
         for (var x in indexes) {
-          final ixs = (_layout == BoardLayout.Hexagonal && x % 2 == 0) ?
-            indexesEven : indexes;
+          final ixs = (_layout == BoardLayout.Hexagonal && x % 2 == 0)
+              ? indexesEven
+              : indexes;
           for (var y in ixs) {
             _board.board[x][y].neighbor = false;
           }
@@ -194,8 +195,8 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   }
 
   List<Scoring> _getSelectedHands() {
-    List<PlayCard> cards = _selection.map((s) =>
-      _board.board[s.x][s.y]).toList();
+    List<PlayCard> cards =
+        _selection.map((s) => _board.board[s.x][s.y]).toList();
     return _rules.rankHand(cards, 0, false, true, true);
   }
 
@@ -203,7 +204,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     if (!_inGesture) {
       return;
     }
-    final diameter = chipSize(context);  // ~80
+    final diameter = chipSize(context); // ~80
     final radius = diameter / 2;
     final xIndex = details.localPosition.dx ~/ diameter;
     final colAdj = _layout == BoardLayout.Hexagonal && xIndex % 2 == 0 ? 1 : 0;
@@ -221,7 +222,8 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
         _swipeGesture = true;
       }
       debugPrint("c $cell, l $_lastFlipped");
-      if ((cell.x != _lastFlipped.x || cell.y != _lastFlipped.y) && _selection.length < 5) {
+      if ((cell.x != _lastFlipped.x || cell.y != _lastFlipped.y) &&
+          _selection.length < 5) {
         bool selected = _board.board[cell.x][cell.y].selected;
         bool shouldAdjust = false;
         List<Point<int>> neighbors;
@@ -235,17 +237,17 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
             if (_selection.length > 1) {
               neighbors = _getNeighbors(cell);
               if (neighbors.length > 1) {
-                List<int> vs = neighbors.map((c) =>
-                _getNeighbors(c).length).toList();
+                List<int> vs =
+                    neighbors.map((c) => _getNeighbors(c).length).toList();
                 int vProd = vs.fold(1, (f, n) => f * n);
                 // If any selected don't have selected neighbors OR
                 // If more than 2 selected but there are no selection with
                 // 2 or more neighbors (vProd < 2) OR
                 // If 4 selected and there are more than two with 1 neighbor
-                if (vProd == 0 || neighbors.length >= 3 && vProd < 2 ||
+                if (vProd == 0 ||
+                    neighbors.length >= 3 && vProd < 2 ||
                     neighbors.length == 4 &&
-                        vs.fold(0, (f, n) => f + (n == 1 ? 1 : 0)) > 2)
-                {
+                        vs.fold(0, (f, n) => f + (n == 1 ? 1 : 0)) > 2) {
                   _clearSelection();
                 }
               }
@@ -291,8 +293,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   }
 
   _removeHand() async {
-    await Get.find<SoundUtils>().playSoundEffect(
-      SoundEffect.PokerChips);
+    await Get.find<SoundUtils>().playSoundEffect(SoundEffect.PokerChips);
 
     setState(() {
       // TODO: animate removal and insertion (we have the _listKeys here)
@@ -368,14 +369,10 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     _paused = false;
     _totalPaused = 0;
     _prefs = Get.find<SharedPreferences>();
-    _difficulty = enumFromString(
-      Difficulty.values,
-      _prefs.getString(DIFFICULTY)
-    );
-    _layout = enumFromString(
-        BoardLayout.values,
-        _prefs.getString(BOARD_LAYOUT)
-    );
+    _difficulty =
+        enumFromString(Difficulty.values, _prefs.getString(DIFFICULTY));
+    _layout =
+        enumFromString(BoardLayout.values, _prefs.getString(BOARD_LAYOUT));
     _countDown = _levelManager.getCurrentLevelTimeLimit(_difficulty);
     _nextLevel = _levelManager.getCurrentLevelScoreLimit(_difficulty);
     _level = _levelManager.getCurrentLevelIndex();
@@ -384,10 +381,8 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     _populateBoard();
 
     final soundUtils = Get.find<SoundUtils>();
-    soundUtils.playSoundEffect(
-      SoundEffect.ShortCardShuffle).then(
-        (c) async => await soundUtils.playSoundTrack(SoundTrack.GuitarMusic)
-    );
+    soundUtils.playSoundEffect(SoundEffect.ShortCardShuffle).then(
+        (c) async => await soundUtils.playSoundTrack(SoundTrack.GuitarMusic));
   }
 
   void _populateBoard() {
@@ -397,7 +392,9 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
         future = future.then((_) {
           return Future.delayed(Duration(milliseconds: 200), () {
             for (int j = 0; j < boardSize; j++) {
-              if (i < boardSize - 1 || j % 2 == 1 || layout == BoardLayout.Square) {
+              if (i < boardSize - 1 ||
+                  j % 2 == 1 ||
+                  layout == BoardLayout.Square) {
                 _listKeys[j].currentState.insertItem(i);
               }
             }

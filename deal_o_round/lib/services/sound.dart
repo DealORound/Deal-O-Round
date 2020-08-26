@@ -41,10 +41,8 @@ class SoundUtils {
 
   SoundUtils({this.pref}) {
     Get.putAsync<Soundpool>(() async {
-      _soundPool = Soundpool(
-        streamType: StreamType.notification,
-        maxStreams: 2
-      );
+      _soundPool =
+          Soundpool(streamType: StreamType.notification, maxStreams: 2);
       if (pref.getBool(SOUND_EFFECTS)) {
         await loadSoundEffects();
       }
@@ -66,7 +64,7 @@ class SoundUtils {
       if (_soundIds[k] <= 0) {
         var asset = await rootBundle.load(v);
         final soundId = await _soundPool.load(asset);
-        _soundIds.addAll({ k: soundId });
+        _soundIds.addAll({k: soundId});
       }
     });
   }
@@ -78,7 +76,7 @@ class SoundUtils {
         final volume = pref.getDouble(VOLUME) / 100.0;
         _soundPool.setVolume(soundId: soundId, volume: volume);
         final streamId = await _soundPool.play(soundId);
-        _streamIds.addAll({ soundEffect: streamId});
+        _streamIds.addAll({soundEffect: streamId});
         _soundPool.setVolume(streamId: streamId, volume: volume);
         return streamId;
       } else {

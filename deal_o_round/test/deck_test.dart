@@ -10,7 +10,7 @@ main() {
     if (shuffle) {
       deck.shuffle();
     }
-    for(int i = 0; i < 52; i++) {
+    for (int i = 0; i < 52; i++) {
       final playCard = deck.dealCard();
       final suitInt = playCard.suit.index;
       final valueInt = playCard.value.index;
@@ -24,7 +24,7 @@ main() {
     if (shuffle) {
       deck.shuffle();
     }
-    for(int i = 0; i < 52; i++) {
+    for (int i = 0; i < 52; i++) {
       deck.dealCard();
     }
 
@@ -39,10 +39,11 @@ main() {
       deck.shuffle();
     }
     final cards = List<PlayCard>();
-    for(int i = 0; i < 52; i++) {
+    for (int i = 0; i < 52; i++) {
       final playCard = deck.dealCard();
-      for(PlayCard card in cards) {
-        expect(card.suit == playCard.suit && card.value == playCard.value, false);
+      for (PlayCard card in cards) {
+        expect(
+            card.suit == playCard.suit && card.value == playCard.value, false);
         expect(playCard.suit != Suit.Invalid, true);
         expect(playCard.value != Value.Invalid, true);
       }
@@ -109,7 +110,7 @@ main() {
       deck.shuffle();
       int cardIndex = 0;
       bool sorted = true;
-      while(deck.cardsLeft() > 0 && sorted) {
+      while (deck.cardsLeft() > 0 && sorted) {
         final card = deck.dealCard();
         sorted = sorted && (cardIndex ~/ (52 / 4) == card.suit.index);
         sorted = sorted && (cardIndex % (52 / 4) == card.value.index);
@@ -125,7 +126,8 @@ main() {
       testDeckWithoutJokerCanGive52CardsCore(true);
     });
 
-    test('Deck w/o Joker cannot dela more than 52 cards after shuffle', () async {
+    test('Deck w/o Joker cannot dela more than 52 cards after shuffle',
+        () async {
       testDeckWithoutJokerCannotGiveMoreThan52CardsCore(true);
     });
 

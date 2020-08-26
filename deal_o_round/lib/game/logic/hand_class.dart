@@ -4,7 +4,7 @@ enum HandClass {
   Flush3,
   Straight3,
   StraightFlush3,
-  ThreeOfAKind,  // Terc
+  ThreeOfAKind, // Terc
   Straight4,
   TwoPair,
   Flush4,
@@ -12,8 +12,8 @@ enum HandClass {
   StraightFlush4,
   Flush5,
   FullHouse,
-  FourOfAKind,  // Poker
-  StraightFlush5,  // Royal Flush
+  FourOfAKind, // Poker
+  StraightFlush5, // Royal Flush
   FiveOfAKind,
   Invalid
 }
@@ -45,9 +45,25 @@ String handDisplayString(HandClass handClass) {
   return handDisplayStrings[handClass.index];
 }
 
-const baseValueList =
-  [0, 1, 15, 30, 50, 100, 125, 150, 170, 200,
-    250, 300, 350, 2000, 5000, 10000, 0];
+const baseValueList = [
+  0,
+  1,
+  15,
+  30,
+  50,
+  100,
+  125,
+  150,
+  170,
+  200,
+  250,
+  300,
+  350,
+  2000,
+  5000,
+  10000,
+  0
+];
 
 int handBaseValue(HandClass handClass) {
   return baseValueList[handClass.index];

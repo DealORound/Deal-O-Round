@@ -8,7 +8,7 @@ import 'chip_selection_painter.dart';
 
 class ChipWidget extends StatefulWidget {
   final PlayCard card;
-  ChipWidget({Key key, this.card}): super(key: key);
+  ChipWidget({Key key, this.card}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -21,52 +21,41 @@ class ChipWidgetState extends State<ChipWidget> {
   String _suit;
   String _value;
 
-  ChipWidgetState({
-    this.card
-  }) {
+  ChipWidgetState({this.card}) {
     this._suit = suitCharacter(card.suit);
     this._value = valueCharacter(card.value);
   }
 
   @override
   Widget build(BuildContext context) {
-    final textColor = (_suit == 'C' || _suit == 'S') ?
-      Colors.black : Colors.red;
-    final diameter = chipSize(context);  // ~80
-    final fontSize = diameter * 0.625;  // ~50
-    final suitStyle = TextStyle(
-      fontSize: fontSize,
-      fontFamily: 'Cards',
-      color: textColor
-    );
+    final textColor =
+        (_suit == 'C' || _suit == 'S') ? Colors.black : Colors.red;
+    final diameter = chipSize(context); // ~80
+    final fontSize = diameter * 0.625; // ~50
+    final suitStyle =
+        TextStyle(fontSize: fontSize, fontFamily: 'Cards', color: textColor);
     final valueStyle = TextStyle(
-      fontSize: fontSize,
-      fontFamily: 'Stint-Ultra-Condensed',
-      fontWeight: FontWeight.w700,
-      color: textColor
-    );
+        fontSize: fontSize,
+        fontFamily: 'Stint-Ultra-Condensed',
+        fontWeight: FontWeight.w700,
+        color: textColor);
 
     return SizedBox(
-      width: diameter,
-      height: diameter,
-      child: CustomPaint(
-        painter: ChipPainter(),
-        foregroundPainter: ChipSelectionPainter(
-          selected: card.selected, neighbor: card.neighbor),
-        child: Center(
-          child: RichText(
-            maxLines: 1,
-            overflow: TextOverflow.visible,
-            text: TextSpan(
-              text: _value,
-              style: valueStyle,
-              children: <TextSpan>[
-                TextSpan(text: _suit, style: suitStyle)
-              ]
-            )
-          )
-        )
-      )
-    );
+        width: diameter,
+        height: diameter,
+        child: CustomPaint(
+            painter: ChipPainter(),
+            foregroundPainter: ChipSelectionPainter(
+                selected: card.selected, neighbor: card.neighbor),
+            child: Center(
+                child: RichText(
+                    maxLines: 1,
+                    overflow: TextOverflow.visible,
+                    text: TextSpan(
+                        text: _value,
+                        style: valueStyle,
+                        children: <TextSpan>[
+                          TextSpan(text: _suit, style: suitStyle)
+                        ])))));
   }
 }

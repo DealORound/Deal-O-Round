@@ -6,7 +6,8 @@ import 'package:deal_o_round/game/logic/suit.dart';
 import 'package:deal_o_round/game/logic/value.dart';
 
 main() {
-  testShoeWithoutJokerFirstDeckIsSortedTheRestBecomesShuffledAfterConstructionCore(int shoeSize) {
+  testShoeWithoutJokerFirstDeckIsSortedTheRestBecomesShuffledAfterConstructionCore(
+      int shoeSize) {
     final shoe = Shoe(shoeSize);
     for (int deck = 0; deck < shoeSize; deck++) {
       if (deck == 0) {
@@ -63,7 +64,7 @@ main() {
   testShoeWithoutJokerCanDeal52CardsCore(int shoeSize) {
     final shoe = Shoe(shoeSize);
     for (int deck = 0; deck < shoeSize; deck++) {
-      for(int i = 0; i < 52; i++) {
+      for (int i = 0; i < 52; i++) {
         final card = shoe.dealCard();
         int suitInt = card.suit.index;
         int valueInt = card.value.index;
@@ -76,7 +77,7 @@ main() {
   testShoeWithoutJokerIsEndlessCore(int shoeSize) {
     final shoe = Shoe(shoeSize);
     // pulling out three times the decks of cards
-    for(int i = 0; i < shoeSize * 52 * 3; i++) {
+    for (int i = 0; i < shoeSize * 52 * 3; i++) {
       final card = shoe.dealCard();
       expect(card.suit != Suit.Invalid, true);
       expect(card.value != Value.Invalid, true);
@@ -87,10 +88,11 @@ main() {
     final shoe = Shoe(shoeSize);
     for (int deck = 0; deck < shoeSize; deck++) {
       final cards = List<PlayCard>();
-      for(int i = 0; i < 52; i++) {
+      for (int i = 0; i < 52; i++) {
         final playCard = shoe.dealCard();
-        for(PlayCard card in cards) {
-          expect(card.suit == playCard.suit && card.value == playCard.value, false);
+        for (PlayCard card in cards) {
+          expect(card.suit == playCard.suit && card.value == playCard.value,
+              false);
           expect(playCard.suit != Suit.Invalid, true);
           expect(playCard.value != Value.Invalid, true);
         }
@@ -116,7 +118,9 @@ main() {
       }
     });
 
-    test('Shoe w/o Joker first deck is sorted the rest becomes shuffled after construction', () async {
+    test(
+        'Shoe w/o Joker first deck is sorted the rest becomes shuffled after construction',
+        () async {
       for (int shoeSize = 1; shoeSize <= maxShoeSizeToTest; shoeSize++) {
         testShoeWithoutJokerFirstDeckIsSortedTheRestBecomesShuffledAfterConstructionCore(
             shoeSize);

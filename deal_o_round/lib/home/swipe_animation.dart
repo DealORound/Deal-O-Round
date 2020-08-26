@@ -16,7 +16,8 @@ class SwipeAnimation extends StatefulWidget {
   }
 }
 
-class SwipeAnimationState extends State<SwipeAnimation> with SingleTickerProviderStateMixin {
+class SwipeAnimationState extends State<SwipeAnimation>
+    with SingleTickerProviderStateMixin {
   AnimationController _animationController;
   Animation _animation;
   Path _path;
@@ -31,13 +32,12 @@ class SwipeAnimationState extends State<SwipeAnimation> with SingleTickerProvide
     super.initState();
     _animation = Tween(begin: 0.0, end: 1.0).animate(_animationController)
       ..addListener(() {
-        setState(() {
-        });
+        setState(() {});
       })
       ..addStatusListener((status) async {
         if (status == AnimationStatus.completed) {
-          await Get.find<SoundUtils>().playSoundEffect(
-            SoundEffect.ShortCardShuffle);
+          await Get.find<SoundUtils>()
+              .playSoundEffect(SoundEffect.ShortCardShuffle);
           _animationController.reverse();
         } else if (status == AnimationStatus.dismissed) {
           _animationController.forward();
@@ -48,39 +48,33 @@ class SwipeAnimationState extends State<SwipeAnimation> with SingleTickerProvide
 
   @override
   Widget build(BuildContext context) {
-    final diameter = chipSize(context);  // ~80
-    final dAdj = diameter - 10;  // ~70
-    final rAdj = dAdj / 2;  // ~35
-    final width = diameter * 2;  // ~160
-    final height = diameter * 3;  // ~240
+    final diameter = chipSize(context); // ~80
+    final dAdj = diameter - 10; // ~70
+    final rAdj = dAdj / 2; // ~35
+    final width = diameter * 2; // ~160
+    final height = diameter * 3; // ~240
     if (_path == null) {
       _path = SwipePainter.swipePath(width, height);
     }
     return SizedBox(
-      width: width,
-      height: height,
-      child: Stack(
-        children: <Widget>[
+        width: width,
+        height: height,
+        child: Stack(children: <Widget>[
           Positioned(
             top: 0,
             left: 0,
             child: LeftExampleChips(),
           ),
           Positioned(
-            top: calculate(_animation.value).dy - rAdj,
-            left: calculate(_animation.value).dx - rAdj,
-            child: Container(
-              decoration: BoxDecoration(
-                color: Color(0x99B2FF59),
-                borderRadius: BorderRadius.circular(rAdj)
-              ),
-              width: dAdj,
-              height: dAdj
-            )
-          )
-        ]
-      )
-    );
+              top: calculate(_animation.value).dy - rAdj,
+              left: calculate(_animation.value).dx - rAdj,
+              child: Container(
+                  decoration: BoxDecoration(
+                      color: Color(0x99B2FF59),
+                      borderRadius: BorderRadius.circular(rAdj)),
+                  width: dAdj,
+                  height: dAdj))
+        ]));
   }
 
   @override

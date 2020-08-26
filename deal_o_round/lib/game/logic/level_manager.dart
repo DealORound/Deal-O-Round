@@ -50,8 +50,7 @@ class LevelManager {
     for (Level level in levels) {
       scoreLimit += level.getScoreLimit(difficulty);
       lvlIndex++;
-      if (lvlIndex > currentLevel)
-        break;
+      if (lvlIndex > currentLevel) break;
     }
     return scoreLimit;
   }
