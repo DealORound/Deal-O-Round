@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spinner_input/spinner_input.dart';
 import '../services/settings_constants.dart';
+import '../services/size.dart';
 import '../services/sound.dart';
 
 class SpinnerSettings extends StatefulWidget {
@@ -66,6 +67,9 @@ class _SpinnerSettingsState extends State<SpinnerSettings> {
 
   @override
   Widget build(BuildContext context) {
+    final radius = chipRadius(context);  // ~40
+    final iconSize = radius - 5;  // ~35
+    final numberWidth = radius * 2 + 15;  // ~95
     return SpinnerInput(
       spinnerValue: doubleValue,
       minValue: minValue,
@@ -74,17 +78,17 @@ class _SpinnerSettingsState extends State<SpinnerSettings> {
       fractionDigits: fractionDigits,
       plusButton: SpinnerButtonStyle(
         color: Colors.green,
-        height: 40,
-        width: 40,
-        child: Icon(Icons.add, size: 35)
+        height: radius,
+        width: radius,
+        child: Icon(Icons.add, size: iconSize)
       ),
       minusButton: SpinnerButtonStyle(
         color: Colors.green,
-        height: 40,
-        width: 40,
-        child: Icon(Icons.remove, size: 35)
+        height: radius,
+        width: radius,
+        child: Icon(Icons.remove, size: iconSize)
       ),
-      middleNumberWidth: 95,
+      middleNumberWidth: numberWidth,
       middleNumberStyle: textStyle,
       middleNumberBackground: Colors.green.shade800,
       onChange: (newValue) {

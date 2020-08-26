@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../services/size.dart';
 import 'home_page.dart';
 
 class TitleLine extends StatelessWidget {
@@ -14,12 +15,14 @@ class TitleLine extends StatelessWidget {
     final highlightIdx = (animationTick + 2) % title.length;
     final postHighlight = (animationTick + 3) % title.length;
     final postPostHighlight = (animationTick + 4) % title.length;
+    final radius = chipRadius(context);  // ~40
+    final fontSize = radius * 1.5;  // ~60
 
     title.split('').asMap().forEach((idx, char) => titleCharacters.add(
       Text(
         char,
         style: TextStyle(
-          fontSize: 60,
+          fontSize: fontSize,
           fontFamily: 'Musicals',
           color: idx == highlightIdx ? Colors.white : (
               (idx == preHighlight || idx == postHighlight) ?

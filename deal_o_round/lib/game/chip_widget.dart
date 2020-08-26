@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../game/logic/play_card.dart';
 import '../game/logic/suit.dart';
 import '../game/logic/value.dart';
+import '../services/size.dart';
 import 'chip_painter.dart';
 import 'chip_selection_painter.dart';
 
@@ -16,9 +17,6 @@ class ChipWidget extends StatefulWidget {
 }
 
 class ChipWidgetState extends State<ChipWidget> {
-  static const chipSize = 80.0;
-  static const chipRadius = chipSize / 2;
-
   final PlayCard card;
   String _suit;
   String _value;
@@ -34,21 +32,23 @@ class ChipWidgetState extends State<ChipWidget> {
   Widget build(BuildContext context) {
     final textColor = (_suit == 'C' || _suit == 'S') ?
       Colors.black : Colors.red;
+    final diameter = chipSize(context);  // ~80
+    final fontSize = diameter * 0.625;  // ~50
     final suitStyle = TextStyle(
-      fontSize: 50,
+      fontSize: fontSize,
       fontFamily: 'Cards',
       color: textColor
     );
     final valueStyle = TextStyle(
-      fontSize: 50,
+      fontSize: fontSize,
       fontFamily: 'Stint-Ultra-Condensed',
       fontWeight: FontWeight.w700,
       color: textColor
     );
 
     return SizedBox(
-      width: chipSize,
-      height: chipSize,
+      width: diameter,
+      height: diameter,
       child: CustomPaint(
         painter: ChipPainter(),
         foregroundPainter: ChipSelectionPainter(

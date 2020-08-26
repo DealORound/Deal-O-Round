@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../services/size.dart';
 
 class EnumSettings<T> extends StatefulWidget {
   final List<T> values;
@@ -58,7 +59,7 @@ class _EnumSettingsState<T> extends State<EnumSettings> {
     return DropdownButton<String>(
       value: stringValue,
       icon: Icon(Icons.arrow_downward, color: Colors.green),
-      iconSize: 40,
+      iconSize: chipRadius(context),
       style: TextStyle(color: Colors.lightGreen),
       underline: Container(
         height: 2,

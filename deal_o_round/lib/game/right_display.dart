@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import '../services/size.dart';
 import 'game_page.dart';
 
 class RightDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GameState state = GamePage.of(context);
-    const size = 32.0;
-    const textStyle = TextStyle(
-      fontSize: size,
+    final radius = chipRadius(context);  // ~40
+    final textStyle = TextStyle(
+      fontSize: radius * 0.8,  // ~32
       fontFamily: 'Roboto Condensed',
       color: Colors.white
     );
@@ -28,8 +29,8 @@ class RightDisplay extends StatelessWidget {
         width: 3.0
       )
     );
-    const spacing = 10.0;
-    const width = 160.0;
+    final spacing = radius / 4;  // ~10
+    final width = radius * 4;  // 160.0;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,

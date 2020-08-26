@@ -5,6 +5,7 @@ import 'package:universal_platform/universal_platform.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../game/game_page.dart';
 import '../game/game_widget.dart';
+import '../services/size.dart';
 import '../settings/settings_page.dart';
 import 'title_line.dart';
 
@@ -13,13 +14,14 @@ class HomeCenter extends StatelessWidget {
   Widget build(BuildContext context) {
     const aboutUrl = "http://dealoround.com/about.html";
     const helpUrl = "http://dealoround.com/help.html";
-    const size = 40.0;
-    // TODO make it dependent of screen size: context.mediaQuerySize
-    const buttonWidth = 210.0;
-    const buttonPadding = const EdgeInsets.all(10.0);
-    const spacing = 10.0;
-    const textStyle = TextStyle(
-      fontSize: size,
+    final radius = chipRadius(context);  // ~40
+    final size = context.mediaQuerySize;
+    final buttonWidth = size.width / 3.8;  // 210.0;
+    final bigSpacing = radius / 2;  // ~20
+    final spacing = bigSpacing / 2;  // ~10
+    final buttonPadding = EdgeInsets.all(spacing);
+    final textStyle = TextStyle(
+      fontSize: radius,
       fontFamily: 'Musicals',
       color: Colors.white
     );
@@ -31,7 +33,7 @@ class HomeCenter extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         TitleLine(),
-        SizedBox(height: 20),
+        SizedBox(height: bigSpacing),
         Row(
           children: <Widget>[
             Column(
@@ -62,8 +64,8 @@ class HomeCenter extends StatelessWidget {
                     textColor: Colors.white,
                     shape: buttonShape,
                     padding: buttonPadding,
-                    icon: const Icon(Icons.person, size: size),
-                    label: const Text("Login", style: textStyle)
+                    icon: Icon(Icons.person, size: radius),
+                    label: Text("Login", style: textStyle)
                   )
                 ),
                 SizedBox(height: spacing),
@@ -92,8 +94,8 @@ class HomeCenter extends StatelessWidget {
                     textColor: Colors.white,
                     shape: buttonShape,
                     padding: buttonPadding,
-                    icon: const Icon(Icons.format_list_numbered, size: size),
-                    label: const Text("Scores", style: textStyle)
+                    icon: Icon(Icons.format_list_numbered, size: radius),
+                    label: Text("Scores", style: textStyle)
                   )
                 ),
                 SizedBox(height: spacing),
@@ -105,8 +107,8 @@ class HomeCenter extends StatelessWidget {
                     textColor: Colors.white,
                     shape: buttonShape,
                     padding: buttonPadding,
-                    icon: const Icon(Icons.settings, size: size),
-                    label: const Text("Config", style: textStyle)
+                    icon: Icon(Icons.settings, size: radius),
+                    label: Text("Config", style: textStyle)
                   )
                 )
               ]
@@ -122,8 +124,8 @@ class HomeCenter extends StatelessWidget {
                     textColor: Colors.white,
                     shape: buttonShape,
                     padding: buttonPadding,
-                    icon: const Icon(Icons.play_arrow, size: size),
-                    label: const Text("Play", style: textStyle)
+                    icon: Icon(Icons.play_arrow, size: radius),
+                    label: Text("Play", style: textStyle)
                   )
                 ),
                 SizedBox(height: spacing),
@@ -141,8 +143,8 @@ class HomeCenter extends StatelessWidget {
                     textColor: Colors.white,
                     shape: buttonShape,
                     padding: buttonPadding,
-                    icon: const Icon(Icons.info, size: size),
-                    label: const Text("About", style: textStyle)
+                    icon: Icon(Icons.info, size: radius),
+                    label: Text("About", style: textStyle)
                   )
                 ),
                 SizedBox(height: spacing),
@@ -160,8 +162,8 @@ class HomeCenter extends StatelessWidget {
                     textColor: Colors.white,
                     shape: buttonShape,
                     padding: buttonPadding,
-                    icon: const Icon(Icons.help, size: size),
-                    label: const Text("Help", style: textStyle)
+                    icon: Icon(Icons.help, size: radius),
+                    label: Text("Help", style: textStyle)
                   )
                 )
               ]

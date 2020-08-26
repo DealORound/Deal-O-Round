@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../services/size.dart';
 import 'background_painter.dart';
 
 class GameOverWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    const textStyle = TextStyle(
-        fontSize: 64,
+    final radius = chipRadius(context);  // ~40
+    final fontSize = radius * 1.5;  // ~60
+    final textStyle = TextStyle(
+        fontSize: fontSize,
         fontFamily: 'Musicals',
         color: Colors.white
     );
@@ -15,10 +18,10 @@ class GameOverWidget extends StatelessWidget {
       backgroundColor: Colors.transparent,
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       floatingActionButton: Padding(
-        padding: const EdgeInsets.only(top: 60.0),
+        padding: EdgeInsets.only(top: fontSize),
         child: FloatingActionButton(
           onPressed: () => Get.back(),
-          child: Icon(Icons.arrow_back, size: 40),
+          child: Icon(Icons.arrow_back, size: radius),
           backgroundColor: Colors.green,
         ),
       ),

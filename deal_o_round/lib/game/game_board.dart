@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import '../services/settings_constants.dart';
+import '../services/size.dart';
 import 'logic/board.dart';
 import 'logic/play_card.dart';
 import 'chip_widget.dart';
 import 'game_page.dart';
 
 class GameBoard extends StatelessWidget {
-  Column getColumn(List<PlayCard> column, int index, BoardLayout layout) {
+  Column getColumn(List<PlayCard> column, int index, BoardLayout layout,
+      double radius)
+  {
     final key = column.map((c) => c.toString()).toList().join('_');
     final items = column.map((c) => ChipWidget(card: c) as Widget).toList();
     if (index % 2 == 0 && layout == BoardLayout.Hexagonal) {
-      items.add(SizedBox(height: ChipWidgetState.chipRadius));
+      items.add(SizedBox(height: radius));
     }
     return Column(
       key: Key(key),
@@ -20,10 +23,10 @@ class GameBoard extends StatelessWidget {
     );
   }
 
-  Row getColumns(Board board, BoardLayout layout) {
+  Row getColumns(Board board, BoardLayout layout, double radius) {
     List<Widget> columns = [];
     board.board.asMap().forEach((index, column) =>
-      columns.add(getColumn(column, index, layout))
+      columns.add(getColumn(column, index, layout, radius))
     );
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -43,9 +46,10 @@ class GameBoard extends StatelessWidget {
         width: 3.0
       )
     );
-    const size = ChipWidgetState.chipSize * GameState.boardSize;
-    const textStyle = TextStyle(
-        fontSize: 32.0,
+    final diameter = chipSize(context);
+    final size = diameter * GameState.boardSize;
+    final textStyle = TextStyle(
+        fontSize: diameter * 0.4,  // ~32
         fontFamily: 'Roboto Condensed',
         color: Colors.white
     );
@@ -62,7 +66,7 @@ class GameBoard extends StatelessWidget {
           onPointerDown: (PointerEvent details) => state.onPointerDown(details),
           onPointerMove: (PointerEvent details) => state.onPointerMove(details),
           onPointerUp: (PointerEvent details) => state.onPointerUp(details),
-          child: getColumns(state.board, state.layout)
+          child: getColumns(state.board, state.layout, diameter / 2)
         )
       )
     );

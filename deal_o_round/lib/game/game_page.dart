@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../services/settings_constants.dart';
+import '../services/size.dart';
 import '../services/sound.dart';
 import 'logic/board.dart';
 import 'logic/hand_class.dart';
@@ -13,7 +14,6 @@ import 'logic/level_manager.dart';
 import 'logic/play_card.dart';
 import 'logic/rules.dart';
 import 'logic/scoring.dart';
-import 'chip_widget.dart';
 import 'game_over_widget.dart';
 
 class _GamePageInherited extends InheritedWidget {
@@ -204,19 +204,18 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     if (!_inGesture) {
       return;
     }
-    final xIndex = details.localPosition.dx ~/ ChipWidgetState.chipSize;
+    final diameter = chipSize(context);  // ~80
+    final radius = diameter / 2;
+    final xIndex = details.localPosition.dx ~/ diameter;
     final colAdj = _layout == BoardLayout.Hexagonal && xIndex % 2 == 0 ? 1 : 0;
-    final yAdj = details.localPosition.dy - colAdj * ChipWidgetState.chipRadius;
-    final cell = Point<int>(xIndex, yAdj ~/ ChipWidgetState.chipSize);
-    final dX = ChipWidgetState.chipRadius * (cell.x * 2 + 1) -
-        details.localPosition.dx;
-    final dY = ChipWidgetState.chipRadius * (cell.y * 2 + 1 + colAdj) -
-        details.localPosition.dy;
+    final yAdj = details.localPosition.dy - colAdj * radius;
+    final cell = Point<int>(xIndex, yAdj ~/ diameter);
+    final dX = radius * (cell.x * 2 + 1) - details.localPosition.dx;
+    final dY = radius * (cell.y * 2 + 1 + colAdj) - details.localPosition.dy;
 
     // Check if the point within the cell is inside the chip circle
     // so corners won't trigger selection
-    final rSquare = ChipWidgetState.chipRadius * ChipWidgetState.chipRadius;
-    if (dX * dX + dY * dY < rSquare) {
+    if (dX * dX + dY * dY < radius * radius) {
       if (_firstTouched.x == -1) {
         _firstTouched = cell;
       } else if (cell.x != _firstTouched.x && cell.y != _firstTouched.y) {

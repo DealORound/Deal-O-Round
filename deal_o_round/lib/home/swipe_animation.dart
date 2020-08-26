@@ -1,8 +1,9 @@
 import 'dart:ui';
 
-import 'package:deal_o_round/services/sound.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../services/size.dart';
+import '../services/sound.dart';
 import 'left_example_chips.dart';
 import 'swipe_painter.dart';
 
@@ -43,30 +44,38 @@ class SwipeAnimationState extends State<SwipeAnimation> with SingleTickerProvide
         }
       });
     _animationController.forward();
-    _path = SwipePainter.swipePath(160, 240);
   }
 
   @override
   Widget build(BuildContext context) {
+    final diameter = chipSize(context);  // ~80
+    final dAdj = diameter - 10;  // ~70
+    final rAdj = dAdj / 2;  // ~35
+    final width = diameter * 2;  // ~160
+    final height = diameter * 3;  // ~240
+    if (_path == null) {
+      _path = SwipePainter.swipePath(width, height);
+    }
     return SizedBox(
-      width: 160,
-      height: 240,
+      width: width,
+      height: height,
       child: Stack(
         children: <Widget>[
           Positioned(
             top: 0,
+            left: 0,
             child: LeftExampleChips(),
           ),
           Positioned(
-            top: calculate(_animation.value).dy - 35,
-            left: calculate(_animation.value).dx - 35,
+            top: calculate(_animation.value).dy - rAdj,
+            left: calculate(_animation.value).dx - rAdj,
             child: Container(
               decoration: BoxDecoration(
                 color: Color(0x99B2FF59),
-                borderRadius: BorderRadius.circular(35)
+                borderRadius: BorderRadius.circular(rAdj)
               ),
-              width: 70,
-              height: 70
+              width: dAdj,
+              height: dAdj
             )
           )
         ]

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../services/size.dart';
 import 'home_page.dart';
 import 'swipe_animation.dart';
 
@@ -7,8 +8,9 @@ class LeftExample extends StatelessWidget {
   Widget build(BuildContext context) {
     final HomePageState state = HomePage.of(context);
     final highlightSecond = state.rightNow.second % 3 == 0;
+    final radius = chipRadius(context);
     final textStyle = TextStyle(
-      fontSize: 26,
+      fontSize: radius * 0.65,  // ~26
       fontFamily: 'Musicals',
       color: highlightSecond ? Colors.lightGreenAccent: Colors.green
     );
@@ -16,7 +18,7 @@ class LeftExample extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         SwipeAnimation(),
-        SizedBox(height: 10),
+        SizedBox(height: radius / 4),  // ~10
         Text("Full House!", style: textStyle)
       ]
     );
