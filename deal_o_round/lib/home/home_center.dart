@@ -10,6 +10,9 @@ import '../settings/settings_page.dart';
 import 'title_line.dart';
 
 class HomeCenter extends StatelessWidget {
+  final Color sbText = Colors.white;
+  final Color sbBack = Colors.redAccent.withOpacity(0.5);
+
   @override
   Widget build(BuildContext context) {
     const aboutUrl = "http://dealoround.com/about.html";
@@ -49,14 +52,18 @@ class HomeCenter extends StatelessWidget {
                         catch(e) {
                           Get.snackbar(
                             "Error",
-                            "Could not sign in (${e.toString()})"
+                            "Could not sign in",
+                            colorText: sbText,
+                            backgroundColor: sbBack
                           );
                         }
                       } else {
                         Get.snackbar(
                           "Sign In",
                           "Game Services is only available on Android and " +
-                          "Game Center is only available on iOS"
+                          "Game Center is only available on iOS",
+                          colorText: sbText,
+                          backgroundColor: sbBack
                         );
                       }
                     },
@@ -80,13 +87,17 @@ class HomeCenter extends StatelessWidget {
                         catch(e) {
                           Get.snackbar(
                             "Error",
-                            "Could not fetch leaderboard (${e.toString()})"
+                            "Could not fetch leaderboard",
+                            colorText: sbText,
+                            backgroundColor: sbBack
                           );
                         }
                       } else {
                         Get.snackbar(
                           "Scores",
-                          "Only available on Android or iOS devices"
+                          "Only available on Android or iOS devices",
+                          colorText: sbText,
+                          backgroundColor: sbBack
                         );
                       }
                     },
@@ -136,7 +147,12 @@ class HomeCenter extends StatelessWidget {
                       if (await canLaunch(aboutUrl)) {
                         launch(aboutUrl)
                       } else {
-                        Get.snackbar("Attention", 'Cannot open URL')
+                        Get.snackbar(
+                          "Attention",
+                          "Cannot open URL",
+                          colorText: sbText,
+                          backgroundColor: sbBack
+                        )
                       }
                     },
                     color: Colors.green,
@@ -155,7 +171,12 @@ class HomeCenter extends StatelessWidget {
                       if (await canLaunch(helpUrl)) {
                         launch(helpUrl)
                       } else {
-                        Get.snackbar("Attention", 'Cannot open URL')
+                        Get.snackbar(
+                          "Attention",
+                          "Cannot open URL",
+                          colorText: sbText,
+                          backgroundColor: sbBack
+                        )
                       }
                     },
                     color: Colors.green,
