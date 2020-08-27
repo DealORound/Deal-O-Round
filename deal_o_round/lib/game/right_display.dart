@@ -11,6 +11,10 @@ class RightDisplay extends StatelessWidget {
         fontSize: radius * 0.8, // ~32
         fontFamily: 'Roboto Condensed',
         color: Colors.white);
+    final infoStyle = TextStyle(
+        fontSize: radius * 0.6, // ~24
+        fontFamily: 'Roboto Condensed',
+        color: Colors.white);
 
     final greenDecoration = BoxDecoration(
         color: Colors.green.shade900,
@@ -49,7 +53,7 @@ class RightDisplay extends StatelessWidget {
                   width: width,
                   child: RichText(
                       textAlign: TextAlign.center,
-                      text: TextSpan(text: state.info, style: textStyle))))
+                      text: TextSpan(text: state.info, style: infoStyle))))
         ]);
   }
 }
