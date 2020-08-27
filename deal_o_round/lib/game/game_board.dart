@@ -32,13 +32,13 @@ class GameBoard extends StatelessWidget {
         ]);
   }
 
-  Widget buildItem(
-      BuildContext context, int index, Animation<double> animation, List<PlayCard> column) {
+  Widget buildItem(BuildContext context, int index, Animation<double> animation,
+      List<PlayCard> column) {
     if (index > column.length - 1) {
       return SizedBox(width: 40, height: 0);
     }
 
-    return Board.buildItem(column[index], animation, true);
+    return Board.buildItem(column[index], animation);
   }
 
   Row getColumns(Board board, BoardLayout layout,

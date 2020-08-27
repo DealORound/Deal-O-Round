@@ -35,23 +35,14 @@ class Board {
     return List<PlayCard>.generate(size, (i) => shoe.dealCard());
   }
 
-  static Widget buildItem(PlayCard card, Animation<double> animation, bool forward) {
-    return SlideTransition(
-        position: Tween<Offset>(
-          begin: Offset(0, forward ? -1 : 1),
-          end: const Offset(0, 0),
-        ).animate(CurvedAnimation(
-            parent: animation,
-            curve: forward ? Curves.easeInOut : Curves.easeInOutBack,
-            reverseCurve: forward ? Curves.easeInOutBack : Curves.easeInOut)),
-        child: RotationTransition(
-          turns: animation,
-          child: SizeTransition(
-            axis: Axis.vertical,
-            sizeFactor: animation,
-            child: ChipWidget(key: Key(card.toString()), card: card),
-          ),
-        ));
+  static Widget buildItem(PlayCard card, Animation<double> animation) {
+    return RotationTransition(
+      turns: animation,
+      child: SizeTransition(
+        sizeFactor: animation,
+        child: ChipWidget(key: Key(card.toString()), card: card),
+      ),
+    );
   }
 
   removeHand(List<GlobalKey<AnimatedListState>> listKeys, int animationDelay) {
@@ -65,7 +56,7 @@ class Board {
       for (var y = maxY - 1; y >= 0; y--) {
         if (board[x][y].selected) {
           listKey.currentState.removeItem(
-              y, (context, animation) => buildItem(board[x][y], animation, false),
+              y, (context, animation) => buildItem(board[x][y], animation),
               duration: Duration(milliseconds: animationDelay));
           displacement += 1;
         } else if (displacement > 0) {
