@@ -100,7 +100,9 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     } else {
       _pauseStarted = DateTime.now();
     }
-    _paused = !_paused;
+    setState(() {
+      _paused = !_paused;
+    });
   }
 
   spin() {
