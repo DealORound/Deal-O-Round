@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../services/settings_constants.dart';
 import '../services/size.dart';
+import 'logic/game_constants.dart';
 import 'logic/board.dart';
 import 'logic/play_card.dart';
 import 'game_page.dart';

@@ -1,5 +1,4 @@
-enum Difficulty { Easy, Medium, Hard }
-enum BoardLayout { Square, Hexagonal }
+import '../game/logic/game_constants.dart';
 
 const DIFFICULTY = 'difficulty';
 const DIFFICULTY_DEFAULT = "Easy";

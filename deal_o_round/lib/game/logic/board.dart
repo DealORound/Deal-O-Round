@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../services/settings_constants.dart';
 import '../logic/suit.dart';
 import '../logic/value.dart';
 import '../chip_widget.dart';
 import '../game_page.dart';
+import 'game_constants.dart';
 import 'play_card.dart';
 import 'shoe.dart';
 

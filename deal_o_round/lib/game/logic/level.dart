@@ -1,4 +1,4 @@
-import '../../services/settings_constants.dart';
+import 'game_constants.dart';
 
 class Level {
   double scoreMultiplier;

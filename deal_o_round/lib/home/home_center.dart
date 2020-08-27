@@ -71,6 +71,7 @@ class HomeCenter extends StatelessWidget {
                             UniversalPlatform.isIOS) {
                           try {
                             await GamesServices.showLeaderboards();
+                            // TODO: iOS requires iOSLeaderboardID
                           } catch (e) {
                             Get.snackbar("Error", "Could not fetch leaderboard",
                                 colorText: sbText, backgroundColor: sbBack);
