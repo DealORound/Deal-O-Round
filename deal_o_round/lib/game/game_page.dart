@@ -8,6 +8,7 @@ import 'package:games_services/models/achievement.dart';
 import 'package:games_services/models/score.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wakelock/wakelock.dart';
 import '../services/settings_constants.dart';
 import '../services/size.dart';
 import '../services/sound.dart';
@@ -408,6 +409,8 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     final soundUtils = Get.find<SoundUtils>();
     soundUtils.playSoundEffect(SoundEffect.ShortCardShuffle).then(
         (c) async => await soundUtils.playSoundTrack(SoundTrack.GuitarMusic));
+
+    Wakelock.enable();
   }
 
   void _populateBoard() {
@@ -435,6 +438,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
 
   @override
   dispose() {
+    Wakelock.disable();
     _timer?.cancel();
     super.dispose();
   }
