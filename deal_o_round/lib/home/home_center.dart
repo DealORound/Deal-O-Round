@@ -19,7 +19,7 @@ class HomeCenter extends StatelessWidget {
     const helpUrl = "http://dealoround.com/help.html";
     final radius = chipRadius(context); // ~40
     final size = context.mediaQuerySize;
-    final buttonWidth = size.width / 3.8; // 210.0;
+    final buttonWidth = size.width / 3.8; // 210
     final bigSpacing = radius / 2; // ~20
     final spacing = bigSpacing / 2; // ~10
     final buttonPadding = EdgeInsets.all(spacing);

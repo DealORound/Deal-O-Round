@@ -7,7 +7,7 @@ class LeftDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = GamePage.of(context);
     final radius = chipRadius(context); // ~40
-    final size = radius * 0.8; // ~32;
+    final size = radius * 0.8; // ~32
     final textStyle = TextStyle(
         fontSize: size, fontFamily: 'Roboto Condensed', color: Colors.white);
 
@@ -16,7 +16,7 @@ class LeftDisplay extends StatelessWidget {
         borderRadius: BorderRadius.circular(5.0),
         border: Border.all(color: Colors.green.shade700, width: 3.0));
     final spacing = radius / 4; // ~10
-    final width = radius * 4; // 160.0;
+    final width = radius * 4; // ~160
     const buttonPadding = const EdgeInsets.all(4.0);
 
     var buttonShape = RoundedRectangleBorder(
