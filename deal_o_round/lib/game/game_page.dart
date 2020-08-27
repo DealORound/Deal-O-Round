@@ -77,6 +77,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   final indexes = Iterable<int>.generate(BOARD_SIZE).toList();
   final indexesEven = Iterable<int>.generate(BOARD_SIZE - 1).toList();
   List<GlobalKey<AnimatedListState>> _listKeys;
+  int _animationDelay;
 
   DateTime get rightNow => _rightNow;
   int get countDown => max(_countDown - _elapsed, 0);
@@ -89,6 +90,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   bool get paused => _paused;
   BoardLayout get layout => _layout;
   List<GlobalKey<AnimatedListState>> get listKeys => _listKeys;
+  int get animationDelay => _animationDelay;
 
   togglePause() {
     if (countDown <= 0) {
@@ -223,7 +225,6 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
       } else if (cell.x != _firstTouched.x || cell.y != _firstTouched.y) {
         _swipeGesture = true;
       }
-      debugPrint("c $cell, l $_lastFlipped");
       if ((cell.x != _lastFlipped.x || cell.y != _lastFlipped.y) &&
           _selection.length < 5) {
         bool selected = _board.board[cell.x][cell.y].selected;
@@ -271,7 +272,6 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
         }
         if (shouldAdjust) {
           setState(() {
-            debugPrint("sel ${cell.x} ${cell.y} ${!selected}");
             _board.board[cell.x][cell.y].selected = !selected;
             if (_difficulty == Difficulty.Easy) {
               if (neighbors == null) {
@@ -298,8 +298,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     await Get.find<SoundUtils>().playSoundEffect(SoundEffect.PokerChips);
 
     setState(() {
-      // TODO: animate removal and insertion (we have the _listKeys here)
-      _board.removeHand();
+      _board.removeHand(_listKeys, _animationDelay);
       _selection.clear();
       _clearSelection();
     });
@@ -380,6 +379,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     _level = _levelManager.getCurrentLevelIndex();
     _board = Board(layout: _layout);
     _listKeys = indexes.map((i) => GlobalKey<AnimatedListState>()).toList();
+    _animationDelay = _prefs.getDouble(ANIMATION_SPEED).toInt();
     _populateBoard();
 
     final soundUtils = Get.find<SoundUtils>();
@@ -392,7 +392,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
       var future = Future(() {});
       for (int i = 0; i < BOARD_SIZE; i++) {
         future = future.then((_) {
-          return Future.delayed(Duration(milliseconds: 200), () {
+          return Future.delayed(Duration(milliseconds: _animationDelay), () {
             for (int j = 0; j < BOARD_SIZE; j++) {
               if (i < BOARD_SIZE - 1 ||
                   j % 2 == 1 ||

@@ -3,7 +3,6 @@ import '../services/settings_constants.dart';
 import '../services/size.dart';
 import 'logic/board.dart';
 import 'logic/play_card.dart';
-import 'chip_widget.dart';
 import 'game_page.dart';
 
 class GameBoard extends StatelessWidget {
@@ -27,42 +26,19 @@ class GameBoard extends StatelessWidget {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index, animation) =>
-                    slideIt(context, index, animation, column),
+                    buildItem(context, index, animation, column),
               )),
           SizedBox(height: height, width: diameter)
         ]);
   }
 
-  Widget slideIt(
-      BuildContext context, int index, animation, List<PlayCard> column) {
-    // debugPrint("slideIt $index ${column.length}");
+  Widget buildItem(
+      BuildContext context, int index, Animation<double> animation, List<PlayCard> column) {
     if (index > column.length - 1) {
       return SizedBox(width: 40, height: 0);
     }
 
-    final card = column[index];
-    return SlideTransition(
-        position: Tween<Offset>(
-          begin: const Offset(0, -1),
-          end: Offset(0, 0),
-        ).animate(CurvedAnimation(
-            parent: animation,
-            curve: Curves.easeInOut,
-            reverseCurve: Curves.easeInOutBack)),
-        child: RotationTransition(
-          turns: animation,
-          child: SizeTransition(
-            axis: Axis.vertical,
-            sizeFactor: animation,
-            child: ChipWidget(key: Key(card.toString()), card: card),
-          ),
-        ));
-    /*
-    return RotationTransition(
-      turns: animation,
-      child: ChipWidget(key: Key(card.toString()), card: card),
-    );
-   */
+    return Board.buildItem(column[index], animation, true);
   }
 
   Row getColumns(Board board, BoardLayout layout,
