@@ -49,7 +49,7 @@ class GamePage extends StatefulWidget {
 }
 
 class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
-  static const boardSize = 5;
+  static const BOARD_SIZE = 5;
 
   DateTime _rightNow;
   DateTime _started;
@@ -74,8 +74,8 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   bool _paused;
   DateTime _pauseStarted;
   int _totalPaused;
-  final indexes = Iterable<int>.generate(boardSize).toList();
-  final indexesEven = Iterable<int>.generate(boardSize - 1).toList();
+  final indexes = Iterable<int>.generate(BOARD_SIZE).toList();
+  final indexesEven = Iterable<int>.generate(BOARD_SIZE - 1).toList();
   List<GlobalKey<AnimatedListState>> _listKeys;
 
   DateTime get rightNow => _rightNow;
@@ -117,7 +117,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     if (cell.y > 0) {
       neighbors.add(Point(cell.x, cell.y - 1));
     }
-    final maxIndex = boardSize - 1;
+    final maxIndex = BOARD_SIZE - 1;
     if (_layout == BoardLayout.Square) {
       if (cell.y < maxIndex) {
         neighbors.add(Point(cell.x, cell.y + 1));
@@ -378,7 +378,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     _countDown = _levelManager.getCurrentLevelTimeLimit(_difficulty);
     _nextLevel = _levelManager.getCurrentLevelScoreLimit(_difficulty);
     _level = _levelManager.getCurrentLevelIndex();
-    _board = Board(layout: _layout, size: boardSize);
+    _board = Board(layout: _layout);
     _listKeys = indexes.map((i) => GlobalKey<AnimatedListState>()).toList();
     _populateBoard();
 
@@ -390,17 +390,17 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   void _populateBoard() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       var future = Future(() {});
-      for (int i = 0; i < boardSize; i++) {
+      for (int i = 0; i < BOARD_SIZE; i++) {
         future = future.then((_) {
           return Future.delayed(Duration(milliseconds: 200), () {
-            for (int j = 0; j < boardSize; j++) {
-              if (i < boardSize - 1 ||
+            for (int j = 0; j < BOARD_SIZE; j++) {
+              if (i < BOARD_SIZE - 1 ||
                   j % 2 == 1 ||
                   layout == BoardLayout.Square) {
                 _listKeys[j].currentState.insertItem(i);
               }
             }
-            if (i == boardSize - 1) {
+            if (i == BOARD_SIZE - 1) {
               _started = DateTime.now();
               _updateTime();
             }

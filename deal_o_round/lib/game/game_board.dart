@@ -10,7 +10,7 @@ class GameBoard extends StatelessWidget {
   Column getColumn(List<PlayCard> column, int index, BoardLayout layout,
       GlobalKey<AnimatedListState> listKey, double diameter) {
     var height = 0.0;
-    var itemCount = GameState.boardSize;
+    var itemCount = GameState.BOARD_SIZE;
     if (index % 2 == 0 && layout == BoardLayout.Hexagonal) {
       height = diameter / 2;
       itemCount--;
@@ -84,7 +84,7 @@ class GameBoard extends StatelessWidget {
         borderRadius: BorderRadius.circular(5.0),
         border: Border.all(color: Colors.green.shade700, width: 3.0));
     final diameter = chipSize(context);
-    final size = diameter * GameState.boardSize;
+    final size = diameter * GameState.BOARD_SIZE;
     final textStyle = TextStyle(
         fontSize: diameter * 0.4, // ~32
         fontFamily: 'Roboto Condensed',
@@ -96,16 +96,17 @@ class GameBoard extends StatelessWidget {
         child: SizedBox(
             width: size,
             height: size,
-            child: state.paused
-                ? Center(child: Text("Paused\u{2026}", style: textStyle))
-                : Listener(
-                    onPointerDown: (PointerEvent details) =>
-                        state.onPointerDown(details),
-                    onPointerMove: (PointerEvent details) =>
-                        state.onPointerMove(details),
-                    onPointerUp: (PointerEvent details) =>
-                        state.onPointerUp(details),
-                    child: getColumns(
-                        state.board, state.layout, state.listKeys, diameter))));
+            child: IndexedStack(index: state.paused ? 0 : 1, children: <Widget>[
+              Center(child: Text("Paused\u{2026}", style: textStyle)),
+              Listener(
+                  onPointerDown: (PointerEvent details) =>
+                      state.onPointerDown(details),
+                  onPointerMove: (PointerEvent details) =>
+                      state.onPointerMove(details),
+                  onPointerUp: (PointerEvent details) =>
+                      state.onPointerUp(details),
+                  child: getColumns(
+                      state.board, state.layout, state.listKeys, diameter))
+            ])));
   }
 }

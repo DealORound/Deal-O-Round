@@ -2,23 +2,21 @@ import '../../services/settings_constants.dart';
 import '../game_page.dart';
 import 'play_card.dart';
 import 'shoe.dart';
-//import 'suit.dart';
-//import 'value.dart';
 
 class Board {
-  final shoe = Shoe(4);
+  static const SHOE_SIZE = 4;
+
+  final shoe = Shoe(SHOE_SIZE);
   List<List<PlayCard>> board;
   final BoardLayout layout;
-  final int size;
-  final indexes = Iterable<int>.generate(GameState.boardSize).toList();
+  final indexes = Iterable<int>.generate(GameState.BOARD_SIZE).toList();
 
-  Board({this.layout, this.size}) {
+  Board({this.layout}) {
     shoe.shuffleAll();
-    board = List<List<PlayCard>>();
-    for (int i = 0; i < size; i++) {
-      board.add(getRandomCards(
-          size + (layout == BoardLayout.Hexagonal && i % 2 == 0 ? -1 : 0)));
-    }
+    board = indexes
+        .map((i) => getRandomCards(GameState.BOARD_SIZE +
+            (layout == BoardLayout.Hexagonal && i % 2 == 0 ? -1 : 0)))
+        .toList();
   }
 
   @override
