@@ -15,8 +15,6 @@ class DealORoundApp extends StatelessWidget {
         title: 'Deal-O-Round',
         theme: ThemeData(
           visualDensity: VisualDensity.adaptivePlatformDensity,
-//        textTheme: TextTheme(
-//        )
         ),
         home: Scaffold(
             backgroundColor: Colors.transparent,
