@@ -28,9 +28,13 @@ class ChipWidgetState extends State<ChipWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final diameter = chipSize(context); // ~80
+    if (card.suit == Suit.Invalid || card.value == Value.Invalid) {
+      return SizedBox(width: diameter, height: diameter);
+    }
+
     final textColor =
         (_suit == 'C' || _suit == 'S') ? Colors.black : Colors.red;
-    final diameter = chipSize(context); // ~80
     final fontSize = diameter * 0.625; // ~50
     final suitStyle =
         TextStyle(fontSize: fontSize, fontFamily: 'Cards', color: textColor);
