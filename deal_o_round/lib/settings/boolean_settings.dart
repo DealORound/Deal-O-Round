@@ -24,7 +24,7 @@ class _BooleanSettingsState extends State<BooleanSettings> {
   bool booleanValue;
   final String valueTag;
 
-  _BooleanSettingsState({this.scale = 1.2, this.booleanValue, this.valueTag});
+  _BooleanSettingsState({this.scale = 1.0, this.booleanValue, this.valueTag});
 
   @override
   initState() {
