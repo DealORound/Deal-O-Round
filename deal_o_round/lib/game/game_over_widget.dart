@@ -8,6 +8,7 @@ class GameOverWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final radius = chipRadius(context); // ~40
     final fontSize = radius * 1.5; // ~60
+    final buttonSize = radius * 1.2; // ~48
     final textStyle = TextStyle(
         fontSize: fontSize, fontFamily: 'Musicals', color: Colors.white);
 
@@ -16,10 +17,14 @@ class GameOverWidget extends StatelessWidget {
         floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
         floatingActionButton: Padding(
           padding: EdgeInsets.only(top: fontSize),
-          child: FloatingActionButton(
-            onPressed: () => Get.back(),
-            child: Icon(Icons.arrow_back, size: radius),
-            backgroundColor: Colors.green,
+          child: SizedBox(
+            width: buttonSize,
+            height: buttonSize,
+            child: FloatingActionButton(
+              onPressed: () => Get.back(),
+              child: Icon(Icons.arrow_back, size: radius),
+              backgroundColor: Colors.green,
+            ),
           ),
         ),
         body: CustomPaint(
