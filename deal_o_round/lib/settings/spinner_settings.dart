@@ -66,7 +66,7 @@ class _SpinnerSettingsState extends State<SpinnerSettings> {
   @override
   Widget build(BuildContext context) {
     final radius = chipRadius(context); // ~40
-    final iconSize = radius - 5; // ~35
+    final iconSize = radius - 10; // ~35
     final numberWidth = radius * 2 + 15; // ~95
     return SpinnerInput(
         spinnerValue: doubleValue,
