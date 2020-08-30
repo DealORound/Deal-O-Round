@@ -5,7 +5,6 @@ import 'package:games_services/games_services.dart';
 import 'package:games_services/models/achievement.dart';
 import 'game_constants.dart';
 import 'level.dart';
-import 'scoring.dart';
 
 class AdvancingReturn {
   final int nextLevelScore;
@@ -82,10 +81,9 @@ class LevelManager {
   }
 
   Future<AdvancingReturn> advanceLevels(Difficulty difficulty, int currentScore,
-      Scoring hand, int nextLevelScore) async {
-    final handScore = hand.score();
+      int handScore, int nextLevelScore) async {
     final newScore = currentScore + handScore;
-    int countDown;
+    int countDown = 0;
     while (newScore > nextLevelScore) {
       advanceLevel();
       final level = getCurrentLevelIndex();

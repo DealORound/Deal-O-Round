@@ -328,14 +328,14 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
         }
         final handScore = hand.score();
         AdvancingReturn advancing = await _levelManager.advanceLevels(
-            _difficulty, _score, hand, _nextLevel);
+            _difficulty, _score, handScore, _nextLevel);
         setState(() {
           clear = false;
           _score += handScore;
           _countDown += getTimeBonus(hand.handClass);
           _level = _levelManager.getCurrentLevelIndex();
           _countDown += advancing.extraCountDown;
-          _nextLevel += advancing.nextLevelScore;
+          _nextLevel = advancing.nextLevelScore;
         });
         await _removeHand();
       }

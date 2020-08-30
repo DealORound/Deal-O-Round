@@ -5,7 +5,7 @@ class Level {
   List<int> scoreLimit; // by difficulty
   double timeMultiplier;
   List<int> timeLimit; // by difficulty
-  static const SCORE_THRESHOLD_BASE = 7000;
+  static const SCORE_THRESHOLD_BASE = 1000;
   static const TIME_THRESHOLD_BASE = 120;
 
   Level({this.scoreMultiplier, this.timeMultiplier}) {
