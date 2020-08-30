@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:games_services/games_services.dart';
 import 'package:games_services/models/achievement.dart';
-import 'package:games_services/models/score.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wakelock/wakelock.dart';
@@ -19,7 +18,7 @@ import 'logic/level_manager.dart';
 import 'logic/play_card.dart';
 import 'logic/rules.dart';
 import 'logic/scoring.dart';
-import 'game_over_widget.dart';
+import 'game_over_page.dart';
 
 class _GamePageInherited extends InheritedWidget {
   _GamePageInherited({
@@ -321,7 +320,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
         try {
           await GamesServices.unlock(
               achievement: Achievement(
-                  androidID: handAchievements[hand.handClass],
+                  androidID: HAND_ACHIEVEMENTS[hand.handClass],
                   iOSID: 'ios_id',
                   percentComplete: 100));
         } catch (e) {
@@ -338,7 +337,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
               try {
                 GamesServices.unlock(
                     achievement: Achievement(
-                        androidID: levelAchievements[_level - 2],
+                        androidID: LEVEL_ACHIEVEMENTS[_level - 2],
                         iOSID: 'ios_id',
                         percentComplete: 100));
               } catch (e) {
@@ -450,19 +449,8 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
         Duration difference = _rightNow.difference(_started);
         _elapsed = difference.inSeconds - _totalPaused;
         if (countDown <= 0) {
-          try {
-            GamesServices.submitScore(
-                score: Score(
-                    androidLeaderboardID: leaderBoards[_layout][_difficulty],
-                    iOSLeaderboardID: "ios_leaderboard_id",
-                    value: _score));
-          } catch (e) {
-            debugPrint("Error while submitting score");
-          }
-          final soundUtils = Get.find<SoundUtils>();
-          soundUtils.playSoundTrack(SoundTrack.EndMusic);
           Get.close(1);
-          Get.to(GameOverWidget());
+          Get.to(GameOverPage(score: _score));
         }
       }
       // Update once per second, but make sure to do it at the beginning

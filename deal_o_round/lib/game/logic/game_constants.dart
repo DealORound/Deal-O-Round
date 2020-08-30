@@ -3,7 +3,7 @@ import 'package:deal_o_round/game/logic/hand_class.dart';
 enum Difficulty { Easy, Medium, Hard }
 enum BoardLayout { Square, Hexagonal }
 
-const Map<HandClass, String> handAchievements = {
+const Map<HandClass, String> HAND_ACHIEVEMENTS = {
   HandClass.OnePair: "CgkI1Z6JldYeEAIQIQ",
   HandClass.Flush3: "CgkI1Z6JldYeEAIQIg",
   HandClass.Straight3: "CgkI1Z6JldYeEAIQIw",
@@ -21,7 +21,7 @@ const Map<HandClass, String> handAchievements = {
   HandClass.FiveOfAKind: "CgkI1Z6JldYeEAIQAw",
 };
 
-const List<String> levelAchievements = [
+const List<String> LEVEL_ACHIEVEMENTS = [
   "CgkI1Z6JldYeEAIQAQ",
   "CgkI1Z6JldYeEAIQCg",
   "CgkI1Z6JldYeEAIQCw",
@@ -48,7 +48,7 @@ const List<String> levelAchievements = [
   "CgkI1Z6JldYeEAIQIA",
 ];
 
-const Map<BoardLayout, Map<Difficulty, String>> leaderBoards = {
+const Map<BoardLayout, Map<Difficulty, String>> LEADER_BOARDS = {
   BoardLayout.Square: {
     Difficulty.Easy: "CgkI1Z6JldYeEAIQLw",
     Difficulty.Medium: "CgkI1Z6JldYeEAIQMQ",
