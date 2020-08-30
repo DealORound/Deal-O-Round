@@ -44,6 +44,7 @@ class HomeCenter extends StatelessWidget {
                           try {
                             await GamesServices.signIn();
                           } catch (e) {
+                            debugPrint("Error signing in: ${e.message}");
                             Get.snackbar("Error", "Could not sign in",
                                 colorText: sbText, backgroundColor: sbBack);
                           }
@@ -73,6 +74,7 @@ class HomeCenter extends StatelessWidget {
                             await GamesServices.showLeaderboards();
                             // TODO: iOS requires iOSLeaderboardID
                           } catch (e) {
+                            debugPrint("Error showing lb: ${e.message}");
                             Get.snackbar("Error", "Could not fetch leaderboard",
                                 colorText: sbText, backgroundColor: sbBack);
                           }

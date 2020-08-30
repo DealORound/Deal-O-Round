@@ -51,7 +51,7 @@ class _GameOverPageState extends State<GameOverPage> {
               iOSLeaderboardID: "ios_leaderboard_id",
               value: score));
     } catch (e) {
-      debugPrint("Error while submitting score");
+      debugPrint("Error while submitting score: ${e.message}");
     }
   }
 

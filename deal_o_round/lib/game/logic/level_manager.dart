@@ -95,7 +95,7 @@ class LevelManager {
                   iOSID: 'ios_id',
                   percentComplete: 100));
         } catch (e) {
-          debugPrint("Error while submitting level achievement");
+          debugPrint("Error while submitting level achievement: ${e.message}");
         }
       }
       countDown += getCurrentLevelTimeLimit(difficulty);

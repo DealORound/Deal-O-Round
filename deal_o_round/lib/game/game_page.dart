@@ -324,7 +324,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
                   iOSID: 'ios_id',
                   percentComplete: 100));
         } catch (e) {
-          debugPrint("Error while submitting hand achievement");
+          debugPrint("Error while submitting hand achievement: ${e.message}");
         }
         final handScore = hand.score();
         AdvancingReturn advancing = await _levelManager.advanceLevels(
