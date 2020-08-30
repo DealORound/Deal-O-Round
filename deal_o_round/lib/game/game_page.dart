@@ -326,26 +326,16 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
         } catch (e) {
           debugPrint("Error while submitting hand achievement");
         }
+        final handScore = hand.score();
+        AdvancingReturn advancing = await _levelManager.advanceLevels(
+            _difficulty, _score, hand, _nextLevel);
         setState(() {
           clear = false;
-          _score += hand.score();
+          _score += handScore;
           _countDown += getTimeBonus(hand.handClass);
-          while (_score > _nextLevel) {
-            _levelManager.advanceLevel();
-            _level = _levelManager.getCurrentLevelIndex();
-            if (_level <= 25)
-              try {
-                GamesServices.unlock(
-                    achievement: Achievement(
-                        androidID: LEVEL_ACHIEVEMENTS[_level - 2],
-                        iOSID: 'ios_id',
-                        percentComplete: 100));
-              } catch (e) {
-                debugPrint("Error while submitting level achievement");
-              }
-            _countDown += _levelManager.getCurrentLevelTimeLimit(_difficulty);
-            _nextLevel += _levelManager.getCurrentLevelScoreLimit(_difficulty);
-          }
+          _level = _levelManager.getCurrentLevelIndex();
+          _countDown += advancing.extraCountDown;
+          _nextLevel += advancing.nextLevelScore;
         });
         await _removeHand();
       }

@@ -1,7 +1,21 @@
 import 'dart:math';
 
+import 'package:flutter/material.dart';
+import 'package:games_services/games_services.dart';
+import 'package:games_services/models/achievement.dart';
 import 'game_constants.dart';
 import 'level.dart';
+import 'scoring.dart';
+
+class AdvancingReturn {
+  final int nextLevelScore;
+  final int extraCountDown;
+
+  AdvancingReturn({
+    this.nextLevelScore,
+    this.extraCountDown,
+  });
+}
 
 class LevelManager {
   List<Level> levels;
@@ -65,5 +79,31 @@ class LevelManager {
 
   resetLevel() {
     currentLevel = 0;
+  }
+
+  Future<AdvancingReturn> advanceLevels(Difficulty difficulty, int currentScore,
+      Scoring hand, int nextLevelScore) async {
+    final handScore = hand.score();
+    final newScore = currentScore + handScore;
+    int countDown;
+    while (newScore > nextLevelScore) {
+      advanceLevel();
+      final level = getCurrentLevelIndex();
+      if (level <= 25) {
+        try {
+          GamesServices.unlock(
+              achievement: Achievement(
+                  androidID: LEVEL_ACHIEVEMENTS[level - 2],
+                  iOSID: 'ios_id',
+                  percentComplete: 100));
+        } catch (e) {
+          debugPrint("Error while submitting level achievement");
+        }
+      }
+      countDown += getCurrentLevelTimeLimit(difficulty);
+      nextLevelScore += getCurrentLevelScoreLimit(difficulty);
+    }
+    return AdvancingReturn(
+        nextLevelScore: nextLevelScore, extraCountDown: countDown);
   }
 }
