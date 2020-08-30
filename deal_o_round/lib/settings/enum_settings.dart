@@ -51,7 +51,7 @@ class _EnumSettingsState<T> extends State<EnumSettings> {
       value: stringValue,
       icon: Icon(Icons.arrow_downward, color: Colors.green),
       iconSize: chipRadius(context),
-      style: TextStyle(color: Colors.lightGreen),
+      style: TextStyle(color: Colors.lightGreen, fontSize: textStyle.fontSize),
       underline: Container(
         height: 2,
         color: Colors.lightGreenAccent,
