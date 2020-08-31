@@ -3,6 +3,7 @@ import 'package:games_services/games_services.dart';
 import 'package:games_services/models/score.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:universal_platform/universal_platform.dart';
 import '../services/settings_constants.dart';
 import '../services/size.dart';
 import '../services/sound.dart';
@@ -36,9 +37,13 @@ class _GameOverPageState extends State<GameOverPage> {
     _difficulty = enumFromString(Difficulty.values, _difficultyStr);
     _layoutStr = _prefs.getString(BOARD_LAYOUT);
     _layout = enumFromString(BoardLayout.values, _layoutStr);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _submitScore();
-    });
+    final gameSignedIn = _prefs.getBool(GAME_SIGNED_IN);
+    if (gameSignedIn &&
+        (UniversalPlatform.isAndroid || UniversalPlatform.isIOS)) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _submitScore();
+      });
+    }
     final soundUtils = Get.find<SoundUtils>();
     soundUtils.playSoundTrack(SoundTrack.EndMusic);
   }
@@ -77,7 +82,7 @@ class _GameOverPageState extends State<GameOverPage> {
             width: buttonSize,
             height: buttonSize,
             child: FloatingActionButton(
-              onPressed: () => Get.back(),
+              onPressed: () => Get.back(closeOverlays: true),
               child: Icon(Icons.arrow_back, size: radius),
               backgroundColor: Colors.green,
             ),

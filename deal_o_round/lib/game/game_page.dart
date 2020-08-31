@@ -7,6 +7,7 @@ import 'package:games_services/games_services.dart';
 import 'package:games_services/models/achievement.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:universal_platform/universal_platform.dart';
 import 'package:wakelock/wakelock.dart';
 import '../services/settings_constants.dart';
 import '../services/size.dart';
@@ -82,6 +83,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   final indexesEven = Iterable<int>.generate(BOARD_SIZE - 1).toList();
   List<GlobalKey<AnimatedListState>> _listKeys;
   int _animationDelay;
+  bool _shouldUnlock;
 
   DateTime get rightNow => _rightNow;
   int get countDown => max(_countDown - _elapsed, 0);
@@ -317,18 +319,20 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
       List<Scoring> hands = _getSelectedHands();
       if (hands.length > 0) {
         Scoring hand = hands.first;
-        try {
-          await GamesServices.unlock(
-              achievement: Achievement(
-                  androidID: HAND_ACHIEVEMENTS[hand.handClass],
-                  iOSID: 'ios_id',
-                  percentComplete: 100));
-        } catch (e) {
-          debugPrint("Error while submitting hand achievement: ${e.message}");
+        if (_shouldUnlock) {
+          try {
+            await GamesServices.unlock(
+                achievement: Achievement(
+                    androidID: HAND_ACHIEVEMENTS[hand.handClass],
+                    iOSID: 'ios_id',
+                    percentComplete: 100));
+          } catch (e) {
+            debugPrint("Error while submitting hand achievement: ${e.message}");
+          }
         }
         final handScore = hand.score();
         AdvancingReturn advancing = await _levelManager.advanceLevels(
-            _difficulty, _score, handScore, _nextLevel);
+            _difficulty, _score, handScore, _nextLevel, _shouldUnlock);
         setState(() {
           clear = false;
           _score += handScore;
@@ -393,6 +397,8 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     _board = Board(layout: _layout);
     _listKeys = indexes.map((i) => GlobalKey<AnimatedListState>()).toList();
     _animationDelay = _prefs.getDouble(ANIMATION_SPEED).toInt();
+    _shouldUnlock = _prefs.getBool(GAME_SIGNED_IN) &&
+        (UniversalPlatform.isAndroid || UniversalPlatform.isIOS);
     _populateBoard();
 
     final soundUtils = Get.find<SoundUtils>();

@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:deal_o_round/services/settings_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../services/sound.dart';
 
 class _HomePageInherited extends InheritedWidget {
@@ -40,13 +42,22 @@ class HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   var _rightNow = DateTime.now();
   Timer _timer;
+  SharedPreferences _prefs;
+  bool _gameSignedIn = false;
 
   DateTime get rightNow => _rightNow;
+  bool get gameSignedIn => _gameSignedIn;
 
   @override
   initState() {
     super.initState();
     Get.find<SoundUtils>().playSoundTrack(SoundTrack.SaloonMusic);
+    _prefs = Get.find<SharedPreferences>();
+    _gameSignedIn = _prefs.getBool(GAME_SIGNED_IN);
+    if (_gameSignedIn == null) {
+      _prefs.setBool(GAME_SIGNED_IN, false);
+      _gameSignedIn = false;
+    }
     _updateTime();
   }
 
@@ -66,6 +77,13 @@ class HomePageState extends State<HomePage>
         _updateTime,
       );
     });
+  }
+
+  updateSignedIn(bool on) {
+    setState(() {
+      _gameSignedIn = on;
+    });
+    _prefs.setBool(GAME_SIGNED_IN, _gameSignedIn);
   }
 
   @override

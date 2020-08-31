@@ -5,6 +5,7 @@ import 'package:universal_platform/universal_platform.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../game/game_page.dart';
 import '../game/game_widget.dart';
+import '../home/home_page.dart';
 import '../services/size.dart';
 import '../settings/settings_page.dart';
 import 'title_line.dart';
@@ -12,6 +13,32 @@ import 'title_line.dart';
 class HomeCenter extends StatelessWidget {
   final Color sbText = Colors.white;
   final Color sbBack = Colors.redAccent.withOpacity(0.5);
+
+  Widget _alertDialog() {
+    final textStyle = TextStyle(fontSize: 18);
+    return AlertDialog(
+      title: Text('Game Services', style: textStyle),
+      content: Text(
+          'Without signing in the end score ' +
+              'cannot be recorded and no achievement ' +
+              'could be administered. ' +
+              'Is it OK to continue?',
+          style: textStyle),
+      actions: <Widget>[
+        FlatButton(
+          child: Text('Yes', style: textStyle),
+          onPressed: () async {
+            Get.close(1);
+            await Get.to(GamePage(child: GameWidget()));
+          },
+        ),
+        FlatButton(
+            child: Text('No', style: textStyle),
+            onPressed: () => Get.close(1) // Get.back(closeOverlays: true),
+            ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +55,7 @@ class HomeCenter extends StatelessWidget {
     var buttonShape = RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5.0),
         side: BorderSide(color: Colors.green.shade700, width: 3.0));
+    final state = HomePage.of(context);
     return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -42,17 +70,20 @@ class HomeCenter extends StatelessWidget {
                         if (UniversalPlatform.isAndroid ||
                             UniversalPlatform.isIOS) {
                           try {
-                            await GamesServices.signIn();
+                            await GamesServices.signIn().then((String result) {
+                              state.updateSignedIn(true);
+                            });
                           } catch (e) {
                             debugPrint("Error signing in: ${e.message}");
                             Get.snackbar("Error", "Could not sign in",
                                 colorText: sbText, backgroundColor: sbBack);
+                            state.updateSignedIn(false);
                           }
                         } else {
                           Get.snackbar(
                               "Sign In",
-                              "Game Services is only available on Android and " +
-                                  "Game Center is only available on iOS",
+                              "Game Services is only available on Android " +
+                                  "and Game Center is only available on iOS",
                               colorText: sbText,
                               backgroundColor: sbBack);
                         }
@@ -70,16 +101,21 @@ class HomeCenter extends StatelessWidget {
                       onPressed: () async {
                         if (UniversalPlatform.isAndroid ||
                             UniversalPlatform.isIOS) {
-                          try {
-                            await GamesServices.showLeaderboards();
-                            // TODO: iOS requires iOSLeaderboardID
-                          } catch (e) {
-                            debugPrint("Error showing lb: ${e.message}");
-                            Get.snackbar("Error", "Could not fetch leaderboard",
+                          if (state.gameSignedIn) {
+                            try {
+                              await GamesServices.showLeaderboards();
+                              // iOS requires iOSLeaderboardID
+                            } catch (e) {
+                              debugPrint("Error showing lb: ${e.message}");
+                              Get.snackbar("Error", "Could not fetch board",
+                                  colorText: sbText, backgroundColor: sbBack);
+                            }
+                          } else {
+                            Get.snackbar("Warning", "Sign-in needed",
                                 colorText: sbText, backgroundColor: sbBack);
                           }
                         } else {
-                          Get.snackbar("Scores",
+                          Get.snackbar("Leaderboards:",
                               "Only available on Android or iOS devices",
                               colorText: sbText, backgroundColor: sbBack);
                         }
@@ -107,7 +143,16 @@ class HomeCenter extends StatelessWidget {
               ButtonTheme(
                   minWidth: buttonWidth,
                   child: RaisedButton.icon(
-                      onPressed: () => Get.to(GamePage(child: GameWidget())),
+                      onPressed: () async {
+                        if (!state.gameSignedIn &&
+                            (UniversalPlatform.isAndroid ||
+                                UniversalPlatform.isIOS)) {
+                          await Get.dialog(_alertDialog(),
+                              barrierDismissible: false);
+                        } else {
+                          await Get.to(GamePage(child: GameWidget()));
+                        }
+                      },
                       color: Colors.green,
                       textColor: Colors.white,
                       shape: buttonShape,
