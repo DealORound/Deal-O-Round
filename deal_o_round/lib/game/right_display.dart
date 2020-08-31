@@ -24,7 +24,7 @@ class RightDisplay extends StatelessWidget {
         color: Colors.blue.shade900,
         borderRadius: BorderRadius.circular(5.0),
         border: Border.all(color: Colors.blue.shade700, width: 3.0));
-    final spacing = radius / 4; // ~10
+    final spacing = radius / 8; // ~5
     final width = radius * 4; // 160
 
     return Column(
