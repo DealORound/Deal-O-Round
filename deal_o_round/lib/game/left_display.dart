@@ -100,8 +100,8 @@ class LeftDisplay extends StatelessWidget {
                   textColor: Colors.white,
                   shape: buttonShape,
                   padding: buttonPadding,
-                  icon: Icon(Icons.help, size: size),
-                  label: Text("Eval", style: textStyle))),
+                  icon: Icon(Icons.help_outline, size: size),
+                  label: Text("Help", style: textStyle))),
         ]);
   }
 }
