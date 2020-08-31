@@ -1,4 +1,7 @@
+import 'package:deal_o_round/game/logic/game_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../services/size.dart';
 import 'game_page.dart';
 
@@ -7,7 +10,7 @@ class LeftDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = GamePage.of(context);
     final radius = chipRadius(context); // ~40
-    final size = radius * 0.8; // ~32
+    final size = radius * 0.7; // ~28
     final textStyle = TextStyle(
         fontSize: size, fontFamily: 'Roboto Condensed', color: Colors.white);
 
@@ -79,7 +82,26 @@ class LeftDisplay extends StatelessWidget {
                   shape: buttonShape,
                   padding: buttonPadding,
                   icon: Icon(Icons.functions, size: size),
-                  label: Text("Eval", style: textStyle)))
+                  label: Text("Eval", style: textStyle))),
+          SizedBox(height: spacing),
+          ButtonTheme(
+              minWidth: width,
+              child: RaisedButton.icon(
+                  onPressed: () async {
+                    if (await canLaunch(HELP_URL)) {
+                      state.togglePause();
+                      launch(HELP_URL);
+                    } else {
+                      Get.snackbar("Attention", "Cannot open URL",
+                          colorText: SB_TEXT, backgroundColor: SB_BACK);
+                    }
+                  },
+                  color: Colors.grey,
+                  textColor: Colors.white,
+                  shape: buttonShape,
+                  padding: buttonPadding,
+                  icon: Icon(Icons.help, size: size),
+                  label: Text("Eval", style: textStyle))),
         ]);
   }
 }

@@ -8,11 +8,11 @@ class RightDisplay extends StatelessWidget {
     final GameState state = GamePage.of(context);
     final radius = chipRadius(context); // ~40
     final textStyle = TextStyle(
-        fontSize: radius * 0.8, // ~32
+        fontSize: radius * 0.7, // ~28
         fontFamily: 'Roboto Condensed',
         color: Colors.white);
     final infoStyle = TextStyle(
-        fontSize: radius * 0.6, // ~24
+        fontSize: radius * 0.5, // ~20
         fontFamily: 'Roboto Condensed',
         color: Colors.white);
 

@@ -1,4 +1,5 @@
-import 'package:deal_o_round/game/logic/hand_class.dart';
+import 'package:flutter/material.dart';
+import 'hand_class.dart';
 
 enum Difficulty { Easy, Medium, Hard }
 enum BoardLayout { Square, Hexagonal }
@@ -60,3 +61,8 @@ const Map<BoardLayout, Map<Difficulty, String>> LEADER_BOARDS = {
     Difficulty.Hard: "CgkI1Z6JldYeEAIQNQ",
   },
 };
+
+const ABOUT_URL = "http://dealoround.com/about.html";
+const HELP_URL = "http://dealoround.com/help.html";
+const Color SB_TEXT = Colors.white;
+final Color SB_BACK = Colors.redAccent.withOpacity(0.5);

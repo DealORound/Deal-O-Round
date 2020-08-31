@@ -5,15 +5,13 @@ import 'package:universal_platform/universal_platform.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../game/game_page.dart';
 import '../game/game_widget.dart';
+import '../game/logic/game_constants.dart';
 import '../home/home_page.dart';
 import '../services/size.dart';
 import '../settings/settings_page.dart';
 import 'title_line.dart';
 
 class HomeCenter extends StatelessWidget {
-  final Color sbText = Colors.white;
-  final Color sbBack = Colors.redAccent.withOpacity(0.5);
-
   Widget _alertDialog() {
     final textStyle = TextStyle(fontSize: 18);
     return AlertDialog(
@@ -42,8 +40,6 @@ class HomeCenter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const aboutUrl = "http://dealoround.com/about.html";
-    const helpUrl = "http://dealoround.com/help.html";
     final radius = chipRadius(context); // ~40
     final size = context.mediaQuerySize;
     final buttonWidth = size.width / 3.8; // 210
@@ -76,7 +72,7 @@ class HomeCenter extends StatelessWidget {
                           } catch (e) {
                             debugPrint("Error signing in: ${e.message}");
                             Get.snackbar("Error", "Could not sign in",
-                                colorText: sbText, backgroundColor: sbBack);
+                                colorText: SB_TEXT, backgroundColor: SB_BACK);
                             state.updateSignedIn(false);
                           }
                         } else {
@@ -84,8 +80,8 @@ class HomeCenter extends StatelessWidget {
                               "Sign In",
                               "Game Services is only available on Android " +
                                   "and Game Center is only available on iOS",
-                              colorText: sbText,
-                              backgroundColor: sbBack);
+                              colorText: SB_TEXT,
+                              backgroundColor: SB_BACK);
                         }
                       },
                       color: Colors.green,
@@ -108,16 +104,16 @@ class HomeCenter extends StatelessWidget {
                             } catch (e) {
                               debugPrint("Error showing lb: ${e.message}");
                               Get.snackbar("Error", "Could not fetch board",
-                                  colorText: sbText, backgroundColor: sbBack);
+                                  colorText: SB_TEXT, backgroundColor: SB_BACK);
                             }
                           } else {
                             Get.snackbar("Warning", "Sign-in needed",
-                                colorText: sbText, backgroundColor: sbBack);
+                                colorText: SB_TEXT, backgroundColor: SB_BACK);
                           }
                         } else {
                           Get.snackbar("Leaderboards:",
                               "Only available on Android or iOS devices",
-                              colorText: sbText, backgroundColor: sbBack);
+                              colorText: SB_TEXT, backgroundColor: SB_BACK);
                         }
                       },
                       color: Colors.green,
@@ -164,12 +160,13 @@ class HomeCenter extends StatelessWidget {
                   minWidth: buttonWidth,
                   child: RaisedButton.icon(
                       onPressed: () async => {
-                            if (await canLaunch(aboutUrl))
-                              {launch(aboutUrl)}
+                            if (await canLaunch(ABOUT_URL))
+                              {launch(ABOUT_URL)}
                             else
                               {
                                 Get.snackbar("Attention", "Cannot open URL",
-                                    colorText: sbText, backgroundColor: sbBack)
+                                    colorText: SB_TEXT,
+                                    backgroundColor: SB_BACK)
                               }
                           },
                       color: Colors.green,
@@ -183,12 +180,13 @@ class HomeCenter extends StatelessWidget {
                   minWidth: buttonWidth,
                   child: RaisedButton.icon(
                       onPressed: () async => {
-                            if (await canLaunch(helpUrl))
-                              {launch(helpUrl)}
+                            if (await canLaunch(HELP_URL))
+                              {launch(HELP_URL)}
                             else
                               {
                                 Get.snackbar("Attention", "Cannot open URL",
-                                    colorText: sbText, backgroundColor: sbBack)
+                                    colorText: SB_TEXT,
+                                    backgroundColor: SB_BACK)
                               }
                           },
                       color: Colors.green,
