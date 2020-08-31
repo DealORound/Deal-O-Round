@@ -18,7 +18,7 @@ class LeftDisplay extends StatelessWidget {
         color: Colors.green.shade900,
         borderRadius: BorderRadius.circular(5.0),
         border: Border.all(color: Colors.green.shade700, width: 3.0));
-    final spacing = radius / 8; // ~50
+    final spacing = radius / 8; // ~5
     final width = radius * 4; // ~160
     const buttonPadding = const EdgeInsets.all(4.0);
 
