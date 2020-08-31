@@ -113,11 +113,24 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     });
   }
 
-  spin() {
-    if (countDown <= 0) {
+  spin() async {
+    if (countDown <= DELAY_OF_SPIN / 1000 + 1) {
+      Get.snackbar("Not enough time for spin", "",
+          colorText: SB_TEXT, backgroundColor: SB_BACK);
       return;
     }
-    debugPrint('Spin!');
+    if (score <= PRICE_OF_SPIN) {
+      Get.snackbar("Not enough points for spin", "",
+          colorText: SB_TEXT, backgroundColor: SB_BACK);
+      return;
+    }
+    await Get.find<SoundUtils>().playSoundEffect(SoundEffect.LongCardShuffle);
+    setState(() {
+      _score -= PRICE_OF_SPIN;
+      _board.spin(_listKeys, DELAY_OF_SPIN);
+      _selection.clear();
+      _clearSelection();
+    });
   }
 
   List<Point<int>> _getNeighbors(Point<int> cell) {
@@ -402,7 +415,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     _populateBoard();
 
     final soundUtils = Get.find<SoundUtils>();
-    soundUtils.playSoundEffect(SoundEffect.ShortCardShuffle).then(
+    soundUtils.playSoundEffect(SoundEffect.LongCardShuffle).then(
         (c) async => await soundUtils.playSoundTrack(SoundTrack.GuitarMusic));
 
     Wakelock.enable();

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import '../logic/suit.dart';
 import '../logic/value.dart';
@@ -52,10 +54,9 @@ class Board {
       int displacement = 0;
       int maxY = GameState.BOARD_SIZE +
           (layout == BoardLayout.Hexagonal && x % 2 == 0 ? -1 : 0);
-      final listKey = listKeys[x];
       for (var y = maxY - 1; y >= 0; y--) {
         if (board[x][y].selected) {
-          listKey.currentState.removeItem(
+          listKeys[x].currentState.removeItem(
               y, (context, animation) => buildItem(board[x][y], animation),
               duration: Duration(milliseconds: animationDelay));
           displacement += 1;
@@ -71,12 +72,44 @@ class Board {
     for (var x in indexes) {
       int maxY = GameState.BOARD_SIZE +
           (layout == BoardLayout.Hexagonal && x % 2 == 0 ? -1 : 0);
-      final listKey = listKeys[x];
       for (var y = 0; y < maxY; y++) {
         if (board[x][y].selected) {
           board[x][y] = shoe.dealCard();
-          listKey.currentState.insertItem(y);
+          listKeys[x].currentState.insertItem(y);
         }
+      }
+    }
+  }
+
+  spin(List<GlobalKey<AnimatedListState>> listKeys, int animationDelay) {
+    // Step 1: determine random rotation amount per each column
+    // (slot machine type rotation)
+    final spin = List<int>.generate(
+        5,
+        (int i) =>
+            Random().nextInt(
+                layout == BoardLayout.Hexagonal && i % 2 == 0 ? 3 : 4) +
+            1);
+    // Step 2: spin (slot machine type rotation) by the rotation amounts
+    // Step 2.1: visual removal
+    for (var x in indexes) {
+      for (var y = 0; y < spin[x]; y++) {
+        listKeys[x].currentState.removeItem(
+            0, (context, animation) => buildItem(board[x][y], animation),
+            duration: Duration(milliseconds: animationDelay));
+      }
+    }
+    // Step 2.2: rearrange board
+    for (var x in indexes) {
+      final divider = board[x].length - spin[x];
+      board[x] = board[x].sublist(divider) + board[x].sublist(0, divider);
+    }
+    // Step 2.3: re-insert removed cards
+    for (var x in indexes) {
+      for (var y = 0; y < spin[x]; y++) {
+        listKeys[x]
+            .currentState
+            .insertItem(y, duration: Duration(milliseconds: animationDelay));
       }
     }
   }

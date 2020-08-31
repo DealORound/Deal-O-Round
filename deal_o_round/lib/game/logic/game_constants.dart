@@ -66,3 +66,5 @@ const ABOUT_URL = "http://dealoround.com/about.html";
 const HELP_URL = "http://dealoround.com/help.html";
 const Color SB_TEXT = Colors.white;
 final Color SB_BACK = Colors.redAccent.withOpacity(0.5);
+const PRICE_OF_SPIN = 200;
+const DELAY_OF_SPIN = 2000;
