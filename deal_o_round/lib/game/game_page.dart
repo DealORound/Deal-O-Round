@@ -203,7 +203,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
       for (var cell in _selection) {
         _board.board[cell.x][cell.y].selected = false;
       }
-      if (_levelManager.hasNeighborSelection(_difficulty)) {
+      if (_levelManager.hasNeighborSelection(_difficulty, true)) {
         for (var x in indexes) {
           final ixs = (_layout == BoardLayout.Hexagonal && x % 2 == 0)
               ? indexesEven
@@ -297,7 +297,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
         if (shouldAdjust) {
           setState(() {
             _board.board[cell.x][cell.y].selected = !selected;
-            if (_levelManager.hasNeighborSelection(_difficulty)) {
+            if (_levelManager.hasNeighborSelection(_difficulty, false)) {
               if (neighbors == null) {
                 neighbors = _getNeighbors(cell);
               }

@@ -108,9 +108,10 @@ class LevelManager {
         nextLevelScore: nextLevelScore, extraCountDown: countDown);
   }
 
-  bool hasNeighborSelection(Difficulty difficulty) {
+  bool hasNeighborSelection(Difficulty difficulty, bool previous) {
+    final offset = previous ? 1 : 0;
     return difficulty == Difficulty.Easy ||
-        difficulty == Difficulty.Medium && currentLevel < 5 ||
-        difficulty == Difficulty.Hard && currentLevel < 1;
+        difficulty == Difficulty.Medium && currentLevel - offset < 5 ||
+        difficulty == Difficulty.Hard && currentLevel - offset < 1;
   }
 }
