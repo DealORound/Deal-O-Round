@@ -4,28 +4,26 @@ import 'package:flutter_test/flutter_test.dart';
 
 main() {
   group('Neighbor highlight tests', () {
-    test('Easy difficulty has neighbor highlight on all levels', () async {
+    test('Easy difficulty has diagonal selection on all levels', () async {
       final levelManager = LevelManager();
       for (final _ in Iterable<int>.generate(30).toList()) {
-        expect(levelManager.hasNeighborHighlight(Difficulty.Easy, false), true);
+        expect(levelManager.hasDiagonalSelection(Difficulty.Easy), true);
         levelManager.advanceLevel();
       }
     });
 
-    test('Medium has neighbor highlight on first five levels', () async {
+    test('Medium has diagonal selection on first two levels', () async {
       final levelManager = LevelManager();
       for (final level in Iterable<int>.generate(30).toList()) {
-        expect(levelManager.hasNeighborHighlight(Difficulty.Medium, false),
-            level < 5);
+        expect(levelManager.hasDiagonalSelection(Difficulty.Medium), level < 2);
         levelManager.advanceLevel();
       }
     });
 
-    test('Hard has neighbor highlight only on the first levels', () async {
+    test('Hard does not have diagonal selection', () async {
       final levelManager = LevelManager();
-      for (final level in Iterable<int>.generate(30).toList()) {
-        expect(levelManager.hasNeighborHighlight(Difficulty.Hard, false),
-            level < 1);
+      for (final _ in Iterable<int>.generate(30).toList()) {
+        expect(levelManager.hasDiagonalSelection(Difficulty.Hard), false);
         levelManager.advanceLevel();
       }
     });

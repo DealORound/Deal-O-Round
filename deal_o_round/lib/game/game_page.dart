@@ -135,18 +135,38 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
 
   List<Point<int>> _getNeighbors(Point<int> cell) {
     final neighbors = List<Point<int>>();
-    if (cell.y > 0) {
+    final diagonals = _levelManager.hasDiagonalSelection(_difficulty);
+    final maxIndex = BOARD_SIZE - 1;
+    final notTop = cell.y > 0;
+    if (notTop) {
       neighbors.add(Point(cell.x, cell.y - 1));
     }
-    final maxIndex = BOARD_SIZE - 1;
     if (_layout == BoardLayout.Square) {
+      final notLeft = cell.x > 0;
+      final notRight = cell.x < maxIndex;
+      if (notTop && diagonals) {
+        if (notLeft) {
+          neighbors.add(Point(cell.x - 1, cell.y - 1));
+        }
+        if (notRight) {
+          neighbors.add(Point(cell.x + 1, cell.y - 1));
+        }
+      }
       if (cell.y < maxIndex) {
         neighbors.add(Point(cell.x, cell.y + 1));
+        if (diagonals) {
+          if (notLeft) {
+            neighbors.add(Point(cell.x - 1, cell.y + 1));
+          }
+          if (notRight) {
+            neighbors.add(Point(cell.x + 1, cell.y + 1));
+          }
+        }
       }
-      if (cell.x > 0) {
+      if (notLeft) {
         neighbors.add(Point(cell.x - 1, cell.y));
       }
-      if (cell.x < maxIndex) {
+      if (notRight) {
         neighbors.add(Point(cell.x + 1, cell.y));
       }
     } else {
@@ -203,7 +223,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
       for (var cell in _selection) {
         _board.board[cell.x][cell.y].selected = false;
       }
-      if (_levelManager.hasNeighborSelection(_difficulty, true)) {
+      if (_levelManager.hasNeighborHighlight(_difficulty, true)) {
         for (var x in indexes) {
           final ixs = (_layout == BoardLayout.Hexagonal && x % 2 == 0)
               ? indexesEven
@@ -297,7 +317,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
         if (shouldAdjust) {
           setState(() {
             _board.board[cell.x][cell.y].selected = !selected;
-            if (_levelManager.hasNeighborSelection(_difficulty, false)) {
+            if (_levelManager.hasNeighborHighlight(_difficulty, false)) {
               if (neighbors == null) {
                 neighbors = _getNeighbors(cell);
               }
