@@ -368,16 +368,16 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
             debugPrint("Error while submitting hand achievement: ${e.message}");
           }
         }
-        final handScore = hand.score();
-        AdvancingReturn advancing = await _levelManager.advanceLevels(
-            _difficulty, _score, handScore, _nextLevel, _shouldUnlock);
         final selectedHand = _getSelectedHand();
         final jokerCount = selectedHand.fold(
             0, (count, card) => card.value.index == 13 ? count + 1 : count);
         final multiplier = pow(2, jokerCount);
+        final handScore = hand.score() * multiplier;
+        AdvancingReturn advancing = await _levelManager.advanceLevels(
+            _difficulty, _score, handScore, _nextLevel, _shouldUnlock);
         setState(() {
           clear = false;
-          _score += handScore * multiplier;
+          _score += handScore;
           _countDown += getTimeBonus(hand.handClass);
           _level = _levelManager.getCurrentLevelIndex();
           _countDown += advancing.extraCountDown;
