@@ -7,10 +7,10 @@ class Shoe {
   List<Deck> decks;
   int decksUsed;
 
-  Shoe(int deckCount) {
+  Shoe({includeJokers: false, deckCount}) {
     decks = List<Deck>();
     for (int i = 0; i < deckCount; i++) {
-      decks.add(Deck(index: i));
+      decks.add(Deck(includeJokers: includeJokers, index: i));
     }
     decksUsed = 0;
   }

@@ -8,7 +8,7 @@ import 'package:deal_o_round/game/logic/value.dart';
 main() {
   testShoeWithoutJokerFirstDeckIsSortedTheRestBecomesShuffledAfterConstructionCore(
       int shoeSize) {
-    final shoe = Shoe(shoeSize);
+    final shoe = Shoe(includeJokers: false, deckCount: shoeSize);
     for (int deck = 0; deck < shoeSize; deck++) {
       if (deck == 0) {
         for (int cardIndex = 0; cardIndex < 52; cardIndex++) {
@@ -29,7 +29,7 @@ main() {
   }
 
   testShoeWithoutJokerIsNotSortedAfterShuffleCore(int shoeSize) {
-    final shoe = Shoe(shoeSize);
+    final shoe = Shoe(includeJokers: false, deckCount: shoeSize);
     shoe.shuffleAll();
     for (int deck = 0; deck < shoeSize; deck++) {
       bool sorted = true;
@@ -43,7 +43,7 @@ main() {
   }
 
   testShoeWithoutJokerIsShuffledAfterTurnaroundCore(int shoeSize) {
-    final shoe = Shoe(shoeSize);
+    final shoe = Shoe(includeJokers: false, deckCount: shoeSize);
     // Go through all decks and cause shoe to "turn around"
     for (int deck = 0; deck < shoeSize; deck++) {
       for (int cardIdx = 0; cardIdx < 52; cardIdx++) {
@@ -62,7 +62,7 @@ main() {
   }
 
   testShoeWithoutJokerCanDeal52CardsCore(int shoeSize) {
-    final shoe = Shoe(shoeSize);
+    final shoe = Shoe(includeJokers: false, deckCount: shoeSize);
     for (int deck = 0; deck < shoeSize; deck++) {
       for (int i = 0; i < 52; i++) {
         final card = shoe.dealCard();
@@ -75,7 +75,7 @@ main() {
   }
 
   testShoeWithoutJokerIsEndlessCore(int shoeSize) {
-    final shoe = Shoe(shoeSize);
+    final shoe = Shoe(includeJokers: false, deckCount: shoeSize);
     // pulling out three times the decks of cards
     for (int i = 0; i < shoeSize * 52 * 3; i++) {
       final card = shoe.dealCard();
@@ -85,7 +85,7 @@ main() {
   }
 
   testShoeSuppliesDifferentCardsCore(int shoeSize) {
-    final shoe = Shoe(shoeSize);
+    final shoe = Shoe(includeJokers: false, deckCount: shoeSize);
     for (int deck = 0; deck < shoeSize; deck++) {
       final cards = List<PlayCard>();
       for (int i = 0; i < 52; i++) {
@@ -110,7 +110,7 @@ main() {
     });
 
     test('Empty shoe deals invalid cards', () async {
-      final shoe = Shoe(0);
+      final shoe = Shoe(includeJokers: false, deckCount: 0);
       for (int cardIdx = 0; cardIdx < 104; cardIdx++) {
         final card = shoe.dealCard();
         expect(card.suit, Suit.Invalid);

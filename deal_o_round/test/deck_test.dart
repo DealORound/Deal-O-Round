@@ -5,26 +5,29 @@ import 'package:deal_o_round/game/logic/suit.dart';
 import 'package:deal_o_round/game/logic/value.dart';
 
 main() {
-  void testDeckWithoutJokerCanGive52CardsCore(bool shuffle) {
-    final deck = Deck();
+  Deck testDeckCanGiveXCardsCore(bool shuffle, bool hasJokers) {
+    final deck = Deck(includeJokers: hasJokers);
     if (shuffle) {
       deck.shuffle();
     }
+    final maxVal = hasJokers && shuffle ? 14 : 13;
     for (int i = 0; i < 52; i++) {
       final playCard = deck.dealCard();
       final suitInt = playCard.suit.index;
       final valueInt = playCard.value.index;
       expect(suitInt >= 0 && suitInt < 4, true);
-      expect(valueInt >= 0 && valueInt < 13, true);
+      expect(valueInt >= 0 && valueInt < maxVal, true);
     }
+    return deck;
   }
 
-  void testDeckWithoutJokerCannotGiveMoreThan52CardsCore(bool shuffle) {
-    final deck = Deck();
+  void testDeckCannotGiveMoreThanXCardsCore(bool shuffle, bool hasJokers) {
+    final deck = Deck(includeJokers: hasJokers);
     if (shuffle) {
       deck.shuffle();
     }
-    for (int i = 0; i < 52; i++) {
+    final limit = hasJokers ? 54 : 52;
+    for (int i = 0; i < limit; i++) {
       deck.dealCard();
     }
 
@@ -33,13 +36,14 @@ main() {
     expect(extraCard.value, Value.Invalid);
   }
 
-  void testDeckSuppliesDifferentCardsCore(bool shuffle) {
-    final deck = Deck();
+  void testDeckSuppliesDifferentCardsCore(bool shuffle, bool hasJokers) {
+    final deck = Deck(includeJokers: hasJokers);
     if (shuffle) {
       deck.shuffle();
     }
     final cards = List<PlayCard>();
-    for (int i = 0; i < 52; i++) {
+    final limit = hasJokers ? 54 : 52;
+    for (int i = 0; i < limit; i++) {
       final playCard = deck.dealCard();
       for (PlayCard card in cards) {
         expect(
@@ -49,6 +53,23 @@ main() {
       }
       cards.add(playCard);
     }
+  }
+
+  void testDeckIsNotSortedAfterShuffleCore(bool hasJokers) async {
+    final deck = Deck(includeJokers: hasJokers);
+    deck.shuffle();
+    int cardIndex = 0;
+    bool sorted = true;
+    while (deck.cardsLeft() > 0 && sorted) {
+      final card = deck.dealCard();
+      sorted = sorted && (cardIndex ~/ (52 / 4) == card.suit.index);
+      sorted = sorted && (cardIndex % (52 / 4) == card.value.index);
+      cardIndex++;
+      if (!sorted) {
+        break;
+      }
+    }
+    expect(sorted, false);
   }
 
   group('Deck tests', () {
@@ -77,9 +98,9 @@ main() {
       expect(deck.includeJokers, true);
     });
 
-    test('Deck with Joker has 56 cards', () async {
+    test('Deck with Joker has 54 cards', () async {
       final deck = Deck(includeJokers: true);
-      expect(deck.cardsLeft(), 56);
+      expect(deck.cardsLeft(), 54);
     });
 
     test('Default deck is sorted after construction', () async {
@@ -93,46 +114,75 @@ main() {
       }
     });
 
+    test('Joker deck is sorted after construction', () async {
+      final deck = Deck(includeJokers: true);
+      int cardIndex = 0;
+      while (deck.cardsLeft() > 0 && cardIndex < 52) {
+        final playCard = deck.dealCard();
+        expect(playCard.suit.index, cardIndex ~/ (52 / 4));
+        expect(playCard.value.index, cardIndex % (52 / 4));
+        cardIndex++;
+      }
+    });
+
     test('Deck w/o Joker can deal 52 cards', () async {
-      testDeckWithoutJokerCanGive52CardsCore(false);
+      testDeckCanGiveXCardsCore(false, false);
+    });
+
+    test('Deck w Joker can deal 54 cards', () async {
+      final deck = testDeckCanGiveXCardsCore(false, true);
+      var playCard = deck.dealCard();
+      expect(BLACK_SUITES.contains(playCard.suit), true);
+      expect(playCard.value, Value.Joker);
+      playCard = deck.dealCard();
+      expect(RED_SUITES.contains(playCard.suit), true);
+      expect(playCard.value, Value.Joker);
     });
 
     test('Deck w/o Joker cannot deal more than 52 cards', () async {
-      testDeckWithoutJokerCannotGiveMoreThan52CardsCore(false);
+      testDeckCannotGiveMoreThanXCardsCore(false, false);
+    });
+
+    test('Deck w/o Joker cannot deal more than 54 cards', () async {
+      testDeckCannotGiveMoreThanXCardsCore(false, true);
     });
 
     test('Deck w/o Joker deals different cards', () async {
-      testDeckSuppliesDifferentCardsCore(false);
+      testDeckSuppliesDifferentCardsCore(false, false);
+    });
+
+    test('Deck w Joker deals different cards', () async {
+      testDeckSuppliesDifferentCardsCore(false, true);
     });
 
     test('Deck w/o Joker is not sorted after shuffle', () async {
-      final deck = Deck();
-      deck.shuffle();
-      int cardIndex = 0;
-      bool sorted = true;
-      while (deck.cardsLeft() > 0 && sorted) {
-        final card = deck.dealCard();
-        sorted = sorted && (cardIndex ~/ (52 / 4) == card.suit.index);
-        sorted = sorted && (cardIndex % (52 / 4) == card.value.index);
-        cardIndex++;
-        if (!sorted) {
-          break;
-        }
-      }
-      expect(sorted, false);
+      testDeckIsNotSortedAfterShuffleCore(false);
+    });
+
+    test('Deck w Joker is not sorted after shuffle', () async {
+      testDeckIsNotSortedAfterShuffleCore(true);
     });
 
     test('Deck w/o Joker can deal 52 cards after shuffle', () async {
-      testDeckWithoutJokerCanGive52CardsCore(true);
+      testDeckCanGiveXCardsCore(true, false);
     });
 
-    test('Deck w/o Joker cannot dela more than 52 cards after shuffle',
+    test('Deck w Joker can deal 54 cards after shuffle', () async {
+      testDeckCanGiveXCardsCore(true, true);
+    });
+
+    test('Deck w/o Joker cannot deal more than 52 cards after shuffle',
         () async {
-      testDeckWithoutJokerCannotGiveMoreThan52CardsCore(true);
+      testDeckCannotGiveMoreThanXCardsCore(true, false);
+    });
+
+    test('Deck w Joker cannot deal more than 54 cards after shuffle', () async {
+      testDeckCannotGiveMoreThanXCardsCore(true, true);
     });
 
     test('Deck deals different cards after shuffle', () async {
-      testDeckSuppliesDifferentCardsCore(true);
+      testDeckSuppliesDifferentCardsCore(true, false);
+      testDeckSuppliesDifferentCardsCore(true, true);
     });
   });
 }

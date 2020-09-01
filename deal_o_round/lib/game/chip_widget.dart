@@ -35,7 +35,7 @@ class ChipWidgetState extends State<ChipWidget> {
 
     final textColor =
         (_suit == 'C' || _suit == 'S') ? Colors.black : Colors.red;
-    final fontSize = diameter * 0.625; // ~50
+    final fontSize = diameter * (_value == '*' ? 0.8 : 0.625); // ~64 / ~50
     final suitStyle =
         TextStyle(fontSize: fontSize, fontFamily: 'Cards', color: textColor);
     final valueStyle = TextStyle(
@@ -52,14 +52,16 @@ class ChipWidgetState extends State<ChipWidget> {
             foregroundPainter: ChipSelectionPainter(
                 selected: card.selected, neighbor: card.neighbor),
             child: Center(
-                child: RichText(
-                    maxLines: 1,
-                    overflow: TextOverflow.visible,
-                    text: TextSpan(
-                        text: _value,
-                        style: valueStyle,
-                        children: <TextSpan>[
-                          TextSpan(text: _suit, style: suitStyle)
-                        ])))));
+                child: _value == '*'
+                    ? Text('J', style: suitStyle)
+                    : RichText(
+                        maxLines: 1,
+                        overflow: TextOverflow.visible,
+                        text: TextSpan(
+                            text: _value,
+                            style: valueStyle,
+                            children: <TextSpan>[
+                              TextSpan(text: _suit, style: suitStyle)
+                            ])))));
   }
 }

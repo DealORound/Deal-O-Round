@@ -12,7 +12,7 @@ import 'shoe.dart';
 class Board {
   static const SHOE_SIZE = 4;
 
-  final shoe = Shoe(SHOE_SIZE);
+  final shoe = Shoe(includeJokers: true, deckCount: SHOE_SIZE);
   List<List<PlayCard>> board;
   final BoardLayout layout;
   final indexes = Iterable<int>.generate(GameState.BOARD_SIZE).toList();

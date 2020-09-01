@@ -10,15 +10,26 @@ class Deck {
 
   Deck({this.includeJokers: false, this.index}) {
     deck = List<PlayCard>();
-    final valueLimit = includeJokers ? 14 : 13;
     for (int suitIndex = 0; suitIndex < 4; suitIndex++) {
-      for (int valueIndex = 0; valueIndex < valueLimit; valueIndex++) {
+      for (int valueIndex = 0; valueIndex < 13; valueIndex++) {
         deck.add(PlayCard(
           suit: Suit.values[suitIndex],
           value: Value.values[valueIndex],
           deck: index,
         ));
       }
+    }
+    if (includeJokers) {
+      deck.add(PlayCard(
+        suit: Suit.Spades,
+        value: Value.Joker,
+        deck: index,
+      ));
+      deck.add(PlayCard(
+        suit: Suit.Diamonds,
+        value: Value.Joker,
+        deck: index,
+      ));
     }
     cardsUsed = 0;
   }

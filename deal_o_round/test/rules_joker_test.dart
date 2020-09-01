@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:deal_o_round/game/logic/scoring.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:deal_o_round/game/logic/hand_class.dart';
@@ -54,31 +56,22 @@ main() {
         RuleTestInput(hand: null, subHandDrillDownLevel: 4, expectedScore: 0));
   });
 
-  test('Single hand worth nothing', () async {
-    final hand = [PlayCard(suit: Suit.Clubs, value: Value.Ten)];
-    assertCombination(
-        RuleTestInput(hand: hand, subHandDrillDownLevel: 0, expectedScore: 0));
-    assertCombination(
-        RuleTestInput(hand: hand, subHandDrillDownLevel: 4, expectedScore: 0));
+  test('Single hand of joker worth nothing', () async {
+    for (Suit suit in BLACK_SUITES + RED_SUITES) {
+      final hand = [PlayCard(suit: suit, value: Value.Joker)];
+      assertCombination(RuleTestInput(
+          hand: hand, subHandDrillDownLevel: 0, expectedScore: 0));
+      assertCombination(RuleTestInput(
+          hand: hand, subHandDrillDownLevel: 4, expectedScore: 0));
+    }
   });
 
-  test('Worthless two hand worth nothing', () async {
-    final hand = [
-      PlayCard(suit: Suit.Clubs, value: Value.Ten),
-      PlayCard(suit: Suit.Diamonds, value: Value.Nine)
-    ];
-    assertCombination(
-        RuleTestInput(hand: hand, subHandDrillDownLevel: 0, expectedScore: 0));
-    assertCombination(
-        RuleTestInput(hand: hand, subHandDrillDownLevel: 4, expectedScore: 0));
-  });
-
-  test('Pair worth the right points', () async {
+  test('Joker forms a pair with another card', () async {
     for (Value value in Value.values) {
       if (value.index < 13) {
         final hand = [
           PlayCard(suit: Suit.Clubs, value: value),
-          PlayCard(suit: Suit.Diamonds, value: value)
+          PlayCard(suit: Suit.Diamonds, value: Value.Joker)
         ];
         int offset = offsetRank(hand[0]);
         assertCombination(RuleTestInput(
@@ -91,13 +84,13 @@ main() {
 
   // Tests for 3 card combinations
 
-  test('Three of a kind worth the right points', () async {
+  test('Joker can complete a Three of a kind', () async {
     for (Value value in Value.values) {
       if (value.index < 13) {
         final hand = [
           PlayCard(suit: Suit.Clubs, value: value),
           PlayCard(suit: Suit.Diamonds, value: value),
-          PlayCard(suit: Suit.Spades, value: value)
+          PlayCard(suit: Suit.Spades, value: Value.Joker)
         ];
         int offset = offsetRank(hand[0]);
         assertCombination(RuleTestInput(
@@ -108,45 +101,45 @@ main() {
     }
   });
 
-  test('Pair from 3 worth the right points', () async {
+  test('Joker completes combination to lesser straight', () async {
     // When beginning does not match up
     for (int i = 0; i < 13; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i == 0 ? 1 : 0]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i]),
-        PlayCard(suit: Suit.Spades, value: Value.values[i]),
+        PlayCard(suit: Suit.Spades, value: Value.Joker),
       ];
-      int offset = offsetRank(hand[1]);
+      int offset = min(offsetRank(hand[0]), offsetRank(hand[1]));
       assertCombination(RuleTestInput(
-          hand: hand, subHandDrillDownLevel: 0, expectedScore: 0));
+          hand: hand, subHandDrillDownLevel: 0, expectedScore: 30 + offset));
       assertCombination(RuleTestInput(
-          hand: hand, subHandDrillDownLevel: 1, expectedScore: 1 + offset));
+          hand: hand, subHandDrillDownLevel: 1, expectedScore: 30 + offset));
     }
     // When middle does not match up
     for (int i = 0; i < 13; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
         PlayCard(suit: Suit.Diamonds, value: Value.values[i == 0 ? 1 : 0]),
-        PlayCard(suit: Suit.Spades, value: Value.values[i])
+        PlayCard(suit: Suit.Spades, value: Value.Joker)
       ];
-      int offset = offsetRank(hand[0]);
+      int offset = min(offsetRank(hand[0]), offsetRank(hand[1]));
       assertCombination(RuleTestInput(
-          hand: hand, subHandDrillDownLevel: 0, expectedScore: 0));
+          hand: hand, subHandDrillDownLevel: 0, expectedScore: 30 + offset));
       assertCombination(RuleTestInput(
-          hand: hand, subHandDrillDownLevel: 1, expectedScore: 1 + offset));
+          hand: hand, subHandDrillDownLevel: 1, expectedScore: 30 + offset));
     }
     // When end does not match up
     for (int i = 0; i < 13; i++) {
       final hand = [
         PlayCard(suit: Suit.Clubs, value: Value.values[i]),
-        PlayCard(suit: Suit.Diamonds, value: Value.values[i]),
+        PlayCard(suit: Suit.Diamonds, value: Value.Joker),
         PlayCard(suit: Suit.Spades, value: Value.values[i == 0 ? 1 : 0])
       ];
-      int offset = offsetRank(hand[0]);
+      int offset = min(offsetRank(hand[0]), offsetRank(hand[1]));
       assertCombination(RuleTestInput(
-          hand: hand, subHandDrillDownLevel: 0, expectedScore: 0));
+          hand: hand, subHandDrillDownLevel: 0, expectedScore: 30 + offset));
       assertCombination(RuleTestInput(
-          hand: hand, subHandDrillDownLevel: 1, expectedScore: 1 + offset));
+          hand: hand, subHandDrillDownLevel: 1, expectedScore: 30 + offset));
     }
   });
 

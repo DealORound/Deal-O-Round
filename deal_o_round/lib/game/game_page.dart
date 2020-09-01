@@ -217,10 +217,15 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     });
   }
 
-  List<Scoring> _getSelectedHands() {
-    List<PlayCard> cards =
-        _selection.map((s) => _board.board[s.x][s.y]).toList();
-    return _rules.rankHand(cards, 0, false, true, true);
+  List<PlayCard> _getSelectedHand() {
+    return _selection.map((s) => _board.board[s.x][s.y]).toList();
+  }
+
+  List<Scoring> _rankHands(List<PlayCard> selectedHand) {
+    if (selectedHand == null || selectedHand.length == 0) {
+      selectedHand = _getSelectedHand();
+    }
+    return _rules.rankHand(selectedHand, 0, true, true);
   }
 
   _hitTest(PointerEvent details) {
@@ -301,7 +306,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
             _lastFlipped = cell;
 
             // Update info
-            List<Scoring> hands = _getSelectedHands();
+            List<Scoring> hands = _rankHands(null);
             if (hands.length > 0) {
               _info = hands[0].toStringDisplay();
             } else {
@@ -329,7 +334,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     }
     bool clear = true;
     if (_selection.length >= 2 && countDown > 0) {
-      List<Scoring> hands = _getSelectedHands();
+      List<Scoring> hands = _rankHands(null);
       if (hands.length > 0) {
         Scoring hand = hands.first;
         if (_shouldUnlock) {
@@ -346,9 +351,13 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
         final handScore = hand.score();
         AdvancingReturn advancing = await _levelManager.advanceLevels(
             _difficulty, _score, handScore, _nextLevel, _shouldUnlock);
+        final selectedHand = _getSelectedHand();
+        final jokerCount = selectedHand.fold(
+            0, (count, card) => card.value.index == 13 ? count + 1 : count);
+        final multiplier = pow(2, jokerCount);
         setState(() {
           clear = false;
-          _score += handScore;
+          _score += handScore * multiplier;
           _countDown += getTimeBonus(hand.handClass);
           _level = _levelManager.getCurrentLevelIndex();
           _countDown += advancing.extraCountDown;

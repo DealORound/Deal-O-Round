@@ -1,6 +1,7 @@
 import 'hand_class.dart';
 import 'play_card.dart';
 import 'scoring.dart';
+import 'suit.dart';
 import 'value.dart';
 
 class Rules {
@@ -42,47 +43,61 @@ class Rules {
     return true;
   }
 
-  // Conversion method
-  Scoring rankHandPlayCard(
-      List<PlayCard> hand, int subHandDrillDown, bool bestOnTop, bool fast) {
-    List<PlayCard> cards = List<PlayCard>();
-    for (PlayCard card in hand) {
-      cards.add(card);
+  void rankHandCore(List<PlayCard> cards, List<Scoring> results,
+      int subHandDrillDown, bool bestOnTop, bool fast) {
+    if (cards == null) {
+      return;
     }
-    List<Scoring> results =
-        rankHand(cards, subHandDrillDown, false, bestOnTop, fast);
-    if (results.isNotEmpty) {
-      return results[0];
+
+    List<PlayCard> hand = [...cards];
+    if (cards.any((card) => card.value == Value.Joker)) {
+      var jokerIndex = 0;
+      for (PlayCard card in hand) {
+        if (card.value == Value.Joker) {
+          break;
+        }
+        jokerIndex++;
+      }
+      final jokerCard = hand[jokerIndex];
+      final jokerSuites =
+          BLACK_SUITES.contains(jokerCard.suit) ? BLACK_SUITES : RED_SUITES;
+      for (Suit suit in jokerSuites) {
+        final nonJoker = Value.values.sublist(0, 13);
+        for (Value value in nonJoker) {
+          hand[jokerIndex] = PlayCard(suit: suit, value: value);
+          rankHandCore(hand, results, subHandDrillDown, bestOnTop, fast);
+        }
+      }
+    } else {
+      switch (hand.length) {
+        case 2:
+          rankTwoCards(hand, results, fast);
+          break;
+        case 3:
+          rankThreeCards(hand, subHandDrillDown, results, fast);
+          break;
+        case 4:
+          rankFourCards(hand, subHandDrillDown, results, fast);
+          break;
+        case 5:
+          rankFiveCards(hand, subHandDrillDown, results, fast);
+          break;
+        default:
+          break;
+      }
     }
-    return Scoring();
   }
 
-  // Accessing directly for testing only
-  List<Scoring> rankHand(List<PlayCard> cards, int subHandDrillDown,
-      bool shouldClone, bool bestOnTop, bool fast) {
+  List<Scoring> rankHand(
+      List<PlayCard> cards, int subHandDrillDown, bool bestOnTop, bool fast) {
     final results = List<Scoring>();
 
     if (cards == null) {
       return results;
     }
-    List<PlayCard> hand = [...cards];
 
-    switch (hand.length) {
-      case 2:
-        rankTwoCards(hand, results, fast);
-        break;
-      case 3:
-        rankThreeCards(hand, subHandDrillDown, results, fast);
-        break;
-      case 4:
-        rankFourCards(hand, subHandDrillDown, results, fast);
-        break;
-      case 5:
-        rankFiveCards(hand, subHandDrillDown, results, fast);
-        break;
-      default:
-        break;
-    }
+    rankHandCore(cards, results, subHandDrillDown, bestOnTop, fast);
+
     if (results.isNotEmpty) {
       results.sort((ra, rb) => rb.score().compareTo(ra.score()));
     }

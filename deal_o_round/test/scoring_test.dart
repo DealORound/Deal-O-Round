@@ -9,7 +9,7 @@ import 'package:deal_o_round/game/logic/value.dart';
 main() {
   toDisplayHand(List<PlayCard> hand, HandClass handClass) {
     final rules = Rules();
-    final results = rules.rankHand(hand, 0, true, true, true);
+    final results = rules.rankHand(hand, 0, true, true);
     final result = results.isNotEmpty ? results[0] : Scoring();
     final displayStr = result.toStringDisplay();
     final handDisplayStr = handDisplayString(handClass);
