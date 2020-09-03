@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:games_services/games_services.dart';
-import 'package:games_services/models/score.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:universal_platform/universal_platform.dart';
