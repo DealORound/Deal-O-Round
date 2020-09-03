@@ -9,15 +9,15 @@ environment:
   sdk: ">=2.8.0 <3.0.0"
 
 dependencies:
-  url_launcher: ^5.5.0
-  shared_preferences: ^0.5.8
-  spinner_input: ^0.1.2
-  get: ^3.4.6
-  soundpool: ^1.1.1
-  audioplayers: ^0.15.1
-  universal_platform: ^0.1.3
-  games_services: ^0.2.10
-  wakelock: ^0.1.4+2
+  url_launcher: any
+  shared_preferences: any
+  spinner_input: any
+  get: any
+  soundpool: any
+  audioplayers: any
+  universal_platform: any
+  games_services: any
+  wakelock: any
   flutter:
     sdk: flutter
 
