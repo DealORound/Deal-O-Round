@@ -126,13 +126,33 @@ class HomeCenter extends StatelessWidget {
               ButtonTheme(
                   minWidth: buttonWidth,
                   child: RaisedButton.icon(
-                      onPressed: () => Get.to(SettingsPage()),
+                      onPressed: () async {
+                        if (UniversalPlatform.isAndroid ||
+                            UniversalPlatform.isIOS) {
+                          if (state.gameSignedIn) {
+                            try {
+                              await GamesServices.showAchievements();
+                            } catch (e) {
+                              debugPrint("Error showing achievements: ${e.message}");
+                              Get.snackbar("Error", "Could not fetch achievement",
+                                  colorText: SB_TEXT, backgroundColor: SB_BACK);
+                            }
+                          } else {
+                            Get.snackbar("Warning", "Sign-in needed",
+                                colorText: SB_TEXT, backgroundColor: SB_BACK);
+                          }
+                        } else {
+                          Get.snackbar("Achievements:",
+                              "Only available on Android or iOS devices",
+                              colorText: SB_TEXT, backgroundColor: SB_BACK);
+                        }
+                      },
                       color: Colors.green,
                       textColor: Colors.white,
                       shape: buttonShape,
                       padding: buttonPadding,
-                      icon: Icon(Icons.settings, size: radius),
-                      label: Text("Config", style: textStyle)))
+                      icon: Icon(Icons.grade, size: radius),
+                      label: Text("Grade", style: textStyle))),
             ]),
             SizedBox(width: spacing),
             Column(children: <Widget>[
@@ -159,22 +179,13 @@ class HomeCenter extends StatelessWidget {
               ButtonTheme(
                   minWidth: buttonWidth,
                   child: RaisedButton.icon(
-                      onPressed: () async => {
-                            if (await canLaunch(ABOUT_URL))
-                              {launch(ABOUT_URL)}
-                            else
-                              {
-                                Get.snackbar("Attention", "Cannot open URL",
-                                    colorText: SB_TEXT,
-                                    backgroundColor: SB_BACK)
-                              }
-                          },
+                      onPressed: () => Get.to(SettingsPage()),
                       color: Colors.green,
                       textColor: Colors.white,
                       shape: buttonShape,
                       padding: buttonPadding,
-                      icon: Icon(Icons.info, size: radius),
-                      label: Text("About", style: textStyle))),
+                      icon: Icon(Icons.settings, size: radius),
+                      label: Text("Config", style: textStyle))),
               SizedBox(height: spacing),
               ButtonTheme(
                   minWidth: buttonWidth,
@@ -194,7 +205,7 @@ class HomeCenter extends StatelessWidget {
                       shape: buttonShape,
                       padding: buttonPadding,
                       icon: Icon(Icons.help, size: radius),
-                      label: Text("Help", style: textStyle)))
+                      label: Text("Help", style: textStyle))),
             ])
           ])
         ]);
