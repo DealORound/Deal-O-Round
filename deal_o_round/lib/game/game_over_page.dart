@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:games_services/games_services.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:universal_platform/universal_platform.dart';
 import '../services/settings_constants.dart';
 import '../services/size.dart';
 import '../services/sound.dart';
@@ -20,10 +18,8 @@ class GameOverPage extends StatefulWidget {
 
 class _GameOverPageState extends State<GameOverPage> {
   final int score;
-  String _layoutStr = "Hexagonal";
-  String _difficultyStr = "Easy";
-  BoardLayout _layout = BoardLayout.Hexagonal;
-  Difficulty _difficulty = Difficulty.Easy;
+  String _layout = "Hexagonal";
+  String _difficulty = "Easy";
 
   _GameOverPageState({this.score}) {}
 
@@ -32,31 +28,10 @@ class _GameOverPageState extends State<GameOverPage> {
     super.initState();
 
     final _prefs = Get.find<SharedPreferences>();
-    _difficultyStr = _prefs.getString(DIFFICULTY);
-    _difficulty = enumFromString(Difficulty.values, _difficultyStr);
-    _layoutStr = _prefs.getString(BOARD_LAYOUT);
-    _layout = enumFromString(BoardLayout.values, _layoutStr);
-    final gameSignedIn = _prefs.getBool(GAME_SIGNED_IN);
-    if (gameSignedIn &&
-        (UniversalPlatform.isAndroid || UniversalPlatform.isIOS)) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _submitScore();
-      });
-    }
+    _difficulty = _prefs.getString(DIFFICULTY);
+    _layout = _prefs.getString(BOARD_LAYOUT);
     final soundUtils = Get.find<SoundUtils>();
     soundUtils.playSoundTrack(SoundTrack.EndMusic);
-  }
-
-  _submitScore() async {
-    try {
-      await GamesServices.submitScore(
-          score: Score(
-              androidLeaderboardID: LEADER_BOARDS[_layout][_difficulty],
-              iOSLeaderboardID: "ios_leaderboard_id",
-              value: score));
-    } catch (e) {
-      debugPrint("Error while submitting score: ${e.message}");
-    }
   }
 
   @override
@@ -118,9 +93,9 @@ class _GameOverPageState extends State<GameOverPage> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               Text("Difficulty:", style: textStyle),
-                              Text(_difficultyStr, style: textStyle),
+                              Text(_difficulty, style: textStyle),
                               Text("Layout:", style: textStyle),
-                              Text(_layoutStr, style: textStyle),
+                              Text(_layout, style: textStyle),
                             ])),
                   ])
             ])));

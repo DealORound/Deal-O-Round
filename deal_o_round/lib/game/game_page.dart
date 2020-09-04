@@ -480,8 +480,18 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   }
 
   @override
-  dispose() {
-    // TODO: submit score if it's user induced back navigation #17
+  dispose() async {
+    if (_shouldUnlock) {
+      try {
+        await GamesServices.submitScore(
+            score: Score(
+                androidLeaderboardID: LEADER_BOARDS[_layout][_difficulty],
+                iOSLeaderboardID: "ios_leaderboard_id",
+                value: score));
+      } catch (e) {
+        debugPrint("Error while submitting score: ${e.message}");
+      }
+    }
     Wakelock.disable();
     _timer?.cancel();
     super.dispose();
