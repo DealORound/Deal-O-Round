@@ -6,7 +6,7 @@ main() {
   group('Neighbor highlight tests', () {
     test('Easy difficulty has neighbor highlight on all levels', () async {
       final levelManager = LevelManager();
-      for (final _ in Iterable<int>.generate(30).toList()) {
+      for (final _ in Iterable<int>.generate(30)) {
         expect(levelManager.hasNeighborHighlight(Difficulty.Easy, false), true);
         levelManager.advanceLevel();
       }
@@ -14,7 +14,7 @@ main() {
 
     test('Medium has neighbor highlight on first five levels', () async {
       final levelManager = LevelManager();
-      for (final level in Iterable<int>.generate(30).toList()) {
+      for (final level in Iterable<int>.generate(30)) {
         expect(levelManager.hasNeighborHighlight(Difficulty.Medium, false),
             level < 5);
         levelManager.advanceLevel();
@@ -23,7 +23,7 @@ main() {
 
     test('Hard has neighbor highlight only on the first levels', () async {
       final levelManager = LevelManager();
-      for (final level in Iterable<int>.generate(30).toList()) {
+      for (final level in Iterable<int>.generate(30)) {
         expect(levelManager.hasNeighborHighlight(Difficulty.Hard, false),
             level < 1);
         levelManager.advanceLevel();
