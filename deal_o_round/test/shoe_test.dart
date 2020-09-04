@@ -15,13 +15,15 @@ main() {
           final card = shoe.dealCard();
           expect(cardIndex ~/ (52 / 4), card.suit.index);
           expect(cardIndex % (52 / 4), card.value.index);
+          expect(card.deck, deck);
         }
       } else {
         bool sorted = true;
-        for (int cardIndex = 0; cardIndex < 52 && sorted; cardIndex++) {
+        for (int cardIndex = 0; cardIndex < 52; cardIndex++) {
           final card = shoe.dealCard();
           sorted = sorted && (cardIndex ~/ (52 / 4) == card.suit.index);
           sorted = sorted && (cardIndex % (52 / 4) != card.value.index);
+          expect(card.deck, deck);
         }
         expect(sorted, false);
       }
@@ -33,10 +35,11 @@ main() {
     shoe.shuffleAll();
     for (int deck = 0; deck < shoeSize; deck++) {
       bool sorted = true;
-      for (int cardIdx = 0; cardIdx < 52 && sorted; cardIdx++) {
+      for (int cardIdx = 0; cardIdx < 52; cardIdx++) {
         final card = shoe.dealCard();
         sorted = sorted && (cardIdx ~/ (52 / 4) == card.suit.index);
         sorted = sorted && (cardIdx % (52 / 4) != card.value.index);
+        expect(card.deck, deck);
       }
       expect(sorted, false);
     }
@@ -47,15 +50,17 @@ main() {
     // Go through all decks and cause shoe to "turn around"
     for (int deck = 0; deck < shoeSize; deck++) {
       for (int cardIdx = 0; cardIdx < 52; cardIdx++) {
-        shoe.dealCard();
+        final card = shoe.dealCard();
+        expect(card.deck, deck);
       }
     }
     for (int deck = 0; deck < shoeSize; deck++) {
       bool sorted = true;
-      for (int cardIdx = 0; cardIdx < 52 && sorted; cardIdx++) {
+      for (int cardIdx = 0; cardIdx < 52; cardIdx++) {
         final card = shoe.dealCard();
         sorted = sorted && (cardIdx ~/ (52 / 4) == card.suit.index);
         sorted = sorted && (cardIdx % (52 / 4) != card.value.index);
+        expect(card.deck, deck);
       }
       expect(sorted, false);
     }
@@ -70,6 +75,7 @@ main() {
         int valueInt = card.value.index;
         expect(suitInt >= 0 && suitInt < 4, true);
         expect(valueInt >= 0 && valueInt < 13, true);
+        expect(card.deck, deck);
       }
     }
   }
@@ -77,10 +83,15 @@ main() {
   testShoeWithoutJokerIsEndlessCore(int shoeSize) {
     final shoe = Shoe(includeJokers: false, deckCount: shoeSize);
     // pulling out three times the decks of cards
-    for (int i = 0; i < shoeSize * 52 * 3; i++) {
-      final card = shoe.dealCard();
-      expect(card.suit != Suit.Invalid, true);
-      expect(card.value != Value.Invalid, true);
+    for (int x = 0; x < 3; x++) {
+      for (int deck = 0; deck < shoeSize; deck++) {
+        for (int i = 0; i < 52; i++) {
+          final card = shoe.dealCard();
+          expect(card.suit != Suit.Invalid, true);
+          expect(card.value != Value.Invalid, true);
+          expect(card.deck, deck);
+        }
+      }
     }
   }
 
@@ -95,6 +106,7 @@ main() {
               false);
           expect(playCard.suit != Suit.Invalid, true);
           expect(playCard.value != Value.Invalid, true);
+          expect(card.deck, deck);
         }
         cards.add(playCard);
       }
@@ -104,6 +116,7 @@ main() {
   final maxShoeSizeToTest = 8;
 
   group('Shoe tests', () {
+/*
     test('Default deck is without Joker', () async {
       final deck = Deck();
       expect(deck.includeJokers, false);
@@ -117,16 +130,19 @@ main() {
         expect(card.value, Value.Invalid);
       }
     });
+*/
 
     test(
         'Shoe w/o Joker first deck is sorted the rest becomes shuffled after construction',
         () async {
-      for (int shoeSize = 1; shoeSize <= maxShoeSizeToTest; shoeSize++) {
+      // for (int shoeSize = 1; shoeSize <= maxShoeSizeToTest; shoeSize++) {
         testShoeWithoutJokerFirstDeckIsSortedTheRestBecomesShuffledAfterConstructionCore(
-            shoeSize);
-      }
+            3 // shoeSize
+        );
+      // }
     });
 
+/*
     test('Shoe w/o Joker is not sorted after shuffle', () async {
       for (int shoeSize = 1; shoeSize <= maxShoeSizeToTest; shoeSize++) {
         testShoeWithoutJokerIsNotSortedAfterShuffleCore(shoeSize);
@@ -156,5 +172,6 @@ main() {
         testShoeSuppliesDifferentCardsCore(shoeSize);
       }
     });
+ */
   });
 }
