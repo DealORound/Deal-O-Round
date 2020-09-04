@@ -474,6 +474,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
 
   @override
   dispose() {
+    // TODO: submit score if it's user induced back navigation #17
     Wakelock.disable();
     _timer?.cancel();
     super.dispose();
