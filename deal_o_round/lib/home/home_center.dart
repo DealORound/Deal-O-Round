@@ -152,7 +152,7 @@ class HomeCenter extends StatelessWidget {
                       shape: buttonShape,
                       padding: buttonPadding,
                       icon: Icon(Icons.grade, size: radius),
-                      label: Text("Grade", style: textStyle))),
+                      label: Text("Grades", style: textStyle))),
             ]),
             SizedBox(width: spacing),
             Column(children: <Widget>[
