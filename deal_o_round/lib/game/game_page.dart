@@ -83,6 +83,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   List<GlobalKey<AnimatedListState>> _listKeys;
   int _animationDelay;
   bool _shouldUnlock;
+  bool _selectionBlock;
 
   DateTime get rightNow => _rightNow;
   int get countDown => max(_countDown - _elapsed, 0);
@@ -248,7 +249,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   }
 
   _hitTest(PointerEvent details) {
-    if (!_inGesture) {
+    if (!_inGesture || _selectionBlock) {
       return;
     }
     final diameter = chipSize(context); // ~80
@@ -337,16 +338,6 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     }
   }
 
-  _removeHand() async {
-    await Get.find<SoundUtils>().playSoundEffect(SoundEffect.PokerChips);
-
-    setState(() {
-      _board.removeHand(_listKeys, _animationDelay);
-      _selection.clear();
-      _clearSelection();
-    });
-  }
-
   evaluateAndProcessHand() async {
     if (countDown <= 0) {
       return;
@@ -374,6 +365,8 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
         final handScore = hand.score() * multiplier;
         AdvancingReturn advancing = await _levelManager.advanceLevels(
             _difficulty, _score, handScore, _nextLevel, _shouldUnlock);
+
+        await Get.find<SoundUtils>().playSoundEffect(SoundEffect.PokerChips);
         setState(() {
           clear = false;
           _score += handScore;
@@ -381,8 +374,16 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
           _level = _levelManager.getCurrentLevelIndex();
           _countDown += advancing.extraCountDown;
           _nextLevel = advancing.nextLevelScore;
+
+          _selectionBlock = true;
+          _board.removeHand(_listKeys, _animationDelay);
+          _selection.clear();
+          _clearSelection();
         });
-        await _removeHand();
+
+        Timer(Duration(milliseconds: (2 * animationDelay * 1.5).toInt()), () {
+          _selectionBlock = false;
+        });
       }
     }
     if (clear) {
@@ -451,6 +452,12 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
 
   void _populateBoard() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      _selectionBlock = true;
+      Timer(Duration(milliseconds: (animationDelay * BOARD_SIZE * 1.5).toInt()),
+          () {
+        _selectionBlock = false;
+      });
+
       var future = Future(() {});
       for (int i = 0; i < BOARD_SIZE; i++) {
         future = future.then((_) {
