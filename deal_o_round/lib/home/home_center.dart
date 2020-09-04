@@ -133,8 +133,10 @@ class HomeCenter extends StatelessWidget {
                             try {
                               await GamesServices.showAchievements();
                             } catch (e) {
-                              debugPrint("Error showing achievements: ${e.message}");
-                              Get.snackbar("Error", "Could not fetch achievement",
+                              debugPrint(
+                                  "Error showing achievements: ${e.message}");
+                              Get.snackbar(
+                                  "Error", "Could not fetch achievement",
                                   colorText: SB_TEXT, backgroundColor: SB_BACK);
                             }
                           } else {
