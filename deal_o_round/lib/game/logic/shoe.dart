@@ -28,7 +28,7 @@ class Shoe {
     }
 
     if (decks[decksUsed].cardsLeft() <= 0) {
-      decks[decksUsed].shuffle();
+      decks[decksUsed].shuffle(indexAdvance: decks.length);
       if (decks.length > 1) {
         decksUsed = (decksUsed + 1) % decks.length;
       }

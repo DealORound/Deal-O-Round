@@ -60,7 +60,7 @@ main() {
         final card = shoe.dealCard();
         sorted = sorted && (cardIdx ~/ (52 / 4) == card.suit.index);
         sorted = sorted && (cardIdx % (52 / 4) != card.value.index);
-        expect(card.deck, deck);
+        expect(card.deck, deck + shoeSize);
       }
       expect(sorted, false);
     }
@@ -89,7 +89,7 @@ main() {
           final card = shoe.dealCard();
           expect(card.suit != Suit.Invalid, true);
           expect(card.value != Value.Invalid, true);
-          expect(card.deck, deck);
+          expect(card.deck, x * shoeSize + deck);
         }
       }
     }
@@ -116,7 +116,6 @@ main() {
   final maxShoeSizeToTest = 8;
 
   group('Shoe tests', () {
-/*
     test('Default deck is without Joker', () async {
       final deck = Deck();
       expect(deck.includeJokers, false);
@@ -130,19 +129,17 @@ main() {
         expect(card.value, Value.Invalid);
       }
     });
-*/
 
     test(
         'Shoe w/o Joker first deck is sorted the rest becomes shuffled after construction',
         () async {
-      // for (int shoeSize = 1; shoeSize <= maxShoeSizeToTest; shoeSize++) {
+      for (int shoeSize = 1; shoeSize <= maxShoeSizeToTest; shoeSize++) {
         testShoeWithoutJokerFirstDeckIsSortedTheRestBecomesShuffledAfterConstructionCore(
-            3 // shoeSize
+            shoeSize
         );
-      // }
+      }
     });
 
-/*
     test('Shoe w/o Joker is not sorted after shuffle', () async {
       for (int shoeSize = 1; shoeSize <= maxShoeSizeToTest; shoeSize++) {
         testShoeWithoutJokerIsNotSortedAfterShuffleCore(shoeSize);
@@ -172,6 +169,5 @@ main() {
         testShoeSuppliesDifferentCardsCore(shoeSize);
       }
     });
- */
   });
 }

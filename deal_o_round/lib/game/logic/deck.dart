@@ -36,9 +36,21 @@ class Deck {
 
   int cardsLeft() => deck.length - cardsUsed;
 
-  shuffle() {
+  shuffle({indexAdvance: 0}) {
+    clearSelections(indexAdvance: indexAdvance);
     deck.shuffle();
+    // Making sure shuffle clears all previous selections
     cardsUsed = 0;
+  }
+
+  clearSelections({indexAdvance: 0}) {
+    for (final i in Iterable<int>.generate(deck.length)) {
+      deck[i].selected = false;
+      deck[i].neighbor = false;
+      if (indexAdvance != 0) {
+        deck[i].deck += indexAdvance;
+      }
+    }
   }
 
   PlayCard dealCard() {
