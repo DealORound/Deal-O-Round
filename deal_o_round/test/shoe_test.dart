@@ -6,34 +6,21 @@ import 'package:deal_o_round/game/logic/suit.dart';
 import 'package:deal_o_round/game/logic/value.dart';
 
 main() {
-  testShoeWithoutJokerFirstDeckIsSortedTheRestBecomesShuffledAfterConstructionCore(
-      int shoeSize) {
-    final shoe = Shoe(includeJokers: false, deckCount: shoeSize);
-    for (int deck = 0; deck < shoeSize; deck++) {
-      if (deck == 0) {
-        for (int cardIndex = 0; cardIndex < 52; cardIndex++) {
-          final card = shoe.dealCard();
-          expect(cardIndex ~/ (52 / 4), card.suit.index);
-          expect(cardIndex % (52 / 4), card.value.index);
-          expect(card.deck, deck);
-        }
-      } else {
-        bool sorted = true;
-        for (int cardIndex = 0; cardIndex < 52; cardIndex++) {
-          final card = shoe.dealCard();
-          sorted = sorted && (cardIndex ~/ (52 / 4) == card.suit.index);
-          sorted = sorted && (cardIndex % (52 / 4) != card.value.index);
-          expect(card.deck, deck);
-        }
-        expect(sorted, false);
+  testShoeWithoutJokerUnshuffledDecksAreSortedCore(int deckCount) {
+    final shoe = Shoe(includeJokers: false, initialShuffle: false);
+    for (int deck = 0; deck < deckCount; deck++) {
+      for (int cardIndex = 0; cardIndex < 52; cardIndex++) {
+        final card = shoe.dealCard();
+        expect(cardIndex ~/ (52 / 4), card.suit.index);
+        expect(cardIndex % (52 / 4), card.value.index);
+        expect(card.deck, deck);
       }
     }
   }
 
-  testShoeWithoutJokerIsNotSortedAfterShuffleCore(int shoeSize) {
-    final shoe = Shoe(includeJokers: false, deckCount: shoeSize);
-    shoe.shuffleAll();
-    for (int deck = 0; deck < shoeSize; deck++) {
+  testShoeWithoutJokerIsNotSortedAfterCreation(int deckCount) {
+    final shoe = Shoe(includeJokers: false);
+    for (int deck = 0; deck < deckCount; deck++) {
       bool sorted = true;
       for (int cardIdx = 0; cardIdx < 52; cardIdx++) {
         final card = shoe.dealCard();
@@ -45,30 +32,9 @@ main() {
     }
   }
 
-  testShoeWithoutJokerIsShuffledAfterTurnaroundCore(int shoeSize) {
-    final shoe = Shoe(includeJokers: false, deckCount: shoeSize);
-    // Go through all decks and cause shoe to "turn around"
-    for (int deck = 0; deck < shoeSize; deck++) {
-      for (int cardIdx = 0; cardIdx < 52; cardIdx++) {
-        final card = shoe.dealCard();
-        expect(card.deck, deck);
-      }
-    }
-    for (int deck = 0; deck < shoeSize; deck++) {
-      bool sorted = true;
-      for (int cardIdx = 0; cardIdx < 52; cardIdx++) {
-        final card = shoe.dealCard();
-        sorted = sorted && (cardIdx ~/ (52 / 4) == card.suit.index);
-        sorted = sorted && (cardIdx % (52 / 4) != card.value.index);
-        expect(card.deck, deck + shoeSize);
-      }
-      expect(sorted, false);
-    }
-  }
-
-  testShoeWithoutJokerCanDeal52CardsCore(int shoeSize) {
-    final shoe = Shoe(includeJokers: false, deckCount: shoeSize);
-    for (int deck = 0; deck < shoeSize; deck++) {
+  testShoeWithoutJokerCanDeal52CardsCore(int deckCount) {
+    final shoe = Shoe(includeJokers: false);
+    for (int deck = 0; deck < deckCount; deck++) {
       for (int i = 0; i < 52; i++) {
         final card = shoe.dealCard();
         int suitInt = card.suit.index;
@@ -80,24 +46,24 @@ main() {
     }
   }
 
-  testShoeWithoutJokerIsEndlessCore(int shoeSize) {
-    final shoe = Shoe(includeJokers: false, deckCount: shoeSize);
+  testShoeWithoutJokerIsEndlessCore(int deckCount) {
+    final shoe = Shoe(includeJokers: false);
     // pulling out three times the decks of cards
     for (int x = 0; x < 3; x++) {
-      for (int deck = 0; deck < shoeSize; deck++) {
+      for (int deck = 0; deck < deckCount; deck++) {
         for (int i = 0; i < 52; i++) {
           final card = shoe.dealCard();
           expect(card.suit != Suit.Invalid, true);
           expect(card.value != Value.Invalid, true);
-          expect(card.deck, x * shoeSize + deck);
+          expect(card.deck, x * deckCount + deck);
         }
       }
     }
   }
 
-  testShoeSuppliesDifferentCardsCore(int shoeSize) {
-    final shoe = Shoe(includeJokers: false, deckCount: shoeSize);
-    for (int deck = 0; deck < shoeSize; deck++) {
+  testShoeSuppliesDifferentCardsCore(int deckCount) {
+    final shoe = Shoe(includeJokers: false);
+    for (int deck = 0; deck < deckCount; deck++) {
       final cards = List<PlayCard>();
       for (int i = 0; i < 52; i++) {
         final playCard = shoe.dealCard();
@@ -113,7 +79,7 @@ main() {
     }
   }
 
-  final maxShoeSizeToTest = 8;
+  const MAX_DECK_COUNT = 8;
 
   group('Shoe tests', () {
     test('Default deck is without Joker', () async {
@@ -121,52 +87,34 @@ main() {
       expect(deck.includeJokers, false);
     });
 
-    test('Empty shoe deals invalid cards', () async {
-      final shoe = Shoe(includeJokers: false, deckCount: 0);
-      for (int cardIdx = 0; cardIdx < 104; cardIdx++) {
-        final card = shoe.dealCard();
-        expect(card.suit, Suit.Invalid);
-        expect(card.value, Value.Invalid);
-      }
-    });
-
-    test(
-        'Shoe w/o Joker first deck is sorted the rest becomes shuffled after construction',
+    test('Shoe w/o Joker unshuffled decks are sorted after construction',
         () async {
-      for (int shoeSize = 1; shoeSize <= maxShoeSizeToTest; shoeSize++) {
-        testShoeWithoutJokerFirstDeckIsSortedTheRestBecomesShuffledAfterConstructionCore(
-            shoeSize
-        );
+      for (int deckCount in [1, 2, 3, MAX_DECK_COUNT]) {
+        testShoeWithoutJokerUnshuffledDecksAreSortedCore(deckCount);
       }
     });
 
     test('Shoe w/o Joker is not sorted after shuffle', () async {
-      for (int shoeSize = 1; shoeSize <= maxShoeSizeToTest; shoeSize++) {
-        testShoeWithoutJokerIsNotSortedAfterShuffleCore(shoeSize);
-      }
-    });
-
-    test('Shoe w/o Joker is shuffled after turnaround', () async {
-      for (int shoeSize = 1; shoeSize <= maxShoeSizeToTest; shoeSize++) {
-        testShoeWithoutJokerIsShuffledAfterTurnaroundCore(shoeSize);
+      for (int deckCount in [1, 2, 3, MAX_DECK_COUNT]) {
+        testShoeWithoutJokerIsNotSortedAfterCreation(deckCount);
       }
     });
 
     test('Shoe w/o Joker can deal 52 cards', () async {
-      for (int shoeSize = 1; shoeSize <= maxShoeSizeToTest; shoeSize++) {
-        testShoeWithoutJokerCanDeal52CardsCore(shoeSize);
+      for (int deckCount in [1, 2, 3, MAX_DECK_COUNT]) {
+        testShoeWithoutJokerCanDeal52CardsCore(deckCount);
       }
     });
 
     test('Shoe w/o Joker is endless', () async {
-      for (int shoeSize = 1; shoeSize <= maxShoeSizeToTest; shoeSize++) {
-        testShoeWithoutJokerIsEndlessCore(shoeSize);
+      for (int deckCount in [1, 2, 3, MAX_DECK_COUNT]) {
+        testShoeWithoutJokerIsEndlessCore(deckCount);
       }
     });
 
     test('Shoe deals different cards', () async {
-      for (int shoeSize = 1; shoeSize <= maxShoeSizeToTest; shoeSize++) {
-        testShoeSuppliesDifferentCardsCore(shoeSize);
+      for (int deckCount in [1, 2, 3, MAX_DECK_COUNT]) {
+        testShoeSuppliesDifferentCardsCore(deckCount);
       }
     });
   });

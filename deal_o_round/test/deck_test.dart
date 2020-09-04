@@ -6,10 +6,7 @@ import 'package:deal_o_round/game/logic/value.dart';
 
 main() {
   Deck testDeckCanGiveXCardsCore(bool shuffle, bool hasJokers) {
-    final deck = Deck(includeJokers: hasJokers);
-    if (shuffle) {
-      deck.shuffle();
-    }
+    final deck = Deck(includeJokers: hasJokers, initialShuffle: shuffle);
     final maxVal = hasJokers && shuffle ? 14 : 13;
     for (int i = 0; i < 52; i++) {
       final playCard = deck.dealCard();
@@ -22,10 +19,7 @@ main() {
   }
 
   void testDeckCannotGiveMoreThanXCardsCore(bool shuffle, bool hasJokers) {
-    final deck = Deck(includeJokers: hasJokers);
-    if (shuffle) {
-      deck.shuffle();
-    }
+    final deck = Deck(includeJokers: hasJokers, initialShuffle: shuffle);
     final limit = hasJokers ? 54 : 52;
     for (int i = 0; i < limit; i++) {
       deck.dealCard();
@@ -37,10 +31,7 @@ main() {
   }
 
   void testDeckSuppliesDifferentCardsCore(bool shuffle, bool hasJokers) {
-    final deck = Deck(includeJokers: hasJokers);
-    if (shuffle) {
-      deck.shuffle();
-    }
+    final deck = Deck(includeJokers: hasJokers, initialShuffle: shuffle);
     final cards = List<PlayCard>();
     final limit = hasJokers ? 54 : 52;
     for (int i = 0; i < limit; i++) {
@@ -55,9 +46,8 @@ main() {
     }
   }
 
-  void testDeckIsNotSortedAfterShuffleCore(bool hasJokers) async {
+  void testDeckIsNotSortedCore(bool hasJokers) async {
     final deck = Deck(includeJokers: hasJokers);
-    deck.shuffle();
     int cardIndex = 0;
     bool sorted = true;
     while (deck.cardsLeft() > 0 && sorted) {
@@ -103,8 +93,8 @@ main() {
       expect(deck.cardsLeft(), 54);
     });
 
-    test('Default deck is sorted after construction', () async {
-      final deck = Deck();
+    test('Default + unshuffled deck is sorted after construction', () async {
+      final deck = Deck(initialShuffle: false);
       int cardIndex = 0;
       while (deck.cardsLeft() > 0) {
         final playCard = deck.dealCard();
@@ -114,8 +104,8 @@ main() {
       }
     });
 
-    test('Joker deck is sorted after construction', () async {
-      final deck = Deck(includeJokers: true);
+    test('Unshuffled Joker deck is sorted after construction', () async {
+      final deck = Deck(includeJokers: true, initialShuffle: false);
       int cardIndex = 0;
       while (deck.cardsLeft() > 0 && cardIndex < 52) {
         final playCard = deck.dealCard();
@@ -155,32 +145,33 @@ main() {
       testDeckSuppliesDifferentCardsCore(false, true);
     });
 
-    test('Deck w/o Joker is not sorted after shuffle', () async {
-      testDeckIsNotSortedAfterShuffleCore(false);
+    test('Deck w/o Joker is not sorted after creation', () async {
+      testDeckIsNotSortedCore(false);
     });
 
-    test('Deck w Joker is not sorted after shuffle', () async {
-      testDeckIsNotSortedAfterShuffleCore(true);
+    test('Deck w Joker is not sorted after creation', () async {
+      testDeckIsNotSortedCore(true);
     });
 
-    test('Deck w/o Joker can deal 52 cards after shuffle', () async {
+    test('Deck w/o Joker can deal 52 cards (initially shuffled)', () async {
       testDeckCanGiveXCardsCore(true, false);
     });
 
-    test('Deck w Joker can deal 54 cards after shuffle', () async {
+    test('Deck w Joker can deal 54 cards (initially shuffled)', () async {
       testDeckCanGiveXCardsCore(true, true);
     });
 
-    test('Deck w/o Joker cannot deal more than 52 cards after shuffle',
+    test('Deck w/o Joker cannot deal more than 52 cards (initially shuffled)',
         () async {
       testDeckCannotGiveMoreThanXCardsCore(true, false);
     });
 
-    test('Deck w Joker cannot deal more than 54 cards after shuffle', () async {
+    test('Deck w Joker cannot deal more than 54 cards (initially shuffled)',
+        () async {
       testDeckCannotGiveMoreThanXCardsCore(true, true);
     });
 
-    test('Deck deals different cards after shuffle', () async {
+    test('Deck deals different cards (initially shuffled)', () async {
       testDeckSuppliesDifferentCardsCore(true, false);
       testDeckSuppliesDifferentCardsCore(true, true);
     });

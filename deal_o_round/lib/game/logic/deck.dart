@@ -6,9 +6,10 @@ class Deck {
   List<PlayCard> deck;
   int cardsUsed;
   final bool includeJokers;
+  final bool initialShuffle;
   final index;
 
-  Deck({this.includeJokers: false, this.index}) {
+  Deck({this.includeJokers: false, this.initialShuffle: true, this.index}) {
     deck = List<PlayCard>();
     for (int suitIndex = 0; suitIndex < 4; suitIndex++) {
       for (int valueIndex = 0; valueIndex < 13; valueIndex++) {
@@ -31,27 +32,13 @@ class Deck {
         deck: index,
       ));
     }
+    if (initialShuffle) {
+      deck.shuffle();
+    }
     cardsUsed = 0;
   }
 
   int cardsLeft() => deck.length - cardsUsed;
-
-  shuffle({indexAdvance: 0}) {
-    clearSelections(indexAdvance: indexAdvance);
-    deck.shuffle();
-    // Making sure shuffle clears all previous selections
-    cardsUsed = 0;
-  }
-
-  clearSelections({indexAdvance: 0}) {
-    for (final i in Iterable<int>.generate(deck.length)) {
-      deck[i].selected = false;
-      deck[i].neighbor = false;
-      if (indexAdvance != 0) {
-        deck[i].deck += indexAdvance;
-      }
-    }
-  }
 
   PlayCard dealCard() {
     if (cardsUsed == deck.length) {

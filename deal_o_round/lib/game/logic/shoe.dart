@@ -4,21 +4,17 @@ import 'suit.dart';
 import 'value.dart';
 
 class Shoe {
+  final bool includeJokers;
+  final bool initialShuffle;
   List<Deck> decks;
   int decksUsed;
 
-  Shoe({includeJokers: false, deckCount}) {
+  Shoe({this.includeJokers: false, this.initialShuffle: true}) {
     decks = List<Deck>();
-    for (int i = 0; i < deckCount; i++) {
-      decks.add(Deck(includeJokers: includeJokers, index: i));
-    }
-    decksUsed = 0;
-  }
-
-  shuffleAll() {
-    for (Deck deck in decks) {
-      deck.shuffle();
-    }
+    decks.add(Deck(
+        includeJokers: includeJokers,
+        initialShuffle: initialShuffle,
+        index: 0));
     decksUsed = 0;
   }
 
@@ -28,10 +24,11 @@ class Shoe {
     }
 
     if (decks[decksUsed].cardsLeft() <= 0) {
-      decks[decksUsed].shuffle(indexAdvance: decks.length);
-      if (decks.length > 1) {
-        decksUsed = (decksUsed + 1) % decks.length;
-      }
+      decksUsed += 1;
+      decks.add(Deck(
+          includeJokers: includeJokers,
+          initialShuffle: initialShuffle,
+          index: decksUsed));
     }
     return decks[decksUsed].dealCard();
   }

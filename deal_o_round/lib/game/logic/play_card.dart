@@ -4,7 +4,7 @@ import 'value.dart';
 class PlayCard implements Comparable<PlayCard> {
   final Suit suit;
   final Value value;
-  int deck;
+  final int deck;
   var selected = false;
   var neighbor = false;
 

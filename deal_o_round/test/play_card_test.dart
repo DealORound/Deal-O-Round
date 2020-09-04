@@ -6,12 +6,12 @@ import 'package:deal_o_round/game/logic/value.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 main() {
-  final maxShoeSizeToTest = 8;
+  final MAX_DECK_COUNT = 8;
 
   group('PlayCard tests', () {
     test('Hash codes of different cards are different', () async {
       final hashCodes = List<int>();
-      for (int deck = 0; deck < maxShoeSizeToTest; deck++) {
+      for (int deck = 0; deck < MAX_DECK_COUNT; deck++) {
         for (Value value in Value.values) {
           for (Suit suit in Suit.values) {
             for (bool selected in [true, false]) {
@@ -31,7 +31,7 @@ main() {
 
     test('String representation of different cards are different', () async {
       final strings = List<String>();
-      for (int deck = 0; deck < maxShoeSizeToTest; deck++) {
+      for (int deck = 0; deck < MAX_DECK_COUNT; deck++) {
         for (Value value in Value.values) {
           for (Suit suit in Suit.values) {
             for (bool selected in [true, false]) {
@@ -50,7 +50,7 @@ main() {
     });
 
     test('Equal cards are equal', () async {
-      for (int deck = 0; deck < maxShoeSizeToTest; deck++) {
+      for (int deck = 0; deck < MAX_DECK_COUNT; deck++) {
         for (Value value in Value.values) {
           for (Suit suit in Suit.values) {
             for (bool selected in [true, false]) {
@@ -71,7 +71,7 @@ main() {
     });
 
     test('Selection influence equality, does not influence compare', () async {
-      for (int deck = 0; deck < maxShoeSizeToTest; deck++) {
+      for (int deck = 0; deck < MAX_DECK_COUNT; deck++) {
         for (Value value in Value.values) {
           for (Suit suit in Suit.values) {
             for (bool selected in [true, false]) {
@@ -91,8 +91,9 @@ main() {
       }
     });
 
-    test('Neighborhood influence equality, does not influence compare', () async {
-      for (int deck = 0; deck < maxShoeSizeToTest; deck++) {
+    test('Neighborhood influence equality, does not influence compare',
+        () async {
+      for (int deck = 0; deck < MAX_DECK_COUNT; deck++) {
         for (Value value in Value.values) {
           for (Suit suit in Suit.values) {
             for (bool selected in [true, false]) {
@@ -112,8 +113,9 @@ main() {
       }
     });
 
-    test('Deck number influence equality, does not influence compare', () async {
-      for (int deck = 0; deck < maxShoeSizeToTest; deck++) {
+    test('Deck number influence equality, does not influence compare',
+        () async {
+      for (int deck = 0; deck < MAX_DECK_COUNT; deck++) {
         for (Value value in Value.values) {
           for (Suit suit in Suit.values) {
             for (bool selected in [true, false]) {
@@ -123,7 +125,7 @@ main() {
                 card1.neighbor = neighbor;
                 int deck2;
                 do {
-                  deck2 = Random().nextInt(maxShoeSizeToTest);
+                  deck2 = Random().nextInt(MAX_DECK_COUNT);
                 } while (deck2 == deck);
                 final card2 = PlayCard(suit: suit, value: value, deck: deck2);
                 card2.selected = selected;
@@ -138,7 +140,7 @@ main() {
     });
 
     test('Different suit cards are not equal', () async {
-      for (int deck = 0; deck < maxShoeSizeToTest; deck++) {
+      for (int deck = 0; deck < MAX_DECK_COUNT; deck++) {
         for (Value value in Value.values) {
           for (Suit suit in Suit.values) {
             for (bool selected in [true, false]) {
@@ -163,7 +165,7 @@ main() {
     });
 
     test('Different value cards are not equal', () async {
-      for (int deck = 0; deck < maxShoeSizeToTest; deck++) {
+      for (int deck = 0; deck < MAX_DECK_COUNT; deck++) {
         for (Value value in Value.values) {
           for (Suit suit in Suit.values) {
             for (bool selected in [true, false]) {
