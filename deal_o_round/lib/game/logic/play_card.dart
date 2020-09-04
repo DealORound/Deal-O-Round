@@ -33,6 +33,23 @@ class PlayCard implements Comparable<PlayCard> {
     final neighborChar = neighbor ? "1" : "0";
     return "$suitChar-$valueChar-$deck-$selectedChar-$neighborChar";
   }
+
+  @override
+  bool operator ==(Object other) {
+    return other is PlayCard &&
+        suit == other.suit &&
+        value == other.value &&
+        deck == other.deck &&
+        selected == other.selected &&
+        neighbor == other.neighbor;
+  }
+
+  @override
+  int get hashCode =>
+      suit.index +
+      8 *
+          (value.index +
+              64 * ((selected ? 1 : 0) + 2 * ((neighbor ? 1 : 0) + 2 * deck)));
 }
 
 String cardDisplay(PlayCard card) {
