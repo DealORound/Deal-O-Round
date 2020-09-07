@@ -61,7 +61,7 @@ const baseValueList = [
   350,
   2000,
   5000,
-  10000,
+  8000,
   0
 ];
 
@@ -69,7 +69,7 @@ int handBaseValue(HandClass handClass) {
   return baseValueList[handClass.index];
 }
 
-const timeBonuses = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 30, 60, 0];
+const timeBonuses = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 30, 30, 0];
 
 int getTimeBonus(HandClass handClass) {
   return timeBonuses[handClass.index];
