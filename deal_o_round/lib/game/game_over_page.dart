@@ -4,7 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../services/settings_constants.dart';
 import '../services/size.dart';
 import '../services/sound.dart';
-import 'logic/game_constants.dart';
 import 'background_painter.dart';
 
 class GameOverPage extends StatefulWidget {
