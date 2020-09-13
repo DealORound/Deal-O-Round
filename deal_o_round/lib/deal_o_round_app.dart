@@ -12,6 +12,7 @@ class DealORoundApp extends StatelessWidget {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
     return GetMaterialApp(
+        // debugShowCheckedModeBanner: false,
         title: 'Deal-O-Round',
         theme: ThemeData(
           visualDensity: VisualDensity.adaptivePlatformDensity,
