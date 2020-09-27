@@ -93,7 +93,7 @@ class LeftDisplay extends StatelessWidget {
                       launch(HELP_URL);
                     } else {
                       Get.snackbar("Attention", "Cannot open URL",
-                          colorText: SB_TEXT, backgroundColor: SB_BACK);
+                          colorText: SNACK_TEXT, backgroundColor: snackBack);
                     }
                   },
                   color: Colors.grey,

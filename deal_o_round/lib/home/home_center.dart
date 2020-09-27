@@ -72,7 +72,8 @@ class HomeCenter extends StatelessWidget {
                           } catch (e) {
                             debugPrint("Error signing in: ${e.message}");
                             Get.snackbar("Error", "Could not sign in",
-                                colorText: SB_TEXT, backgroundColor: SB_BACK);
+                                colorText: SNACK_TEXT,
+                                backgroundColor: snackBack);
                             state.updateSignedIn(false);
                           }
                         } else {
@@ -80,8 +81,8 @@ class HomeCenter extends StatelessWidget {
                               "Sign In",
                               "Game Services is only available on Android " +
                                   "and Game Center is only available on iOS",
-                              colorText: SB_TEXT,
-                              backgroundColor: SB_BACK);
+                              colorText: SNACK_TEXT,
+                              backgroundColor: snackBack);
                         }
                       },
                       color: Colors.green,
@@ -104,16 +105,19 @@ class HomeCenter extends StatelessWidget {
                             } catch (e) {
                               debugPrint("Error showing lb: ${e.message}");
                               Get.snackbar("Error", "Could not fetch board",
-                                  colorText: SB_TEXT, backgroundColor: SB_BACK);
+                                  colorText: SNACK_TEXT,
+                                  backgroundColor: snackBack);
                             }
                           } else {
                             Get.snackbar("Warning", "Sign-in needed",
-                                colorText: SB_TEXT, backgroundColor: SB_BACK);
+                                colorText: SNACK_TEXT,
+                                backgroundColor: snackBack);
                           }
                         } else {
                           Get.snackbar("Leaderboards:",
                               "Only available on Android or iOS devices",
-                              colorText: SB_TEXT, backgroundColor: SB_BACK);
+                              colorText: SNACK_TEXT,
+                              backgroundColor: snackBack);
                         }
                       },
                       color: Colors.green,
@@ -137,16 +141,19 @@ class HomeCenter extends StatelessWidget {
                                   "Error showing achievements: ${e.message}");
                               Get.snackbar(
                                   "Error", "Could not fetch achievement",
-                                  colorText: SB_TEXT, backgroundColor: SB_BACK);
+                                  colorText: SNACK_TEXT,
+                                  backgroundColor: snackBack);
                             }
                           } else {
                             Get.snackbar("Warning", "Sign-in needed",
-                                colorText: SB_TEXT, backgroundColor: SB_BACK);
+                                colorText: SNACK_TEXT,
+                                backgroundColor: snackBack);
                           }
                         } else {
                           Get.snackbar("Achievements:",
                               "Only available on Android or iOS devices",
-                              colorText: SB_TEXT, backgroundColor: SB_BACK);
+                              colorText: SNACK_TEXT,
+                              backgroundColor: snackBack);
                         }
                       },
                       color: Colors.green,
@@ -198,8 +205,8 @@ class HomeCenter extends StatelessWidget {
                             else
                               {
                                 Get.snackbar("Attention", "Cannot open URL",
-                                    colorText: SB_TEXT,
-                                    backgroundColor: SB_BACK)
+                                    colorText: SNACK_TEXT,
+                                    backgroundColor: snackBack)
                               }
                           },
                       color: Colors.green,

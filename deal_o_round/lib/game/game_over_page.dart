@@ -20,7 +20,7 @@ class _GameOverPageState extends State<GameOverPage> {
   String _layout = "Hexagonal";
   String _difficulty = "Easy";
 
-  _GameOverPageState({this.score}) {}
+  _GameOverPageState({this.score});
 
   @override
   initState() {

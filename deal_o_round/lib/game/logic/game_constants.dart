@@ -64,7 +64,7 @@ const Map<BoardLayout, Map<Difficulty, String>> LEADER_BOARDS = {
 
 const ABOUT_URL = "https://mrcsabatoth.github.io/DealORoundWebsite/about.html";
 const HELP_URL = "https://mrcsabatoth.github.io/DealORoundWebsite/help.html";
-const Color SB_TEXT = Colors.white;
-final Color SB_BACK = Colors.redAccent.withOpacity(0.5);
+const Color SNACK_TEXT = Colors.white;
+final Color snackBack = Colors.redAccent.withOpacity(0.5);
 const PRICE_OF_SPIN = 200;
 const DELAY_OF_SPIN = 2000;

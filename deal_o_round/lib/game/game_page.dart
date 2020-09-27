@@ -116,12 +116,12 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   spin() async {
     if (countDown <= DELAY_OF_SPIN / 1000 + 1) {
       Get.snackbar("Not enough time for spin", "",
-          colorText: SB_TEXT, backgroundColor: SB_BACK);
+          colorText: SNACK_TEXT, backgroundColor: snackBack);
       return;
     }
     if (score <= PRICE_OF_SPIN) {
       Get.snackbar("Not enough points for spin", "",
-          colorText: SB_TEXT, backgroundColor: SB_BACK);
+          colorText: SNACK_TEXT, backgroundColor: snackBack);
       return;
     }
     await Get.find<SoundUtils>().playSoundEffect(SoundEffect.LongCardShuffle);
