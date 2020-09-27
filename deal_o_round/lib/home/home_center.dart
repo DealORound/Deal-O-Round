@@ -199,16 +199,15 @@ class HomeCenter extends StatelessWidget {
               ButtonTheme(
                   minWidth: buttonWidth,
                   child: RaisedButton.icon(
-                      onPressed: () async => {
-                            if (await canLaunch(HELP_URL))
-                              {launch(HELP_URL)}
-                            else
-                              {
-                                Get.snackbar("Attention", "Cannot open URL",
-                                    colorText: SNACK_TEXT,
-                                    backgroundColor: snackBack)
-                              }
-                          },
+                      onPressed: () async {
+                        if (await canLaunch(HELP_URL)) {
+                          launch(HELP_URL);
+                        } else {
+                          Get.snackbar("Attention", "Cannot open URL",
+                              colorText: SNACK_TEXT,
+                              backgroundColor: snackBack);
+                        }
+                      },
                       color: Colors.green,
                       textColor: Colors.white,
                       shape: buttonShape,
