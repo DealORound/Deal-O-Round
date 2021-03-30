@@ -3,7 +3,7 @@ description: Flutter port of the deprecated PlayN based Deal-O-Round game.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 2.0.5+19
+version: 2.0.6+20
 
 environment:
   sdk: ">=2.8.0 <3.0.0"
@@ -12,7 +12,7 @@ dependencies:
   url_launcher: any
   shared_preferences: any
   spinner_input: any
-  get: any
+  get: ^3.24.0
   soundpool: any
   audioplayers: any
   universal_platform: any
