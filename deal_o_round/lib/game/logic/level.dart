@@ -2,13 +2,13 @@ import 'game_constants.dart';
 
 class Level {
   double scoreMultiplier;
-  List<int> scoreLimit; // by difficulty
+  late List<int> scoreLimit; // by difficulty
   double timeMultiplier;
-  List<int> timeLimit; // by difficulty
+  late List<int> timeLimit; // by difficulty
   static const SCORE_THRESHOLD_BASE = 7000;
   static const TIME_THRESHOLD_BASE = 120;
 
-  Level({this.scoreMultiplier, this.timeMultiplier}) {
+  Level(this.scoreMultiplier, this.timeMultiplier) {
     final firstLevel = scoreMultiplier < 1.01 && timeMultiplier > 0.99;
     final scoreLimitFloat = SCORE_THRESHOLD_BASE * scoreMultiplier;
     final timeLimitFloat = TIME_THRESHOLD_BASE * timeMultiplier;
@@ -18,16 +18,8 @@ class Level {
       scoreLimit = [scoreLimitInt, scoreLimitInt, scoreLimitInt];
       timeLimit = [timeLimitInt, timeLimitInt, timeLimitInt];
     } else {
-      scoreLimit = [
-        scoreLimitInt,
-        (scoreLimitFloat * 1.5).round(),
-        (scoreLimitFloat * 2).round()
-      ];
-      timeLimit = [
-        timeLimitInt,
-        (timeLimitFloat * 0.75).round(),
-        (timeLimitFloat * 0.5).round()
-      ];
+      scoreLimit = [scoreLimitInt, (scoreLimitFloat * 1.5).round(), (scoreLimitFloat * 2).round()];
+      timeLimit = [timeLimitInt, (timeLimitFloat * 0.75).round(), (timeLimitFloat * 0.5).round()];
     }
   }
 

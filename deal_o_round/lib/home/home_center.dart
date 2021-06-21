@@ -22,200 +22,197 @@ class HomeCenter extends StatelessWidget {
               'could be administered. ' +
               'Is it OK to continue?',
           style: textStyle),
-      actions: <Widget>[
-        FlatButton(
+      actions: [
+        TextButton(
           child: Text('Yes', style: textStyle),
           onPressed: () async {
             Get.close(1);
-            await Get.to(GamePage(child: GameWidget()));
+            await Get.to(() => GamePage(child: GameWidget()));
           },
         ),
-        FlatButton(
-            child: Text('No', style: textStyle),
-            onPressed: () => Get.close(1) // Get.back(closeOverlays: true),
-            ),
+        TextButton(
+          child: Text('No', style: textStyle),
+          onPressed: () => Get.close(1), // Get.back(closeOverlays: true),
+        ),
       ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final state = HomePage.of(context);
+    if (state == null) {
+      return Container();
+    }
+
     final radius = chipRadius(context); // ~40
     final size = context.mediaQuerySize;
     final buttonWidth = size.width / 3.8; // 210
     final bigSpacing = radius / 2; // ~20
     final spacing = bigSpacing / 2; // ~10
-    final buttonPadding = EdgeInsets.all(spacing);
     final textStyle = TextStyle(
-        fontSize: radius, fontFamily: 'Musicals', color: Colors.white);
-    var buttonShape = RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5.0),
-        side: BorderSide(color: Colors.green.shade700, width: 3.0));
-    final state = HomePage.of(context);
+      fontSize: radius,
+      fontFamily: 'Musicals',
+      color: Colors.white,
+    );
+    final buttonPadding = EdgeInsets.all(spacing);
+    final buttonShape = RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(5.0),
+      side: BorderSide(color: Colors.green.shade700, width: 3.0),
+    );
+    final buttonStyle = ElevatedButton.styleFrom(
+      primary: Colors.green,
+      textStyle: textStyle,
+      shape: buttonShape,
+      padding: buttonPadding,
+    );
+
     return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          TitleLine(),
-          SizedBox(height: bigSpacing),
-          Row(children: <Widget>[
-            Column(children: <Widget>[
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        TitleLine(),
+        SizedBox(height: bigSpacing),
+        Row(
+          children: [
+            Column(children: [
               ButtonTheme(
-                  minWidth: buttonWidth,
-                  child: RaisedButton.icon(
-                      onPressed: () async {
-                        if (UniversalPlatform.isAndroid ||
-                            UniversalPlatform.isIOS) {
-                          try {
-                            await GamesServices.signIn().then((String result) {
-                              state.updateSignedIn(true);
-                            });
-                          } catch (e) {
-                            debugPrint("Error signing in: ${e.message}");
-                            Get.snackbar("Error", "Could not sign in",
-                                colorText: SNACK_TEXT,
-                                backgroundColor: snackBack);
-                            state.updateSignedIn(false);
-                          }
-                        } else {
-                          Get.snackbar(
-                              "Sign In",
-                              "Game Services is only available on Android " +
-                                  "and Game Center is only available on iOS",
-                              colorText: SNACK_TEXT,
-                              backgroundColor: snackBack);
-                        }
-                      },
-                      color: Colors.green,
-                      textColor: Colors.white,
-                      shape: buttonShape,
-                      padding: buttonPadding,
-                      icon: Icon(Icons.person, size: radius),
-                      label: Text("Login", style: textStyle))),
+                minWidth: buttonWidth,
+                child: ElevatedButton.icon(
+                  onPressed: () async {
+                    if (UniversalPlatform.isAndroid || UniversalPlatform.isIOS) {
+                      try {
+                        await GamesServices.signIn().then((String? result) {
+                          state.updateSignedIn(true);
+                        });
+                      } on Exception catch (e) {
+                        debugPrint("Error signing in: $e");
+                        Get.snackbar("Error", "Could not sign in",
+                            colorText: SNACK_TEXT, backgroundColor: snackBack);
+                        state.updateSignedIn(false);
+                      }
+                    } else {
+                      Get.snackbar(
+                          "Sign In",
+                          "Game Services is only available on Android " +
+                              "and Game Center is only available on iOS",
+                          colorText: SNACK_TEXT,
+                          backgroundColor: snackBack);
+                    }
+                  },
+                  style: buttonStyle,
+                  icon: Icon(Icons.person, size: radius),
+                  label: Text("Login", style: textStyle),
+                ),
+              ),
               SizedBox(height: spacing),
               ButtonTheme(
-                  minWidth: buttonWidth,
-                  child: RaisedButton.icon(
-                      onPressed: () async {
-                        if (UniversalPlatform.isAndroid ||
-                            UniversalPlatform.isIOS) {
-                          if (state.gameSignedIn) {
-                            try {
-                              await GamesServices.showLeaderboards();
-                              // iOS requires iOSLeaderboardID
-                            } catch (e) {
-                              debugPrint("Error showing lb: ${e.message}");
-                              Get.snackbar("Error", "Could not fetch board",
-                                  colorText: SNACK_TEXT,
-                                  backgroundColor: snackBack);
-                            }
-                          } else {
-                            Get.snackbar("Warning", "Sign-in needed",
-                                colorText: SNACK_TEXT,
-                                backgroundColor: snackBack);
-                          }
-                        } else {
-                          Get.snackbar("Leaderboards:",
-                              "Only available on Android or iOS devices",
-                              colorText: SNACK_TEXT,
-                              backgroundColor: snackBack);
+                minWidth: buttonWidth,
+                child: ElevatedButton.icon(
+                  onPressed: () async {
+                    if (UniversalPlatform.isAndroid || UniversalPlatform.isIOS) {
+                      if (state.gameSignedIn) {
+                        try {
+                          await GamesServices.showLeaderboards();
+                          // iOS requires iOSLeaderboardID
+                        } on Exception catch (e) {
+                          debugPrint("Error showing lb: $e");
+                          Get.snackbar("Error", "Could not fetch board",
+                              colorText: SNACK_TEXT, backgroundColor: snackBack);
                         }
-                      },
-                      color: Colors.green,
-                      textColor: Colors.white,
-                      shape: buttonShape,
-                      padding: buttonPadding,
-                      icon: Icon(Icons.format_list_numbered, size: radius),
-                      label: Text("Scores", style: textStyle))),
+                      } else {
+                        Get.snackbar("Warning", "Sign-in needed",
+                            colorText: SNACK_TEXT, backgroundColor: snackBack);
+                      }
+                    } else {
+                      Get.snackbar("Leaderboards:", "Only available on Android or iOS devices",
+                          colorText: SNACK_TEXT, backgroundColor: snackBack);
+                    }
+                  },
+                  style: buttonStyle,
+                  icon: Icon(Icons.format_list_numbered, size: radius),
+                  label: Text("Scores", style: textStyle),
+                ),
+              ),
               SizedBox(height: spacing),
               ButtonTheme(
-                  minWidth: buttonWidth,
-                  child: RaisedButton.icon(
-                      onPressed: () async {
-                        if (UniversalPlatform.isAndroid ||
-                            UniversalPlatform.isIOS) {
-                          if (state.gameSignedIn) {
-                            try {
-                              await GamesServices.showAchievements();
-                            } catch (e) {
-                              debugPrint(
-                                  "Error showing achievements: ${e.message}");
-                              Get.snackbar(
-                                  "Error", "Could not fetch achievement",
-                                  colorText: SNACK_TEXT,
-                                  backgroundColor: snackBack);
-                            }
-                          } else {
-                            Get.snackbar("Warning", "Sign-in needed",
-                                colorText: SNACK_TEXT,
-                                backgroundColor: snackBack);
-                          }
-                        } else {
-                          Get.snackbar("Achievements:",
-                              "Only available on Android or iOS devices",
-                              colorText: SNACK_TEXT,
-                              backgroundColor: snackBack);
+                minWidth: buttonWidth,
+                child: ElevatedButton.icon(
+                  onPressed: () async {
+                    if (UniversalPlatform.isAndroid || UniversalPlatform.isIOS) {
+                      if (state.gameSignedIn) {
+                        try {
+                          await GamesServices.showAchievements();
+                        } on Exception catch (e) {
+                          debugPrint("Error showing achievements: $e");
+                          Get.snackbar("Error", "Could not fetch achievement",
+                              colorText: SNACK_TEXT, backgroundColor: snackBack);
                         }
-                      },
-                      color: Colors.green,
-                      textColor: Colors.white,
-                      shape: buttonShape,
-                      padding: buttonPadding,
-                      icon: Icon(Icons.grade, size: radius),
-                      label: Text("Grades", style: textStyle))),
+                      } else {
+                        Get.snackbar("Warning", "Sign-in needed",
+                            colorText: SNACK_TEXT, backgroundColor: snackBack);
+                      }
+                    } else {
+                      Get.snackbar("Achievements:", "Only available on Android or iOS devices",
+                          colorText: SNACK_TEXT, backgroundColor: snackBack);
+                    }
+                  },
+                  style: buttonStyle,
+                  icon: Icon(Icons.grade, size: radius),
+                  label: Text("Grades", style: textStyle),
+                ),
+              ),
             ]),
             SizedBox(width: spacing),
-            Column(children: <Widget>[
-              ButtonTheme(
+            Column(
+              children: [
+                ButtonTheme(
                   minWidth: buttonWidth,
-                  child: RaisedButton.icon(
-                      onPressed: () async {
-                        if (!state.gameSignedIn &&
-                            (UniversalPlatform.isAndroid ||
-                                UniversalPlatform.isIOS)) {
-                          await Get.dialog(_alertDialog(),
-                              barrierDismissible: false);
-                        } else {
-                          await Get.to(GamePage(child: GameWidget()));
-                        }
-                      },
-                      color: Colors.green,
-                      textColor: Colors.white,
-                      shape: buttonShape,
-                      padding: buttonPadding,
-                      icon: Icon(Icons.play_arrow, size: radius),
-                      label: Text("Play", style: textStyle))),
-              SizedBox(height: spacing),
-              ButtonTheme(
+                  child: ElevatedButton.icon(
+                    onPressed: () async {
+                      if (!state.gameSignedIn &&
+                          (UniversalPlatform.isAndroid || UniversalPlatform.isIOS)) {
+                        await Get.dialog(_alertDialog(), barrierDismissible: false);
+                      } else {
+                        await Get.to(() => GamePage(child: GameWidget()));
+                      }
+                    },
+                    style: buttonStyle,
+                    icon: Icon(Icons.play_arrow, size: radius),
+                    label: Text("Play", style: textStyle),
+                  ),
+                ),
+                SizedBox(height: spacing),
+                ButtonTheme(
                   minWidth: buttonWidth,
-                  child: RaisedButton.icon(
-                      onPressed: () => Get.to(SettingsPage()),
-                      color: Colors.green,
-                      textColor: Colors.white,
-                      shape: buttonShape,
-                      padding: buttonPadding,
-                      icon: Icon(Icons.settings, size: radius),
-                      label: Text("Config", style: textStyle))),
-              SizedBox(height: spacing),
-              ButtonTheme(
+                  child: ElevatedButton.icon(
+                    onPressed: () => Get.to(() => SettingsPage()),
+                    style: buttonStyle,
+                    icon: Icon(Icons.settings, size: radius),
+                    label: Text("Config", style: textStyle),
+                  ),
+                ),
+                SizedBox(height: spacing),
+                ButtonTheme(
                   minWidth: buttonWidth,
-                  child: RaisedButton.icon(
-                      onPressed: () async {
-                        if (await canLaunch(HELP_URL)) {
-                          launch(HELP_URL);
-                        } else {
-                          Get.snackbar("Attention", "Cannot open URL",
-                              colorText: SNACK_TEXT,
-                              backgroundColor: snackBack);
-                        }
-                      },
-                      color: Colors.green,
-                      textColor: Colors.white,
-                      shape: buttonShape,
-                      padding: buttonPadding,
-                      icon: Icon(Icons.help, size: radius),
-                      label: Text("Help", style: textStyle))),
-            ])
-          ])
-        ]);
+                  child: ElevatedButton.icon(
+                    onPressed: () async {
+                      if (await canLaunch(HELP_URL)) {
+                        launch(HELP_URL);
+                      } else {
+                        Get.snackbar("Attention", "Cannot open URL",
+                            colorText: SNACK_TEXT, backgroundColor: snackBack);
+                      }
+                    },
+                    style: buttonStyle,
+                    icon: Icon(Icons.help, size: radius),
+                    label: Text("Help", style: textStyle),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }

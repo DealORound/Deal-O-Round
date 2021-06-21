@@ -10,13 +10,13 @@ main() {
 
   group('PlayCard tests', () {
     test('Hash codes of different cards are different', () async {
-      final hashCodes = List<int>();
+      final hashCodes = [];
       for (int deck = 0; deck < maxDeckCount; deck++) {
         for (Value value in Value.values) {
           for (Suit suit in Suit.values) {
             for (bool selected in [true, false]) {
               for (bool neighbor in [true, false]) {
-                final card = PlayCard(suit: suit, value: value, deck: deck);
+                final card = PlayCard(suit, value, deck: deck);
                 card.selected = selected;
                 card.neighbor = neighbor;
                 final hashCode = card.hashCode;
@@ -30,13 +30,13 @@ main() {
     });
 
     test('String representation of different cards are different', () async {
-      final strings = List<String>();
+      final strings = [];
       for (int deck = 0; deck < maxDeckCount; deck++) {
         for (Value value in Value.values) {
           for (Suit suit in Suit.values) {
             for (bool selected in [true, false]) {
               for (bool neighbor in [true, false]) {
-                final card = PlayCard(suit: suit, value: value, deck: deck);
+                final card = PlayCard(suit, value, deck: deck);
                 card.selected = selected;
                 card.neighbor = neighbor;
                 final str = card.toString();
@@ -55,10 +55,10 @@ main() {
           for (Suit suit in Suit.values) {
             for (bool selected in [true, false]) {
               for (bool neighbor in [true, false]) {
-                final card1 = PlayCard(suit: suit, value: value, deck: deck);
+                final card1 = PlayCard(suit, value, deck: deck);
                 card1.selected = selected;
                 card1.neighbor = neighbor;
-                final card2 = PlayCard(suit: suit, value: value, deck: deck);
+                final card2 = PlayCard(suit, value, deck: deck);
                 card2.selected = selected;
                 card2.neighbor = neighbor;
                 expect(card1 == card2, true);
@@ -76,10 +76,10 @@ main() {
           for (Suit suit in Suit.values) {
             for (bool selected in [true, false]) {
               for (bool neighbor in [true, false]) {
-                final card1 = PlayCard(suit: suit, value: value, deck: deck);
+                final card1 = PlayCard(suit, value, deck: deck);
                 card1.selected = selected;
                 card1.neighbor = neighbor;
-                final card2 = PlayCard(suit: suit, value: value, deck: deck);
+                final card2 = PlayCard(suit, value, deck: deck);
                 card2.selected = !selected;
                 card2.neighbor = neighbor;
                 expect(card1 == card2, false);
@@ -91,17 +91,16 @@ main() {
       }
     });
 
-    test('Neighborhood influence equality, does not influence compare',
-        () async {
+    test('Neighborhood influence equality, does not influence compare', () async {
       for (int deck = 0; deck < maxDeckCount; deck++) {
         for (Value value in Value.values) {
           for (Suit suit in Suit.values) {
             for (bool selected in [true, false]) {
               for (bool neighbor in [true, false]) {
-                final card1 = PlayCard(suit: suit, value: value, deck: deck);
+                final card1 = PlayCard(suit, value, deck: deck);
                 card1.selected = selected;
                 card1.neighbor = neighbor;
-                final card2 = PlayCard(suit: suit, value: value, deck: deck);
+                final card2 = PlayCard(suit, value, deck: deck);
                 card2.selected = selected;
                 card2.neighbor = !neighbor;
                 expect(card1 == card2, false);
@@ -113,21 +112,21 @@ main() {
       }
     });
 
-    test('Deck number influence equality, does not influence compare',
-        () async {
+    test('Deck number influence equality, does not influence compare', () async {
       for (int deck = 0; deck < maxDeckCount; deck++) {
         for (Value value in Value.values) {
           for (Suit suit in Suit.values) {
             for (bool selected in [true, false]) {
               for (bool neighbor in [true, false]) {
-                final card1 = PlayCard(suit: suit, value: value, deck: deck);
+                final card1 = PlayCard(suit, value, deck: deck);
                 card1.selected = selected;
                 card1.neighbor = neighbor;
                 int deck2;
                 do {
                   deck2 = Random().nextInt(maxDeckCount);
                 } while (deck2 == deck);
-                final card2 = PlayCard(suit: suit, value: value, deck: deck2);
+
+                final card2 = PlayCard(suit, value, deck: deck2);
                 card2.selected = selected;
                 card2.neighbor = neighbor;
                 expect(card1 == card2, false);
@@ -145,14 +144,15 @@ main() {
           for (Suit suit in Suit.values) {
             for (bool selected in [true, false]) {
               for (bool neighbor in [true, false]) {
-                final card1 = PlayCard(suit: suit, value: value, deck: deck);
+                final card1 = PlayCard(suit, value, deck: deck);
                 card1.selected = selected;
                 card1.neighbor = neighbor;
                 Suit suit2;
                 do {
                   suit2 = Suit.values[Random().nextInt(Suit.values.length)];
                 } while (suit2 == suit);
-                final card2 = PlayCard(suit: suit2, value: value, deck: deck);
+
+                final card2 = PlayCard(suit2, value, deck: deck);
                 card2.selected = selected;
                 card2.neighbor = neighbor;
                 expect(card1 == card2, false);
@@ -170,14 +170,15 @@ main() {
           for (Suit suit in Suit.values) {
             for (bool selected in [true, false]) {
               for (bool neighbor in [true, false]) {
-                final card1 = PlayCard(suit: suit, value: value, deck: deck);
+                final card1 = PlayCard(suit, value, deck: deck);
                 card1.selected = selected;
                 card1.neighbor = neighbor;
                 Value value2;
                 do {
                   value2 = Value.values[Random().nextInt(Value.values.length)];
                 } while (value2 == value);
-                final card2 = PlayCard(suit: suit, value: value2, deck: deck);
+
+                final card2 = PlayCard(suit, value2, deck: deck);
                 card2.selected = selected;
                 card2.neighbor = neighbor;
                 expect(card1 == card2, false);

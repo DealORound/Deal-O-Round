@@ -6,18 +6,22 @@ import 'value.dart';
 class Scoring {
   HandClass handClass;
   PlayCard lowCard;
-  PlayCard highCard;
+  PlayCard? highCard;
   String handDigest;
 
-  Scoring({this.handClass, this.lowCard, this.highCard, this.handDigest});
+  Scoring(this.handClass, this.lowCard, this.handDigest, {this.highCard}) {
+    if (handClass == HandClass.TwoPair || handClass == HandClass.FullHouse) {
+      assert(highCard != null);
+    }
+  }
 
   int score() {
     int score = handBaseValue(handClass);
-    if (lowCard != null && lowCard.value != Value.Invalid) {
+    if (lowCard.value != Value.Invalid) {
       score += valueScore(lowCard.value);
     }
-    if (highCard != null && highCard.value != Value.Invalid) {
-      score += 2 * valueScore(highCard.value);
+    if (highCard != null && highCard?.value != Value.Invalid) {
+      score += 2 * valueScore(highCard!.value);
     }
     return score;
   }
@@ -27,9 +31,8 @@ class Scoring {
     if (handClass == HandClass.None) {
       return handString;
     }
-    if (lowCard == null ||
-        lowCard.value == Value.Invalid ||
-        lowCard.suit == Suit.Invalid) {
+
+    if (lowCard.value == Value.Invalid || lowCard.suit == Suit.Invalid) {
       return "None";
     }
 
@@ -56,7 +59,7 @@ class Scoring {
         displayStr += "$lowCardValueString and up";
         break;
       case HandClass.TwoPair:
-        displayStr += valueDisplay(highCard.value) + " + $lowCardValueString";
+        displayStr += valueDisplay(highCard?.value ?? Value.Invalid) + " + $lowCardValueString";
         break;
       case HandClass.Flush4:
         displayStr += suitString;
@@ -72,9 +75,9 @@ class Scoring {
         break;
       case HandClass.FullHouse:
         displayStr += "$suitString, $lowCardValueString and up + " +
-            highCard.suit.toString().split('.').last +
+            (highCard?.suit ?? Suit.Invalid).toString().split('.').last +
             ", " +
-            valueDisplay(highCard.value) +
+            valueDisplay(highCard?.value ?? Value.Invalid) +
             " and up";
         break;
       case HandClass.FourOfAKind:

@@ -1,10 +1,8 @@
-import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:soundpool/soundpool.dart';
-import 'package:universal_platform/universal_platform.dart';
 import 'settings_constants.dart';
 
 enum SoundEffect { ShortCardShuffle, LongCardShuffle, PokerChips }
@@ -22,11 +20,11 @@ final Map<SoundTrack, String> _soundTrackPaths = {
 };
 
 class SoundUtils {
-  Soundpool _soundPool;
+  late Soundpool _soundPool;
   SharedPreferences pref;
-  AudioCache _audioCache;
-  AudioPlayer _audioPlayer;
-  SoundTrack _trackPlaying;
+  late AudioCache _audioCache;
+  AudioPlayer? _audioPlayer;
+  SoundTrack? _trackPlaying;
 
   Map<SoundEffect, int> _soundIds = {
     SoundEffect.ShortCardShuffle: 0,
@@ -39,29 +37,22 @@ class SoundUtils {
     SoundEffect.PokerChips: 0
   };
 
-  SoundUtils({this.pref}) {
-    Get.putAsync<Soundpool>(() async {
-      _soundPool =
-          Soundpool(streamType: StreamType.notification, maxStreams: 2);
-      if (pref.getBool(SOUND_EFFECTS)) {
-        await loadSoundEffects();
-      }
-      return _soundPool;
-    });
-    Get.putAsync<AudioCache>(() async {
-      _audioCache = AudioCache();
-      if (UniversalPlatform.isIOS) {
-        if (_audioCache.fixedPlayer != null) {
-          _audioCache.fixedPlayer.startHeadlessService();
-        }
-      }
-      return _audioCache;
-    });
+  SoundUtils(this.pref) {
+    _soundPool = Soundpool.fromOptions(
+        options: SoundpoolOptions(streamType: StreamType.music, maxStreams: 2));
+    if (pref.getBool(SOUND_EFFECTS) ?? SOUND_EFFECTS_DEFAULT) {
+      loadSoundEffects();
+    }
+    Get.put<Soundpool>(_soundPool);
+
+    _audioCache = AudioCache();
+    Get.put<AudioCache>(_audioCache);
   }
 
   loadSoundEffects() async {
     _soundAssetPaths.forEach((k, v) async {
-      if (_soundIds[k] <= 0) {
+      final soundId = _soundIds[k];
+      if (soundId == null || soundId <= 0) {
         var asset = await rootBundle.load(v);
         final soundId = await _soundPool.load(asset);
         _soundIds.addAll({k: soundId});
@@ -70,10 +61,10 @@ class SoundUtils {
   }
 
   Future<int> playSoundEffect(SoundEffect soundEffect) async {
-    if (pref.getBool(SOUND_EFFECTS)) {
+    if (pref.getBool(SOUND_EFFECTS) ?? SOUND_EFFECTS_DEFAULT) {
       final soundId = _soundIds[soundEffect];
-      if (soundId > 0) {
-        final volume = pref.getDouble(VOLUME) / 100.0;
+      if (soundId != null && soundId > 0) {
+        final volume = (pref.getDouble(VOLUME) ?? VOLUME_DEFAULT) / 100.0;
         _soundPool.setVolume(soundId: soundId, volume: volume);
         final streamId = await _soundPool.play(soundId);
         _streamIds.addAll({soundEffect: streamId});
@@ -89,7 +80,7 @@ class SoundUtils {
 
   stopSoundEffect(SoundEffect soundEffect) async {
     final streamId = _streamIds[soundEffect];
-    if (streamId > 0) {
+    if (streamId != null && streamId > 0) {
       await _soundPool.stop(streamId);
       _streamIds[soundEffect] = 0;
     }
@@ -105,32 +96,30 @@ class SoundUtils {
     _soundIds.forEach((k, v) async {
       _soundPool.setVolume(soundId: v, volume: newVolume / 100.0);
     });
-    if (_audioPlayer != null) {
-      _audioPlayer.setVolume(newVolume / 100.0);
-    }
+    _audioPlayer?.setVolume(newVolume / 100.0);
   }
 
-  Future<AudioPlayer> playSoundTrack(SoundTrack track) async {
-    if (pref.getBool(GAME_MUSIC)) {
+  Future<void> playSoundTrack(SoundTrack track) async {
+    if (pref.getBool(GAME_MUSIC) ?? GAME_MUSIC_DEFAULT) {
       if (_trackPlaying == track) {
-        return _audioPlayer;
+        return;
       }
+
       await stopAllSoundTracks();
-      _audioPlayer = await _audioCache.loop(_soundTrackPaths[track]);
-      _trackPlaying = track;
-      if (UniversalPlatform.isWeb) {
-        _audioPlayer.startHeadlessService();
+      final trackPath = _soundTrackPaths[track];
+      if (trackPath == null) {
+        return;
       }
-      _audioPlayer.setVolume(pref.getDouble(VOLUME) / 100.0);
-      return _audioPlayer;
+
+      _audioPlayer = await _audioCache.loop(trackPath);
+      _trackPlaying = track;
+      _audioPlayer?.setVolume((pref.getDouble(VOLUME) ?? VOLUME_DEFAULT) / 100.0);
     }
     return null;
   }
 
   stopAllSoundTracks() async {
-    if (_audioPlayer != null) {
-      _audioPlayer.stop();
-      _trackPlaying = null;
-    }
+    _audioPlayer?.stop();
+    _trackPlaying = null;
   }
 }

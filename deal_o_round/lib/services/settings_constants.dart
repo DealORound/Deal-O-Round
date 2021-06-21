@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import '../game/logic/game_constants.dart';
 
 const DIFFICULTY = 'difficulty';
@@ -18,7 +19,6 @@ const ANIMATION_SPEED = 'anim_speed';
 const ANIMATION_SPEED_DEFAULT = 200.0;
 const GAME_SIGNED_IN = 'game_signed_in';
 
-T enumFromString<T>(Iterable<T> values, String value) {
-  return values.firstWhere((type) => type.toString().split(".").last == value,
-      orElse: () => null);
+T? enumFromString<T>(Iterable<T> values, String value) {
+  return values.firstWhereOrNull((type) => type.toString().split(".").last == value);
 }

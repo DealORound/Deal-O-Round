@@ -6,29 +6,24 @@ import 'value.dart';
 class Shoe {
   final bool includeJokers;
   final bool initialShuffle;
-  List<Deck> decks;
-  int decksUsed;
+  late List<Deck> decks;
+  late int decksUsed;
 
   Shoe({this.includeJokers: false, this.initialShuffle: true}) {
-    decks = List<Deck>();
-    decks.add(Deck(
-        includeJokers: includeJokers,
-        initialShuffle: initialShuffle,
-        index: 0));
+    decks = [];
+    decks.add(Deck(includeJokers: includeJokers, initialShuffle: initialShuffle, index: 0));
     decksUsed = 0;
   }
 
   PlayCard dealCard() {
     if (decks.length <= 0) {
-      return PlayCard(suit: Suit.Invalid, value: Value.Invalid);
+      return PlayCard(Suit.Invalid, Value.Invalid);
     }
 
     if (decks[decksUsed].cardsLeft() <= 0) {
       decksUsed += 1;
-      decks.add(Deck(
-          includeJokers: includeJokers,
-          initialShuffle: initialShuffle,
-          index: decksUsed));
+      decks.add(
+          Deck(includeJokers: includeJokers, initialShuffle: initialShuffle, index: decksUsed));
     }
     return decks[decksUsed].dealCard();
   }

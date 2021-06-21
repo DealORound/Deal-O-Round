@@ -9,34 +9,39 @@ class BooleanSettings extends StatefulWidget {
   final bool defaultValue;
   final String valueTag;
 
-  const BooleanSettings(
-      {Key key, this.scale = 1.2, this.defaultValue, this.valueTag})
-      : super(key: key);
+  const BooleanSettings({
+    Key? key,
+    this.scale = 1.2,
+    required this.defaultValue,
+    required this.valueTag,
+  }) : super(key: key);
 
   @override
-  _BooleanSettingsState createState() => _BooleanSettingsState(
-      scale: scale, booleanValue: defaultValue, valueTag: valueTag);
+  _BooleanSettingsState createState() => _BooleanSettingsState(defaultValue, valueTag);
 }
 
 class _BooleanSettingsState extends State<BooleanSettings> {
-  SharedPreferences _prefs;
-  final double scale;
+  late SharedPreferences _prefs;
   bool booleanValue;
   final String valueTag;
 
-  _BooleanSettingsState({this.scale = 1.0, this.booleanValue, this.valueTag});
+  _BooleanSettingsState(this.booleanValue, this.valueTag) {
+    _prefs = Get.find<SharedPreferences>();
+  }
 
   @override
   initState() {
     super.initState();
-    _prefs = Get.find<SharedPreferences>();
-    booleanValue = _prefs.getBool(valueTag);
+    bool? storedValue = _prefs.getBool(valueTag);
+    if (storedValue != null) {
+      booleanValue = storedValue;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Transform.scale(
-        scale: scale,
+        scale: widget.scale,
         child: Switch(
             value: booleanValue,
             activeColor: Colors.lightGreenAccent,

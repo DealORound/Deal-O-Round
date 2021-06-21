@@ -5,7 +5,11 @@ import 'game_page.dart';
 class RightDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final GameState state = GamePage.of(context);
+    final state = GamePage.of(context);
+    if (state == null) {
+      return Container();
+    }
+
     final radius = chipRadius(context); // ~40
     final textStyle = TextStyle(
         fontSize: radius * 0.7, // ~28
@@ -28,32 +32,38 @@ class RightDisplay extends StatelessWidget {
     final width = radius * 4; // 160
 
     return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Container(
-              decoration: greenDecoration,
-              padding: const EdgeInsets.all(2.0),
-              child: SizedBox(
-                  width: width,
-                  child:
-                      Center(child: Text("${state.score}", style: textStyle)))),
-          SizedBox(height: spacing),
-          Container(
-              decoration: greenDecoration,
-              padding: const EdgeInsets.all(2.0),
-              child: SizedBox(
-                  width: width,
-                  child: Center(
-                      child: Text("Level ${state.level}", style: textStyle)))),
-          SizedBox(height: spacing),
-          Container(
-              decoration: blueDecoration,
-              padding: const EdgeInsets.all(2.0),
-              child: SizedBox(
-                  width: width,
-                  child: RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(text: state.info, style: infoStyle))))
-        ]);
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          decoration: greenDecoration,
+          padding: const EdgeInsets.all(2.0),
+          child: SizedBox(
+            width: width,
+            child: Center(child: Text("${state.score}", style: textStyle)),
+          ),
+        ),
+        SizedBox(height: spacing),
+        Container(
+          decoration: greenDecoration,
+          padding: const EdgeInsets.all(2.0),
+          child: SizedBox(
+            width: width,
+            child: Center(child: Text("Level ${state.level}", style: textStyle)),
+          ),
+        ),
+        SizedBox(height: spacing),
+        Container(
+          decoration: blueDecoration,
+          padding: const EdgeInsets.all(2.0),
+          child: SizedBox(
+            width: width,
+            child: RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(text: state.info, style: infoStyle),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }

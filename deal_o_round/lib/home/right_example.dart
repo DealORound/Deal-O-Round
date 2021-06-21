@@ -8,18 +8,19 @@ class RightExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Row(children: <Widget>[
-            ChipWidget(card: PlayCard(suit: Suit.Hearts, value: Value.Two)),
-          ]),
-          Row(children: <Widget>[
-            ChipWidget(card: PlayCard(suit: Suit.Spades, value: Value.Ace)),
-            ChipWidget(card: PlayCard(suit: Suit.Clubs, value: Value.Jack))
-          ]),
-          Row(children: <Widget>[
-            ChipWidget(card: PlayCard(suit: Suit.Diamonds, value: Value.King))
-          ])
-        ]);
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Row(children: [
+          ChipWidget(card: PlayCard(Suit.Hearts, Value.Two)),
+        ]),
+        Row(children: [
+          ChipWidget(card: PlayCard(Suit.Spades, Value.Ace)),
+          ChipWidget(card: PlayCard(Suit.Clubs, Value.Jack)),
+        ]),
+        Row(children: [
+          ChipWidget(card: PlayCard(Suit.Diamonds, Value.King)),
+        ]),
+      ],
+    );
   }
 }

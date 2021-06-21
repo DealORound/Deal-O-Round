@@ -20,8 +20,7 @@ class ChipPainter extends CustomPainter {
       ..isAntiAlias = true;
     canvas.drawCircle(center, verticalCenter - 4, blackStroke);
 
-    final circleRect =
-        Rect.fromCircle(center: center, radius: verticalCenter - 2);
+    final circleRect = Rect.fromCircle(center: center, radius: verticalCenter - 2);
     final blueStroke = Paint()
       ..color = Color(0xFF0000FF)
       ..style = PaintingStyle.stroke

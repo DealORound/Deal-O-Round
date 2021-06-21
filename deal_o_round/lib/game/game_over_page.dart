@@ -7,28 +7,25 @@ import '../services/sound.dart';
 import 'background_painter.dart';
 
 class GameOverPage extends StatefulWidget {
-  GameOverPage({Key key, this.score}) : super(key: key);
+  GameOverPage({Key? key, required this.score}) : super(key: key);
 
   final int score;
 
   @override
-  _GameOverPageState createState() => _GameOverPageState(score: score);
+  _GameOverPageState createState() => _GameOverPageState();
 }
 
 class _GameOverPageState extends State<GameOverPage> {
-  final int score;
   String _layout = "Hexagonal";
   String _difficulty = "Easy";
-
-  _GameOverPageState({this.score});
 
   @override
   initState() {
     super.initState();
 
     final _prefs = Get.find<SharedPreferences>();
-    _difficulty = _prefs.getString(DIFFICULTY);
-    _layout = _prefs.getString(BOARD_LAYOUT);
+    _difficulty = _prefs.getString(DIFFICULTY) ?? DIFFICULTY_DEFAULT;
+    _layout = _prefs.getString(BOARD_LAYOUT) ?? BOARD_LAYOUT_DEFAULT;
     final soundUtils = Get.find<SoundUtils>();
     soundUtils.playSoundTrack(SoundTrack.EndMusic);
   }
@@ -38,65 +35,73 @@ class _GameOverPageState extends State<GameOverPage> {
     final radius = chipRadius(context); // ~40
     final titleSize = radius * 1.5; // ~60
     final buttonSize = radius * 1.2; // ~48
-    final titleStyle = TextStyle(
-        fontSize: titleSize, fontFamily: 'Musicals', color: Colors.white);
+    final titleStyle = TextStyle(fontSize: titleSize, fontFamily: 'Musicals', color: Colors.white);
     final fontSize = radius * 0.8; // ~32
-    final textStyle = TextStyle(
-        fontSize: fontSize,
-        fontFamily: 'Roboto Condensed',
-        color: Colors.white);
+    final textStyle =
+        TextStyle(fontSize: fontSize, fontFamily: 'Roboto Condensed', color: Colors.white);
 
     return Scaffold(
-        backgroundColor: Colors.transparent,
-        floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-        floatingActionButton: Padding(
-          padding: EdgeInsets.only(top: fontSize),
-          child: SizedBox(
-            width: buttonSize,
-            height: buttonSize,
-            child: FloatingActionButton(
-              onPressed: () => Get.back(closeOverlays: true),
-              child: Icon(Icons.arrow_back, size: radius),
-              backgroundColor: Colors.green,
-            ),
+      backgroundColor: Colors.transparent,
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(top: fontSize),
+        child: SizedBox(
+          width: buttonSize,
+          height: buttonSize,
+          child: FloatingActionButton(
+            onPressed: () => Get.back(closeOverlays: true),
+            child: Icon(Icons.arrow_back, size: radius),
+            backgroundColor: Colors.green,
           ),
         ),
-        body: CustomPaint(
-            painter: BackgroundPainter(),
-            child: Stack(children: <Widget>[
-              Center(
+      ),
+      body: CustomPaint(
+        painter: BackgroundPainter(),
+        child: Stack(
+          children: [
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text("Game", style: titleStyle),
+                  Text("Over", style: titleStyle),
+                ],
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(15),
                   child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                    Text("Game", style: titleStyle),
-                    Text("Over", style: titleStyle),
-                  ])),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
-                        padding: EdgeInsets.all(15),
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Text("Score:", style: textStyle),
-                              Text("$score", style: textStyle),
-                            ])),
-                    Padding(
-                        padding: EdgeInsets.all(15),
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Text("Difficulty:", style: textStyle),
-                              Text(_difficulty, style: textStyle),
-                              Text("Layout:", style: textStyle),
-                              Text(_layout, style: textStyle),
-                            ])),
-                  ])
-            ])));
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text("Score:", style: textStyle),
+                      Text("${widget.score}", style: textStyle),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(15),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text("Difficulty:", style: textStyle),
+                      Text(_difficulty, style: textStyle),
+                      Text("Layout:", style: textStyle),
+                      Text(_layout, style: textStyle),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

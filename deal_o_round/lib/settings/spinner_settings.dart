@@ -16,51 +16,40 @@ class SpinnerSettings extends StatefulWidget {
   final TextStyle textStyle;
 
   const SpinnerSettings(
-      {Key key,
-      this.minValue,
-      this.maxValue,
+      {Key? key,
+      required this.minValue,
+      required this.maxValue,
       this.stepValue = 1,
       this.fractionDigits = 0,
-      this.defaultValue,
-      this.valueTag,
-      this.textStyle})
+      required this.defaultValue,
+      required this.valueTag,
+      required this.textStyle})
       : super(key: key);
 
   @override
-  _SpinnerSettingsState createState() => _SpinnerSettingsState(
-      minValue: minValue,
-      maxValue: maxValue,
-      stepValue: stepValue,
-      fractionDigits: fractionDigits,
-      doubleValue: defaultValue,
-      valueTag: valueTag,
-      textStyle: textStyle);
+  _SpinnerSettingsState createState() =>
+      _SpinnerSettingsState(doubleValue: defaultValue, valueTag: valueTag);
 }
 
 class _SpinnerSettingsState extends State<SpinnerSettings> {
-  SharedPreferences _prefs;
-  final double minValue;
-  final double maxValue;
-  final double stepValue;
-  final int fractionDigits;
-  double doubleValue;
+  late SharedPreferences _prefs;
+  double doubleValue = 0.0;
   final String valueTag;
-  final TextStyle textStyle;
 
-  _SpinnerSettingsState(
-      {this.minValue,
-      this.maxValue,
-      this.stepValue,
-      this.fractionDigits,
-      this.doubleValue,
-      this.valueTag,
-      this.textStyle});
+  _SpinnerSettingsState({
+    required this.doubleValue,
+    required this.valueTag,
+  }) {
+    _prefs = Get.find<SharedPreferences>();
+  }
 
   @override
   initState() {
     super.initState();
-    _prefs = Get.find<SharedPreferences>();
-    doubleValue = _prefs.getDouble(valueTag);
+    double? storedValue = _prefs.getDouble(valueTag);
+    if (storedValue != null) {
+      doubleValue = storedValue;
+    }
   }
 
   @override
@@ -70,10 +59,10 @@ class _SpinnerSettingsState extends State<SpinnerSettings> {
     final numberWidth = radius * 2 + 15; // ~95
     return SpinnerInput(
         spinnerValue: doubleValue,
-        minValue: minValue,
-        maxValue: maxValue,
-        step: stepValue,
-        fractionDigits: fractionDigits,
+        minValue: widget.minValue,
+        maxValue: widget.maxValue,
+        step: widget.stepValue,
+        fractionDigits: widget.fractionDigits,
         plusButton: SpinnerButtonStyle(
           color: Colors.green,
           height: radius,
@@ -87,7 +76,7 @@ class _SpinnerSettingsState extends State<SpinnerSettings> {
           child: Icon(Icons.remove, size: iconSize),
         ),
         middleNumberWidth: numberWidth,
-        middleNumberStyle: textStyle,
+        middleNumberStyle: widget.textStyle,
         middleNumberBackground: Colors.green.shade800,
         onChange: (newValue) {
           setState(() {

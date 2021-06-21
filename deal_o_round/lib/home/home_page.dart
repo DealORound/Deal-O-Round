@@ -8,9 +8,9 @@ import '../services/sound.dart';
 
 class _HomePageInherited extends InheritedWidget {
   _HomePageInherited({
-    Key key,
-    @required Widget child,
-    @required this.data,
+    Key? key,
+    required Widget child,
+    required this.data,
   }) : super(key: key, child: child);
 
   final HomePageState data;
@@ -23,8 +23,8 @@ class _HomePageInherited extends InheritedWidget {
 
 class HomePage extends StatefulWidget {
   HomePage({
-    Key key,
-    this.child,
+    Key? key,
+    required this.child,
   }) : super(key: key);
 
   final Widget child;
@@ -32,29 +32,33 @@ class HomePage extends StatefulWidget {
   @override
   HomePageState createState() => HomePageState();
 
-  static HomePageState of(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<_HomePageInherited>())
-        .data;
+  static HomePageState? of(BuildContext context) {
+    final state = context.dependOnInheritedWidgetOfExactType<_HomePageInherited>();
+    return state?.data;
   }
 }
 
-class HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
+class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   var _rightNow = DateTime.now();
-  Timer _timer;
-  SharedPreferences _prefs;
+  Timer? _timer;
+  late SharedPreferences _prefs;
   bool _gameSignedIn = false;
 
   DateTime get rightNow => _rightNow;
   bool get gameSignedIn => _gameSignedIn;
 
+  HomePageState() {
+    _prefs = Get.find<SharedPreferences>();
+  }
+
   @override
   initState() {
     super.initState();
     Get.find<SoundUtils>().playSoundTrack(SoundTrack.SaloonMusic);
-    _prefs = Get.find<SharedPreferences>();
-    _gameSignedIn = _prefs.getBool(GAME_SIGNED_IN);
-    if (_gameSignedIn == null) {
+    bool? storedSignedIn = _prefs.getBool(GAME_SIGNED_IN);
+    if (storedSignedIn != null) {
+      _gameSignedIn = storedSignedIn;
+    } else {
       _prefs.setBool(GAME_SIGNED_IN, false);
       _gameSignedIn = false;
     }

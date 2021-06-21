@@ -6,19 +6,26 @@ import 'swipe_animation.dart';
 class LeftExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final HomePageState state = HomePage.of(context);
+    final state = HomePage.of(context);
+    if (state == null) {
+      return Container();
+    }
+
     final highlightSecond = state.rightNow.second % 3 == 0;
     final radius = chipRadius(context);
     final textStyle = TextStyle(
-        fontSize: radius * 0.65, // ~26
-        fontFamily: 'Musicals',
-        color: highlightSecond ? Colors.lightGreenAccent : Colors.green);
+      fontSize: radius * 0.65, // ~26
+      fontFamily: 'Musicals',
+      color: highlightSecond ? Colors.lightGreenAccent : Colors.green,
+    );
+
     return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          SwipeAnimation(),
-          SizedBox(height: radius / 4), // ~10
-          Text("Full House!", style: textStyle)
-        ]);
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SwipeAnimation(),
+        SizedBox(height: radius / 4), // ~10
+        Text("Full House!", style: textStyle),
+      ],
+    );
   }
 }

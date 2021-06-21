@@ -8,16 +8,16 @@ class GameWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.transparent,
-        body: CustomPaint(
-            painter: BackgroundPainter(),
-            child: Container(
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                  LeftDisplay(),
-                  GameBoard(),
-                  RightDisplay()
-                ]))));
+      backgroundColor: Colors.transparent,
+      body: CustomPaint(
+        painter: BackgroundPainter(),
+        child: Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [LeftDisplay(), GameBoard(), RightDisplay()],
+          ),
+        ),
+      ),
+    );
   }
 }

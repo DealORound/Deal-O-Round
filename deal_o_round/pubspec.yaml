@@ -1,23 +1,24 @@
 name: deal_o_round
-description: Flutter port of the deprecated PlayN based Deal-O-Round game.
-
+description: Flutter port of the originally PlayN based Deal-O-Round game.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 version: 2.0.6+20
 
 environment:
-  sdk: ">=2.8.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
-  url_launcher: any
-  shared_preferences: any
-  spinner_input: any
-  get: ^3.24.0
-  soundpool: any
-  audioplayers: any
-  universal_platform: any
-  games_services: any
-  wakelock: any
+  audioplayers: ^0.19.0
+  games_services: ^2.0.0-nullsafety.3
+  get: ^4.1.4
+  shared_preferences: ^2.0.6
+  soundpool: ^2.1.0
+  spinner_input:
+    git:
+      url: https://github.com/CsabaConsulting/spinner_input.git
+  universal_platform: ^1.0.0+1
+  url_launcher: ^6.0.6
+  wakelock: ^0.5.2
   flutter:
     sdk: flutter
 

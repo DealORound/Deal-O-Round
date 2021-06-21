@@ -9,29 +9,27 @@ class EnumSettings<T> extends StatefulWidget {
   final String valueTag;
   final TextStyle textStyle;
 
-  const EnumSettings(
-      {Key key, this.values, this.defaultValue, this.valueTag, this.textStyle})
-      : super(key: key);
+  const EnumSettings({
+    Key? key,
+    required this.values,
+    required this.defaultValue,
+    required this.valueTag,
+    required this.textStyle,
+  }) : super(key: key);
 
   @override
-  _EnumSettingsState createState() => _EnumSettingsState<T>(
-      values: values,
-      enumValue: defaultValue,
-      valueTag: valueTag,
-      textStyle: textStyle);
+  _EnumSettingsState createState() => _EnumSettingsState<T>(values, defaultValue, valueTag);
 }
 
 class _EnumSettingsState<T> extends State<EnumSettings> {
-  SharedPreferences _prefs;
-  final List<T> values;
-  List<String> stringValues;
+  late SharedPreferences _prefs;
+  late List<String> stringValues;
   T enumValue;
-  String stringValue;
+  late String stringValue;
   final String valueTag;
-  final TextStyle textStyle;
 
-  _EnumSettingsState(
-      {this.values, this.enumValue, this.valueTag, this.textStyle}) {
+  _EnumSettingsState(List<T> values, this.enumValue, this.valueTag) {
+    _prefs = Get.find<SharedPreferences>();
     this.stringValues = values.map<String>((T val) {
       return val.toString().split('.').last;
     }).toList();
@@ -41,8 +39,10 @@ class _EnumSettingsState<T> extends State<EnumSettings> {
   @override
   initState() {
     super.initState();
-    _prefs = Get.find<SharedPreferences>();
-    stringValue = _prefs.getString(valueTag);
+    String? storedValue = _prefs.getString(valueTag);
+    if (storedValue != null) {
+      stringValue = storedValue;
+    }
   }
 
   @override
@@ -51,22 +51,24 @@ class _EnumSettingsState<T> extends State<EnumSettings> {
       value: stringValue,
       icon: Icon(Icons.arrow_downward, color: Colors.green),
       iconSize: chipRadius(context),
-      style: TextStyle(color: Colors.lightGreen, fontSize: textStyle.fontSize),
+      style: TextStyle(color: Colors.lightGreen, fontSize: widget.textStyle.fontSize),
       underline: Container(
         height: 2,
         color: Colors.lightGreenAccent,
       ),
       dropdownColor: Colors.green.shade800,
-      onChanged: (String newValue) {
+      onChanged: (String? newValue) {
         setState(() {
-          stringValue = newValue;
-          _prefs.setString(valueTag, newValue);
+          if (newValue != null) {
+            stringValue = newValue;
+            _prefs.setString(valueTag, newValue);
+          }
         });
       },
       items: stringValues.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
-          child: Text(value, style: textStyle),
+          child: Text(value, style: widget.textStyle),
         );
       }).toList(),
     );

@@ -8,19 +8,16 @@ import 'left_example_chips.dart';
 import 'swipe_painter.dart';
 
 class SwipeAnimation extends StatefulWidget {
-  SwipeAnimation({Key key}) : super(key: key);
+  SwipeAnimation({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() {
-    return SwipeAnimationState();
-  }
+  State<StatefulWidget> createState() => SwipeAnimationState();
 }
 
-class SwipeAnimationState extends State<SwipeAnimation>
-    with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
-  Animation _animation;
-  Path _path;
+class SwipeAnimationState extends State<SwipeAnimation> with SingleTickerProviderStateMixin {
+  AnimationController? _animationController;
+  Animation? _animation;
+  Path? _path;
 
   @override
   initState() {
@@ -30,20 +27,19 @@ class SwipeAnimationState extends State<SwipeAnimation>
       reverseDuration: Duration(milliseconds: 1000),
     );
     super.initState();
-    _animation = Tween(begin: 0.0, end: 1.0).animate(_animationController)
+    _animation = Tween(begin: 0.0, end: 1.0).animate(_animationController!)
       ..addListener(() {
         setState(() {});
       })
       ..addStatusListener((status) async {
         if (status == AnimationStatus.completed) {
-          await Get.find<SoundUtils>()
-              .playSoundEffect(SoundEffect.ShortCardShuffle);
-          _animationController.reverse();
+          await Get.find<SoundUtils>().playSoundEffect(SoundEffect.ShortCardShuffle);
+          _animationController?.reverse();
         } else if (status == AnimationStatus.dismissed) {
-          _animationController.forward();
+          _animationController?.forward();
         }
       });
-    _animationController.forward();
+    _animationController?.forward();
   }
 
   @override
@@ -57,37 +53,43 @@ class SwipeAnimationState extends State<SwipeAnimation>
       _path = SwipePainter.swipePath(width, height);
     }
     return SizedBox(
-        width: width,
-        height: height,
-        child: Stack(children: <Widget>[
+      width: width,
+      height: height,
+      child: Stack(
+        children: [
           Positioned(
             top: 0,
             left: 0,
             child: LeftExampleChips(),
           ),
           Positioned(
-              top: calculate(_animation.value).dy - rAdj,
-              left: calculate(_animation.value).dx - rAdj,
-              child: Container(
-                  decoration: BoxDecoration(
-                      color: Color(0x99B2FF59),
-                      borderRadius: BorderRadius.circular(rAdj)),
-                  width: dAdj,
-                  height: dAdj))
-        ]));
+            top: calculate(_animation?.value ?? 0.0).dy - rAdj,
+            left: calculate(_animation?.value ?? 0.0).dx - rAdj,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Color(0x99B2FF59),
+                borderRadius: BorderRadius.circular(rAdj),
+              ),
+              width: dAdj,
+              height: dAdj,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
   dispose() {
-    _animationController.dispose();
+    _animationController?.dispose();
     super.dispose();
   }
 
-  Offset calculate(value) {
-    PathMetrics pathMetrics = _path.computeMetrics();
-    PathMetric pathMetric = pathMetrics.elementAt(0);
-    value = pathMetric.length * value;
-    Tangent pos = pathMetric.getTangentForOffset(value);
-    return pos.position;
+  Offset calculate(double value) {
+    PathMetrics? pathMetrics = _path?.computeMetrics();
+    PathMetric? pathMetric = pathMetrics?.elementAt(0);
+    value = (pathMetric?.length ?? 0.0) * value;
+    Tangent? pos = pathMetric?.getTangentForOffset(value);
+    return pos?.position ?? Offset(0.0, 0.0);
   }
 }

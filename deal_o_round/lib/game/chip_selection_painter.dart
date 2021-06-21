@@ -4,7 +4,7 @@ class ChipSelectionPainter extends CustomPainter {
   final bool selected;
   final bool neighbor;
 
-  ChipSelectionPainter({this.selected, this.neighbor});
+  ChipSelectionPainter(this.selected, this.neighbor);
 
   @override
   paint(Canvas canvas, Size size) {

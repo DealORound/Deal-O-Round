@@ -64,12 +64,11 @@ main() {
   testShoeSuppliesDifferentCardsCore(int deckCount) {
     final shoe = Shoe(includeJokers: false);
     for (int deck = 0; deck < deckCount; deck++) {
-      final cards = List<PlayCard>();
+      final List<PlayCard> cards = [];
       for (int i = 0; i < 52; i++) {
         final playCard = shoe.dealCard();
         for (PlayCard card in cards) {
-          expect(card.suit == playCard.suit && card.value == playCard.value,
-              false);
+          expect(card.suit == playCard.suit && card.value == playCard.value, false);
           expect(playCard.suit != Suit.Invalid, true);
           expect(playCard.value != Value.Invalid, true);
           expect(card.deck, deck);
@@ -87,8 +86,7 @@ main() {
       expect(deck.includeJokers, false);
     });
 
-    test('Shoe w/o Joker unshuffled decks are sorted after construction',
-        () async {
+    test('Shoe w/o Joker unshuffled decks are sorted after construction', () async {
       for (int deckCount in [1, 2, 3, MAX_DECK_COUNT]) {
         testShoeWithoutJokerUnshuffledDecksAreSortedCore(deckCount);
       }

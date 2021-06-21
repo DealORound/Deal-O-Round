@@ -9,38 +9,35 @@ class AdvancingReturn {
   final int nextLevelScore;
   final int extraCountDown;
 
-  AdvancingReturn({
-    this.nextLevelScore,
-    this.extraCountDown,
-  });
+  AdvancingReturn(this.nextLevelScore, this.extraCountDown);
 }
 
 class LevelManager {
-  List<Level> levels;
-  int currentLevel;
+  late List<Level> levels;
+  late int currentLevel;
 
   LevelManager() {
     currentLevel = 0;
     // Levels will proceed in the order they are added
     levels = [
-      Level(scoreMultiplier: 1.0, timeMultiplier: 1.0),
-      Level(scoreMultiplier: 1.03, timeMultiplier: 0.98),
-      Level(scoreMultiplier: 1.06, timeMultiplier: 0.96),
-      Level(scoreMultiplier: 1.09, timeMultiplier: 0.93),
-      Level(scoreMultiplier: 1.12, timeMultiplier: 0.90),
-      Level(scoreMultiplier: 1.15, timeMultiplier: 0.86),
-      Level(scoreMultiplier: 1.18, timeMultiplier: 0.82),
-      Level(scoreMultiplier: 1.21, timeMultiplier: 0.78),
-      Level(scoreMultiplier: 1.24, timeMultiplier: 0.74),
-      Level(scoreMultiplier: 1.27, timeMultiplier: 0.70),
-      Level(scoreMultiplier: 1.30, timeMultiplier: 0.60),
-      Level(scoreMultiplier: 1.33, timeMultiplier: 0.50),
-      Level(scoreMultiplier: 1.36, timeMultiplier: 0.40),
-      Level(scoreMultiplier: 1.39, timeMultiplier: 0.30),
-      Level(scoreMultiplier: 1.42, timeMultiplier: 0.20),
-      Level(scoreMultiplier: 1.45, timeMultiplier: 0.10),
-      Level(scoreMultiplier: 1.48, timeMultiplier: 0.05),
-      Level(scoreMultiplier: 1.51, timeMultiplier: 0.01)
+      Level(1.0, 1.0),
+      Level(1.03, 0.98),
+      Level(1.06, 0.96),
+      Level(1.09, 0.93),
+      Level(1.12, 0.90),
+      Level(1.15, 0.86),
+      Level(1.18, 0.82),
+      Level(1.21, 0.78),
+      Level(1.24, 0.74),
+      Level(1.27, 0.70),
+      Level(1.30, 0.60),
+      Level(1.33, 0.50),
+      Level(1.36, 0.40),
+      Level(1.39, 0.30),
+      Level(1.42, 0.20),
+      Level(1.45, 0.10),
+      Level(1.48, 0.05),
+      Level(1.51, 0.01),
     ];
   }
 
@@ -64,6 +61,7 @@ class LevelManager {
       lvlIndex++;
       if (lvlIndex > currentLevel) break;
     }
+
     return scoreLimit;
   }
 
@@ -79,8 +77,8 @@ class LevelManager {
     currentLevel = 0;
   }
 
-  Future<AdvancingReturn> advanceLevels(Difficulty difficulty, int currentScore,
-      int handScore, int nextLevelScore, bool shouldUnlock) async {
+  Future<AdvancingReturn> advanceLevels(Difficulty difficulty, int currentScore, int handScore,
+      int nextLevelScore, bool shouldUnlock) async {
     final newScore = currentScore + handScore;
     int countDown = 0;
     while (newScore > nextLevelScore) {
@@ -94,17 +92,18 @@ class LevelManager {
                     androidID: LEVEL_ACHIEVEMENTS[level - 2],
                     iOSID: 'ios_id',
                     percentComplete: 100));
-          } catch (e) {
-            debugPrint(
-                "Error while submitting level achievement: ${e.message}");
+          } on Exception catch (e, stack) {
+            debugPrint("Error while submitting level achievement: $e");
+            debugPrintStack(stackTrace: stack, label: "trace:");
           }
         }
       }
+
       countDown += getCurrentLevelTimeLimit(difficulty);
       nextLevelScore += getCurrentLevelScoreLimit(difficulty);
     }
-    return AdvancingReturn(
-        nextLevelScore: nextLevelScore, extraCountDown: countDown);
+
+    return AdvancingReturn(nextLevelScore, countDown);
   }
 
   bool hasNeighborHighlight(Difficulty difficulty, bool previous) {
@@ -115,7 +114,6 @@ class LevelManager {
   }
 
   bool hasDiagonalSelection(Difficulty difficulty) {
-    return difficulty == Difficulty.Easy ||
-        difficulty == Difficulty.Medium && currentLevel < 2;
+    return difficulty == Difficulty.Easy || difficulty == Difficulty.Medium && currentLevel < 2;
   }
 }

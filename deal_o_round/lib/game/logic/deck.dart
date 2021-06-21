@@ -3,38 +3,33 @@ import 'suit.dart';
 import 'value.dart';
 
 class Deck {
-  List<PlayCard> deck;
-  int cardsUsed;
+  late List<PlayCard> deck;
+  late int cardsUsed;
   final bool includeJokers;
   final bool initialShuffle;
   final index;
 
-  Deck({this.includeJokers: false, this.initialShuffle: true, this.index}) {
-    deck = List<PlayCard>();
+  Deck({this.includeJokers: false, this.initialShuffle: true, this.index: 0}) {
+    deck = [];
     for (int suitIndex = 0; suitIndex < 4; suitIndex++) {
       for (int valueIndex = 0; valueIndex < 13; valueIndex++) {
         deck.add(PlayCard(
-          suit: Suit.values[suitIndex],
-          value: Value.values[valueIndex],
+          Suit.values[suitIndex],
+          Value.values[valueIndex],
           deck: index,
         ));
       }
     }
+
     if (includeJokers) {
-      deck.add(PlayCard(
-        suit: Suit.Spades,
-        value: Value.Joker,
-        deck: index,
-      ));
-      deck.add(PlayCard(
-        suit: Suit.Diamonds,
-        value: Value.Joker,
-        deck: index,
-      ));
+      deck.add(PlayCard(Suit.Spades, Value.Joker, deck: index));
+      deck.add(PlayCard(Suit.Diamonds, Value.Joker, deck: index));
     }
+
     if (initialShuffle) {
       deck.shuffle();
     }
+
     cardsUsed = 0;
   }
 
@@ -42,7 +37,7 @@ class Deck {
 
   PlayCard dealCard() {
     if (cardsUsed == deck.length) {
-      return PlayCard(suit: Suit.Invalid, value: Value.Invalid);
+      return PlayCard(Suit.Invalid, Value.Invalid);
     }
 
     cardsUsed++;

@@ -39,9 +39,10 @@ const handDisplayStrings = [
 ];
 
 String handDisplayString(HandClass handClass) {
-  if (handClass == null) {
+  if (handClass == HandClass.Invalid) {
     return "";
   }
+
   return handDisplayStrings[handClass.index];
 }
 

@@ -5,8 +5,12 @@ import 'home_page.dart';
 class TitleLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final state = HomePage.of(context);
+    if (state == null) {
+      return Container();
+    }
+
     final List<Widget> titleCharacters = [];
-    final HomePageState state = HomePage.of(context);
     const title = "Deal-O-Round";
     final rightNow = state.rightNow;
     final animationTick = rightNow.second;
@@ -19,8 +23,8 @@ class TitleLine extends StatelessWidget {
     final fontSize = radius * 1.5; // ~60
 
     title.split('').asMap().forEach((idx, char) => titleCharacters.add(Text(
-        char,
-        style: TextStyle(
+          char,
+          style: TextStyle(
             fontSize: fontSize,
             fontFamily: 'Musicals',
             color: idx == highlightIdx
@@ -29,7 +33,9 @@ class TitleLine extends StatelessWidget {
                     ? Colors.lightGreenAccent
                     : ((idx == prePreHighlight || idx == postPostHighlight)
                         ? Colors.lightGreen
-                        : Colors.green))))));
+                        : Colors.green)),
+          ),
+        )));
 
     return Row(
       mainAxisSize: MainAxisSize.min,
