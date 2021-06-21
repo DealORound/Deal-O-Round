@@ -37,6 +37,7 @@ class LeftDisplay extends StatelessWidget {
       textStyle: textStyle,
       shape: buttonShape,
       padding: buttonPadding,
+      minimumSize: Size(width, spacing),
     );
 
     return Column(
@@ -68,52 +69,40 @@ class LeftDisplay extends StatelessWidget {
           ),
         ),
         SizedBox(height: spacing),
-        ButtonTheme(
-          minWidth: width,
-          child: ElevatedButton.icon(
-            onPressed: () => state.togglePause(),
-            style: buttonStyle,
-            icon: Icon(state.paused ? Icons.play_arrow : Icons.pause, size: size),
-            label: Text(state.paused ? "Play" : "Pause", style: textStyle),
-          ),
+        ElevatedButton.icon(
+          onPressed: () => state.togglePause(),
+          style: buttonStyle,
+          icon: Icon(state.paused ? Icons.play_arrow : Icons.pause, size: size),
+          label: Text(state.paused ? "Play" : "Pause", style: textStyle),
         ),
         SizedBox(height: spacing),
-        ButtonTheme(
-          minWidth: width,
-          child: ElevatedButton.icon(
-            onPressed: () => state.spin(),
-            style: buttonStyle,
-            icon: Icon(Icons.loop, size: size),
-            label: Text("Spin", style: textStyle),
-          ),
+        ElevatedButton.icon(
+          onPressed: () => state.spin(),
+          style: buttonStyle,
+          icon: Icon(Icons.loop, size: size),
+          label: Text("Spin", style: textStyle),
         ),
         SizedBox(height: spacing),
-        ButtonTheme(
-          minWidth: width,
-          child: ElevatedButton.icon(
-            onPressed: () => state.evaluateAndProcessHand(),
-            style: buttonStyle,
-            icon: Icon(Icons.functions, size: size),
-            label: Text("Eval", style: textStyle),
-          ),
+        ElevatedButton.icon(
+          onPressed: () => state.evaluateAndProcessHand(),
+          style: buttonStyle,
+          icon: Icon(Icons.functions, size: size),
+          label: Text("Eval", style: textStyle),
         ),
         SizedBox(height: spacing),
-        ButtonTheme(
-          minWidth: width,
-          child: ElevatedButton.icon(
-            onPressed: () async {
-              if (await canLaunch(HELP_URL)) {
-                state.togglePause();
-                launch(HELP_URL);
-              } else {
-                Get.snackbar("Attention", "Cannot open URL",
-                    colorText: SNACK_TEXT, backgroundColor: snackBack);
-              }
-            },
-            style: buttonStyle,
-            icon: Icon(Icons.help_outline, size: size),
-            label: Text("Help", style: textStyle),
-          ),
+        ElevatedButton.icon(
+          onPressed: () async {
+            if (await canLaunch(HELP_URL)) {
+              state.togglePause();
+              launch(HELP_URL);
+            } else {
+              Get.snackbar("Attention", "Cannot open URL",
+                  colorText: SNACK_TEXT, backgroundColor: snackBack);
+            }
+          },
+          style: buttonStyle,
+          icon: Icon(Icons.help_outline, size: size),
+          label: Text("Help", style: textStyle),
         ),
       ],
     );
