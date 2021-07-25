@@ -14,7 +14,7 @@ packages:
       name: audioplayers
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.19.0"
+    version: "0.19.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -113,7 +113,7 @@ packages:
       name: get
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.1.4"
+    version: "4.2.5"
   http:
     dependency: transitive
     description:
@@ -372,7 +372,7 @@ packages:
       name: url_launcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.6"
+    version: "6.0.9"
   url_launcher_linux:
     dependency: transitive
     description:

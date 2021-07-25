@@ -8,9 +8,9 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
-  audioplayers: ^0.19.0
+  audioplayers: ^0.19.1
   games_services: ^2.0.0-nullsafety.3
-  get: ^4.1.4
+  get: ^4.2.5
   intl: ^0.17.0
   shared_preferences: ^2.0.6
   soundpool: ^2.1.0
@@ -18,7 +18,7 @@ dependencies:
     git:
       url: https://github.com/CsabaConsulting/spinner_input.git
   universal_platform: ^1.0.0+1
-  url_launcher: ^6.0.6
+  url_launcher: ^6.0.9
   wakelock: ^0.5.2
   flutter:
     sdk: flutter
