@@ -1,0 +1,20 @@
+version: v0.1
+name: playstore-data-safety-report
+projectName: ''
+createdAt: '2022-06-15 06:09:33.124202'
+updatedAt: '2022-06-15 06:10:52.657922'
+doesProcessData: true
+doesEncryptDataInTransit: true
+doesAllowDeletionOfData: false
+pii:
+- element: User IDs
+  category: Personal info
+  isSDK: false
+  collected: true
+  shared: false
+  processedEphemerally: true
+  required: true
+  collectionPurposes:
+  - App functionality
+  - Account management
+  sharingPurposes: []

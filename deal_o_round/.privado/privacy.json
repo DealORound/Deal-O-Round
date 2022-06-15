@@ -1,0 +1,388 @@
+{
+  "repoId": "repoId",
+  "repoName": "",
+  "repoURL": "",
+  "branchName": "master",
+  "commitId": "",
+  "customerId": "cliCustomer",
+  "scanId": null,
+  "permissionList": [
+    {
+      "category": "Account Data",
+      "element": "Accounts",
+      "dataElement": "Account ID",
+      "sensitive": false,
+      "sensitivity": "low",
+      "score": 1,
+      "confidence": "high",
+      "scoringPoints": [],
+      "occurrences": [
+        {
+          "score": 1,
+          "confidence": "high",
+          "scoringPoints": [],
+          "sample": "android.permission.GET_ACCOUNTS",
+          "fileName": "AndroidManifest.xml",
+          "language": "app-permissions",
+          "excerpt": "    -->\n    <uses-permission android:name=\"android.permission.INTERNET\" />\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\n    <uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />\n    <uses-permission android:name=\"android.permission.USE_CREDENTIALS\" />\n    <uses-permission android:name=\"android.permission.WAKE_LOCK\" />\n    <!--\n",
+          "isCorrect": null,
+          "occurrenceIndexes": [
+            {
+              "lineNumber": 3,
+              "startIndex": 35,
+              "endIndex": 66
+            }
+          ],
+          "startLocationLine": 16,
+          "authorEmail": null
+        },
+        {
+          "score": 1,
+          "confidence": "high",
+          "scoringPoints": [],
+          "sample": "android.permission.GET_ACCOUNTS",
+          "fileName": "build/app/intermediates/bundle_manifest/release/AndroidManifest.xml",
+          "language": "app-permissions",
+          "excerpt": "\n    <uses-permission android:name=\"android.permission.INTERNET\" />\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\n    <uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />\n    <uses-permission android:name=\"android.permission.USE_CREDENTIALS\" />\n    <uses-permission android:name=\"android.permission.WAKE_LOCK\" />\n\n",
+          "isCorrect": null,
+          "occurrenceIndexes": [
+            {
+              "lineNumber": 3,
+              "startIndex": 35,
+              "endIndex": 66
+            }
+          ],
+          "startLocationLine": 13,
+          "authorEmail": null
+        },
+        {
+          "score": 1,
+          "confidence": "high",
+          "scoringPoints": [],
+          "sample": "android.permission.GET_ACCOUNTS",
+          "fileName": "build/app/intermediates/packaged_manifests/release/AndroidManifest.xml",
+          "language": "app-permissions",
+          "excerpt": "\n    <uses-permission android:name=\"android.permission.INTERNET\" />\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\n    <uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />\n    <uses-permission android:name=\"android.permission.USE_CREDENTIALS\" />\n    <uses-permission android:name=\"android.permission.WAKE_LOCK\" />\n\n",
+          "isCorrect": null,
+          "occurrenceIndexes": [
+            {
+              "lineNumber": 3,
+              "startIndex": 35,
+              "endIndex": 66
+            }
+          ],
+          "startLocationLine": 13,
+          "authorEmail": null
+        },
+        {
+          "score": 1,
+          "confidence": "high",
+          "scoringPoints": [],
+          "sample": "android.permission.GET_ACCOUNTS",
+          "fileName": "build/app/intermediates/instant_app_manifest/release/AndroidManifest.xml",
+          "language": "app-permissions",
+          "excerpt": "\n    <uses-permission android:name=\"android.permission.INTERNET\" />\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\n    <uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />\n    <uses-permission android:name=\"android.permission.USE_CREDENTIALS\" />\n    <uses-permission android:name=\"android.permission.WAKE_LOCK\" />\n    <!--\n",
+          "isCorrect": null,
+          "occurrenceIndexes": [
+            {
+              "lineNumber": 3,
+              "startIndex": 35,
+              "endIndex": 66
+            }
+          ],
+          "startLocationLine": 14,
+          "authorEmail": null
+        },
+        {
+          "score": 1,
+          "confidence": "high",
+          "scoringPoints": [],
+          "sample": "android.permission.GET_ACCOUNTS",
+          "fileName": "build/app/intermediates/merged_manifests/release/AndroidManifest.xml",
+          "language": "app-permissions",
+          "excerpt": "\n    <uses-permission android:name=\"android.permission.INTERNET\" />\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\n    <uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />\n    <uses-permission android:name=\"android.permission.USE_CREDENTIALS\" />\n    <uses-permission android:name=\"android.permission.WAKE_LOCK\" />\n\n",
+          "isCorrect": null,
+          "occurrenceIndexes": [
+            {
+              "lineNumber": 3,
+              "startIndex": 35,
+              "endIndex": 66
+            }
+          ],
+          "startLocationLine": 13,
+          "authorEmail": null
+        }
+      ]
+    }
+  ],
+  "piiList": [
+    {
+      "category": "Account Data",
+      "element": "Account ID",
+      "dataSafetyElement": "User IDs",
+      "dataSafetyCategory": "Personal info",
+      "sensitive": false,
+      "sensitivity": "medium",
+      "score": 1,
+      "confidence": "high",
+      "scoringPoints": [
+        "app_permission"
+      ],
+      "occurrences": [
+        {
+          "score": 1,
+          "confidence": "high",
+          "scoringPoints": [],
+          "sample": "android.permission.GET_ACCOUNTS",
+          "fileName": "AndroidManifest.xml",
+          "language": "app-permissions",
+          "excerpt": "    -->\n    <uses-permission android:name=\"android.permission.INTERNET\" />\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\n    <uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />\n    <uses-permission android:name=\"android.permission.USE_CREDENTIALS\" />\n    <uses-permission android:name=\"android.permission.WAKE_LOCK\" />\n    <!--\n",
+          "isCorrect": null,
+          "occurrenceIndexes": [
+            {
+              "lineNumber": 3,
+              "startIndex": 35,
+              "endIndex": 66
+            }
+          ],
+          "startLocationLine": 16,
+          "authorEmail": null
+        },
+        {
+          "score": 1,
+          "confidence": "high",
+          "scoringPoints": [],
+          "sample": "android.permission.GET_ACCOUNTS",
+          "fileName": "build/app/intermediates/bundle_manifest/release/AndroidManifest.xml",
+          "language": "app-permissions",
+          "excerpt": "\n    <uses-permission android:name=\"android.permission.INTERNET\" />\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\n    <uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />\n    <uses-permission android:name=\"android.permission.USE_CREDENTIALS\" />\n    <uses-permission android:name=\"android.permission.WAKE_LOCK\" />\n\n",
+          "isCorrect": null,
+          "occurrenceIndexes": [
+            {
+              "lineNumber": 3,
+              "startIndex": 35,
+              "endIndex": 66
+            }
+          ],
+          "startLocationLine": 13,
+          "authorEmail": null
+        },
+        {
+          "score": 1,
+          "confidence": "high",
+          "scoringPoints": [],
+          "sample": "android.permission.GET_ACCOUNTS",
+          "fileName": "build/app/intermediates/packaged_manifests/release/AndroidManifest.xml",
+          "language": "app-permissions",
+          "excerpt": "\n    <uses-permission android:name=\"android.permission.INTERNET\" />\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\n    <uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />\n    <uses-permission android:name=\"android.permission.USE_CREDENTIALS\" />\n    <uses-permission android:name=\"android.permission.WAKE_LOCK\" />\n\n",
+          "isCorrect": null,
+          "occurrenceIndexes": [
+            {
+              "lineNumber": 3,
+              "startIndex": 35,
+              "endIndex": 66
+            }
+          ],
+          "startLocationLine": 13,
+          "authorEmail": null
+        },
+        {
+          "score": 1,
+          "confidence": "high",
+          "scoringPoints": [],
+          "sample": "android.permission.GET_ACCOUNTS",
+          "fileName": "build/app/intermediates/instant_app_manifest/release/AndroidManifest.xml",
+          "language": "app-permissions",
+          "excerpt": "\n    <uses-permission android:name=\"android.permission.INTERNET\" />\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\n    <uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />\n    <uses-permission android:name=\"android.permission.USE_CREDENTIALS\" />\n    <uses-permission android:name=\"android.permission.WAKE_LOCK\" />\n    <!--\n",
+          "isCorrect": null,
+          "occurrenceIndexes": [
+            {
+              "lineNumber": 3,
+              "startIndex": 35,
+              "endIndex": 66
+            }
+          ],
+          "startLocationLine": 14,
+          "authorEmail": null
+        },
+        {
+          "score": 1,
+          "confidence": "high",
+          "scoringPoints": [],
+          "sample": "android.permission.GET_ACCOUNTS",
+          "fileName": "build/app/intermediates/merged_manifests/release/AndroidManifest.xml",
+          "language": "app-permissions",
+          "excerpt": "\n    <uses-permission android:name=\"android.permission.INTERNET\" />\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\n    <uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />\n    <uses-permission android:name=\"android.permission.USE_CREDENTIALS\" />\n    <uses-permission android:name=\"android.permission.WAKE_LOCK\" />\n\n",
+          "isCorrect": null,
+          "occurrenceIndexes": [
+            {
+              "lineNumber": 3,
+              "startIndex": 35,
+              "endIndex": 66
+            }
+          ],
+          "startLocationLine": 13,
+          "authorEmail": null
+        },
+        {
+          "score": 1,
+          "confidence": "high",
+          "scoringPoints": [],
+          "sample": "android.permission.GET_ACCOUNTS",
+          "fileName": "build/app/intermediates/merged_manifests/debug/AndroidManifest.xml",
+          "language": "app-permissions",
+          "excerpt": "    -->\n    <uses-permission android:name=\"android.permission.INTERNET\" />\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\n    <uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />\n    <uses-permission android:name=\"android.permission.USE_CREDENTIALS\" />\n    <uses-permission android:name=\"android.permission.WAKE_LOCK\" /> <!-- Fixes canLaunch false problem with Android API 30+ -->\n    <!-- https://github.com/flutter/flutter/issues/63727 -->\n",
+          "isCorrect": null,
+          "occurrenceIndexes": [
+            {
+              "lineNumber": 3,
+              "startIndex": 35,
+              "endIndex": 66
+            }
+          ],
+          "startLocationLine": 16,
+          "authorEmail": null
+        },
+        {
+          "score": 1,
+          "confidence": "high",
+          "scoringPoints": [],
+          "sample": "android.permission.GET_ACCOUNTS",
+          "fileName": "AndroidManifest.xml",
+          "language": "app-permissions",
+          "excerpt": "\n    <uses-permission android:name=\"android.permission.INTERNET\" />\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\n    <uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />\n    <uses-permission android:name=\"android.permission.USE_CREDENTIALS\" />\n    <uses-permission android:name=\"android.permission.WAKE_LOCK\" />\n    <!--\n",
+          "isCorrect": null,
+          "occurrenceIndexes": [
+            {
+              "lineNumber": 3,
+              "startIndex": 35,
+              "endIndex": 66
+            }
+          ],
+          "startLocationLine": 13,
+          "authorEmail": null
+        },
+        {
+          "score": 1,
+          "confidence": "high",
+          "scoringPoints": [],
+          "sample": "android.permission.GET_ACCOUNTS",
+          "fileName": "android/app/src/main/AndroidManifest.xml",
+          "language": "app-permissions",
+          "excerpt": "\n    <uses-permission android:name=\"android.permission.INTERNET\" />\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\n    <uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />\n    <uses-permission android:name=\"android.permission.USE_CREDENTIALS\" />\n    <uses-permission android:name=\"android.permission.WAKE_LOCK\" />\n\n",
+          "isCorrect": null,
+          "occurrenceIndexes": [
+            {
+              "lineNumber": 3,
+              "startIndex": 35,
+              "endIndex": 66
+            }
+          ],
+          "startLocationLine": 6,
+          "authorEmail": null
+        },
+        {
+          "score": 1,
+          "confidence": "high",
+          "scoringPoints": [],
+          "sample": "android.permission.GET_ACCOUNTS",
+          "fileName": "build/app/intermediates/packaged_manifests/debug/AndroidManifest.xml",
+          "language": "app-permissions",
+          "excerpt": "    -->\n    <uses-permission android:name=\"android.permission.INTERNET\" />\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\n    <uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />\n    <uses-permission android:name=\"android.permission.USE_CREDENTIALS\" />\n    <uses-permission android:name=\"android.permission.WAKE_LOCK\" /> <!-- Fixes canLaunch false problem with Android API 30+ -->\n    <!-- https://github.com/flutter/flutter/issues/63727 -->\n",
+          "isCorrect": null,
+          "occurrenceIndexes": [
+            {
+              "lineNumber": 3,
+              "startIndex": 35,
+              "endIndex": 66
+            }
+          ],
+          "startLocationLine": 16,
+          "authorEmail": null
+        },
+        {
+          "score": 1,
+          "confidence": "high",
+          "scoringPoints": [],
+          "sample": "android.permission.GET_ACCOUNTS",
+          "fileName": "build/app/intermediates/instant_app_manifest/debug/AndroidManifest.xml",
+          "language": "app-permissions",
+          "excerpt": "    -->\n    <uses-permission android:name=\"android.permission.INTERNET\" />\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\n    <uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />\n    <uses-permission android:name=\"android.permission.USE_CREDENTIALS\" />\n    <uses-permission android:name=\"android.permission.WAKE_LOCK\" />\n    <!--\n",
+          "isCorrect": null,
+          "occurrenceIndexes": [
+            {
+              "lineNumber": 3,
+              "startIndex": 35,
+              "endIndex": 66
+            }
+          ],
+          "startLocationLine": 17,
+          "authorEmail": null
+        },
+        {
+          "score": 1,
+          "confidence": "high",
+          "scoringPoints": [],
+          "sample": "android.permission.GET_ACCOUNTS",
+          "fileName": "build/app/intermediates/merged_manifest/release/AndroidManifest.xml",
+          "language": "app-permissions",
+          "excerpt": "\n    <uses-permission android:name=\"android.permission.INTERNET\" />\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\n    <uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />\n    <uses-permission android:name=\"android.permission.USE_CREDENTIALS\" />\n    <uses-permission android:name=\"android.permission.WAKE_LOCK\" />\n\n",
+          "isCorrect": null,
+          "occurrenceIndexes": [
+            {
+              "lineNumber": 3,
+              "startIndex": 35,
+              "endIndex": 66
+            }
+          ],
+          "startLocationLine": 13,
+          "authorEmail": null
+        },
+        {
+          "score": 1,
+          "confidence": "high",
+          "scoringPoints": [],
+          "sample": "android.permission.GET_ACCOUNTS",
+          "fileName": "build/app/intermediates/merged_manifest/debug/AndroidManifest.xml",
+          "language": "app-permissions",
+          "excerpt": "    -->\n    <uses-permission android:name=\"android.permission.INTERNET\" />\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\n    <uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />\n    <uses-permission android:name=\"android.permission.USE_CREDENTIALS\" />\n    <uses-permission android:name=\"android.permission.WAKE_LOCK\" /> <!-- Fixes canLaunch false problem with Android API 30+ -->\n    <!-- https://github.com/flutter/flutter/issues/63727 -->\n",
+          "isCorrect": null,
+          "occurrenceIndexes": [
+            {
+              "lineNumber": 3,
+              "startIndex": 35,
+              "endIndex": 66
+            }
+          ],
+          "startLocationLine": 16,
+          "authorEmail": null
+        }
+      ],
+      "markedAs": "confirmed"
+    }
+  ],
+  "vendorList": [],
+  "interestsubjectList": [
+    {
+      "words": []
+    },
+    {
+      "words": []
+    },
+    {
+      "words": [
+        {
+          "word": "distributionUrl",
+          "vendorName": "gradle.org",
+          "urls": [
+            "https://services.gradle.org",
+            "gradle.org"
+          ],
+          "type": "master"
+        }
+      ]
+    }
+  ],
+  "created": "2022-06-15 06:07:45.748567",
+  "updated": "2022-06-15 06:09:33.093923"
+}
