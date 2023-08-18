@@ -5,21 +5,22 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 2.0.7+21
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.25.0"
+  flutter: ">=3.13.0-0.2.pre"
 
 dependencies:
-  audioplayers: ^0.19.1
-  games_services: ^2.0.0-nullsafety.3
-  get: ^4.2.5
-  intl: ^0.17.0
-  shared_preferences: ^2.0.6
-  soundpool: ^2.1.0
+  audioplayers: ^5.1.0
+  games_services: ^3.0.1
+  get: ^4.6.5
+  intl: ^0.18.1
+  shared_preferences: ^2.2.0
+  soundpool: ^2.3.0
   spinner_input:
     git:
       url: https://github.com/CsabaConsulting/spinner_input.git
   universal_platform: ^1.0.0+1
-  url_launcher: ^6.0.9
-  wakelock: ^0.5.2
+  url_launcher: ^6.1.12
+  wakelock: ^0.6.2
   flutter:
     sdk: flutter
 
