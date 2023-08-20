@@ -1,4 +1,4 @@
-import 'package:audioplayers/audioplayers.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -6,6 +6,7 @@ import 'package:soundpool/soundpool.dart';
 import 'settings_constants.dart';
 
 enum SoundEffect { ShortCardShuffle, LongCardShuffle, PokerChips }
+
 final Map<SoundEffect, String> _soundAssetPaths = {
   SoundEffect.ShortCardShuffle: "assets/short_card_shuffle.mp3",
   SoundEffect.LongCardShuffle: "assets/long_card_shuffle.mp3",
@@ -13,6 +14,7 @@ final Map<SoundEffect, String> _soundAssetPaths = {
 };
 
 enum SoundTrack { SaloonMusic, GuitarMusic, EndMusic }
+
 final Map<SoundTrack, String> _soundTrackPaths = {
   SoundTrack.SaloonMusic: "saloon_music.mp3",
   SoundTrack.GuitarMusic: "guitar_music.mp3",
@@ -22,8 +24,7 @@ final Map<SoundTrack, String> _soundTrackPaths = {
 class SoundUtils {
   late Soundpool _soundPool;
   SharedPreferences pref;
-  late AudioCache _audioCache;
-  AudioPlayer? _audioPlayer;
+  AssetsAudioPlayer? _audioPlayer;
   SoundTrack? _trackPlaying;
 
   Map<SoundEffect, int> _soundIds = {
@@ -45,8 +46,8 @@ class SoundUtils {
     }
     Get.put<Soundpool>(_soundPool);
 
-    _audioCache = AudioCache();
-    Get.put<AudioCache>(_audioCache);
+    _audioPlayer = AssetsAudioPlayer.newPlayer();
+    _audioPlayer?.setLoopMode(LoopMode.single);
   }
 
   loadSoundEffects() async {
@@ -96,7 +97,7 @@ class SoundUtils {
     _soundIds.forEach((k, v) async {
       _soundPool.setVolume(soundId: v, volume: newVolume / 100.0);
     });
-    _audioPlayer?.setVolume(newVolume / 100.0);
+    await _audioPlayer?.setVolume(newVolume / 100.0);
   }
 
   Future<void> playSoundTrack(SoundTrack track) async {
@@ -111,15 +112,15 @@ class SoundUtils {
         return;
       }
 
-      _audioPlayer = await _audioCache.loop(trackPath);
       _trackPlaying = track;
-      _audioPlayer?.setVolume((pref.getDouble(VOLUME) ?? VOLUME_DEFAULT) / 100.0);
+      await _audioPlayer?.setVolume((pref.getDouble(VOLUME) ?? VOLUME_DEFAULT) / 100.0);
+      await _audioPlayer?.open(Audio("assets/$trackPath"));
     }
     return null;
   }
 
   stopAllSoundTracks() async {
-    _audioPlayer?.stop();
+    await _audioPlayer?.stop();
     _trackPlaying = null;
   }
 }

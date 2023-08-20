@@ -9,10 +9,10 @@ environment:
   flutter: ">=3.13.0-0.2.pre"
 
 dependencies:
-  audioplayers: ^5.1.0
   games_services: ^3.0.1
   get: ^4.6.5
   intl: ^0.18.1
+  assets_audio_player: ^3.1.0
   shared_preferences: ^2.2.0
   soundpool: ^2.3.0
   spinner_input:
