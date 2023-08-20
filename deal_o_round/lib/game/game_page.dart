@@ -7,7 +7,7 @@ import 'package:games_services/games_services.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:universal_platform/universal_platform.dart';
-import 'package:wakelock/wakelock.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 import '../services/settings_constants.dart';
 import '../services/size.dart';
 import '../services/sound.dart';
@@ -442,11 +442,11 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
         .playSoundEffect(SoundEffect.LongCardShuffle)
         .then((c) async => await soundUtils.playSoundTrack(SoundTrack.GuitarMusic));
 
-    Wakelock.enable();
+    WakelockPlus.enable();
   }
 
   void _populateBoard() {
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       _selectionBlock = true;
       Timer(Duration(milliseconds: (animationDelay * BOARD_SIZE * 1.5).toInt()), () {
         _selectionBlock = false;
@@ -485,7 +485,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
         debugPrint("Error while submitting score: $e");
       }
     }
-    Wakelock.disable();
+    WakelockPlus.disable();
     _timer?.cancel();
     super.dispose();
   }
