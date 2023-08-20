@@ -1,7 +1,7 @@
 import 'package:deal_o_round/game/logic/game_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import '../services/size.dart';
 import 'game_page.dart';
 
@@ -33,7 +33,7 @@ class LeftDisplay extends StatelessWidget {
       side: BorderSide(color: Colors.grey.shade700, width: 3.0),
     );
     final buttonStyle = ElevatedButton.styleFrom(
-      primary: Colors.grey,
+      backgroundColor: Colors.grey,
       textStyle: textStyle,
       shape: buttonShape,
       padding: buttonPadding,
@@ -92,9 +92,9 @@ class LeftDisplay extends StatelessWidget {
         SizedBox(height: spacing),
         ElevatedButton.icon(
           onPressed: () async {
-            if (await canLaunch(HELP_URL)) {
+            if (await canLaunchUrlString(HELP_URL)) {
               state.togglePause();
-              launch(HELP_URL);
+              launchUrlString(HELP_URL);
             } else {
               Get.snackbar("Attention", "Cannot open URL",
                   colorText: SNACK_TEXT, backgroundColor: snackBack);

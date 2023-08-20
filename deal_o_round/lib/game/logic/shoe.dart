@@ -9,7 +9,7 @@ class Shoe {
   late List<Deck> decks;
   late int decksUsed;
 
-  Shoe({this.includeJokers: false, this.initialShuffle: true}) {
+  Shoe({this.includeJokers = false, this.initialShuffle = true}) {
     decks = [];
     decks.add(Deck(includeJokers: includeJokers, initialShuffle: initialShuffle, index: 0));
     decksUsed = 0;

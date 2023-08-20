@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:games_services/games_services.dart';
 import 'package:get/get.dart';
 import 'package:universal_platform/universal_platform.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import '../game/game_page.dart';
 import '../game/game_widget.dart';
 import '../game/logic/game_constants.dart';
@@ -61,7 +61,7 @@ class HomeCenter extends StatelessWidget {
       side: BorderSide(color: Colors.green.shade700, width: 3.0),
     );
     final buttonStyle = ElevatedButton.styleFrom(
-      primary: Colors.green,
+      backgroundColor: Colors.green,
       textStyle: textStyle,
       shape: buttonShape,
       padding: buttonPadding,
@@ -181,8 +181,8 @@ class HomeCenter extends StatelessWidget {
                 SizedBox(height: spacing),
                 ElevatedButton.icon(
                   onPressed: () async {
-                    if (await canLaunch(HELP_URL)) {
-                      launch(HELP_URL);
+                    if (await canLaunchUrlString(HELP_URL)) {
+                      launchUrlString(HELP_URL);
                     } else {
                       Get.snackbar("Attention", "Cannot open URL",
                           colorText: SNACK_TEXT, backgroundColor: snackBack);
