@@ -20,7 +20,7 @@ dependencies:
       url: https://github.com/CsabaConsulting/spinner_input.git
   universal_platform: ^1.0.0+1
   url_launcher: ^6.1.12
-  wakelock: ^0.6.2
+  wakelock_plus: ^1.1.1
   flutter:
     sdk: flutter
 
