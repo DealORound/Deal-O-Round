@@ -14,7 +14,7 @@ dependencies:
   intl: ^0.18.1
   assets_audio_player: ^3.1.0
   shared_preferences: ^2.2.0
-  soundpool: ^2.3.0
+  soundpool: ^2.4.0
   spinner_input:
     git:
       url: https://github.com/CsabaConsulting/spinner_input.git
