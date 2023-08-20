@@ -91,11 +91,11 @@ class HomeCenter extends StatelessWidget {
                     }
                   } else {
                     Get.snackbar(
-                        "Sign In",
-                        "Game Services is only available on Android " +
-                            "and Game Center is only available on iOS",
-                        colorText: SNACK_TEXT,
-                        backgroundColor: snackBack,
+                      "Sign In",
+                      "Game Services is only available on Android " +
+                          "and Game Center is only available on iOS",
+                      colorText: SNACK_TEXT,
+                      backgroundColor: snackBack,
                     );
                   }
                 },
