@@ -405,15 +405,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.10.0"
-  spinner_input:
+  spinner_input_plus:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "3540b46ba561332c7df2df3fb2cbd2b306b6bb9b"
-      url: "https://github.com/CsabaConsulting/spinner_input.git"
-    source: git
-    version: "0.1.2"
+      name: spinner_input_plus
+      sha256: "2d0ce3b42be1316f8231883d49e71545c62b1fc6deaf8d38ee4e449425159399"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1"
   stack_trace:
     dependency: transitive
     description:
