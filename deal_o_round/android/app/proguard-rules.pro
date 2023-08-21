@@ -25,6 +25,8 @@
 -keepclassmembernames class xyz.luan.audioplayers.* { *; }
 -keep class com.abedalkareem.games_services.** { *; }
 -keepclassmembernames class com.abedalkareem.games_services.** { *; }
+-keep class dev.fluttercommunity.plus.packageinfo.** { *; }
+-keepclassmembernames class dev.fluttercommunity.plus.packageinfo.** { *; }
 -keep class io.flutter.plugins.pathprovider.** { *; }
 -keepclassmembernames class io.flutter.plugins.pathprovider.** { *; }
 -keep class io.flutter.plugins.sharedpreferences.** { *; }
