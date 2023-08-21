@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:spinner_input/spinner_input.dart';
+import 'package:spinner_input_plus/spinner_input_plus.dart';
 import '../services/settings_constants.dart';
 import '../services/size.dart';
 import '../services/sound.dart';
