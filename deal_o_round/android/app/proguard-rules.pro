@@ -21,8 +21,8 @@
 -keep class io.flutter.** { *; }
 -keep class io.flutter.plugins.** { *; }
 
--keep class xyz.luan.audioplayers.** { *; }
--keepclassmembernames class xyz.luan.audioplayers.* { *; }
+-keep class com.github.florent37.assets_audio_player.** { *; }
+-keepclassmembernames class com.github.florent37.assets_audio_player.* { *; }
 -keep class com.abedalkareem.games_services.** { *; }
 -keepclassmembernames class com.abedalkareem.games_services.** { *; }
 -keep class dev.fluttercommunity.plus.packageinfo.** { *; }
