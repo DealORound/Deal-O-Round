@@ -33,8 +33,8 @@
 -keepclassmembernames class pl.ukaszapps.soundpool.SoundpoolPlugin.** { *; }
 -keep class io.flutter.plugins.urllauncher.** { *; }
 -keepclassmembernames class io.flutter.plugins.urllauncher.** { *; }
--keep class creativecreatorormaybenot.wakelock.** { *; }
--keepclassmembernames class creativecreatorormaybenot.wakelock.** { *; }
+-keep class dev.fluttercommunity.plus.wakelock.** { *; }
+-keepclassmembernames class dev.fluttercommunity.plus.wakelock.** { *; }
 
 -keepattributes Exceptions,InnerClasses,Signature,Deprecated,SourceFile,LineNumberTable,*Annotation*,EnclosingMethod
 
