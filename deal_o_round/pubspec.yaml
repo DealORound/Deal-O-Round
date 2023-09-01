@@ -9,15 +9,15 @@ environment:
   flutter: ">=3.13.0-0.2.pre"
 
 dependencies:
-  games_services: ^3.0.1
+  games_services: ^3.0.2
   get: ^4.6.5
   intl: ^0.18.1
-  assets_audio_player: ^3.1.0
-  shared_preferences: ^2.2.0
-  soundpool: ^2.4.0
+  assets_audio_player: ^3.1.1
+  shared_preferences: ^2.2.1
+  soundpool: ^2.4.1
   spinner_input_plus: ^0.0.1
   universal_platform: ^1.0.0+1
-  url_launcher: ^6.1.12
+  url_launcher: ^6.1.14
   wakelock_plus: ^1.1.1
   flutter:
     sdk: flutter
