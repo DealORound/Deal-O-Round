@@ -100,7 +100,7 @@ class HomeCenter extends StatelessWidget {
                   }
                 },
                 style: buttonStyle,
-                icon: Icon(Icons.person, size: radius),
+                icon: Icon(Icons.person, size: radius, color: Colors.white),
                 label: Text("Login", style: textStyle),
               ),
               SizedBox(height: spacing),
@@ -126,7 +126,7 @@ class HomeCenter extends StatelessWidget {
                   }
                 },
                 style: buttonStyle,
-                icon: Icon(Icons.format_list_numbered, size: radius),
+                icon: Icon(Icons.format_list_numbered, size: radius, color: Colors.white),
                 label: Text("Scores", style: textStyle),
               ),
               SizedBox(height: spacing),
@@ -151,7 +151,7 @@ class HomeCenter extends StatelessWidget {
                   }
                 },
                 style: buttonStyle,
-                icon: Icon(Icons.grade, size: radius),
+                icon: Icon(Icons.grade, size: radius, color: Colors.white),
                 label: Text("Grades", style: textStyle),
               ),
             ]),
@@ -168,14 +168,14 @@ class HomeCenter extends StatelessWidget {
                     }
                   },
                   style: buttonStyle,
-                  icon: Icon(Icons.play_arrow, size: radius),
+                  icon: Icon(Icons.play_arrow, size: radius, color: Colors.white),
                   label: Text("Play", style: textStyle),
                 ),
                 SizedBox(height: spacing),
                 ElevatedButton.icon(
                   onPressed: () => Get.to(() => SettingsPage()),
                   style: buttonStyle,
-                  icon: Icon(Icons.settings, size: radius),
+                  icon: Icon(Icons.settings, size: radius, color: Colors.white),
                   label: Text("Config", style: textStyle),
                 ),
                 SizedBox(height: spacing),
@@ -189,7 +189,7 @@ class HomeCenter extends StatelessWidget {
                     }
                   },
                   style: buttonStyle,
-                  icon: Icon(Icons.help, size: radius),
+                  icon: Icon(Icons.help, size: radius, color: Colors.white),
                   label: Text("Help", style: textStyle),
                 ),
               ],
