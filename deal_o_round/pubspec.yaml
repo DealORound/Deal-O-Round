@@ -9,7 +9,7 @@ environment:
   flutter: ">=3.13.0-0.2.pre"
 
 dependencies:
-  games_services: ^3.0.2
+  games_services: ^3.0.3
   get: ^4.6.5
   intl: ^0.18.1
   assets_audio_player: ^3.1.1

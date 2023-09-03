@@ -124,18 +124,18 @@ packages:
     dependency: "direct main"
     description:
       name: games_services
-      sha256: "5c5a5b86930ea132f831d97aef308c3cc867f33903a147a316382b2e0bf69298"
+      sha256: "9e426c4ec5714b423fb7c23fe2ab0038041612c821969acfb98781343e61c4ce"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.2"
+    version: "3.0.3"
   games_services_platform_interface:
     dependency: transitive
     description:
       name: games_services_platform_interface
-      sha256: e3173860bdd2b02aca3bd1325c79b97e6bbf909ba6ceca21df4b73828dba2785
+      sha256: c71f484e38f7ed4126d4b2314ca8040422947a86b71c7fa52d3d13a5dbd6aef8
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.1"
+    version: "3.0.3"
   get:
     dependency: "direct main"
     description:
