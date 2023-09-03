@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+
 import 'background_gradient.dart';
 import 'home/home_page.dart';
 import 'home/home_page_widget.dart';

@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../services/size.dart';
 import '../services/sound.dart';
 import 'left_example_chips.dart';

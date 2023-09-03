@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+
 import '../game/logic/game_constants.dart';
 
 const DIFFICULTY = 'difficulty';

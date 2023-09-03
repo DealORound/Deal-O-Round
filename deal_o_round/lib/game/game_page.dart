@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:universal_platform/universal_platform.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
+
 import '../services/settings_constants.dart';
 import '../services/size.dart';
 import '../services/sound.dart';

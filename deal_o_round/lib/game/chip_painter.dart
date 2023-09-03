@@ -1,4 +1,5 @@
 import 'dart:math';
+
 import 'package:flutter/widgets.dart';
 
 class ChipPainter extends CustomPainter {
