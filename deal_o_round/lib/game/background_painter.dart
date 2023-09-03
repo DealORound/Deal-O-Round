@@ -1,5 +1,5 @@
-import 'package:deal_o_round/background_gradient.dart';
 import 'package:flutter/widgets.dart';
+
 import '../background_gradient.dart';
 
 class BackgroundPainter extends CustomPainter {

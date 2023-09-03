@@ -1,9 +1,10 @@
 import 'dart:async';
 
-import 'package:deal_o_round/services/settings_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../services/settings_constants.dart';
 import '../services/sound.dart';
 
 class _HomePageInherited extends InheritedWidget {

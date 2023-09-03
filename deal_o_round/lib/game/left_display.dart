@@ -1,7 +1,8 @@
-import 'package:deal_o_round/game/logic/game_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+
+import '../game/logic/game_constants.dart';
 import '../services/size.dart';
 import 'game_page.dart';
 
