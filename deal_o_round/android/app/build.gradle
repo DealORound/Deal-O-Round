@@ -26,6 +26,7 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
+    namespace 'com.dealoround.android'
     compileSdkVersion 33
 
     sourceSets {
@@ -50,7 +51,7 @@ android {
             signingConfig signingConfigs.debug
         }
     }
-    namespace 'com.dealoround.android'
+
     lint {
         disable 'InvalidPackage'
     }
