@@ -14,11 +14,13 @@
 }
 
 # https://github.com/flutter/flutter/issues/78625#issuecomment-804164524
--keep class io.flutter.app.** { *; }
+# https://stackoverflow.com/questions/76800185/how-to-keep-classes-reported-missing-by-r8-during-a-release-build-of-a-flutter-a/
+# https://github.com/DealORound/Deal-O-Round/issues/28
+#-keep class io.flutter.app.** { *; }
 -keep class io.flutter.plugin.** { *; }
 -keep class io.flutter.util.** { *; }
 -keep class io.flutter.view.** { *; }
--keep class io.flutter.** { *; }
+#-keep class io.flutter.** { *; }
 -keep class io.flutter.plugins.** { *; }
 
 -keep class com.github.florent37.assets_audio_player.** { *; }
