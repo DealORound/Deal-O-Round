@@ -50,7 +50,7 @@ class _GameOverPageState extends State<GameOverPage> {
           height: buttonSize,
           child: FloatingActionButton(
             onPressed: () => Get.back(closeOverlays: true),
-            child: Icon(Icons.arrow_back, size: radius),
+            child: Icon(Icons.arrow_back, size: radius, color: Colors.white),
             backgroundColor: Colors.green,
           ),
         ),
