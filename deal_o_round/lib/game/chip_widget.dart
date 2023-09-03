@@ -33,7 +33,7 @@ class ChipWidgetState extends State<ChipWidget> {
     }
 
     final textColor = (_suit == 'C' || _suit == 'S') ? Colors.black : Colors.red;
-    final fontSize = diameter * (_value == '*' ? 0.8 : 0.625); // ~64 / ~50
+    final fontSize = diameter * (_value == '*' ? 1.0 : 0.625); // ~64 / ~50
     final suitStyle = TextStyle(fontSize: fontSize, fontFamily: 'Cards', color: textColor);
     final valueStyle = TextStyle(
       fontSize: fontSize,
@@ -42,6 +42,8 @@ class ChipWidgetState extends State<ChipWidget> {
       color: textColor,
     );
 
+    final textValue = _value == '*' ? "" : _value;
+    final suitValue = _value == '*' ? "J" : _suit;
     return SizedBox(
       width: diameter,
       height: diameter,
@@ -49,17 +51,15 @@ class ChipWidgetState extends State<ChipWidget> {
         painter: ChipPainter(),
         foregroundPainter: ChipSelectionPainter(card.selected, card.neighbor),
         child: Center(
-          child: _value == '*'
-              ? Text('J', style: suitStyle)
-              : RichText(
-                  maxLines: 1,
-                  overflow: TextOverflow.visible,
-                  text: TextSpan(
-                    text: _value,
-                    style: valueStyle,
-                    children: <TextSpan>[TextSpan(text: _suit, style: suitStyle)],
-                  ),
-                ),
+          child: RichText(
+            maxLines: 1,
+            overflow: TextOverflow.visible,
+            text: TextSpan(
+              text: textValue,
+              style: valueStyle,
+              children: <TextSpan>[TextSpan(text: suitValue, style: suitStyle)],
+            ),
+          ),
         ),
       ),
     );
