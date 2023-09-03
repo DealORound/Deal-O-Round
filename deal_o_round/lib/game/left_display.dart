@@ -72,21 +72,25 @@ class LeftDisplay extends StatelessWidget {
         ElevatedButton.icon(
           onPressed: () => state.togglePause(),
           style: buttonStyle,
-          icon: Icon(state.paused ? Icons.play_arrow : Icons.pause, size: size),
+          icon: Icon(
+            state.paused ? Icons.play_arrow : Icons.pause,
+            size: size,
+            color: Colors.white,
+          ),
           label: Text(state.paused ? "Play" : "Pause", style: textStyle),
         ),
         SizedBox(height: spacing),
         ElevatedButton.icon(
           onPressed: () => state.spin(),
           style: buttonStyle,
-          icon: Icon(Icons.loop, size: size),
+          icon: Icon(Icons.loop, size: size, color: Colors.white),
           label: Text("Spin", style: textStyle),
         ),
         SizedBox(height: spacing),
         ElevatedButton.icon(
           onPressed: () => state.evaluateAndProcessHand(),
           style: buttonStyle,
-          icon: Icon(Icons.functions, size: size),
+          icon: Icon(Icons.functions, size: size, color: Colors.white),
           label: Text("Eval", style: textStyle),
         ),
         SizedBox(height: spacing),
@@ -101,7 +105,7 @@ class LeftDisplay extends StatelessWidget {
             }
           },
           style: buttonStyle,
-          icon: Icon(Icons.help_outline, size: size),
+          icon: Icon(Icons.help_outline, size: size, color: Colors.white),
           label: Text("Help", style: textStyle),
         ),
       ],
