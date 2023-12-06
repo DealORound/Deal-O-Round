@@ -2,7 +2,7 @@ name: deal_o_round
 description: Flutter port of the originally PlayN based Deal-O-Round game.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 2.0.23+23
+version: 2.0.24+24
 
 environment:
   sdk: ">=2.30.0"
