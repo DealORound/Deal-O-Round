@@ -23,6 +23,8 @@ dependencies:
     sdk: flutter
 
 dev_dependencies:
+  analyzer: ^6.3.0
+  flutter_lints: ^3.0.1
   flutter_test:
     sdk: flutter
 
