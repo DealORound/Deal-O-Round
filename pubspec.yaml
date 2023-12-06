@@ -5,8 +5,8 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 2.0.23+23
 
 environment:
-  sdk: ">=2.29.0"
-  flutter: ">=3.17.0-1.0.pre.3"
+  sdk: ">=2.30.0"
+  flutter: ">=3.18.0-0.1.pre"
 
 dependencies:
   games_services: ^4.0.0
