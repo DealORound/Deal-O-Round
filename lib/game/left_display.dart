@@ -7,6 +7,8 @@ import '../services/size.dart';
 import 'game_page.dart';
 
 class LeftDisplay extends StatelessWidget {
+  const LeftDisplay({super.key});
+
   @override
   Widget build(BuildContext context) {
     final state = GamePage.of(context);
@@ -28,7 +30,7 @@ class LeftDisplay extends StatelessWidget {
         border: Border.all(color: Colors.green.shade700, width: 3.0));
     final spacing = radius / 8; // ~5
     final width = radius * 4; // ~160
-    const buttonPadding = const EdgeInsets.all(4.0);
+    const buttonPadding = EdgeInsets.all(4.0);
     var buttonShape = RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(5.0),
       side: BorderSide(color: Colors.grey.shade700, width: 3.0),

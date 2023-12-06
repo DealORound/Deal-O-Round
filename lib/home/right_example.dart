@@ -6,6 +6,8 @@ import '../game/logic/value.dart';
 import '../game/chip_widget.dart';
 
 class RightExample extends StatelessWidget {
+  const RightExample({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(

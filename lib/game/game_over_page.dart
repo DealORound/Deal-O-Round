@@ -8,7 +8,7 @@ import '../services/sound.dart';
 import 'background_painter.dart';
 
 class GameOverPage extends StatefulWidget {
-  GameOverPage({Key? key, required this.score}) : super(key: key);
+  const GameOverPage({super.key, required this.score});
 
   final int score;
 
@@ -24,9 +24,9 @@ class _GameOverPageState extends State<GameOverPage> {
   initState() {
     super.initState();
 
-    final _prefs = Get.find<SharedPreferences>();
-    _difficulty = _prefs.getString(DIFFICULTY) ?? DIFFICULTY_DEFAULT;
-    _layout = _prefs.getString(BOARD_LAYOUT) ?? BOARD_LAYOUT_DEFAULT;
+    final prefs = Get.find<SharedPreferences>();
+    _difficulty = prefs.getString(DIFFICULTY) ?? DIFFICULTY_DEFAULT;
+    _layout = prefs.getString(BOARD_LAYOUT) ?? BOARD_LAYOUT_DEFAULT;
     final soundUtils = Get.find<SoundUtils>();
     soundUtils.playSoundTrack(SoundTrack.EndMusic);
   }
@@ -36,10 +36,13 @@ class _GameOverPageState extends State<GameOverPage> {
     final radius = chipRadius(context); // ~40
     final titleSize = radius * 1.5; // ~60
     final buttonSize = radius * 1.2; // ~48
-    final titleStyle = TextStyle(fontSize: titleSize, fontFamily: 'Musicals', color: Colors.white);
+    final titleStyle = TextStyle(
+        fontSize: titleSize, fontFamily: 'Musicals', color: Colors.white);
     final fontSize = radius * 0.8; // ~32
-    final textStyle =
-        TextStyle(fontSize: fontSize, fontFamily: 'Roboto Condensed', color: Colors.white);
+    final textStyle = TextStyle(
+        fontSize: fontSize,
+        fontFamily: 'Roboto Condensed',
+        color: Colors.white);
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -51,8 +54,8 @@ class _GameOverPageState extends State<GameOverPage> {
           height: buttonSize,
           child: FloatingActionButton(
             onPressed: () => Get.back(closeOverlays: true),
-            child: Icon(Icons.arrow_back, size: radius, color: Colors.white),
             backgroundColor: Colors.green,
+            child: Icon(Icons.arrow_back, size: radius, color: Colors.white),
           ),
         ),
       ),
@@ -75,7 +78,7 @@ class _GameOverPageState extends State<GameOverPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Padding(
-                  padding: EdgeInsets.all(15),
+                  padding: const EdgeInsets.all(15),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -86,7 +89,7 @@ class _GameOverPageState extends State<GameOverPage> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(15),
+                  padding: const EdgeInsets.all(15),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,

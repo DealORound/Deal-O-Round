@@ -4,6 +4,8 @@ import '../services/size.dart';
 import 'home_page.dart';
 
 class TitleLine extends StatelessWidget {
+  const TitleLine({super.key});
+
   @override
   Widget build(BuildContext context) {
     final state = HomePage.of(context);

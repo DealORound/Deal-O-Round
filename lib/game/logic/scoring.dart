@@ -59,7 +59,8 @@ class Scoring {
         displayStr += "$lowCardValueString and up";
         break;
       case HandClass.TwoPair:
-        displayStr += valueDisplay(highCard?.value ?? Value.Invalid) + " + $lowCardValueString";
+        displayStr +=
+            "${valueDisplay(highCard?.value ?? Value.Invalid)} + $lowCardValueString";
         break;
       case HandClass.Flush4:
         displayStr += suitString;
@@ -74,11 +75,8 @@ class Scoring {
         displayStr += suitString;
         break;
       case HandClass.FullHouse:
-        displayStr += "$suitString, $lowCardValueString and up + " +
-            (highCard?.suit ?? Suit.Invalid).toString().split('.').last +
-            ", " +
-            valueDisplay(highCard?.value ?? Value.Invalid) +
-            " and up";
+        displayStr +=
+            "$suitString, $lowCardValueString and up + ${(highCard?.suit ?? Suit.Invalid).toString().split('.').last}, ${valueDisplay(highCard?.value ?? Value.Invalid)} and up";
         break;
       case HandClass.FourOfAKind:
         displayStr += lowCardValueString;

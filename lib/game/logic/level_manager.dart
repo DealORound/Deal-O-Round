@@ -78,8 +78,8 @@ class LevelManager {
     currentLevel = 0;
   }
 
-  Future<AdvancingReturn> advanceLevels(Difficulty difficulty, int currentScore, int handScore,
-      int nextLevelScore, bool shouldUnlock) async {
+  Future<AdvancingReturn> advanceLevels(Difficulty difficulty, int currentScore,
+      int handScore, int nextLevelScore, bool shouldUnlock) async {
     final newScore = currentScore + handScore;
     int countDown = 0;
     while (newScore > nextLevelScore) {
@@ -115,6 +115,7 @@ class LevelManager {
   }
 
   bool hasDiagonalSelection(Difficulty difficulty) {
-    return difficulty == Difficulty.Easy || difficulty == Difficulty.Medium && currentLevel < 2;
+    return difficulty == Difficulty.Easy ||
+        difficulty == Difficulty.Medium && currentLevel < 2;
   }
 }

@@ -9,7 +9,7 @@ import 'chip_selection_painter.dart';
 
 class ChipWidget extends StatefulWidget {
   final PlayCard card;
-  ChipWidget({Key? key, required this.card}) : super(key: key);
+  const ChipWidget({super.key, required this.card});
 
   @override
   State<StatefulWidget> createState() => ChipWidgetState(card);
@@ -21,8 +21,8 @@ class ChipWidgetState extends State<ChipWidget> {
   late String _value;
 
   ChipWidgetState(this.card) {
-    this._suit = suitCharacter(card.suit);
-    this._value = valueCharacter(card.value);
+    _suit = suitCharacter(card.suit);
+    _value = valueCharacter(card.value);
   }
 
   @override
@@ -32,9 +32,11 @@ class ChipWidgetState extends State<ChipWidget> {
       return SizedBox(width: diameter, height: diameter);
     }
 
-    final textColor = (_suit == 'C' || _suit == 'S') ? Colors.black : Colors.red;
+    final textColor =
+        (_suit == 'C' || _suit == 'S') ? Colors.black : Colors.red;
     final fontSize = diameter * (_value == '*' ? 1.0 : 0.625); // ~64 / ~50
-    final suitStyle = TextStyle(fontSize: fontSize, fontFamily: 'Cards', color: textColor);
+    final suitStyle =
+        TextStyle(fontSize: fontSize, fontFamily: 'Cards', color: textColor);
     final valueStyle = TextStyle(
       fontSize: fontSize,
       fontFamily: 'Stint-Ultra-Condensed',

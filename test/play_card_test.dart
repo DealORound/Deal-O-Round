@@ -6,7 +6,7 @@ import 'package:deal_o_round/game/logic/value.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 main() {
-  final maxDeckCount = 8;
+  const maxDeckCount = 8;
 
   group('PlayCard tests', () {
     test('Hash codes of different cards are different', () async {
@@ -91,7 +91,8 @@ main() {
       }
     });
 
-    test('Neighborhood influence equality, does not influence compare', () async {
+    test('Neighborhood influence equality, does not influence compare',
+        () async {
       for (int deck = 0; deck < maxDeckCount; deck++) {
         for (Value value in Value.values) {
           for (Suit suit in Suit.values) {
@@ -112,7 +113,8 @@ main() {
       }
     });
 
-    test('Deck number influence equality, does not influence compare', () async {
+    test('Deck number influence equality, does not influence compare',
+        () async {
       for (int deck = 0; deck < maxDeckCount; deck++) {
         for (Value value in Value.values) {
           for (Suit suit in Suit.values) {

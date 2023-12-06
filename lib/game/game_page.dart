@@ -21,11 +21,10 @@ import 'logic/scoring.dart';
 import 'game_over_page.dart';
 
 class _GamePageInherited extends InheritedWidget {
-  _GamePageInherited({
-    Key? key,
-    required Widget child,
+  const _GamePageInherited({
+    required super.child,
     required this.data,
-  }) : super(key: key, child: child);
+  });
 
   final GameState data;
 
@@ -36,10 +35,10 @@ class _GamePageInherited extends InheritedWidget {
 }
 
 class GamePage extends StatefulWidget {
-  GamePage({
-    Key? key,
+  const GamePage({
+    super.key,
     required this.child,
-  }) : super(key: key);
+  });
 
   final Widget child;
 
@@ -47,7 +46,8 @@ class GamePage extends StatefulWidget {
   GameState createState() => GameState();
 
   static GameState? of(BuildContext context) {
-    final state = context.dependOnInheritedWidgetOfExactType<_GamePageInherited>();
+    final state =
+        context.dependOnInheritedWidgetOfExactType<_GamePageInherited>();
     return state?.data;
   }
 }
@@ -66,15 +66,15 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   late SharedPreferences _prefs;
   BoardLayout _layout = BoardLayout.Hexagonal;
   Difficulty _difficulty = Difficulty.Easy;
-  LevelManager _levelManager = LevelManager();
+  final LevelManager _levelManager = LevelManager();
   late Board _board;
-  Rules _rules = Rules();
+  final Rules _rules = Rules();
   int _elapsed = 0;
   bool _inGesture = false;
-  Point<int> _firstTouched = Point<int>(-1, -1);
-  Point<int> _lastFlipped = Point<int>(-1, -1);
+  Point<int> _firstTouched = const Point<int>(-1, -1);
+  Point<int> _lastFlipped = const Point<int>(-1, -1);
   bool _swipeGesture = false;
-  List<Point<int>> _selection = [];
+  final List<Point<int>> _selection = [];
   bool _paused = false;
   DateTime _pauseStarted = DateTime.now();
   int _totalPaused = 0;
@@ -100,11 +100,11 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
 
   GameState() {
     _prefs = Get.find<SharedPreferences>();
-    _difficulty =
-        enumFromString(Difficulty.values, _prefs.getString(DIFFICULTY) ?? DIFFICULTY_DEFAULT) ??
-            DIFFICULTY_DEFAULT_VALUE;
-    _layout = enumFromString(
-            BoardLayout.values, _prefs.getString(BOARD_LAYOUT) ?? BOARD_LAYOUT_DEFAULT) ??
+    _difficulty = enumFromString(Difficulty.values,
+            _prefs.getString(DIFFICULTY) ?? DIFFICULTY_DEFAULT) ??
+        DIFFICULTY_DEFAULT_VALUE;
+    _layout = enumFromString(BoardLayout.values,
+            _prefs.getString(BOARD_LAYOUT) ?? BOARD_LAYOUT_DEFAULT) ??
         BOARD_LAYOUT_DEFAULT_VALUE;
 
     _countDown = _levelManager.getCurrentLevelTimeLimit(_difficulty);
@@ -112,7 +112,8 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     _level = _levelManager.getCurrentLevelIndex();
     _board = Board(_layout);
     _listKeys = indexes.map((i) => GlobalKey<AnimatedListState>()).toList();
-    _animationDelay = (_prefs.getDouble(ANIMATION_SPEED) ?? ANIMATION_SPEED_DEFAULT).toInt();
+    _animationDelay =
+        (_prefs.getDouble(ANIMATION_SPEED) ?? ANIMATION_SPEED_DEFAULT).toInt();
     _shouldUnlock = (_prefs.getBool(GAME_SIGNED_IN) ?? false) &&
         (UniversalPlatform.isAndroid || UniversalPlatform.isIOS);
   }
@@ -155,7 +156,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   List<Point<int>> _getNeighbors(Point<int> cell) {
     final List<Point<int>> neighbors = [];
     final diagonals = _levelManager.hasDiagonalSelection(_difficulty);
-    final maxIndex = BOARD_SIZE - 1;
+    const maxIndex = BOARD_SIZE - 1;
     final notTop = cell.y > 0;
     if (notTop) {
       neighbors.add(Point(cell.x, cell.y - 1));
@@ -226,13 +227,15 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   }
 
   bool _hasSelected(List<Point<int>> cells) {
-    return cells.fold<bool>(false, (f, n) => f || _board.board[n.x][n.y].selected);
+    return cells.fold<bool>(
+        false, (f, n) => f || _board.board[n.x][n.y].selected);
   }
 
   _correctNeighbors(List<Point<int>> neighbors) {
     for (Point<int> neighbor in neighbors) {
       final neighborsOfNeighbor = _getNeighbors(neighbor);
-      _board.board[neighbor.x][neighbor.y].neighbor = _hasSelected(neighborsOfNeighbor);
+      _board.board[neighbor.x][neighbor.y].neighbor =
+          _hasSelected(neighborsOfNeighbor);
     }
   }
 
@@ -243,7 +246,9 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
       }
       if (_levelManager.hasNeighborHighlight(_difficulty, true)) {
         for (var x in indexes) {
-          final ixs = (_layout == BoardLayout.Hexagonal && x % 2 == 0) ? indexesEven : indexes;
+          final ixs = (_layout == BoardLayout.Hexagonal && x % 2 == 0)
+              ? indexesEven
+              : indexes;
           for (var y in ixs) {
             _board.board[x][y].neighbor = false;
           }
@@ -258,7 +263,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   }
 
   List<Scoring> _rankHands(List<PlayCard> selectedHand) {
-    if (selectedHand.length == 0) {
+    if (selectedHand.isEmpty) {
       selectedHand = _getSelectedHand();
     }
     return _rules.rankHand(selectedHand, 0, true, true);
@@ -286,13 +291,14 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
         _swipeGesture = true;
       }
 
-      if ((cell.x != _lastFlipped.x || cell.y != _lastFlipped.y) && _selection.length < 5) {
+      if ((cell.x != _lastFlipped.x || cell.y != _lastFlipped.y) &&
+          _selection.length < 5) {
         bool selected = _board.board[cell.x][cell.y].selected;
         bool shouldAdjust = false;
         List<Point<int>> neighbors = [];
         if (selected) {
           if (!_swipeGesture) {
-            assert(_selection.length > 0);
+            assert(_selection.isNotEmpty);
             // Check if the remaining selection is adjacent
             _selection.remove(cell);
             shouldAdjust = true;
@@ -300,7 +306,8 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
             if (_selection.length > 1) {
               neighbors = _getNeighbors(cell);
               if (neighbors.length > 1) {
-                List<int> vs = neighbors.map((c) => _getNeighbors(c).length).toList();
+                List<int> vs =
+                    neighbors.map((c) => _getNeighbors(c).length).toList();
                 int vProd = vs.fold<int>(1, (f, n) => f * n);
                 // If any selected don't have selected neighbors OR
                 // If more than 2 selected but there are no selection with
@@ -308,14 +315,15 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
                 // If 4 selected and there are more than two with 1 neighbor
                 if (vProd == 0 ||
                     neighbors.length >= 3 && vProd < 2 ||
-                    neighbors.length == 4 && vs.fold<int>(0, (f, n) => f + (n == 1 ? 1 : 0)) > 2) {
+                    neighbors.length == 4 &&
+                        vs.fold<int>(0, (f, n) => f + (n == 1 ? 1 : 0)) > 2) {
                   _clearSelection();
                 }
               }
             }
           }
         } else {
-          if (_selection.length > 0) {
+          if (_selection.isNotEmpty) {
             // There were already some selected
             // Deselect them if the new selection is not adjacent
             neighbors = _getNeighbors(cell);
@@ -333,7 +341,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
           setState(() {
             _board.board[cell.x][cell.y].selected = !selected;
             if (_levelManager.hasNeighborHighlight(_difficulty, false)) {
-              if (neighbors.length <= 0) {
+              if (neighbors.isEmpty) {
                 neighbors = _getNeighbors(cell);
               }
               _correctNeighbors(neighbors);
@@ -342,7 +350,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
 
             // Update info
             List<Scoring> hands = _rankHands([]);
-            if (hands.length > 0) {
+            if (hands.isNotEmpty) {
               _info = hands[0].toStringDisplay();
             } else {
               _info = "-";
@@ -360,7 +368,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     bool clear = true;
     if (_selection.length >= 2 && countDown > 0) {
       List<Scoring> hands = _rankHands([]);
-      if (hands.length > 0) {
+      if (hands.isNotEmpty) {
         Scoring hand = hands.first;
         if (_shouldUnlock) {
           try {
@@ -376,8 +384,8 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
           }
         }
         final selectedHand = _getSelectedHand();
-        final jokerCount =
-            selectedHand.fold<int>(0, (count, card) => card.value.index == 13 ? count + 1 : count);
+        final jokerCount = selectedHand.fold<int>(
+            0, (count, card) => card.value.index == 13 ? count + 1 : count);
         final multiplier = pow(2, jokerCount).round();
         final handScore = hand.score() * multiplier;
         AdvancingReturn advancing = await _levelManager.advanceLevels(
@@ -414,8 +422,8 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   onPointerDown(PointerEvent details) async {
     _inGesture = true;
     _swipeGesture = false;
-    _firstTouched = Point<int>(-1, -1);
-    _lastFlipped = Point<int>(-1, -1);
+    _firstTouched = const Point<int>(-1, -1);
+    _lastFlipped = const Point<int>(-1, -1);
     _hitTest(details);
   }
 
@@ -438,9 +446,8 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     _populateBoard();
 
     final soundUtils = Get.find<SoundUtils>();
-    soundUtils
-        .playSoundEffect(SoundEffect.LongCardShuffle)
-        .then((c) async => await soundUtils.playSoundTrack(SoundTrack.GuitarMusic));
+    soundUtils.playSoundEffect(SoundEffect.LongCardShuffle).then(
+        (c) async => await soundUtils.playSoundTrack(SoundTrack.GuitarMusic));
 
     WakelockPlus.enable();
   }
@@ -448,7 +455,8 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   void _populateBoard() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _selectionBlock = true;
-      Timer(Duration(milliseconds: (animationDelay * BOARD_SIZE * 1.5).toInt()), () {
+      Timer(Duration(milliseconds: (animationDelay * BOARD_SIZE * 1.5).toInt()),
+          () {
         _selectionBlock = false;
       });
 
@@ -457,7 +465,9 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
         future = future.then((_) {
           return Future.delayed(Duration(milliseconds: _animationDelay), () {
             for (int j = 0; j < BOARD_SIZE; j++) {
-              if (i < BOARD_SIZE - 1 || j % 2 == 1 || layout == BoardLayout.Square) {
+              if (i < BOARD_SIZE - 1 ||
+                  j % 2 == 1 ||
+                  layout == BoardLayout.Square) {
                 _listKeys[j].currentState?.insertItem(i);
               }
             }

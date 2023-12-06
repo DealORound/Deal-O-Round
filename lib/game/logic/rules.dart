@@ -17,7 +17,7 @@ class Rules {
     hand.sort((hi, hj) => hi.compareTo(hj));
     String handString = "";
     for (PlayCard card in handClone) {
-      handString += (card.suit.index.toString() + "_" + card.value.index.toString() + "_");
+      handString += ("${card.suit.index}_${card.value.index}_");
     }
     return handString.toString();
   }
@@ -26,8 +26,10 @@ class Rules {
     if (!fast) {
       for (Scoring result in results) {
         if (result.score() != scoring.score()) {
-          if ((result.toStringDisplay() == "None" || result.toStringDisplay() == "") &&
-              (scoring.toStringDisplay() == "None" || scoring.toStringDisplay() == "")) {
+          if ((result.toStringDisplay() == "None" ||
+                  result.toStringDisplay() == "") &&
+              (scoring.toStringDisplay() == "None" ||
+                  scoring.toStringDisplay() == "")) {
             return false;
           }
           if (result.toStringDisplay() == scoring.toStringDisplay()) {
@@ -40,8 +42,8 @@ class Rules {
     return true;
   }
 
-  void rankHandCore(List<PlayCard> cards, List<Scoring> results, int subHandDrillDown,
-      bool bestOnTop, bool fast) {
+  void rankHandCore(List<PlayCard> cards, List<Scoring> results,
+      int subHandDrillDown, bool bestOnTop, bool fast) {
     if (cards.length <= 1) {
       return;
     }
@@ -56,7 +58,8 @@ class Rules {
         jokerIndex++;
       }
       final jokerCard = hand[jokerIndex];
-      final jokerSuites = BLACK_SUITES.contains(jokerCard.suit) ? BLACK_SUITES : RED_SUITES;
+      final jokerSuites =
+          BLACK_SUITES.contains(jokerCard.suit) ? BLACK_SUITES : RED_SUITES;
       for (Suit suit in jokerSuites) {
         final nonJoker = Value.values.sublist(0, 13);
         for (Value value in nonJoker) {
@@ -84,7 +87,8 @@ class Rules {
     }
   }
 
-  List<Scoring> rankHand(List<PlayCard> cards, int subHandDrillDown, bool bestOnTop, bool fast) {
+  List<Scoring> rankHand(
+      List<PlayCard> cards, int subHandDrillDown, bool bestOnTop, bool fast) {
     List<Scoring> results = [];
 
     if (cards.length <= 1) {
@@ -115,7 +119,8 @@ class Rules {
     }
   }
 
-  rankThreeCards(List<PlayCard> hand, int subHandDrillDown, List<Scoring> results, bool fast) {
+  rankThreeCards(List<PlayCard> hand, int subHandDrillDown,
+      List<Scoring> results, bool fast) {
     if (hand.length <= 2) {
       return;
     }
@@ -130,7 +135,8 @@ class Rules {
     }
     bool flush = (hand[0].suit == hand[1].suit && hand[1].suit == hand[2].suit);
     hand.sort((hi, hj) => hi.value.index.compareTo(hj.value.index));
-    bool possibleWheel = (hand[0].value == Value.Two && hand[2].value == Value.Ace);
+    bool possibleWheel =
+        (hand[0].value == Value.Two && hand[2].value == Value.Ace);
     if (hand[0].value.index + 1 == hand[1].value.index &&
         (hand[1].value.index + 1 == hand[2].value.index || possibleWheel)) {
       // It's a straight.
@@ -175,7 +181,8 @@ class Rules {
     }
   }
 
-  rankFourCards(List<PlayCard> hand, int subHandDrillDown, List<Scoring> results, bool fast) {
+  rankFourCards(List<PlayCard> hand, int subHandDrillDown,
+      List<Scoring> results, bool fast) {
     if (hand.length <= 3) {
       return;
     }
@@ -194,7 +201,8 @@ class Rules {
         hand[1].suit == hand[2].suit &&
         hand[2].suit == hand[3].suit);
     hand.sort((hi, hj) => hi.value.index.compareTo(hj.value.index));
-    bool possibleWheel = (hand[0].value == Value.Two && hand[3].value == Value.Ace);
+    bool possibleWheel =
+        (hand[0].value == Value.Two && hand[3].value == Value.Ace);
     if (hand[0].value.index + 1 == hand[1].value.index &&
         hand[1].value.index + 1 == hand[2].value.index &&
         (hand[2].value.index + 1 == hand[3].value.index || possibleWheel)) {
@@ -258,7 +266,8 @@ class Rules {
     }
   }
 
-  rankFiveCards(List<PlayCard> hand, int subHandDrillDown, List<Scoring> results, bool fast) {
+  rankFiveCards(List<PlayCard> hand, int subHandDrillDown,
+      List<Scoring> results, bool fast) {
     if (hand.length <= 4) {
       return;
     }
@@ -284,7 +293,8 @@ class Rules {
 			// Four of a kind
 			return 1500 + offsetRank(hand[1]);
 		}*/
-    bool possibleWheel = (hand[0].value == Value.Two && hand[4].value == Value.Ace);
+    bool possibleWheel =
+        (hand[0].value == Value.Two && hand[4].value == Value.Ace);
     bool flush = (hand[0].suit == hand[1].suit &&
         hand[1].suit == hand[2].suit &&
         hand[2].suit == hand[3].suit &&

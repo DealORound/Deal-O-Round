@@ -9,28 +9,29 @@ class ChipPainter extends CustomPainter {
     final horizontalCenter = size.width / 2;
     final center = Offset(horizontalCenter, verticalCenter);
     final whiteFill = Paint()
-      ..color = Color(0xFFFFFFFF)
+      ..color = const Color(0xFFFFFFFF)
       ..style = PaintingStyle.fill
       ..isAntiAlias = true;
     canvas.drawCircle(center, verticalCenter, whiteFill);
 
     final blackStroke = Paint()
-      ..color = Color(0xFF000000)
+      ..color = const Color(0xFF000000)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1
       ..isAntiAlias = true;
     canvas.drawCircle(center, verticalCenter - 4, blackStroke);
 
-    final circleRect = Rect.fromCircle(center: center, radius: verticalCenter - 2);
+    final circleRect =
+        Rect.fromCircle(center: center, radius: verticalCenter - 2);
     final blueStroke = Paint()
-      ..color = Color(0xFF0000FF)
+      ..color = const Color(0xFF0000FF)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 4
       ..isAntiAlias = true;
-    final sweepAngle = 2 * pi / 16;
-    final stepAngle = sweepAngle * 2;
-    final startAngle = sweepAngle * 1.5;
-    final stopAngle = stepAngle + 2 * pi;
+    const sweepAngle = 2 * pi / 16;
+    const stepAngle = sweepAngle * 2;
+    const startAngle = sweepAngle * 1.5;
+    const stopAngle = stepAngle + 2 * pi;
     for (var angle = startAngle; angle <= stopAngle; angle += stepAngle) {
       canvas.drawArc(circleRect, angle, sweepAngle, false, blueStroke);
     }

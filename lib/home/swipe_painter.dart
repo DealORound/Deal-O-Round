@@ -17,7 +17,7 @@ class SwipePainter extends CustomPainter {
   @override
   paint(Canvas canvas, Size size) {
     Paint paint = Paint()
-      ..color = Color(0x668BC34A)
+      ..color = const Color(0x668BC34A)
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
       ..strokeWidth = size.width / 2 - 10; // ~70

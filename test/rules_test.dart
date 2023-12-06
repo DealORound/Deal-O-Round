@@ -27,19 +27,20 @@ main() {
 
   void assertCombination(RuleTestInput ruleTestInput) {
     final rules = Rules();
-    final results =
-        rules.rankHand(ruleTestInput.hand, ruleTestInput.subHandDrillDownLevel, true, true);
+    final results = rules.rankHand(
+        ruleTestInput.hand, ruleTestInput.subHandDrillDownLevel, true, true);
     final score = results.isNotEmpty ? results[0].score() : 0;
     expect(score, ruleTestInput.expectedScore);
   }
 
   void assertHand(RuleTestInput ruleTestInput) {
     final rules = Rules();
-    final results =
-        rules.rankHand(ruleTestInput.hand, ruleTestInput.subHandDrillDownLevel, false, true);
+    final results = rules.rankHand(
+        ruleTestInput.hand, ruleTestInput.subHandDrillDownLevel, false, true);
     bool hasExpectedHand = false;
     for (Scoring result in results) {
-      if (handBaseValue(result.handClass) == handBaseValue(ruleTestInput.expectedHand)) {
+      if (handBaseValue(result.handClass) ==
+          handBaseValue(ruleTestInput.expectedHand)) {
         hasExpectedHand = true;
         break;
       }
@@ -989,8 +990,10 @@ main() {
         PlayCard(Suit.Hearts, Value.values[(i + 3) % 13]),
         PlayCard(Suit.Diamonds, Value.values[i + 1]),
       ];
-      assertHand(
-          RuleTestInput(hand: hand, subHandDrillDownLevel: 1, expectedHand: HandClass.TwoPair));
+      assertHand(RuleTestInput(
+          hand: hand,
+          subHandDrillDownLevel: 1,
+          expectedHand: HandClass.TwoPair));
     }
 
     for (int i = 0; i < 11; i++) {
@@ -1031,8 +1034,10 @@ main() {
         PlayCard(Suit.Clubs, Value.values[i + 1]),
         PlayCard(Suit.Diamonds, Value.values[i]),
       ];
-      assertHand(
-          RuleTestInput(hand: hand, subHandDrillDownLevel: 1, expectedHand: HandClass.TwoPair));
+      assertHand(RuleTestInput(
+          hand: hand,
+          subHandDrillDownLevel: 1,
+          expectedHand: HandClass.TwoPair));
     }
 
     for (int i = 0; i < 11; i++) {
@@ -2260,9 +2265,12 @@ main() {
         PlayCard(Suit.Invalid, Value.Ace),
         PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Jack),
       ];
-      assertCombination(RuleTestInput(hand: hand, subHandDrillDownLevel: 0, expectedScore: 0));
-      assertCombination(RuleTestInput(hand: hand, subHandDrillDownLevel: 1, expectedScore: 0));
-      assertCombination(RuleTestInput(hand: hand, subHandDrillDownLevel: 2, expectedScore: 15));
+      assertCombination(RuleTestInput(
+          hand: hand, subHandDrillDownLevel: 0, expectedScore: 0));
+      assertCombination(RuleTestInput(
+          hand: hand, subHandDrillDownLevel: 1, expectedScore: 0));
+      assertCombination(RuleTestInput(
+          hand: hand, subHandDrillDownLevel: 2, expectedScore: 15));
     }
 
     // mixed order

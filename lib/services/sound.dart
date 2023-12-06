@@ -28,12 +28,12 @@ class SoundUtils {
   AssetsAudioPlayer? _audioPlayer;
   SoundTrack? _trackPlaying;
 
-  Map<SoundEffect, int> _soundIds = {
+  final Map<SoundEffect, int> _soundIds = {
     SoundEffect.ShortCardShuffle: 0,
     SoundEffect.LongCardShuffle: 0,
     SoundEffect.PokerChips: 0
   };
-  Map<SoundEffect, int> _streamIds = {
+  final Map<SoundEffect, int> _streamIds = {
     SoundEffect.ShortCardShuffle: 0,
     SoundEffect.LongCardShuffle: 0,
     SoundEffect.PokerChips: 0
@@ -41,7 +41,8 @@ class SoundUtils {
 
   SoundUtils(this.pref) {
     _soundPool = Soundpool.fromOptions(
-        options: SoundpoolOptions(streamType: StreamType.music, maxStreams: 2));
+        options: const SoundpoolOptions(
+            streamType: StreamType.music, maxStreams: 2));
     if (pref.getBool(SOUND_EFFECTS) ?? SOUND_EFFECTS_DEFAULT) {
       loadSoundEffects();
     }
@@ -114,10 +115,11 @@ class SoundUtils {
       }
 
       _trackPlaying = track;
-      await _audioPlayer?.setVolume((pref.getDouble(VOLUME) ?? VOLUME_DEFAULT) / 100.0);
+      await _audioPlayer
+          ?.setVolume((pref.getDouble(VOLUME) ?? VOLUME_DEFAULT) / 100.0);
       await _audioPlayer?.open(Audio("assets/$trackPath"));
     }
-    return null;
+    return;
   }
 
   stopAllSoundTracks() async {

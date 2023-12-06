@@ -8,11 +8,10 @@ import '../services/settings_constants.dart';
 import '../services/sound.dart';
 
 class _HomePageInherited extends InheritedWidget {
-  _HomePageInherited({
-    Key? key,
-    required Widget child,
+  const _HomePageInherited({
+    required super.child,
     required this.data,
-  }) : super(key: key, child: child);
+  });
 
   final HomePageState data;
 
@@ -23,10 +22,10 @@ class _HomePageInherited extends InheritedWidget {
 }
 
 class HomePage extends StatefulWidget {
-  HomePage({
-    Key? key,
+  const HomePage({
+    super.key,
     required this.child,
-  }) : super(key: key);
+  });
 
   final Widget child;
 
@@ -34,12 +33,14 @@ class HomePage extends StatefulWidget {
   HomePageState createState() => HomePageState();
 
   static HomePageState? of(BuildContext context) {
-    final state = context.dependOnInheritedWidgetOfExactType<_HomePageInherited>();
+    final state =
+        context.dependOnInheritedWidgetOfExactType<_HomePageInherited>();
     return state?.data;
   }
 }
 
-class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+class HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   var _rightNow = DateTime.now();
   Timer? _timer;
   late SharedPreferences _prefs;
@@ -78,7 +79,8 @@ class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin 
       // Update once per second, but make sure to do it at the beginning of each
       // new second, so that the clock is accurate.
       _timer = Timer(
-        Duration(seconds: 1) - Duration(milliseconds: _rightNow.millisecond),
+        const Duration(seconds: 1) -
+            Duration(milliseconds: _rightNow.millisecond),
         _updateTime,
       );
     });

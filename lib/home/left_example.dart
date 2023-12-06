@@ -5,6 +5,8 @@ import 'home_page.dart';
 import 'swipe_animation.dart';
 
 class LeftExample extends StatelessWidget {
+  const LeftExample({super.key});
+
   @override
   Widget build(BuildContext context) {
     final state = HomePage.of(context);
@@ -23,7 +25,7 @@ class LeftExample extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SwipeAnimation(),
+        const SwipeAnimation(),
         SizedBox(height: radius / 4), // ~10
         Text("Full House!", style: textStyle),
       ],

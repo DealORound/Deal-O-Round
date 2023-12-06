@@ -10,7 +10,7 @@ import 'enum_settings.dart';
 import 'spinner_settings.dart';
 
 class SettingsPage extends StatefulWidget {
-  SettingsPage({Key? key}) : super(key: key);
+  const SettingsPage({super.key});
 
   @override
   _SettingsPageState createState() => _SettingsPageState();
@@ -52,8 +52,8 @@ class _SettingsPageState extends State<SettingsPage> {
           height: titleSize,
           child: FloatingActionButton(
             onPressed: () => Get.back(),
-            child: Icon(Icons.arrow_back, size: radius),
             backgroundColor: Colors.green,
+            child: Icon(Icons.arrow_back, size: radius),
           ),
         ),
       ),
@@ -80,7 +80,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     padding: const EdgeInsets.all(2.0),
                     child: GridView.count(
                       crossAxisCount: 2,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
                       childAspectRatio: 4.0,
@@ -114,18 +114,22 @@ class _SettingsPageState extends State<SettingsPage> {
                           child: Text("Game Music", style: textStyle),
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(vertical: 0, horizontal: separatorSize),
-                          child: BooleanSettings(
-                              defaultValue: GAME_MUSIC_DEFAULT, valueTag: GAME_MUSIC),
+                          padding: EdgeInsets.symmetric(
+                              vertical: 0, horizontal: separatorSize),
+                          child: const BooleanSettings(
+                              defaultValue: GAME_MUSIC_DEFAULT,
+                              valueTag: GAME_MUSIC),
                         ),
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Text("Sound Effects", style: textStyle),
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(vertical: 0, horizontal: separatorSize),
-                          child: BooleanSettings(
-                              defaultValue: SOUND_EFFECTS_DEFAULT, valueTag: SOUND_EFFECTS),
+                          padding: EdgeInsets.symmetric(
+                              vertical: 0, horizontal: separatorSize),
+                          child: const BooleanSettings(
+                              defaultValue: SOUND_EFFECTS_DEFAULT,
+                              valueTag: SOUND_EFFECTS),
                         ),
                       ],
                     ),
@@ -139,7 +143,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     padding: const EdgeInsets.all(2.0),
                     child: GridView.count(
                       crossAxisCount: 2,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
                       childAspectRatio: 4.0,

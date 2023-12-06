@@ -7,6 +7,8 @@ import '../game/chip_widget.dart';
 import 'swipe_painter.dart';
 
 class LeftExampleChips extends StatelessWidget {
+  const LeftExampleChips({super.key});
+
   @override
   Widget build(BuildContext context) {
     return CustomPaint(

@@ -7,6 +7,8 @@ import 'home/home_page.dart';
 import 'home/home_page_widget.dart';
 
 class DealORoundApp extends StatelessWidget {
+  const DealORoundApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
@@ -22,6 +24,6 @@ class DealORoundApp extends StatelessWidget {
             backgroundColor: Colors.transparent,
             body: Container(
                 decoration: BoxDecoration(gradient: getBackgroundGradient()),
-                child: HomePage(child: HomePageWidget()))));
+                child: const HomePage(child: HomePageWidget()))));
   }
 }

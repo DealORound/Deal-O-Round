@@ -29,19 +29,20 @@ main() {
 
   void assertCombination(RuleTestInput ruleTestInput) {
     final rules = Rules();
-    final results =
-        rules.rankHand(ruleTestInput.hand, ruleTestInput.subHandDrillDownLevel, true, true);
+    final results = rules.rankHand(
+        ruleTestInput.hand, ruleTestInput.subHandDrillDownLevel, true, true);
     final score = results.isNotEmpty ? results[0].score() : 0;
     expect(ruleTestInput.expectedScore, score);
   }
 
   void assertHand(RuleTestInput ruleTestInput) {
     final rules = Rules();
-    final results =
-        rules.rankHand(ruleTestInput.hand, ruleTestInput.subHandDrillDownLevel, false, true);
+    final results = rules.rankHand(
+        ruleTestInput.hand, ruleTestInput.subHandDrillDownLevel, false, true);
     bool hasExpectedHand = false;
     for (Scoring result in results) {
-      if (handBaseValue(result.handClass) == handBaseValue(ruleTestInput.expectedHand)) {
+      if (handBaseValue(result.handClass) ==
+          handBaseValue(ruleTestInput.expectedHand)) {
         hasExpectedHand = true;
         break;
       }

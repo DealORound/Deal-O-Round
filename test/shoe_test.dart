@@ -68,7 +68,8 @@ main() {
       for (int i = 0; i < 52; i++) {
         final playCard = shoe.dealCard();
         for (PlayCard card in cards) {
-          expect(card.suit == playCard.suit && card.value == playCard.value, false);
+          expect(card.suit == playCard.suit && card.value == playCard.value,
+              false);
           expect(playCard.suit != Suit.Invalid, true);
           expect(playCard.value != Value.Invalid, true);
           expect(card.deck, deck);
@@ -78,7 +79,7 @@ main() {
     }
   }
 
-  const MAX_DECK_COUNT = 8;
+  const maxDeckCount = 8;
 
   group('Shoe tests', () {
     test('Default deck is without Joker', () async {
@@ -86,32 +87,33 @@ main() {
       expect(deck.includeJokers, false);
     });
 
-    test('Shoe w/o Joker unshuffled decks are sorted after construction', () async {
-      for (int deckCount in [1, 2, 3, MAX_DECK_COUNT]) {
+    test('Shoe w/o Joker unshuffled decks are sorted after construction',
+        () async {
+      for (int deckCount in [1, 2, 3, maxDeckCount]) {
         testShoeWithoutJokerUnshuffledDecksAreSortedCore(deckCount);
       }
     });
 
     test('Shoe w/o Joker is not sorted after shuffle', () async {
-      for (int deckCount in [1, 2, 3, MAX_DECK_COUNT]) {
+      for (int deckCount in [1, 2, 3, maxDeckCount]) {
         testShoeWithoutJokerIsNotSortedAfterCreation(deckCount);
       }
     });
 
     test('Shoe w/o Joker can deal 52 cards', () async {
-      for (int deckCount in [1, 2, 3, MAX_DECK_COUNT]) {
+      for (int deckCount in [1, 2, 3, maxDeckCount]) {
         testShoeWithoutJokerCanDeal52CardsCore(deckCount);
       }
     });
 
     test('Shoe w/o Joker is endless', () async {
-      for (int deckCount in [1, 2, 3, MAX_DECK_COUNT]) {
+      for (int deckCount in [1, 2, 3, maxDeckCount]) {
         testShoeWithoutJokerIsEndlessCore(deckCount);
       }
     });
 
     test('Shoe deals different cards', () async {
-      for (int deckCount in [1, 2, 3, MAX_DECK_COUNT]) {
+      for (int deckCount in [1, 2, 3, maxDeckCount]) {
         testShoeSuppliesDifferentCardsCore(deckCount);
       }
     });

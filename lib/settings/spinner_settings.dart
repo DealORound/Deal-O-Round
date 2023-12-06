@@ -17,15 +17,14 @@ class SpinnerSettings extends StatefulWidget {
   final TextStyle textStyle;
 
   const SpinnerSettings(
-      {Key? key,
+      {super.key,
       required this.minValue,
       required this.maxValue,
       this.stepValue = 1,
       this.fractionDigits = 0,
       required this.defaultValue,
       required this.valueTag,
-      required this.textStyle})
-      : super(key: key);
+      required this.textStyle});
 
   @override
   _SpinnerSettingsState createState() =>

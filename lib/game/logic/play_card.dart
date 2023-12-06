@@ -10,7 +10,8 @@ class PlayCard implements Comparable<PlayCard> {
 
   PlayCard(this.suit, this.value, {this.deck = 0});
 
-  PlayCard.fromString(String suitStr, String valueStr, String selectedChar, String neighborChar)
+  PlayCard.fromString(
+      String suitStr, String valueStr, String selectedChar, String neighborChar)
       : suit = suitFromCharacter(suitStr),
         value = valueFromCharacter(valueStr),
         deck = 0,
@@ -46,7 +47,9 @@ class PlayCard implements Comparable<PlayCard> {
   @override
   int get hashCode =>
       suit.index +
-      8 * (value.index + 64 * ((selected ? 1 : 0) + 2 * ((neighbor ? 1 : 0) + 2 * deck)));
+      8 *
+          (value.index +
+              64 * ((selected ? 1 : 0) + 2 * ((neighbor ? 1 : 0) + 2 * deck)));
 }
 
 String cardDisplay(PlayCard card) {

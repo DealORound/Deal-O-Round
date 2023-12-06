@@ -10,6 +10,7 @@ Future<void> main() async {
   // if (kDebugMode) {
   //   debugPaintSizeEnabled = true;
   // }
-  await PreferencesUtils.registerService().then((pref) => Get.put<SoundUtils>(SoundUtils(pref)));
-  runApp(DealORoundApp());
+  await PreferencesUtils.registerService()
+      .then((pref) => Get.put<SoundUtils>(SoundUtils(pref)));
+  runApp(const DealORoundApp());
 }

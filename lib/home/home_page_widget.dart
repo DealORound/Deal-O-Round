@@ -5,9 +5,11 @@ import 'left_example.dart';
 import 'right_example.dart';
 
 class HomePageWidget extends StatelessWidget {
+  const HomePageWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return const Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [LeftExample(), HomeCenter(), RightExample()],
     );

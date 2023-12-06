@@ -4,6 +4,8 @@ import '../services/size.dart';
 import 'game_page.dart';
 
 class RightDisplay extends StatelessWidget {
+  const RightDisplay({super.key});
+
   @override
   Widget build(BuildContext context) {
     final state = GamePage.of(context);
@@ -49,7 +51,8 @@ class RightDisplay extends StatelessWidget {
           padding: const EdgeInsets.all(2.0),
           child: SizedBox(
             width: width,
-            child: Center(child: Text("Level ${state.level}", style: textStyle)),
+            child:
+                Center(child: Text("Level ${state.level}", style: textStyle)),
           ),
         ),
         SizedBox(height: spacing),

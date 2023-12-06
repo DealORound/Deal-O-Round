@@ -11,14 +11,15 @@ class BooleanSettings extends StatefulWidget {
   final String valueTag;
 
   const BooleanSettings({
-    Key? key,
+    super.key,
     this.scale = 1.2,
     required this.defaultValue,
     required this.valueTag,
-  }) : super(key: key);
+  });
 
   @override
-  _BooleanSettingsState createState() => _BooleanSettingsState(defaultValue, valueTag);
+  _BooleanSettingsState createState() =>
+      _BooleanSettingsState(defaultValue, valueTag);
 }
 
 class _BooleanSettingsState extends State<BooleanSettings> {

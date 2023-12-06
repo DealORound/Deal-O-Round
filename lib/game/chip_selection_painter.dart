@@ -16,7 +16,7 @@ class ChipSelectionPainter extends CustomPainter {
     final center = Offset(horizontalCenter, verticalCenter);
 
     final selectionFill = Paint()
-      ..color = selected ? Color(0x55FFFF00) : Color(0x55FFA500)
+      ..color = selected ? const Color(0x55FFFF00) : const Color(0x55FFA500)
       ..style = PaintingStyle.fill
       ..isAntiAlias = true;
     canvas.drawCircle(center, verticalCenter, selectionFill);

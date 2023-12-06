@@ -6,6 +6,8 @@ import 'left_display.dart';
 import 'right_display.dart';
 
 class GameWidget extends StatelessWidget {
+  const GameWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,7 +15,7 @@ class GameWidget extends StatelessWidget {
       body: CustomPaint(
         painter: BackgroundPainter(),
         child: Container(
-          child: Row(
+          child: const Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [LeftDisplay(), GameBoard(), RightDisplay()],
           ),

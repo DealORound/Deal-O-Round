@@ -13,26 +13,25 @@ import '../settings/settings_page.dart';
 import 'title_line.dart';
 
 class HomeCenter extends StatelessWidget {
+  const HomeCenter({super.key});
+
   Widget _alertDialog() {
-    final textStyle = TextStyle(fontSize: 18);
+    const textStyle = TextStyle(fontSize: 18);
     return AlertDialog(
-      title: Text('Game Services', style: textStyle),
-      content: Text(
-          'Without signing in the end score ' +
-              'cannot be recorded and no achievement ' +
-              'could be administered. ' +
-              'Is it OK to continue?',
+      title: const Text('Game Services', style: textStyle),
+      content: const Text(
+          'Without signing in the end score cannot be recorded and no achievement could be administered. Is it OK to continue?',
           style: textStyle),
       actions: [
         TextButton(
-          child: Text('Yes', style: textStyle),
+          child: const Text('Yes', style: textStyle),
           onPressed: () async {
             Get.close(1);
-            await Get.to(() => GamePage(child: GameWidget()));
+            await Get.to(() => const GamePage(child: GameWidget()));
           },
         ),
         TextButton(
-          child: Text('No', style: textStyle),
+          child: const Text('No', style: textStyle),
           onPressed: () => Get.close(1), // Get.back(closeOverlays: true),
         ),
       ],
@@ -72,7 +71,7 @@ class HomeCenter extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        TitleLine(),
+        const TitleLine(),
         SizedBox(height: bigSpacing),
         Row(
           children: [
@@ -93,7 +92,7 @@ class HomeCenter extends StatelessWidget {
                   } else {
                     Get.snackbar(
                       "Sign In",
-                      "Game Services is only available on Android " +
+                      "Game Services is only available on Android "
                           "and Game Center is only available on iOS",
                       colorText: SNACK_TEXT,
                       backgroundColor: snackBack,
@@ -122,12 +121,14 @@ class HomeCenter extends StatelessWidget {
                           colorText: SNACK_TEXT, backgroundColor: snackBack);
                     }
                   } else {
-                    Get.snackbar("Leaderboards:", "Only available on Android or iOS devices",
+                    Get.snackbar("Leaderboards:",
+                        "Only available on Android or iOS devices",
                         colorText: SNACK_TEXT, backgroundColor: snackBack);
                   }
                 },
                 style: buttonStyle,
-                icon: Icon(Icons.format_list_numbered, size: radius, color: Colors.white),
+                icon: Icon(Icons.format_list_numbered,
+                    size: radius, color: Colors.white),
                 label: Text("Scores", style: textStyle),
               ),
               SizedBox(height: spacing),
@@ -147,7 +148,8 @@ class HomeCenter extends StatelessWidget {
                           colorText: SNACK_TEXT, backgroundColor: snackBack);
                     }
                   } else {
-                    Get.snackbar("Achievements:", "Only available on Android or iOS devices",
+                    Get.snackbar("Achievements:",
+                        "Only available on Android or iOS devices",
                         colorText: SNACK_TEXT, backgroundColor: snackBack);
                   }
                 },
@@ -162,19 +164,22 @@ class HomeCenter extends StatelessWidget {
                 ElevatedButton.icon(
                   onPressed: () async {
                     if (!state.gameSignedIn &&
-                        (UniversalPlatform.isAndroid || UniversalPlatform.isIOS)) {
-                      await Get.dialog(_alertDialog(), barrierDismissible: false);
+                        (UniversalPlatform.isAndroid ||
+                            UniversalPlatform.isIOS)) {
+                      await Get.dialog(_alertDialog(),
+                          barrierDismissible: false);
                     } else {
-                      await Get.to(() => GamePage(child: GameWidget()));
+                      await Get.to(() => const GamePage(child: GameWidget()));
                     }
                   },
                   style: buttonStyle,
-                  icon: Icon(Icons.play_arrow, size: radius, color: Colors.white),
+                  icon:
+                      Icon(Icons.play_arrow, size: radius, color: Colors.white),
                   label: Text("Play", style: textStyle),
                 ),
                 SizedBox(height: spacing),
                 ElevatedButton.icon(
-                  onPressed: () => Get.to(() => SettingsPage()),
+                  onPressed: () => Get.to(() => const SettingsPage()),
                   style: buttonStyle,
                   icon: Icon(Icons.settings, size: radius, color: Colors.white),
                   label: Text("Config", style: textStyle),

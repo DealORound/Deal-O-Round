@@ -18,7 +18,23 @@ enum Value {
 
 int valueScore(Value value) => value.index * 5;
 
-const valueCharacters = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A", "*", ""];
+const valueCharacters = [
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+  "J",
+  "Q",
+  "K",
+  "A",
+  "*",
+  ""
+];
 
 String valueCharacter(Value value) {
   return valueCharacters[value.index];

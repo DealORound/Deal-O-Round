@@ -11,19 +11,24 @@ class Shoe {
 
   Shoe({this.includeJokers = false, this.initialShuffle = true}) {
     decks = [];
-    decks.add(Deck(includeJokers: includeJokers, initialShuffle: initialShuffle, index: 0));
+    decks.add(Deck(
+        includeJokers: includeJokers,
+        initialShuffle: initialShuffle,
+        index: 0));
     decksUsed = 0;
   }
 
   PlayCard dealCard() {
-    if (decks.length <= 0) {
+    if (decks.isEmpty) {
       return PlayCard(Suit.Invalid, Value.Invalid);
     }
 
     if (decks[decksUsed].cardsLeft() <= 0) {
       decksUsed += 1;
-      decks.add(
-          Deck(includeJokers: includeJokers, initialShuffle: initialShuffle, index: decksUsed));
+      decks.add(Deck(
+          includeJokers: includeJokers,
+          initialShuffle: initialShuffle,
+          index: decksUsed));
     }
     return decks[decksUsed].dealCard();
   }

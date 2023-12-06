@@ -11,15 +11,16 @@ class EnumSettings<T> extends StatefulWidget {
   final TextStyle textStyle;
 
   const EnumSettings({
-    Key? key,
+    super.key,
     required this.values,
     required this.defaultValue,
     required this.valueTag,
     required this.textStyle,
-  }) : super(key: key);
+  });
 
   @override
-  _EnumSettingsState createState() => _EnumSettingsState<T>(values, defaultValue, valueTag);
+  _EnumSettingsState createState() =>
+      _EnumSettingsState<T>(values, defaultValue, valueTag);
 }
 
 class _EnumSettingsState<T> extends State<EnumSettings> {
@@ -50,9 +51,10 @@ class _EnumSettingsState<T> extends State<EnumSettings> {
   Widget build(BuildContext context) {
     return DropdownButton<String>(
       value: stringValue,
-      icon: Icon(Icons.arrow_downward, color: Colors.green),
+      icon: const Icon(Icons.arrow_downward, color: Colors.green),
       iconSize: chipRadius(context),
-      style: TextStyle(color: Colors.lightGreen, fontSize: widget.textStyle.fontSize),
+      style: TextStyle(
+          color: Colors.lightGreen, fontSize: widget.textStyle.fontSize),
       underline: Container(
         height: 2,
         color: Colors.lightGreenAccent,
