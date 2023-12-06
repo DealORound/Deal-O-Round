@@ -7,7 +7,6 @@ import 'deal_o_round_app.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Paint.enableDithering = true;
   // if (kDebugMode) {
   //   debugPaintSizeEnabled = true;
   // }
