@@ -44,11 +44,11 @@ main() {
     });
 
     test('Spades has right character string', () async {
-      expect(suitCharacter(Suit.spades), "S");
+      expect(suitCharacter(Suit.spades), "s");
     });
 
     test('Clubs has right character string', () async {
-      expect(suitCharacter(Suit.clubs), "C");
+      expect(suitCharacter(Suit.clubs), "c");
     });
 
     test('Diamonds has right character string', () async {

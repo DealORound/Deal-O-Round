@@ -33,7 +33,7 @@ class ChipWidgetState extends State<ChipWidget> {
     }
 
     final textColor =
-        (_suit == 'C' || _suit == 'S') ? Colors.black : Colors.red;
+        (_suit == 'c' || _suit == 's') ? Colors.black : Colors.red;
     final fontSize = diameter * (_value == '*' ? 1.0 : 0.625); // ~64 / ~50
     final suitStyle =
         TextStyle(fontSize: fontSize, fontFamily: 'Cards', color: textColor);
