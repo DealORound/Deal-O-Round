@@ -26,8 +26,8 @@ main() {
     }
 
     final extraCard = deck.dealCard();
-    expect(extraCard.suit, Suit.Invalid);
-    expect(extraCard.value, Value.Invalid);
+    expect(extraCard.suit, Suit.invalid);
+    expect(extraCard.value, Value.invalid);
   }
 
   void testDeckSuppliesDifferentCardsCore(bool shuffle, bool hasJokers) {
@@ -39,8 +39,8 @@ main() {
       for (PlayCard card in cards) {
         expect(
             card.suit == playCard.suit && card.value == playCard.value, false);
-        expect(playCard.suit != Suit.Invalid, true);
-        expect(playCard.value != Value.Invalid, true);
+        expect(playCard.suit != Suit.invalid, true);
+        expect(playCard.value != Value.invalid, true);
       }
       cards.add(playCard);
     }
@@ -122,11 +122,11 @@ main() {
     test('Deck w Joker can deal 54 cards', () async {
       final deck = testDeckCanGiveXCardsCore(false, true);
       var playCard = deck.dealCard();
-      expect(BLACK_SUITES.contains(playCard.suit), true);
-      expect(playCard.value, Value.Joker);
+      expect(blackSuites.contains(playCard.suit), true);
+      expect(playCard.value, Value.joker);
       playCard = deck.dealCard();
-      expect(RED_SUITES.contains(playCard.suit), true);
-      expect(playCard.value, Value.Joker);
+      expect(redSuites.contains(playCard.suit), true);
+      expect(playCard.value, Value.joker);
     });
 
     test('Deck w/o Joker cannot deal more than 52 cards', () async {

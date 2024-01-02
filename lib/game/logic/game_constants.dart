@@ -2,29 +2,29 @@ import 'package:flutter/material.dart';
 
 import 'hand_class.dart';
 
-enum Difficulty { Easy, Medium, Hard }
+enum Difficulty { easy, medium, hard }
 
-enum BoardLayout { Square, Hexagonal }
+enum BoardLayout { square, hexagonal }
 
-const Map<HandClass, String> HAND_ACHIEVEMENTS = {
-  HandClass.OnePair: "CgkI1Z6JldYeEAIQIQ",
-  HandClass.Flush3: "CgkI1Z6JldYeEAIQIg",
-  HandClass.Straight3: "CgkI1Z6JldYeEAIQIw",
-  HandClass.StraightFlush3: "CgkI1Z6JldYeEAIQKw",
-  HandClass.ThreeOfAKind: "CgkI1Z6JldYeEAIQJg",
-  HandClass.Straight4: "CgkI1Z6JldYeEAIQJw",
-  HandClass.TwoPair: "CgkI1Z6JldYeEAIQJA",
-  HandClass.Flush4: "CgkI1Z6JldYeEAIQJQ",
-  HandClass.Straight5: "CgkI1Z6JldYeEAIQKg",
-  HandClass.StraightFlush4: "CgkI1Z6JldYeEAIQLQ",
-  HandClass.Flush5: "CgkI1Z6JldYeEAIQKQ",
-  HandClass.FullHouse: "CgkI1Z6JldYeEAIQKA",
-  HandClass.FourOfAKind: "CgkI1Z6JldYeEAIQLA",
-  HandClass.StraightFlush5: "CgkI1Z6JldYeEAIQLg",
-  HandClass.FiveOfAKind: "CgkI1Z6JldYeEAIQAw",
+const Map<HandClass, String> handAchievements = {
+  HandClass.onePair: "CgkI1Z6JldYeEAIQIQ",
+  HandClass.flush3: "CgkI1Z6JldYeEAIQIg",
+  HandClass.straight3: "CgkI1Z6JldYeEAIQIw",
+  HandClass.straightFlush3: "CgkI1Z6JldYeEAIQKw",
+  HandClass.threeOfAKind: "CgkI1Z6JldYeEAIQJg",
+  HandClass.straight4: "CgkI1Z6JldYeEAIQJw",
+  HandClass.twoPair: "CgkI1Z6JldYeEAIQJA",
+  HandClass.flush4: "CgkI1Z6JldYeEAIQJQ",
+  HandClass.straight5: "CgkI1Z6JldYeEAIQKg",
+  HandClass.straightFlush4: "CgkI1Z6JldYeEAIQLQ",
+  HandClass.flush5: "CgkI1Z6JldYeEAIQKQ",
+  HandClass.fullHouse: "CgkI1Z6JldYeEAIQKA",
+  HandClass.fourOfAKind: "CgkI1Z6JldYeEAIQLA",
+  HandClass.straightFlush5: "CgkI1Z6JldYeEAIQLg",
+  HandClass.fiveOfAKind: "CgkI1Z6JldYeEAIQAw",
 };
 
-const List<String> LEVEL_ACHIEVEMENTS = [
+const List<String> levelAchievements = [
   "CgkI1Z6JldYeEAIQAQ",
   "CgkI1Z6JldYeEAIQCg",
   "CgkI1Z6JldYeEAIQCw",
@@ -51,22 +51,22 @@ const List<String> LEVEL_ACHIEVEMENTS = [
   "CgkI1Z6JldYeEAIQIA",
 ];
 
-const Map<BoardLayout, Map<Difficulty, String>> LEADER_BOARDS = {
-  BoardLayout.Square: {
-    Difficulty.Easy: "CgkI1Z6JldYeEAIQLw",
-    Difficulty.Medium: "CgkI1Z6JldYeEAIQMQ",
-    Difficulty.Hard: "CgkI1Z6JldYeEAIQMg",
+const Map<BoardLayout, Map<Difficulty, String>> leaderBoards = {
+  BoardLayout.square: {
+    Difficulty.easy: "CgkI1Z6JldYeEAIQLw",
+    Difficulty.medium: "CgkI1Z6JldYeEAIQMQ",
+    Difficulty.hard: "CgkI1Z6JldYeEAIQMg",
   },
-  BoardLayout.Hexagonal: {
-    Difficulty.Easy: "CgkI1Z6JldYeEAIQMw",
-    Difficulty.Medium: "CgkI1Z6JldYeEAIQNA",
-    Difficulty.Hard: "CgkI1Z6JldYeEAIQNQ",
+  BoardLayout.hexagonal: {
+    Difficulty.easy: "CgkI1Z6JldYeEAIQMw",
+    Difficulty.medium: "CgkI1Z6JldYeEAIQNA",
+    Difficulty.hard: "CgkI1Z6JldYeEAIQNQ",
   },
 };
 
-const ABOUT_URL = "https://mrcsabatoth.github.io/DealORoundWebsite/about.html";
-const HELP_URL = "https://mrcsabatoth.github.io/DealORoundWebsite/help.html";
-const Color SNACK_TEXT = Colors.white;
-final Color snackBack = Colors.redAccent.withOpacity(0.5);
-const PRICE_OF_SPIN = 200;
-const DELAY_OF_SPIN = 2000;
+const aboutUrl = "https://mrcsabatoth.github.io/DealORoundWebsite/about.html";
+const helpUrl = "https://mrcsabatoth.github.io/DealORoundWebsite/help.html";
+const Color snackTextColor = Colors.white;
+final Color snackBgColor = Colors.redAccent.withOpacity(0.5);
+const priceOfSpin = 200;
+const delayOfSpin = 2000;

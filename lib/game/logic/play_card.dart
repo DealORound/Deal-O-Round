@@ -53,7 +53,7 @@ class PlayCard implements Comparable<PlayCard> {
 }
 
 String cardDisplay(PlayCard card) {
-  if (card.suit == Suit.Invalid || card.value == Value.Invalid) {
+  if (card.suit == Suit.invalid || card.value == Value.invalid) {
     return "Invalid";
   }
 

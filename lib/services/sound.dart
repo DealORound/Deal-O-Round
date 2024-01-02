@@ -6,20 +6,20 @@ import 'package:soundpool/soundpool.dart';
 
 import 'settings_constants.dart';
 
-enum SoundEffect { ShortCardShuffle, LongCardShuffle, PokerChips }
+enum SoundEffect { shortCardShuffle, longCardShuffle, pokerChips }
 
 final Map<SoundEffect, String> _soundAssetPaths = {
-  SoundEffect.ShortCardShuffle: "assets/short_card_shuffle.mp3",
-  SoundEffect.LongCardShuffle: "assets/long_card_shuffle.mp3",
-  SoundEffect.PokerChips: "assets/poker_chips.mp3",
+  SoundEffect.shortCardShuffle: "assets/short_card_shuffle.mp3",
+  SoundEffect.longCardShuffle: "assets/long_card_shuffle.mp3",
+  SoundEffect.pokerChips: "assets/poker_chips.mp3",
 };
 
-enum SoundTrack { SaloonMusic, GuitarMusic, EndMusic }
+enum SoundTrack { saloonMusic, guitarMusic, endMusic }
 
 final Map<SoundTrack, String> _soundTrackPaths = {
-  SoundTrack.SaloonMusic: "saloon_music.mp3",
-  SoundTrack.GuitarMusic: "guitar_music.mp3",
-  SoundTrack.EndMusic: "who_likes_to_party.mp3",
+  SoundTrack.saloonMusic: "saloon_music.mp3",
+  SoundTrack.guitarMusic: "guitar_music.mp3",
+  SoundTrack.endMusic: "who_likes_to_party.mp3",
 };
 
 class SoundUtils {
@@ -29,21 +29,21 @@ class SoundUtils {
   SoundTrack? _trackPlaying;
 
   final Map<SoundEffect, int> _soundIds = {
-    SoundEffect.ShortCardShuffle: 0,
-    SoundEffect.LongCardShuffle: 0,
-    SoundEffect.PokerChips: 0
+    SoundEffect.shortCardShuffle: 0,
+    SoundEffect.longCardShuffle: 0,
+    SoundEffect.pokerChips: 0
   };
   final Map<SoundEffect, int> _streamIds = {
-    SoundEffect.ShortCardShuffle: 0,
-    SoundEffect.LongCardShuffle: 0,
-    SoundEffect.PokerChips: 0
+    SoundEffect.shortCardShuffle: 0,
+    SoundEffect.longCardShuffle: 0,
+    SoundEffect.pokerChips: 0
   };
 
   SoundUtils(this.pref) {
     _soundPool = Soundpool.fromOptions(
         options: const SoundpoolOptions(
             streamType: StreamType.music, maxStreams: 2));
-    if (pref.getBool(SOUND_EFFECTS) ?? SOUND_EFFECTS_DEFAULT) {
+    if (pref.getBool(soundEffectsTag) ?? soundEffectsDefault) {
       loadSoundEffects();
     }
     Get.put<Soundpool>(_soundPool);
@@ -64,10 +64,10 @@ class SoundUtils {
   }
 
   Future<int> playSoundEffect(SoundEffect soundEffect) async {
-    if (pref.getBool(SOUND_EFFECTS) ?? SOUND_EFFECTS_DEFAULT) {
+    if (pref.getBool(soundEffectsTag) ?? soundEffectsDefault) {
       final soundId = _soundIds[soundEffect];
       if (soundId != null && soundId > 0) {
-        final volume = (pref.getDouble(VOLUME) ?? VOLUME_DEFAULT) / 100.0;
+        final volume = (pref.getDouble(volumeTag) ?? volumeDefault) / 100.0;
         _soundPool.setVolume(soundId: soundId, volume: volume);
         final streamId = await _soundPool.play(soundId);
         _streamIds.addAll({soundEffect: streamId});
@@ -103,7 +103,7 @@ class SoundUtils {
   }
 
   Future<void> playSoundTrack(SoundTrack track) async {
-    if (pref.getBool(GAME_MUSIC) ?? GAME_MUSIC_DEFAULT) {
+    if (pref.getBool(gameMusicTag) ?? gameMusicDefault) {
       if (_trackPlaying == track) {
         return;
       }
@@ -116,7 +116,7 @@ class SoundUtils {
 
       _trackPlaying = track;
       await _audioPlayer
-          ?.setVolume((pref.getDouble(VOLUME) ?? VOLUME_DEFAULT) / 100.0);
+          ?.setVolume((pref.getDouble(volumeTag) ?? volumeDefault) / 100.0);
       await _audioPlayer?.open(Audio("assets/$trackPath"));
     }
     return;

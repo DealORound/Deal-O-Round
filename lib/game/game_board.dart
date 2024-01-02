@@ -12,8 +12,8 @@ class GameBoard extends StatelessWidget {
   Column getColumn(List<PlayCard> column, int index, BoardLayout layout,
       GlobalKey<AnimatedListState> listKey, double diameter) {
     var height = 0.0;
-    var itemCount = GameState.BOARD_SIZE;
-    if (index % 2 == 0 && layout == BoardLayout.Hexagonal) {
+    var itemCount = GameState.boardSize;
+    if (index % 2 == 0 && layout == BoardLayout.hexagonal) {
       height = diameter / 2;
       itemCount--;
     }
@@ -73,7 +73,7 @@ class GameBoard extends StatelessWidget {
       border: Border.all(color: Colors.green.shade700, width: 3.0),
     );
     final diameter = chipSize(context);
-    final size = diameter * GameState.BOARD_SIZE;
+    final size = diameter * GameState.boardSize;
     final textStyle = TextStyle(
       fontSize: diameter * 0.4, // ~32
       fontFamily: 'Roboto Condensed',

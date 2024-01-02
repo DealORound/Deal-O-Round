@@ -99,12 +99,12 @@ class LeftDisplay extends StatelessWidget {
         SizedBox(height: spacing),
         ElevatedButton.icon(
           onPressed: () async {
-            if (await canLaunchUrlString(HELP_URL)) {
+            if (await canLaunchUrlString(helpUrl)) {
               state.togglePause();
-              launchUrlString(HELP_URL);
+              launchUrlString(helpUrl);
             } else {
               Get.snackbar("Attention", "Cannot open URL",
-                  colorText: SNACK_TEXT, backgroundColor: snackBack);
+                  colorText: snackTextColor, backgroundColor: snackBgColor);
             }
           },
           style: buttonStyle,

@@ -1,19 +1,19 @@
 enum Value {
-  Two,
-  Three,
-  Four,
-  Five,
-  Six,
-  Seven,
-  Eight,
-  Nine,
-  Ten,
-  Jack,
-  Queen,
-  King,
-  Ace,
-  Joker,
-  Invalid
+  two,
+  three,
+  four,
+  five,
+  six,
+  seven,
+  eight,
+  nine,
+  ten,
+  jack,
+  queen,
+  king,
+  ace,
+  joker,
+  invalid
 }
 
 int valueScore(Value value) => value.index * 5;

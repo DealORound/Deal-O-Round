@@ -53,8 +53,8 @@ main() {
       for (int deck = 0; deck < deckCount; deck++) {
         for (int i = 0; i < 52; i++) {
           final card = shoe.dealCard();
-          expect(card.suit != Suit.Invalid, true);
-          expect(card.value != Value.Invalid, true);
+          expect(card.suit != Suit.invalid, true);
+          expect(card.value != Value.invalid, true);
           expect(card.deck, x * deckCount + deck);
         }
       }
@@ -70,8 +70,8 @@ main() {
         for (PlayCard card in cards) {
           expect(card.suit == playCard.suit && card.value == playCard.value,
               false);
-          expect(playCard.suit != Suit.Invalid, true);
-          expect(playCard.value != Value.Invalid, true);
+          expect(playCard.suit != Suit.invalid, true);
+          expect(playCard.value != Value.invalid, true);
           expect(card.deck, deck);
         }
         cards.add(playCard);

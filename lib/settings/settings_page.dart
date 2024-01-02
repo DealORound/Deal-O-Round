@@ -13,10 +13,10 @@ class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
 
   @override
-  _SettingsPageState createState() => _SettingsPageState();
+  SettingsPageState createState() => SettingsPageState();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
+class SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     final radius = chipRadius(context); // ~40
@@ -95,8 +95,8 @@ class _SettingsPageState extends State<SettingsPage> {
                         ),
                         EnumSettings<Difficulty>(
                           values: Difficulty.values,
-                          defaultValue: DIFFICULTY_DEFAULT_VALUE,
-                          valueTag: DIFFICULTY,
+                          defaultValue: difficultyDefaultValue,
+                          valueTag: difficultyTag,
                           textStyle: textStyle,
                         ),
                         Align(
@@ -105,8 +105,8 @@ class _SettingsPageState extends State<SettingsPage> {
                         ),
                         EnumSettings<BoardLayout>(
                           values: BoardLayout.values,
-                          defaultValue: BOARD_LAYOUT_DEFAULT_VALUE,
-                          valueTag: BOARD_LAYOUT,
+                          defaultValue: boardLayoutDefaultValue,
+                          valueTag: boardLayoutTag,
                           textStyle: textStyle,
                         ),
                         Align(
@@ -117,8 +117,8 @@ class _SettingsPageState extends State<SettingsPage> {
                           padding: EdgeInsets.symmetric(
                               vertical: 0, horizontal: separatorSize),
                           child: const BooleanSettings(
-                              defaultValue: GAME_MUSIC_DEFAULT,
-                              valueTag: GAME_MUSIC),
+                              defaultValue: gameMusicDefault,
+                              valueTag: gameMusicTag),
                         ),
                         Align(
                           alignment: Alignment.centerLeft,
@@ -128,8 +128,8 @@ class _SettingsPageState extends State<SettingsPage> {
                           padding: EdgeInsets.symmetric(
                               vertical: 0, horizontal: separatorSize),
                           child: const BooleanSettings(
-                              defaultValue: SOUND_EFFECTS_DEFAULT,
-                              valueTag: SOUND_EFFECTS),
+                              defaultValue: soundEffectsDefault,
+                              valueTag: soundEffectsTag),
                         ),
                       ],
                     ),
@@ -159,8 +159,8 @@ class _SettingsPageState extends State<SettingsPage> {
                         SpinnerSettings(
                           minValue: 0,
                           maxValue: 100,
-                          defaultValue: VOLUME_DEFAULT,
-                          valueTag: VOLUME,
+                          defaultValue: volumeDefault,
+                          valueTag: volumeTag,
                           textStyle: textStyle,
                         ),
                         Align(
@@ -172,8 +172,8 @@ class _SettingsPageState extends State<SettingsPage> {
                           maxValue: 4.0,
                           stepValue: 0.05,
                           fractionDigits: 2,
-                          defaultValue: SCREEN_SCALE_DEFAULT,
-                          valueTag: SCREEN_SCALE,
+                          defaultValue: screenScaleDefault,
+                          valueTag: screenScaleTag,
                           textStyle: textStyle,
                         ),
                         Align(
@@ -184,8 +184,8 @@ class _SettingsPageState extends State<SettingsPage> {
                           minValue: 50,
                           maxValue: 500,
                           stepValue: 10,
-                          defaultValue: ANIMATION_SPEED_DEFAULT,
-                          valueTag: ANIMATION_SPEED,
+                          defaultValue: animationSpeedDefault,
+                          valueTag: animationSpeedTag,
                           textStyle: textStyle,
                         )
                       ],

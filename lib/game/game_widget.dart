@@ -14,11 +14,9 @@ class GameWidget extends StatelessWidget {
       backgroundColor: Colors.transparent,
       body: CustomPaint(
         painter: BackgroundPainter(),
-        child: Container(
-          child: const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [LeftDisplay(), GameBoard(), RightDisplay()],
-          ),
+        child: const Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [LeftDisplay(), GameBoard(), RightDisplay()],
         ),
       ),
     );

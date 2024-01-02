@@ -7,33 +7,33 @@ class PreferencesUtils {
   static Future<SharedPreferences> registerService() async {
     return Get.putAsync<SharedPreferences>(() async {
       final prefs = await SharedPreferences.getInstance();
-      String? storedString = prefs.getString(DIFFICULTY);
+      String? storedString = prefs.getString(difficultyTag);
       if (storedString == null) {
-        await prefs.setString(DIFFICULTY, DIFFICULTY_DEFAULT);
+        await prefs.setString(difficultyTag, difficultyDefault);
       }
-      storedString = prefs.getString(BOARD_LAYOUT);
+      storedString = prefs.getString(boardLayoutTag);
       if (storedString == null) {
-        await prefs.setString(BOARD_LAYOUT, BOARD_LAYOUT_DEFAULT);
+        await prefs.setString(boardLayoutTag, boardLayoutDefault);
       }
-      bool? storedBool = prefs.getBool(GAME_MUSIC);
+      bool? storedBool = prefs.getBool(gameMusicTag);
       if (storedBool == null) {
-        await prefs.setBool(GAME_MUSIC, GAME_MUSIC_DEFAULT);
+        await prefs.setBool(gameMusicTag, gameMusicDefault);
       }
-      storedBool = prefs.getBool(SOUND_EFFECTS);
+      storedBool = prefs.getBool(soundEffectsTag);
       if (storedBool == null) {
-        await prefs.setBool(SOUND_EFFECTS, SOUND_EFFECTS_DEFAULT);
+        await prefs.setBool(soundEffectsTag, soundEffectsDefault);
       }
-      double? storedNumber = prefs.getDouble(VOLUME);
+      double? storedNumber = prefs.getDouble(volumeTag);
       if (storedNumber == null) {
-        await prefs.setDouble(VOLUME, VOLUME_DEFAULT);
+        await prefs.setDouble(volumeTag, volumeDefault);
       }
-      storedNumber = prefs.getDouble(SCREEN_SCALE);
+      storedNumber = prefs.getDouble(screenScaleTag);
       if (storedNumber == null) {
-        await prefs.setDouble(SCREEN_SCALE, SCREEN_SCALE_DEFAULT);
+        await prefs.setDouble(screenScaleTag, screenScaleDefault);
       }
-      storedNumber = prefs.getDouble(ANIMATION_SPEED);
+      storedNumber = prefs.getDouble(animationSpeedTag);
       if (storedNumber == null) {
-        await prefs.setDouble(ANIMATION_SPEED, ANIMATION_SPEED_DEFAULT);
+        await prefs.setDouble(animationSpeedTag, animationSpeedDefault);
       }
       return prefs;
     });

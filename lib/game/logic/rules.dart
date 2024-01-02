@@ -49,17 +49,17 @@ class Rules {
     }
 
     List<PlayCard> hand = [...cards];
-    if (cards.any((card) => card.value == Value.Joker)) {
+    if (cards.any((card) => card.value == Value.joker)) {
       var jokerIndex = 0;
       for (PlayCard card in hand) {
-        if (card.value == Value.Joker) {
+        if (card.value == Value.joker) {
           break;
         }
         jokerIndex++;
       }
       final jokerCard = hand[jokerIndex];
       final jokerSuites =
-          BLACK_SUITES.contains(jokerCard.suit) ? BLACK_SUITES : RED_SUITES;
+          blackSuites.contains(jokerCard.suit) ? blackSuites : redSuites;
       for (Suit suit in jokerSuites) {
         final nonJoker = Value.values.sublist(0, 13);
         for (Value value in nonJoker) {
@@ -113,7 +113,7 @@ class Rules {
       // One pair
       addToResults(
         results,
-        Scoring(HandClass.OnePair, hand[0], getHandDigest(hand, fast)),
+        Scoring(HandClass.onePair, hand[0], getHandDigest(hand, fast)),
         fast,
       );
     }
@@ -129,14 +129,14 @@ class Rules {
       // Three of a kind
       addToResults(
         results,
-        Scoring(HandClass.ThreeOfAKind, hand[0], getHandDigest(hand, fast)),
+        Scoring(HandClass.threeOfAKind, hand[0], getHandDigest(hand, fast)),
         fast,
       );
     }
     bool flush = (hand[0].suit == hand[1].suit && hand[1].suit == hand[2].suit);
     hand.sort((hi, hj) => hi.value.index.compareTo(hj.value.index));
     bool possibleWheel =
-        (hand[0].value == Value.Two && hand[2].value == Value.Ace);
+        (hand[0].value == Value.two && hand[2].value == Value.ace);
     if (hand[0].value.index + 1 == hand[1].value.index &&
         (hand[1].value.index + 1 == hand[2].value.index || possibleWheel)) {
       // It's a straight.
@@ -145,7 +145,7 @@ class Rules {
         addToResults(
           results,
           Scoring(
-            HandClass.StraightFlush3,
+            HandClass.straightFlush3,
             possibleWheel ? hand[1] : hand[0],
             getHandDigest(hand, fast),
           ),
@@ -155,7 +155,7 @@ class Rules {
       addToResults(
         results,
         Scoring(
-          HandClass.Straight3,
+          HandClass.straight3,
           possibleWheel ? hand[1] : hand[0],
           getHandDigest(hand, fast),
         ),
@@ -165,7 +165,7 @@ class Rules {
     if (flush) {
       addToResults(
         results,
-        Scoring(HandClass.Flush3, hand[0], getHandDigest(hand, fast)),
+        Scoring(HandClass.flush3, hand[0], getHandDigest(hand, fast)),
         fast,
       );
     }
@@ -193,7 +193,7 @@ class Rules {
       // Four of a kind
       addToResults(
         results,
-        Scoring(HandClass.FourOfAKind, hand[0], getHandDigest(hand, fast)),
+        Scoring(HandClass.fourOfAKind, hand[0], getHandDigest(hand, fast)),
         fast,
       );
     }
@@ -202,7 +202,7 @@ class Rules {
         hand[2].suit == hand[3].suit);
     hand.sort((hi, hj) => hi.value.index.compareTo(hj.value.index));
     bool possibleWheel =
-        (hand[0].value == Value.Two && hand[3].value == Value.Ace);
+        (hand[0].value == Value.two && hand[3].value == Value.ace);
     if (hand[0].value.index + 1 == hand[1].value.index &&
         hand[1].value.index + 1 == hand[2].value.index &&
         (hand[2].value.index + 1 == hand[3].value.index || possibleWheel)) {
@@ -212,7 +212,7 @@ class Rules {
         addToResults(
           results,
           Scoring(
-            HandClass.StraightFlush4,
+            HandClass.straightFlush4,
             possibleWheel ? hand[1] : hand[0],
             getHandDigest(hand, fast),
           ),
@@ -222,7 +222,7 @@ class Rules {
       addToResults(
         results,
         Scoring(
-          HandClass.Straight4,
+          HandClass.straight4,
           possibleWheel ? hand[1] : hand[0],
           getHandDigest(hand, fast),
         ),
@@ -232,7 +232,7 @@ class Rules {
     if (flush) {
       addToResults(
         results,
-        Scoring(HandClass.Flush4, hand[0], getHandDigest(hand, fast)),
+        Scoring(HandClass.flush4, hand[0], getHandDigest(hand, fast)),
         fast,
       );
     }
@@ -242,7 +242,7 @@ class Rules {
       addToResults(
         results,
         Scoring(
-          HandClass.TwoPair,
+          HandClass.twoPair,
           hand[0],
           getHandDigest(hand, fast),
           highCard: hand[3],
@@ -279,7 +279,7 @@ class Rules {
       // Five of a kind
       addToResults(
         results,
-        Scoring(HandClass.FiveOfAKind, hand[0], getHandDigest(hand, fast)),
+        Scoring(HandClass.fiveOfAKind, hand[0], getHandDigest(hand, fast)),
         fast,
       );
     }
@@ -294,7 +294,7 @@ class Rules {
 			return 1500 + offsetRank(hand[1]);
 		}*/
     bool possibleWheel =
-        (hand[0].value == Value.Two && hand[4].value == Value.Ace);
+        (hand[0].value == Value.two && hand[4].value == Value.ace);
     bool flush = (hand[0].suit == hand[1].suit &&
         hand[1].suit == hand[2].suit &&
         hand[2].suit == hand[3].suit &&
@@ -309,7 +309,7 @@ class Rules {
         addToResults(
           results,
           Scoring(
-            HandClass.StraightFlush5,
+            HandClass.straightFlush5,
             possibleWheel ? hand[1] : hand[0],
             getHandDigest(hand, fast),
           ),
@@ -319,7 +319,7 @@ class Rules {
       addToResults(
         results,
         Scoring(
-          HandClass.Straight5,
+          HandClass.straight5,
           possibleWheel ? hand[1] : hand[0],
           getHandDigest(hand, fast),
         ),
@@ -330,7 +330,7 @@ class Rules {
       addToResults(
         results,
         Scoring(
-          HandClass.Flush5,
+          HandClass.flush5,
           hand[0],
           getHandDigest(hand, fast),
         ),
@@ -344,7 +344,7 @@ class Rules {
       addToResults(
         results,
         Scoring(
-          HandClass.FullHouse,
+          HandClass.fullHouse,
           hand[0],
           getHandDigest(hand, fast),
           highCard: hand[4],

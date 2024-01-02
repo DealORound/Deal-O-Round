@@ -13,10 +13,10 @@ class GameOverPage extends StatefulWidget {
   final int score;
 
   @override
-  _GameOverPageState createState() => _GameOverPageState();
+  GameOverPageState createState() => GameOverPageState();
 }
 
-class _GameOverPageState extends State<GameOverPage> {
+class GameOverPageState extends State<GameOverPage> {
   String _layout = "Hexagonal";
   String _difficulty = "Easy";
 
@@ -25,10 +25,10 @@ class _GameOverPageState extends State<GameOverPage> {
     super.initState();
 
     final prefs = Get.find<SharedPreferences>();
-    _difficulty = prefs.getString(DIFFICULTY) ?? DIFFICULTY_DEFAULT;
-    _layout = prefs.getString(BOARD_LAYOUT) ?? BOARD_LAYOUT_DEFAULT;
+    _difficulty = prefs.getString(difficultyTag) ?? difficultyDefault;
+    _layout = prefs.getString(boardLayoutTag) ?? boardLayoutDefault;
     final soundUtils = Get.find<SoundUtils>();
-    soundUtils.playSoundTrack(SoundTrack.EndMusic);
+    soundUtils.playSoundTrack(SoundTrack.endMusic);
   }
 
   @override

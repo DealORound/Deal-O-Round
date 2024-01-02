@@ -18,7 +18,7 @@ class RuleTestInput {
     required this.hand,
     this.subHandDrillDownLevel = 0,
     this.expectedScore = 0,
-    this.expectedHand = HandClass.None,
+    this.expectedHand = HandClass.none,
   });
 }
 
@@ -65,8 +65,8 @@ main() {
   });
 
   test('Single hand of joker worth nothing', () async {
-    for (Suit suit in BLACK_SUITES + RED_SUITES) {
-      final hand = [PlayCard(suit, Value.Joker)];
+    for (Suit suit in blackSuites + redSuites) {
+      final hand = [PlayCard(suit, Value.joker)];
       assertCombination(RuleTestInput(
         hand: hand,
         subHandDrillDownLevel: 0,
@@ -84,8 +84,8 @@ main() {
     for (Value value in Value.values) {
       if (value.index < 13) {
         final hand = [
-          PlayCard(Suit.Clubs, value),
-          PlayCard(Suit.Diamonds, Value.Joker),
+          PlayCard(Suit.clubs, value),
+          PlayCard(Suit.diamonds, Value.joker),
         ];
         int offset = offsetRank(hand[0]);
         assertCombination(RuleTestInput(
@@ -108,9 +108,9 @@ main() {
     for (Value value in Value.values) {
       if (value.index < 13) {
         final hand = [
-          PlayCard(Suit.Clubs, value),
-          PlayCard(Suit.Diamonds, value),
-          PlayCard(Suit.Spades, Value.Joker),
+          PlayCard(Suit.clubs, value),
+          PlayCard(Suit.diamonds, value),
+          PlayCard(Suit.spades, Value.joker),
         ];
         int offset = offsetRank(hand[0]);
         assertCombination(RuleTestInput(
@@ -131,9 +131,9 @@ main() {
     // When beginning does not match up
     for (int i = 0; i < 13; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i == 0 ? 1 : 0]),
-        PlayCard(Suit.Diamonds, Value.values[i]),
-        PlayCard(Suit.Spades, Value.Joker),
+        PlayCard(Suit.clubs, Value.values[i == 0 ? 1 : 0]),
+        PlayCard(Suit.diamonds, Value.values[i]),
+        PlayCard(Suit.spades, Value.joker),
       ];
       int offset = min(offsetRank(hand[0]), offsetRank(hand[1]));
       assertCombination(RuleTestInput(
@@ -151,9 +151,9 @@ main() {
     // When middle does not match up
     for (int i = 0; i < 13; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Diamonds, Value.values[i == 0 ? 1 : 0]),
-        PlayCard(Suit.Spades, Value.Joker),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i == 0 ? 1 : 0]),
+        PlayCard(Suit.spades, Value.joker),
       ];
       int offset = min(offsetRank(hand[0]), offsetRank(hand[1]));
       assertCombination(RuleTestInput(
@@ -171,9 +171,9 @@ main() {
     // When end does not match up
     for (int i = 0; i < 13; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Diamonds, Value.Joker),
-        PlayCard(Suit.Spades, Value.values[i == 0 ? 1 : 0]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.joker),
+        PlayCard(Suit.spades, Value.values[i == 0 ? 1 : 0]),
       ];
       int offset = min(offsetRank(hand[0]), offsetRank(hand[1]));
       assertCombination(RuleTestInput(
@@ -194,9 +194,9 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Six),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.six),
         ];
         assertCombination(RuleTestInput(
           hand: hand,
@@ -215,9 +215,9 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Six),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Two),
+          PlayCard(suit, Value.six),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.two),
         ];
         assertCombination(RuleTestInput(
           hand: hand,
@@ -236,9 +236,9 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Six),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.six),
         ];
         assertCombination(RuleTestInput(
           hand: hand,
@@ -258,9 +258,9 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Seven),
-          PlayCard(suit, Value.Nine),
-          PlayCard(suit, Value.Jack),
+          PlayCard(suit, Value.seven),
+          PlayCard(suit, Value.nine),
+          PlayCard(suit, Value.jack),
         ];
         int offset = offsetRank(hand[0]);
         assertCombination(RuleTestInput(
@@ -280,9 +280,9 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Jack),
-          PlayCard(suit, Value.Nine),
-          PlayCard(suit, Value.Seven),
+          PlayCard(suit, Value.jack),
+          PlayCard(suit, Value.nine),
+          PlayCard(suit, Value.seven),
         ];
         int offset = offsetRank(hand[2]);
         assertCombination(RuleTestInput(
@@ -302,9 +302,9 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Nine),
-          PlayCard(suit, Value.Seven),
-          PlayCard(suit, Value.Jack),
+          PlayCard(suit, Value.nine),
+          PlayCard(suit, Value.seven),
+          PlayCard(suit, Value.jack),
         ];
         int offset = offsetRank(hand[1]);
         assertCombination(RuleTestInput(
@@ -325,9 +325,9 @@ main() {
     // Basis case
     for (int i = 0; i < 10; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
-        PlayCard(Suit.Clubs, Value.values[i + 2]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
+        PlayCard(Suit.clubs, Value.values[i + 2]),
       ];
       int offset = offsetRank(hand[0]);
       assertCombination(RuleTestInput(
@@ -345,9 +345,9 @@ main() {
     // descending order
     for (int i = 0; i < 10; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i + 2]),
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
-        PlayCard(Suit.Diamonds, Value.values[i]),
+        PlayCard(Suit.clubs, Value.values[i + 2]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
+        PlayCard(Suit.diamonds, Value.values[i]),
       ];
       int offset = offsetRank(hand[2]);
       assertCombination(RuleTestInput(
@@ -365,9 +365,9 @@ main() {
     // mixed order
     for (int i = 0; i < 10; i++) {
       final hand = [
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
-        PlayCard(Suit.Diamonds, Value.values[i + 2]),
-        PlayCard(Suit.Hearts, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
+        PlayCard(Suit.diamonds, Value.values[i + 2]),
+        PlayCard(Suit.hearts, Value.values[i]),
       ];
       int offset = offsetRank(hand[2]);
       assertCombination(RuleTestInput(
@@ -387,9 +387,9 @@ main() {
     // Basis case 1
     {
       final hand = [
-        PlayCard(Suit.Clubs, Value.Two),
-        PlayCard(Suit.Diamonds, Value.Three),
-        PlayCard(Suit.Clubs, Value.Ace),
+        PlayCard(Suit.clubs, Value.two),
+        PlayCard(Suit.diamonds, Value.three),
+        PlayCard(Suit.clubs, Value.ace),
       ];
       int offset = offsetRank(hand[1]);
       assertCombination(RuleTestInput(
@@ -407,9 +407,9 @@ main() {
     // Basis case 2
     {
       final hand = [
-        PlayCard(Suit.Clubs, Value.Ace),
-        PlayCard(Suit.Diamonds, Value.Three),
-        PlayCard(Suit.Clubs, Value.Two),
+        PlayCard(Suit.clubs, Value.ace),
+        PlayCard(Suit.diamonds, Value.three),
+        PlayCard(Suit.clubs, Value.two),
       ];
       int offset = offsetRank(hand[1]);
       assertCombination(RuleTestInput(
@@ -427,9 +427,9 @@ main() {
     // descending order 1
     {
       final hand = [
-        PlayCard(Suit.Clubs, Value.Ace),
-        PlayCard(Suit.Diamonds, Value.Three),
-        PlayCard(Suit.Diamonds, Value.Two),
+        PlayCard(Suit.clubs, Value.ace),
+        PlayCard(Suit.diamonds, Value.three),
+        PlayCard(Suit.diamonds, Value.two),
       ];
       int offset = offsetRank(hand[1]);
       assertCombination(RuleTestInput(
@@ -447,9 +447,9 @@ main() {
     // descending order 2
     {
       final hand = [
-        PlayCard(Suit.Diamonds, Value.Three),
-        PlayCard(Suit.Diamonds, Value.Two),
-        PlayCard(Suit.Clubs, Value.Ace),
+        PlayCard(Suit.diamonds, Value.three),
+        PlayCard(Suit.diamonds, Value.two),
+        PlayCard(Suit.clubs, Value.ace),
       ];
       int offset = offsetRank(hand[0]);
       assertCombination(RuleTestInput(
@@ -467,9 +467,9 @@ main() {
     // mixed order
     {
       final hand = [
-        PlayCard(Suit.Diamonds, Value.Two),
-        PlayCard(Suit.Diamonds, Value.Ace),
-        PlayCard(Suit.Hearts, Value.Three),
+        PlayCard(Suit.diamonds, Value.two),
+        PlayCard(Suit.diamonds, Value.ace),
+        PlayCard(Suit.hearts, Value.three),
       ];
       int offset = offsetRank(hand[2]);
       assertCombination(RuleTestInput(
@@ -490,9 +490,9 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Four),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.four),
         ];
         assertCombination(RuleTestInput(
           hand: hand,
@@ -511,9 +511,9 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Two),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.two),
         ];
         assertCombination(RuleTestInput(
           hand: hand,
@@ -532,9 +532,9 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Four),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.four),
         ];
         assertCombination(RuleTestInput(
           hand: hand,
@@ -554,9 +554,9 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Queen),
-          PlayCard(suit, Value.King),
-          PlayCard(suit, Value.Ace),
+          PlayCard(suit, Value.queen),
+          PlayCard(suit, Value.king),
+          PlayCard(suit, Value.ace),
         ];
         int offset = offsetRank(hand[0]);
         assertCombination(RuleTestInput(
@@ -576,9 +576,9 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Ace),
-          PlayCard(suit, Value.King),
-          PlayCard(suit, Value.Queen),
+          PlayCard(suit, Value.ace),
+          PlayCard(suit, Value.king),
+          PlayCard(suit, Value.queen),
         ];
         int offset = offsetRank(hand[2]);
         assertCombination(RuleTestInput(
@@ -598,9 +598,9 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.King),
-          PlayCard(suit, Value.Ace),
-          PlayCard(suit, Value.Queen),
+          PlayCard(suit, Value.king),
+          PlayCard(suit, Value.ace),
+          PlayCard(suit, Value.queen),
         ];
         int offset = offsetRank(hand[2]);
         assertCombination(RuleTestInput(
@@ -622,9 +622,9 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Ace),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.ace),
         ];
         int offset = offsetRank(hand[1]);
         assertCombination(RuleTestInput(
@@ -644,9 +644,9 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Ace),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Two),
+          PlayCard(suit, Value.ace),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.two),
         ];
         int offset = offsetRank(hand[1]);
         assertCombination(RuleTestInput(
@@ -666,9 +666,9 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Ace),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Two),
+          PlayCard(suit, Value.ace),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.two),
         ];
         int offset = offsetRank(hand[1]);
         assertCombination(RuleTestInput(
@@ -688,9 +688,9 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Ace),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.ace),
         ];
         int offset = offsetRank(hand[0]);
         assertCombination(RuleTestInput(
@@ -710,9 +710,9 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Ace),
-          PlayCard(suit, Value.Three),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.ace),
+          PlayCard(suit, Value.three),
         ];
         int offset = offsetRank(hand[2]);
         assertCombination(RuleTestInput(
@@ -735,10 +735,10 @@ main() {
     for (Value value in Value.values) {
       if (value.index < 13) {
         final hand = [
-          PlayCard(Suit.Clubs, value),
-          PlayCard(Suit.Diamonds, value),
-          PlayCard(Suit.Spades, value),
-          PlayCard(Suit.Hearts, value),
+          PlayCard(Suit.clubs, value),
+          PlayCard(Suit.diamonds, value),
+          PlayCard(Suit.spades, value),
+          PlayCard(Suit.hearts, value),
         ];
         int offset = offsetRank(hand[0]);
         assertCombination(RuleTestInput(
@@ -759,10 +759,10 @@ main() {
     // When beginning does not match up
     for (int i = 0; i < 10; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[11]),
-        PlayCard(Suit.Clubs, Value.values[12]),
-        PlayCard(Suit.Diamonds, Value.values[i]),
-        PlayCard(Suit.Spades, Value.values[i]),
+        PlayCard(Suit.clubs, Value.values[11]),
+        PlayCard(Suit.clubs, Value.values[12]),
+        PlayCard(Suit.diamonds, Value.values[i]),
+        PlayCard(Suit.spades, Value.values[i]),
       ];
       int offset = offsetRank(hand[2]);
       assertCombination(RuleTestInput(
@@ -785,10 +785,10 @@ main() {
     // When middle does not match up
     for (int i = 0; i < 10; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Diamonds, Value.values[11]),
-        PlayCard(Suit.Diamonds, Value.values[12]),
-        PlayCard(Suit.Spades, Value.values[i]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[11]),
+        PlayCard(Suit.diamonds, Value.values[12]),
+        PlayCard(Suit.spades, Value.values[i]),
       ];
       int offset = offsetRank(hand[0]);
       assertCombination(RuleTestInput(
@@ -811,10 +811,10 @@ main() {
     // When end does not match up
     for (int i = 0; i < 10; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Diamonds, Value.values[i]),
-        PlayCard(Suit.Spades, Value.values[11]),
-        PlayCard(Suit.Spades, Value.values[12]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i]),
+        PlayCard(Suit.spades, Value.values[11]),
+        PlayCard(Suit.spades, Value.values[12]),
       ];
       int offset = offsetRank(hand[0]);
       assertCombination(RuleTestInput(
@@ -839,10 +839,10 @@ main() {
     // Ascending
     for (int i = 0; i < 11; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Diamonds, Value.values[i]),
-        PlayCard(Suit.Hearts, Value.values[i + 1]),
-        PlayCard(Suit.Spades, Value.values[i + 1]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i]),
+        PlayCard(Suit.hearts, Value.values[i + 1]),
+        PlayCard(Suit.spades, Value.values[i + 1]),
       ];
       int offset1 = offsetRank(hand[0]);
       int offset2 = offsetRank(hand[2]);
@@ -861,10 +861,10 @@ main() {
     // Descending
     for (int i = 0; i < 11; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i + 1]),
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
-        PlayCard(Suit.Hearts, Value.values[i]),
-        PlayCard(Suit.Spades, Value.values[i]),
+        PlayCard(Suit.clubs, Value.values[i + 1]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
+        PlayCard(Suit.hearts, Value.values[i]),
+        PlayCard(Suit.spades, Value.values[i]),
       ];
       int offset1 = offsetRank(hand[2]);
       int offset2 = offsetRank(hand[0]);
@@ -883,10 +883,10 @@ main() {
     // mixed 1
     for (int i = 0; i < 11; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
-        PlayCard(Suit.Hearts, Value.values[i]),
-        PlayCard(Suit.Spades, Value.values[i + 1]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
+        PlayCard(Suit.hearts, Value.values[i]),
+        PlayCard(Suit.spades, Value.values[i + 1]),
       ];
       int offset1 = offsetRank(hand[0]);
       int offset2 = offsetRank(hand[1]);
@@ -905,10 +905,10 @@ main() {
     // mixed 2
     for (int i = 0; i < 11; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i + 1]),
-        PlayCard(Suit.Diamonds, Value.values[i]),
-        PlayCard(Suit.Hearts, Value.values[i + 1]),
-        PlayCard(Suit.Spades, Value.values[i]),
+        PlayCard(Suit.clubs, Value.values[i + 1]),
+        PlayCard(Suit.diamonds, Value.values[i]),
+        PlayCard(Suit.hearts, Value.values[i + 1]),
+        PlayCard(Suit.spades, Value.values[i]),
       ];
       int offset1 = offsetRank(hand[1]);
       int offset2 = offsetRank(hand[0]);
@@ -928,151 +928,151 @@ main() {
   test('Two pairs out of 5 found', () async {
     for (int i = 0; i < 11; i++) {
       final hand = [
-        PlayCard(Suit.Hearts, Value.values[(i + 3) % 13]),
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Clubs, Value.values[i + 1]),
-        PlayCard(Suit.Diamonds, Value.values[i]),
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
+        PlayCard(Suit.hearts, Value.values[(i + 3) % 13]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.clubs, Value.values[i + 1]),
+        PlayCard(Suit.diamonds, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
       ];
       assertHand(RuleTestInput(
         hand: hand,
         subHandDrillDownLevel: 1,
-        expectedHand: HandClass.TwoPair,
+        expectedHand: HandClass.twoPair,
       ));
     }
 
     for (int i = 0; i < 11; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Hearts, Value.values[(i + 3) % 13]),
-        PlayCard(Suit.Clubs, Value.values[i + 1]),
-        PlayCard(Suit.Diamonds, Value.values[i]),
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.hearts, Value.values[(i + 3) % 13]),
+        PlayCard(Suit.clubs, Value.values[i + 1]),
+        PlayCard(Suit.diamonds, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
       ];
       assertHand(RuleTestInput(
         hand: hand,
         subHandDrillDownLevel: 1,
-        expectedHand: HandClass.TwoPair,
+        expectedHand: HandClass.twoPair,
       ));
     }
 
     for (int i = 0; i < 11; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Clubs, Value.values[i + 1]),
-        PlayCard(Suit.Hearts, Value.values[(i + 3) % 13]),
-        PlayCard(Suit.Diamonds, Value.values[i]),
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.clubs, Value.values[i + 1]),
+        PlayCard(Suit.hearts, Value.values[(i + 3) % 13]),
+        PlayCard(Suit.diamonds, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
       ];
       assertHand(RuleTestInput(
         hand: hand,
         subHandDrillDownLevel: 1,
-        expectedHand: HandClass.TwoPair,
+        expectedHand: HandClass.twoPair,
       ));
     }
 
     for (int i = 0; i < 11; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Clubs, Value.values[i + 1]),
-        PlayCard(Suit.Diamonds, Value.values[i]),
-        PlayCard(Suit.Hearts, Value.values[(i + 3) % 13]),
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.clubs, Value.values[i + 1]),
+        PlayCard(Suit.diamonds, Value.values[i]),
+        PlayCard(Suit.hearts, Value.values[(i + 3) % 13]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
       ];
       assertHand(RuleTestInput(
         hand: hand,
         subHandDrillDownLevel: 1,
-        expectedHand: HandClass.TwoPair,
+        expectedHand: HandClass.twoPair,
       ));
     }
 
     for (int i = 0; i < 11; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Clubs, Value.values[i + 1]),
-        PlayCard(Suit.Diamonds, Value.values[i]),
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
-        PlayCard(Suit.Hearts, Value.values[(i + 3) % 13]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.clubs, Value.values[i + 1]),
+        PlayCard(Suit.diamonds, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
+        PlayCard(Suit.hearts, Value.values[(i + 3) % 13]),
       ];
       assertHand(RuleTestInput(
         hand: hand,
         subHandDrillDownLevel: 1,
-        expectedHand: HandClass.TwoPair,
+        expectedHand: HandClass.twoPair,
       ));
     }
 
     for (int i = 0; i < 11; i++) {
       final hand = [
-        PlayCard(Suit.Hearts, Value.values[(i + 3) % 13]),
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Clubs, Value.values[i + 1]),
-        PlayCard(Suit.Diamonds, Value.values[i]),
+        PlayCard(Suit.hearts, Value.values[(i + 3) % 13]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.clubs, Value.values[i + 1]),
+        PlayCard(Suit.diamonds, Value.values[i]),
       ];
       assertHand(RuleTestInput(
         hand: hand,
         subHandDrillDownLevel: 1,
-        expectedHand: HandClass.TwoPair,
+        expectedHand: HandClass.twoPair,
       ));
     }
 
     for (int i = 0; i < 11; i++) {
       final hand = [
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
-        PlayCard(Suit.Hearts, Value.values[(i + 3) % 13]),
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Clubs, Value.values[i + 1]),
-        PlayCard(Suit.Diamonds, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
+        PlayCard(Suit.hearts, Value.values[(i + 3) % 13]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.clubs, Value.values[i + 1]),
+        PlayCard(Suit.diamonds, Value.values[i]),
       ];
       assertHand(RuleTestInput(
         hand: hand,
         subHandDrillDownLevel: 1,
-        expectedHand: HandClass.TwoPair,
+        expectedHand: HandClass.twoPair,
       ));
     }
 
     for (int i = 0; i < 11; i++) {
       final hand = [
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Hearts, Value.values[(i + 3) % 13]),
-        PlayCard(Suit.Clubs, Value.values[i + 1]),
-        PlayCard(Suit.Diamonds, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.hearts, Value.values[(i + 3) % 13]),
+        PlayCard(Suit.clubs, Value.values[i + 1]),
+        PlayCard(Suit.diamonds, Value.values[i]),
       ];
       assertHand(RuleTestInput(
         hand: hand,
         subHandDrillDownLevel: 1,
-        expectedHand: HandClass.TwoPair,
+        expectedHand: HandClass.twoPair,
       ));
     }
 
     for (int i = 0; i < 11; i++) {
       final hand = [
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Clubs, Value.values[i + 1]),
-        PlayCard(Suit.Hearts, Value.values[(i + 3) % 13]),
-        PlayCard(Suit.Diamonds, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.clubs, Value.values[i + 1]),
+        PlayCard(Suit.hearts, Value.values[(i + 3) % 13]),
+        PlayCard(Suit.diamonds, Value.values[i]),
       ];
       assertHand(RuleTestInput(
         hand: hand,
         subHandDrillDownLevel: 1,
-        expectedHand: HandClass.TwoPair,
+        expectedHand: HandClass.twoPair,
       ));
     }
 
     for (int i = 0; i < 11; i++) {
       final hand = [
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Clubs, Value.values[i + 1]),
-        PlayCard(Suit.Diamonds, Value.values[i]),
-        PlayCard(Suit.Hearts, Value.values[(i + 3) % 13]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.clubs, Value.values[i + 1]),
+        PlayCard(Suit.diamonds, Value.values[i]),
+        PlayCard(Suit.hearts, Value.values[(i + 3) % 13]),
       ];
       assertHand(RuleTestInput(
         hand: hand,
         subHandDrillDownLevel: 1,
-        expectedHand: HandClass.TwoPair,
+        expectedHand: HandClass.twoPair,
       ));
     }
   });
@@ -1081,10 +1081,10 @@ main() {
     // Basis case
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.Two),
-        PlayCard(Suit.values[i], Value.Four),
-        PlayCard(Suit.values[i], Value.Six),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Ace),
+        PlayCard(Suit.values[i], Value.two),
+        PlayCard(Suit.values[i], Value.four),
+        PlayCard(Suit.values[i], Value.six),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.ace),
       ];
       assertCombination(RuleTestInput(
         hand: hand,
@@ -1101,10 +1101,10 @@ main() {
     // descending order
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.Six),
-        PlayCard(Suit.values[i], Value.Four),
-        PlayCard(Suit.values[i], Value.Two),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Ace),
+        PlayCard(Suit.values[i], Value.six),
+        PlayCard(Suit.values[i], Value.four),
+        PlayCard(Suit.values[i], Value.two),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.ace),
       ];
       assertCombination(RuleTestInput(
         hand: hand,
@@ -1121,10 +1121,10 @@ main() {
     // mixed order
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.Four),
-        PlayCard(Suit.values[i], Value.Two),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Ace),
-        PlayCard(Suit.values[i], Value.Six),
+        PlayCard(Suit.values[i], Value.four),
+        PlayCard(Suit.values[i], Value.two),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.ace),
+        PlayCard(Suit.values[i], Value.six),
       ];
       assertCombination(RuleTestInput(
         hand: hand,
@@ -1142,10 +1142,10 @@ main() {
     // Basis case
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.Seven),
-        PlayCard(Suit.values[i], Value.Nine),
-        PlayCard(Suit.values[i], Value.Jack),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Ace),
+        PlayCard(Suit.values[i], Value.seven),
+        PlayCard(Suit.values[i], Value.nine),
+        PlayCard(Suit.values[i], Value.jack),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.ace),
       ];
       int offset = offsetRank(hand[0]);
       assertCombination(RuleTestInput(
@@ -1163,10 +1163,10 @@ main() {
     // descending order
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.Jack),
-        PlayCard(Suit.values[i], Value.Nine),
-        PlayCard(Suit.values[i], Value.Seven),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Ace),
+        PlayCard(Suit.values[i], Value.jack),
+        PlayCard(Suit.values[i], Value.nine),
+        PlayCard(Suit.values[i], Value.seven),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.ace),
       ];
       int offset = offsetRank(hand[2]);
       assertCombination(RuleTestInput(
@@ -1184,10 +1184,10 @@ main() {
     // mixed order
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.Nine),
-        PlayCard(Suit.values[i], Value.Seven),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Ace),
-        PlayCard(Suit.values[i], Value.Jack),
+        PlayCard(Suit.values[i], Value.nine),
+        PlayCard(Suit.values[i], Value.seven),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.ace),
+        PlayCard(Suit.values[i], Value.jack),
       ];
       int offset = offsetRank(hand[1]);
       assertCombination(RuleTestInput(
@@ -1207,10 +1207,10 @@ main() {
     // Basis case
     for (int i = 0; i < 10; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
-        PlayCard(Suit.Hearts, Value.values[i + 2]),
-        PlayCard(Suit.Spades, Value.values[i < 2 ? 10 : 0]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
+        PlayCard(Suit.hearts, Value.values[i + 2]),
+        PlayCard(Suit.spades, Value.values[i < 2 ? 10 : 0]),
       ];
       int offset = offsetRank(hand[0]);
       assertCombination(RuleTestInput(
@@ -1228,10 +1228,10 @@ main() {
     // descending order
     for (int i = 0; i < 10; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i + 2]),
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
-        PlayCard(Suit.Hearts, Value.values[i]),
-        PlayCard(Suit.Spades, Value.values[i < 2 ? 10 : 0]),
+        PlayCard(Suit.clubs, Value.values[i + 2]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
+        PlayCard(Suit.hearts, Value.values[i]),
+        PlayCard(Suit.spades, Value.values[i < 2 ? 10 : 0]),
       ];
       int offset = offsetRank(hand[2]);
       assertCombination(RuleTestInput(
@@ -1249,10 +1249,10 @@ main() {
     // mixed order
     for (int i = 0; i < 10; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i + 1]),
-        PlayCard(Suit.Diamonds, Value.values[i + 2]),
-        PlayCard(Suit.Hearts, Value.values[i]),
-        PlayCard(Suit.Spades, Value.values[i < 2 ? 10 : 0]),
+        PlayCard(Suit.clubs, Value.values[i + 1]),
+        PlayCard(Suit.diamonds, Value.values[i + 2]),
+        PlayCard(Suit.hearts, Value.values[i]),
+        PlayCard(Suit.spades, Value.values[i < 2 ? 10 : 0]),
       ];
       int offset = offsetRank(hand[2]);
       assertCombination(RuleTestInput(
@@ -1272,10 +1272,10 @@ main() {
     // Basis case
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.Two),
-        PlayCard(Suit.values[i], Value.Three),
-        PlayCard(Suit.values[i], Value.Four),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Four),
+        PlayCard(Suit.values[i], Value.two),
+        PlayCard(Suit.values[i], Value.three),
+        PlayCard(Suit.values[i], Value.four),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.four),
       ];
       assertCombination(RuleTestInput(
         hand: hand,
@@ -1292,10 +1292,10 @@ main() {
     // descending order
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.Four),
-        PlayCard(Suit.values[i], Value.Three),
-        PlayCard(Suit.values[i], Value.Two),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Four),
+        PlayCard(Suit.values[i], Value.four),
+        PlayCard(Suit.values[i], Value.three),
+        PlayCard(Suit.values[i], Value.two),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.four),
       ];
       assertCombination(RuleTestInput(
         hand: hand,
@@ -1312,10 +1312,10 @@ main() {
     // mixed order
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.Three),
-        PlayCard(Suit.values[i], Value.Two),
-        PlayCard(Suit.values[i], Value.Four),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Four),
+        PlayCard(Suit.values[i], Value.three),
+        PlayCard(Suit.values[i], Value.two),
+        PlayCard(Suit.values[i], Value.four),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.four),
       ];
       assertCombination(RuleTestInput(
         hand: hand,
@@ -1333,10 +1333,10 @@ main() {
     // Basis case
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.Queen),
-        PlayCard(Suit.values[i], Value.King),
-        PlayCard(Suit.values[i], Value.Ace),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Four),
+        PlayCard(Suit.values[i], Value.queen),
+        PlayCard(Suit.values[i], Value.king),
+        PlayCard(Suit.values[i], Value.ace),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.four),
       ];
       int offset = offsetRank(hand[0]);
       assertCombination(RuleTestInput(
@@ -1354,10 +1354,10 @@ main() {
     // descending order
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.Ace),
-        PlayCard(Suit.values[i], Value.King),
-        PlayCard(Suit.values[i], Value.Queen),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Four),
+        PlayCard(Suit.values[i], Value.ace),
+        PlayCard(Suit.values[i], Value.king),
+        PlayCard(Suit.values[i], Value.queen),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.four),
       ];
       int offset = offsetRank(hand[2]);
       assertCombination(RuleTestInput(
@@ -1375,10 +1375,10 @@ main() {
     // mixed order
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.King),
-        PlayCard(Suit.values[i], Value.Ace),
-        PlayCard(Suit.values[i], Value.Queen),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Four),
+        PlayCard(Suit.values[i], Value.king),
+        PlayCard(Suit.values[i], Value.ace),
+        PlayCard(Suit.values[i], Value.queen),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.four),
       ];
       int offset = offsetRank(hand[2]);
       assertCombination(RuleTestInput(
@@ -1399,10 +1399,10 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Six),
-          PlayCard(suit, Value.Eight),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.six),
+          PlayCard(suit, Value.eight),
         ];
         assertCombination(RuleTestInput(
           hand: hand,
@@ -1421,10 +1421,10 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Eight),
-          PlayCard(suit, Value.Six),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Two),
+          PlayCard(suit, Value.eight),
+          PlayCard(suit, Value.six),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.two),
         ];
         assertCombination(RuleTestInput(
           hand: hand,
@@ -1443,10 +1443,10 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Eight),
-          PlayCard(suit, Value.Six),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.eight),
+          PlayCard(suit, Value.six),
         ];
         assertCombination(RuleTestInput(
           hand: hand,
@@ -1465,10 +1465,10 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Eight),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Six),
-          PlayCard(suit, Value.Two),
+          PlayCard(suit, Value.eight),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.six),
+          PlayCard(suit, Value.two),
         ];
         assertCombination(RuleTestInput(
           hand: hand,
@@ -1488,10 +1488,10 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Seven),
-          PlayCard(suit, Value.Nine),
-          PlayCard(suit, Value.Jack),
-          PlayCard(suit, Value.King),
+          PlayCard(suit, Value.seven),
+          PlayCard(suit, Value.nine),
+          PlayCard(suit, Value.jack),
+          PlayCard(suit, Value.king),
         ];
         int offset = offsetRank(hand[0]);
         assertCombination(RuleTestInput(
@@ -1511,10 +1511,10 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.King),
-          PlayCard(suit, Value.Jack),
-          PlayCard(suit, Value.Nine),
-          PlayCard(suit, Value.Seven),
+          PlayCard(suit, Value.king),
+          PlayCard(suit, Value.jack),
+          PlayCard(suit, Value.nine),
+          PlayCard(suit, Value.seven),
         ];
         int offset = offsetRank(hand[3]);
         assertCombination(RuleTestInput(
@@ -1534,10 +1534,10 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Nine),
-          PlayCard(suit, Value.King),
-          PlayCard(suit, Value.Seven),
-          PlayCard(suit, Value.Jack),
+          PlayCard(suit, Value.nine),
+          PlayCard(suit, Value.king),
+          PlayCard(suit, Value.seven),
+          PlayCard(suit, Value.jack),
         ];
         int offset = offsetRank(hand[2]);
         assertCombination(RuleTestInput(
@@ -1557,10 +1557,10 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Nine),
-          PlayCard(suit, Value.Seven),
-          PlayCard(suit, Value.King),
-          PlayCard(suit, Value.Jack),
+          PlayCard(suit, Value.nine),
+          PlayCard(suit, Value.seven),
+          PlayCard(suit, Value.king),
+          PlayCard(suit, Value.jack),
         ];
         int offset = offsetRank(hand[1]);
         assertCombination(RuleTestInput(
@@ -1581,10 +1581,10 @@ main() {
     // Basis case
     for (int i = 0; i < 10; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
-        PlayCard(Suit.Hearts, Value.values[i + 2]),
-        PlayCard(Suit.Spades, Value.values[i + 3]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
+        PlayCard(Suit.hearts, Value.values[i + 2]),
+        PlayCard(Suit.spades, Value.values[i + 3]),
       ];
       int offset = offsetRank(hand[0]);
       assertCombination(RuleTestInput(
@@ -1602,10 +1602,10 @@ main() {
     // descending order
     for (int i = 0; i < 10; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i + 3]),
-        PlayCard(Suit.Diamonds, Value.values[i + 2]),
-        PlayCard(Suit.Hearts, Value.values[i + 1]),
-        PlayCard(Suit.Spades, Value.values[i]),
+        PlayCard(Suit.clubs, Value.values[i + 3]),
+        PlayCard(Suit.diamonds, Value.values[i + 2]),
+        PlayCard(Suit.hearts, Value.values[i + 1]),
+        PlayCard(Suit.spades, Value.values[i]),
       ];
       int offset = offsetRank(hand[3]);
       assertCombination(RuleTestInput(
@@ -1623,10 +1623,10 @@ main() {
     // mixed order
     for (int i = 0; i < 10; i++) {
       final hand = [
-        PlayCard(Suit.Diamonds, Value.values[i + 2]),
-        PlayCard(Suit.Clubs, Value.values[i + 1]),
-        PlayCard(Suit.Hearts, Value.values[i + 3]),
-        PlayCard(Suit.Spades, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i + 2]),
+        PlayCard(Suit.clubs, Value.values[i + 1]),
+        PlayCard(Suit.hearts, Value.values[i + 3]),
+        PlayCard(Suit.spades, Value.values[i]),
       ];
       int offset = offsetRank(hand[3]);
       assertCombination(RuleTestInput(
@@ -1646,10 +1646,10 @@ main() {
     // Basis case 1
     {
       final hand = [
-        PlayCard(Suit.Clubs, Value.Two),
-        PlayCard(Suit.Diamonds, Value.Three),
-        PlayCard(Suit.Hearts, Value.Four),
-        PlayCard(Suit.Clubs, Value.Ace),
+        PlayCard(Suit.clubs, Value.two),
+        PlayCard(Suit.diamonds, Value.three),
+        PlayCard(Suit.hearts, Value.four),
+        PlayCard(Suit.clubs, Value.ace),
       ];
       int offset = offsetRank(hand[1]);
       assertCombination(RuleTestInput(
@@ -1667,10 +1667,10 @@ main() {
     // Basis case 2
     {
       final hand = [
-        PlayCard(Suit.Clubs, Value.Ace),
-        PlayCard(Suit.Hearts, Value.Four),
-        PlayCard(Suit.Diamonds, Value.Three),
-        PlayCard(Suit.Clubs, Value.Two),
+        PlayCard(Suit.clubs, Value.ace),
+        PlayCard(Suit.hearts, Value.four),
+        PlayCard(Suit.diamonds, Value.three),
+        PlayCard(Suit.clubs, Value.two),
       ];
       int offset = offsetRank(hand[2]);
       assertCombination(RuleTestInput(
@@ -1688,10 +1688,10 @@ main() {
     // descending order 1
     {
       final hand = [
-        PlayCard(Suit.Clubs, Value.Ace),
-        PlayCard(Suit.Hearts, Value.Four),
-        PlayCard(Suit.Diamonds, Value.Three),
-        PlayCard(Suit.Diamonds, Value.Two),
+        PlayCard(Suit.clubs, Value.ace),
+        PlayCard(Suit.hearts, Value.four),
+        PlayCard(Suit.diamonds, Value.three),
+        PlayCard(Suit.diamonds, Value.two),
       ];
       int offset = offsetRank(hand[2]);
       assertCombination(RuleTestInput(
@@ -1709,10 +1709,10 @@ main() {
     // descending order 2
     {
       final hand = [
-        PlayCard(Suit.Hearts, Value.Four),
-        PlayCard(Suit.Diamonds, Value.Three),
-        PlayCard(Suit.Diamonds, Value.Two),
-        PlayCard(Suit.Clubs, Value.Ace),
+        PlayCard(Suit.hearts, Value.four),
+        PlayCard(Suit.diamonds, Value.three),
+        PlayCard(Suit.diamonds, Value.two),
+        PlayCard(Suit.clubs, Value.ace),
       ];
       int offset = offsetRank(hand[1]);
       assertCombination(RuleTestInput(
@@ -1730,10 +1730,10 @@ main() {
     // mixed order
     {
       final hand = [
-        PlayCard(Suit.Diamonds, Value.Two),
-        PlayCard(Suit.Hearts, Value.Four),
-        PlayCard(Suit.Diamonds, Value.Ace),
-        PlayCard(Suit.Hearts, Value.Three),
+        PlayCard(Suit.diamonds, Value.two),
+        PlayCard(Suit.hearts, Value.four),
+        PlayCard(Suit.diamonds, Value.ace),
+        PlayCard(Suit.hearts, Value.three),
       ];
       int offset = offsetRank(hand[3]);
       assertCombination(RuleTestInput(
@@ -1754,10 +1754,10 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Five),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.five),
         ];
         assertCombination(RuleTestInput(
           hand: hand,
@@ -1776,10 +1776,10 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Five),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Two),
+          PlayCard(suit, Value.five),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.two),
         ];
         assertCombination(RuleTestInput(
           hand: hand,
@@ -1798,10 +1798,10 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Five),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.five),
         ];
         assertCombination(RuleTestInput(
           hand: hand,
@@ -1821,10 +1821,10 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Jack),
-          PlayCard(suit, Value.Queen),
-          PlayCard(suit, Value.King),
-          PlayCard(suit, Value.Ace),
+          PlayCard(suit, Value.jack),
+          PlayCard(suit, Value.queen),
+          PlayCard(suit, Value.king),
+          PlayCard(suit, Value.ace),
         ];
         int offset = offsetRank(hand[0]);
         assertCombination(RuleTestInput(
@@ -1844,10 +1844,10 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Ace),
-          PlayCard(suit, Value.King),
-          PlayCard(suit, Value.Queen),
-          PlayCard(suit, Value.Jack),
+          PlayCard(suit, Value.ace),
+          PlayCard(suit, Value.king),
+          PlayCard(suit, Value.queen),
+          PlayCard(suit, Value.jack),
         ];
         int offset = offsetRank(hand[3]);
         assertCombination(RuleTestInput(
@@ -1867,10 +1867,10 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.King),
-          PlayCard(suit, Value.Ace),
-          PlayCard(suit, Value.Queen),
-          PlayCard(suit, Value.Jack),
+          PlayCard(suit, Value.king),
+          PlayCard(suit, Value.ace),
+          PlayCard(suit, Value.queen),
+          PlayCard(suit, Value.jack),
         ];
         int offset = offsetRank(hand[3]);
         assertCombination(RuleTestInput(
@@ -1892,10 +1892,10 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Ace),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.ace),
         ];
         int offset = offsetRank(hand[1]);
         assertCombination(RuleTestInput(
@@ -1915,10 +1915,10 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Ace),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Two)
+          PlayCard(suit, Value.ace),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.two)
         ];
         int offset = offsetRank(hand[2]);
         assertCombination(RuleTestInput(
@@ -1938,10 +1938,10 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Ace),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Two),
+          PlayCard(suit, Value.ace),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.two),
         ];
         int offset = offsetRank(hand[2]);
         assertCombination(RuleTestInput(
@@ -1961,10 +1961,10 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Ace),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.ace),
         ];
         int offset = offsetRank(hand[1]);
         assertCombination(RuleTestInput(
@@ -1984,10 +1984,10 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Ace),
-          PlayCard(suit, Value.Three),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.ace),
+          PlayCard(suit, Value.three),
         ];
         int offset = offsetRank(hand[3]);
         assertCombination(RuleTestInput(
@@ -2009,11 +2009,11 @@ main() {
   test('Four of a kind in 5 worth the right points', () async {
     for (int i = 0; i < 13; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Diamonds, Value.values[i]),
-        PlayCard(Suit.Spades, Value.values[i]),
-        PlayCard(Suit.Hearts, Value.values[i]),
-        PlayCard(Suit.Invalid, Value.values[i == 0 ? 1 : 0]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i]),
+        PlayCard(Suit.spades, Value.values[i]),
+        PlayCard(Suit.hearts, Value.values[i]),
+        PlayCard(Suit.invalid, Value.values[i == 0 ? 1 : 0]),
       ];
       int offset = offsetRank(hand[0]);
       // No points of no drill down
@@ -2039,10 +2039,10 @@ main() {
     // When beginning does not match up
     for (int i = 1; i < 9; i++) {
       final hand = [
-        PlayCard(Suit.Hearts, Value.values[0]),
-        PlayCard(Suit.Hearts, Value.values[11]),
-        PlayCard(Suit.Diamonds, Value.values[i]),
-        PlayCard(Suit.Spades, Value.values[i]),
+        PlayCard(Suit.hearts, Value.values[0]),
+        PlayCard(Suit.hearts, Value.values[11]),
+        PlayCard(Suit.diamonds, Value.values[i]),
+        PlayCard(Suit.spades, Value.values[i]),
       ];
       int offset = offsetRank(hand[3]);
       assertCombination(RuleTestInput(
@@ -2070,10 +2070,10 @@ main() {
     // When middle does not match up
     for (int i = 1; i < 9; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Diamonds, Value.values[0]),
-        PlayCard(Suit.Diamonds, Value.values[11]),
-        PlayCard(Suit.Spades, Value.values[i]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[0]),
+        PlayCard(Suit.diamonds, Value.values[11]),
+        PlayCard(Suit.spades, Value.values[i]),
       ];
       int offset = offsetRank(hand[0]);
       assertCombination(RuleTestInput(
@@ -2101,10 +2101,10 @@ main() {
     // When end does not match up
     for (int i = 1; i < 9; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Diamonds, Value.values[i]),
-        PlayCard(Suit.Spades, Value.values[0]),
-        PlayCard(Suit.Spades, Value.values[11]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i]),
+        PlayCard(Suit.spades, Value.values[0]),
+        PlayCard(Suit.spades, Value.values[11]),
       ];
       int offset = offsetRank(hand[0]);
       assertCombination(RuleTestInput(
@@ -2134,11 +2134,11 @@ main() {
     // Ascending
     for (int i = 2; i < 11; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Diamonds, Value.values[i]),
-        PlayCard(Suit.Hearts, Value.values[i + 1]),
-        PlayCard(Suit.Spades, Value.values[i + 1]),
-        PlayCard(Suit.Invalid, Value.values[0]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i]),
+        PlayCard(Suit.hearts, Value.values[i + 1]),
+        PlayCard(Suit.spades, Value.values[i + 1]),
+        PlayCard(Suit.invalid, Value.values[0]),
       ];
       int offset = offsetRank(hand[0]) + 2 * offsetRank(hand[2]);
       assertCombination(RuleTestInput(
@@ -2156,11 +2156,11 @@ main() {
     // Descending
     for (int i = 2; i < 11; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i + 1]),
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
-        PlayCard(Suit.Hearts, Value.values[i]),
-        PlayCard(Suit.Spades, Value.values[i]),
-        PlayCard(Suit.Invalid, Value.values[0]),
+        PlayCard(Suit.clubs, Value.values[i + 1]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
+        PlayCard(Suit.hearts, Value.values[i]),
+        PlayCard(Suit.spades, Value.values[i]),
+        PlayCard(Suit.invalid, Value.values[0]),
       ];
       int offset = offsetRank(hand[2]) + 2 * offsetRank(hand[0]);
       assertCombination(RuleTestInput(
@@ -2178,11 +2178,11 @@ main() {
     // mixed 1
     for (int i = 2; i < 11; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
-        PlayCard(Suit.Hearts, Value.values[i]),
-        PlayCard(Suit.Spades, Value.values[i + 1]),
-        PlayCard(Suit.Invalid, Value.values[0]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
+        PlayCard(Suit.hearts, Value.values[i]),
+        PlayCard(Suit.spades, Value.values[i + 1]),
+        PlayCard(Suit.invalid, Value.values[0]),
       ];
       int offset = offsetRank(hand[0]) + 2 * offsetRank(hand[1]);
       assertCombination(RuleTestInput(
@@ -2200,11 +2200,11 @@ main() {
     // mixed 2
     for (int i = 2; i < 11; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i + 1]),
-        PlayCard(Suit.Diamonds, Value.values[i]),
-        PlayCard(Suit.Hearts, Value.values[i + 1]),
-        PlayCard(Suit.Spades, Value.values[i]),
-        PlayCard(Suit.Invalid, Value.values[0]),
+        PlayCard(Suit.clubs, Value.values[i + 1]),
+        PlayCard(Suit.diamonds, Value.values[i]),
+        PlayCard(Suit.hearts, Value.values[i + 1]),
+        PlayCard(Suit.spades, Value.values[i]),
+        PlayCard(Suit.invalid, Value.values[0]),
       ];
       int offset = offsetRank(hand[1]) + 2 * offsetRank(hand[0]);
       assertCombination(RuleTestInput(
@@ -2224,11 +2224,11 @@ main() {
     // Basis case
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.Two),
-        PlayCard(Suit.values[i], Value.Four),
-        PlayCard(Suit.values[i], Value.Six),
-        PlayCard(Suit.Invalid, Value.Ace),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Jack),
+        PlayCard(Suit.values[i], Value.two),
+        PlayCard(Suit.values[i], Value.four),
+        PlayCard(Suit.values[i], Value.six),
+        PlayCard(Suit.invalid, Value.ace),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.jack),
       ];
       assertCombination(RuleTestInput(
         hand: hand,
@@ -2250,11 +2250,11 @@ main() {
     // descending order
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.Six),
-        PlayCard(Suit.values[i], Value.Four),
-        PlayCard(Suit.values[i], Value.Two),
-        PlayCard(Suit.Invalid, Value.Ace),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Jack),
+        PlayCard(Suit.values[i], Value.six),
+        PlayCard(Suit.values[i], Value.four),
+        PlayCard(Suit.values[i], Value.two),
+        PlayCard(Suit.invalid, Value.ace),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.jack),
       ];
       assertCombination(RuleTestInput(
         hand: hand,
@@ -2276,11 +2276,11 @@ main() {
     // mixed order
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.Four),
-        PlayCard(Suit.values[i], Value.Two),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Ace),
-        PlayCard(Suit.Invalid, Value.Jack),
-        PlayCard(Suit.values[i], Value.Six),
+        PlayCard(Suit.values[i], Value.four),
+        PlayCard(Suit.values[i], Value.two),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.ace),
+        PlayCard(Suit.invalid, Value.jack),
+        PlayCard(Suit.values[i], Value.six),
       ];
       assertCombination(RuleTestInput(
         hand: hand,
@@ -2303,11 +2303,11 @@ main() {
     // Basis case
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.Seven),
-        PlayCard(Suit.values[i], Value.Nine),
-        PlayCard(Suit.values[i], Value.Jack),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Ace),
-        PlayCard(Suit.Invalid, Value.Jack),
+        PlayCard(Suit.values[i], Value.seven),
+        PlayCard(Suit.values[i], Value.nine),
+        PlayCard(Suit.values[i], Value.jack),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.ace),
+        PlayCard(Suit.invalid, Value.jack),
       ];
       int offset = offsetRank(hand[0]);
       assertCombination(RuleTestInput(
@@ -2330,11 +2330,11 @@ main() {
     // descending order
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.Jack),
-        PlayCard(Suit.values[i], Value.Nine),
-        PlayCard(Suit.values[i], Value.Seven),
-        PlayCard(Suit.Invalid, Value.Ace),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Jack),
+        PlayCard(Suit.values[i], Value.jack),
+        PlayCard(Suit.values[i], Value.nine),
+        PlayCard(Suit.values[i], Value.seven),
+        PlayCard(Suit.invalid, Value.ace),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.jack),
       ];
       int offset = offsetRank(hand[2]);
       assertCombination(RuleTestInput(
@@ -2357,11 +2357,11 @@ main() {
     // mixed order
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.Nine),
-        PlayCard(Suit.values[i], Value.Seven),
-        PlayCard(Suit.Invalid, Value.Ace),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Jack),
-        PlayCard(Suit.values[i], Value.Jack),
+        PlayCard(Suit.values[i], Value.nine),
+        PlayCard(Suit.values[i], Value.seven),
+        PlayCard(Suit.invalid, Value.ace),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.jack),
+        PlayCard(Suit.values[i], Value.jack),
       ];
       int offset = offsetRank(hand[1]);
       assertCombination(RuleTestInput(
@@ -2386,11 +2386,11 @@ main() {
     // Basis case
     for (int i = 0; i < 10; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
-        PlayCard(Suit.Hearts, Value.values[i + 2]),
-        PlayCard(Suit.Spades, Value.values[i < 2 ? 10 : 0]),
-        PlayCard(Suit.Spades, Value.values[i < 2 ? 10 : 0]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
+        PlayCard(Suit.hearts, Value.values[i + 2]),
+        PlayCard(Suit.spades, Value.values[i < 2 ? 10 : 0]),
+        PlayCard(Suit.spades, Value.values[i < 2 ? 10 : 0]),
       ];
       int offset = offsetRank(hand[0]);
       assertCombination(RuleTestInput(
@@ -2413,11 +2413,11 @@ main() {
     // descending order
     for (int i = 0; i < 10; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i + 2]),
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
-        PlayCard(Suit.Hearts, Value.values[i]),
-        PlayCard(Suit.Spades, Value.values[i < 2 ? 10 : 0]),
-        PlayCard(Suit.Spades, Value.values[i < 2 ? 10 : 0]),
+        PlayCard(Suit.clubs, Value.values[i + 2]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
+        PlayCard(Suit.hearts, Value.values[i]),
+        PlayCard(Suit.spades, Value.values[i < 2 ? 10 : 0]),
+        PlayCard(Suit.spades, Value.values[i < 2 ? 10 : 0]),
       ];
       int offset = offsetRank(hand[2]);
       assertCombination(RuleTestInput(
@@ -2440,11 +2440,11 @@ main() {
     // mixed order
     for (int i = 0; i < 10; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i + 1]),
-        PlayCard(Suit.Diamonds, Value.values[i + 2]),
-        PlayCard(Suit.Hearts, Value.values[i]),
-        PlayCard(Suit.Spades, Value.values[i < 2 ? 10 : 0]),
-        PlayCard(Suit.Spades, Value.values[i < 2 ? 10 : 0]),
+        PlayCard(Suit.clubs, Value.values[i + 1]),
+        PlayCard(Suit.diamonds, Value.values[i + 2]),
+        PlayCard(Suit.hearts, Value.values[i]),
+        PlayCard(Suit.spades, Value.values[i < 2 ? 10 : 0]),
+        PlayCard(Suit.spades, Value.values[i < 2 ? 10 : 0]),
       ];
       int offset = offsetRank(hand[2]);
       assertCombination(RuleTestInput(
@@ -2469,11 +2469,11 @@ main() {
     // Basis case
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.Two),
-        PlayCard(Suit.values[i], Value.Three),
-        PlayCard(Suit.values[i], Value.Four),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Four),
-        PlayCard(Suit.Invalid, Value.Six),
+        PlayCard(Suit.values[i], Value.two),
+        PlayCard(Suit.values[i], Value.three),
+        PlayCard(Suit.values[i], Value.four),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.four),
+        PlayCard(Suit.invalid, Value.six),
       ];
       int offset = offsetRank(hand[0]);
       assertCombination(RuleTestInput(
@@ -2496,11 +2496,11 @@ main() {
     // descending order
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.Four),
-        PlayCard(Suit.values[i], Value.Three),
-        PlayCard(Suit.values[i], Value.Two),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Four),
-        PlayCard(Suit.Invalid, Value.Six),
+        PlayCard(Suit.values[i], Value.four),
+        PlayCard(Suit.values[i], Value.three),
+        PlayCard(Suit.values[i], Value.two),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.four),
+        PlayCard(Suit.invalid, Value.six),
       ];
       assertCombination(RuleTestInput(
         hand: hand,
@@ -2522,11 +2522,11 @@ main() {
     // mixed order
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.Three),
-        PlayCard(Suit.values[i], Value.Two),
-        PlayCard(Suit.values[i], Value.Four),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Four),
-        PlayCard(Suit.Invalid, Value.Six),
+        PlayCard(Suit.values[i], Value.three),
+        PlayCard(Suit.values[i], Value.two),
+        PlayCard(Suit.values[i], Value.four),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.four),
+        PlayCard(Suit.invalid, Value.six),
       ];
       assertCombination(RuleTestInput(
         hand: hand,
@@ -2549,11 +2549,11 @@ main() {
     // Basis case
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.Queen),
-        PlayCard(Suit.values[i], Value.King),
-        PlayCard(Suit.values[i], Value.Ace),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Four),
-        PlayCard(Suit.Invalid, Value.Six),
+        PlayCard(Suit.values[i], Value.queen),
+        PlayCard(Suit.values[i], Value.king),
+        PlayCard(Suit.values[i], Value.ace),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.four),
+        PlayCard(Suit.invalid, Value.six),
       ];
       int offset = offsetRank(hand[0]);
       assertCombination(RuleTestInput(
@@ -2576,11 +2576,11 @@ main() {
     // descending order
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.Ace),
-        PlayCard(Suit.values[i], Value.King),
-        PlayCard(Suit.values[i], Value.Queen),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Four),
-        PlayCard(Suit.Invalid, Value.Six),
+        PlayCard(Suit.values[i], Value.ace),
+        PlayCard(Suit.values[i], Value.king),
+        PlayCard(Suit.values[i], Value.queen),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.four),
+        PlayCard(Suit.invalid, Value.six),
       ];
       int offset = offsetRank(hand[2]);
       assertCombination(RuleTestInput(
@@ -2603,11 +2603,11 @@ main() {
     // mixed order
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.King),
-        PlayCard(Suit.values[i], Value.Ace),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Four),
-        PlayCard(Suit.Invalid, Value.Six),
-        PlayCard(Suit.values[i], Value.Queen),
+        PlayCard(Suit.values[i], Value.king),
+        PlayCard(Suit.values[i], Value.ace),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.four),
+        PlayCard(Suit.invalid, Value.six),
+        PlayCard(Suit.values[i], Value.queen),
       ];
       int offset = offsetRank(hand[4]);
       assertCombination(RuleTestInput(
@@ -2632,11 +2632,11 @@ main() {
     // Basis case
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.Two),
-        PlayCard(Suit.values[i], Value.Four),
-        PlayCard(Suit.values[i], Value.Six),
-        PlayCard(Suit.values[i], Value.Eight),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Ten),
+        PlayCard(Suit.values[i], Value.two),
+        PlayCard(Suit.values[i], Value.four),
+        PlayCard(Suit.values[i], Value.six),
+        PlayCard(Suit.values[i], Value.eight),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.ten),
       ];
       assertCombination(RuleTestInput(
         hand: hand,
@@ -2653,11 +2653,11 @@ main() {
     // descending order
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.Eight),
-        PlayCard(Suit.values[i], Value.Six),
-        PlayCard(Suit.values[i], Value.Four),
-        PlayCard(Suit.values[i], Value.Two),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Ten),
+        PlayCard(Suit.values[i], Value.eight),
+        PlayCard(Suit.values[i], Value.six),
+        PlayCard(Suit.values[i], Value.four),
+        PlayCard(Suit.values[i], Value.two),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.ten),
       ];
       assertCombination(RuleTestInput(
         hand: hand,
@@ -2674,11 +2674,11 @@ main() {
     // mixed order 1
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.Four),
-        PlayCard(Suit.values[i], Value.Two),
-        PlayCard(Suit.values[i], Value.Eight),
-        PlayCard(Suit.values[i], Value.Six),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Ten),
+        PlayCard(Suit.values[i], Value.four),
+        PlayCard(Suit.values[i], Value.two),
+        PlayCard(Suit.values[i], Value.eight),
+        PlayCard(Suit.values[i], Value.six),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.ten),
       ];
       assertCombination(RuleTestInput(
         hand: hand,
@@ -2695,11 +2695,11 @@ main() {
     // mixed order 2
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.Eight),
-        PlayCard(Suit.values[i], Value.Four),
-        PlayCard(Suit.values[i], Value.Six),
-        PlayCard(Suit.values[i], Value.Two),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Ten),
+        PlayCard(Suit.values[i], Value.eight),
+        PlayCard(Suit.values[i], Value.four),
+        PlayCard(Suit.values[i], Value.six),
+        PlayCard(Suit.values[i], Value.two),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.ten),
       ];
       assertCombination(RuleTestInput(
         hand: hand,
@@ -2717,11 +2717,11 @@ main() {
     // Basis case
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.Seven),
-        PlayCard(Suit.values[i], Value.Nine),
-        PlayCard(Suit.values[i], Value.Jack),
-        PlayCard(Suit.values[i], Value.King),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Ten),
+        PlayCard(Suit.values[i], Value.seven),
+        PlayCard(Suit.values[i], Value.nine),
+        PlayCard(Suit.values[i], Value.jack),
+        PlayCard(Suit.values[i], Value.king),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.ten),
       ];
       int offset = offsetRank(hand[0]);
       assertCombination(RuleTestInput(
@@ -2739,11 +2739,11 @@ main() {
     // descending order
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.King),
-        PlayCard(Suit.values[i], Value.Jack),
-        PlayCard(Suit.values[i], Value.Nine),
-        PlayCard(Suit.values[i], Value.Seven),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Ten),
+        PlayCard(Suit.values[i], Value.king),
+        PlayCard(Suit.values[i], Value.jack),
+        PlayCard(Suit.values[i], Value.nine),
+        PlayCard(Suit.values[i], Value.seven),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.ten),
       ];
       int offset = offsetRank(hand[3]);
       assertCombination(RuleTestInput(
@@ -2761,11 +2761,11 @@ main() {
     // mixed order 3
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.Nine),
-        PlayCard(Suit.values[i], Value.King),
-        PlayCard(Suit.values[i], Value.Seven),
-        PlayCard(Suit.values[i], Value.Jack),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Ten),
+        PlayCard(Suit.values[i], Value.nine),
+        PlayCard(Suit.values[i], Value.king),
+        PlayCard(Suit.values[i], Value.seven),
+        PlayCard(Suit.values[i], Value.jack),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.ten),
       ];
       int offset = offsetRank(hand[2]);
       assertCombination(RuleTestInput(
@@ -2783,11 +2783,11 @@ main() {
     // mixed order 4
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.Nine),
-        PlayCard(Suit.values[i], Value.Seven),
-        PlayCard(Suit.values[i], Value.King),
-        PlayCard(Suit.values[i], Value.Jack),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Ten),
+        PlayCard(Suit.values[i], Value.nine),
+        PlayCard(Suit.values[i], Value.seven),
+        PlayCard(Suit.values[i], Value.king),
+        PlayCard(Suit.values[i], Value.jack),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.ten),
       ];
       int offset = offsetRank(hand[1]);
       assertCombination(RuleTestInput(
@@ -2807,11 +2807,11 @@ main() {
     // Basis case
     for (int i = 2; i < 10; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
-        PlayCard(Suit.Hearts, Value.values[i + 2]),
-        PlayCard(Suit.Spades, Value.values[i + 3]),
-        PlayCard(Suit.Clubs, Value.Two),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
+        PlayCard(Suit.hearts, Value.values[i + 2]),
+        PlayCard(Suit.spades, Value.values[i + 3]),
+        PlayCard(Suit.clubs, Value.two),
       ];
       int offset = offsetRank(hand[0]);
       assertCombination(RuleTestInput(
@@ -2829,11 +2829,11 @@ main() {
     // descending order
     for (int i = 2; i < 10; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i + 3]),
-        PlayCard(Suit.Diamonds, Value.values[i + 2]),
-        PlayCard(Suit.Hearts, Value.values[i + 1]),
-        PlayCard(Suit.Spades, Value.values[i]),
-        PlayCard(Suit.Clubs, Value.Two),
+        PlayCard(Suit.clubs, Value.values[i + 3]),
+        PlayCard(Suit.diamonds, Value.values[i + 2]),
+        PlayCard(Suit.hearts, Value.values[i + 1]),
+        PlayCard(Suit.spades, Value.values[i]),
+        PlayCard(Suit.clubs, Value.two),
       ];
       int offset = offsetRank(hand[3]);
       assertCombination(RuleTestInput(
@@ -2851,11 +2851,11 @@ main() {
     // mixed order
     for (int i = 2; i < 10; i++) {
       final hand = [
-        PlayCard(Suit.Diamonds, Value.values[i + 2]),
-        PlayCard(Suit.Clubs, Value.values[i + 1]),
-        PlayCard(Suit.Hearts, Value.values[i + 3]),
-        PlayCard(Suit.Spades, Value.values[i]),
-        PlayCard(Suit.Clubs, Value.Two),
+        PlayCard(Suit.diamonds, Value.values[i + 2]),
+        PlayCard(Suit.clubs, Value.values[i + 1]),
+        PlayCard(Suit.hearts, Value.values[i + 3]),
+        PlayCard(Suit.spades, Value.values[i]),
+        PlayCard(Suit.clubs, Value.two),
       ];
       int offset = offsetRank(hand[3]);
       assertCombination(RuleTestInput(
@@ -2875,11 +2875,11 @@ main() {
     // Basis case
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.Two),
-        PlayCard(Suit.values[i], Value.Three),
-        PlayCard(Suit.values[i], Value.Four),
-        PlayCard(Suit.values[i], Value.Five),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.King),
+        PlayCard(Suit.values[i], Value.two),
+        PlayCard(Suit.values[i], Value.three),
+        PlayCard(Suit.values[i], Value.four),
+        PlayCard(Suit.values[i], Value.five),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.king),
       ];
       assertCombination(RuleTestInput(
         hand: hand,
@@ -2896,11 +2896,11 @@ main() {
     // descending order
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.King),
-        PlayCard(Suit.values[i], Value.Five),
-        PlayCard(Suit.values[i], Value.Four),
-        PlayCard(Suit.values[i], Value.Three),
-        PlayCard(Suit.values[i], Value.Two),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.king),
+        PlayCard(Suit.values[i], Value.five),
+        PlayCard(Suit.values[i], Value.four),
+        PlayCard(Suit.values[i], Value.three),
+        PlayCard(Suit.values[i], Value.two),
       ];
       assertCombination(RuleTestInput(
         hand: hand,
@@ -2917,11 +2917,11 @@ main() {
     // mixed order
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.Three),
-        PlayCard(Suit.values[i], Value.Two),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.King),
-        PlayCard(Suit.values[i], Value.Four),
-        PlayCard(Suit.values[i], Value.Five),
+        PlayCard(Suit.values[i], Value.three),
+        PlayCard(Suit.values[i], Value.two),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.king),
+        PlayCard(Suit.values[i], Value.four),
+        PlayCard(Suit.values[i], Value.five),
       ];
       assertCombination(RuleTestInput(
         hand: hand,
@@ -2939,11 +2939,11 @@ main() {
     // Basis case
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Two),
-        PlayCard(Suit.values[i], Value.Jack),
-        PlayCard(Suit.values[i], Value.Queen),
-        PlayCard(Suit.values[i], Value.King),
-        PlayCard(Suit.values[i], Value.Ace),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.two),
+        PlayCard(Suit.values[i], Value.jack),
+        PlayCard(Suit.values[i], Value.queen),
+        PlayCard(Suit.values[i], Value.king),
+        PlayCard(Suit.values[i], Value.ace),
       ];
       int offset = offsetRank(hand[1]);
       assertCombination(RuleTestInput(
@@ -2961,11 +2961,11 @@ main() {
     // descending order
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.Ace),
-        PlayCard(Suit.values[i], Value.King),
-        PlayCard(Suit.values[i], Value.Queen),
-        PlayCard(Suit.values[i], Value.Jack),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Two),
+        PlayCard(Suit.values[i], Value.ace),
+        PlayCard(Suit.values[i], Value.king),
+        PlayCard(Suit.values[i], Value.queen),
+        PlayCard(Suit.values[i], Value.jack),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.two),
       ];
       int offset = offsetRank(hand[3]);
       assertCombination(RuleTestInput(
@@ -2983,11 +2983,11 @@ main() {
     // mixed order
     for (int i = 0; i < 4; i++) {
       final hand = [
-        PlayCard(Suit.values[i], Value.King),
-        PlayCard(Suit.values[i], Value.Ace),
-        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.Two),
-        PlayCard(Suit.values[i], Value.Queen),
-        PlayCard(Suit.values[i], Value.Jack),
+        PlayCard(Suit.values[i], Value.king),
+        PlayCard(Suit.values[i], Value.ace),
+        PlayCard(Suit.values[i == 0 ? 1 : 0], Value.two),
+        PlayCard(Suit.values[i], Value.queen),
+        PlayCard(Suit.values[i], Value.jack),
       ];
       int offset = offsetRank(hand[4]);
       assertCombination(RuleTestInput(
@@ -3009,11 +3009,11 @@ main() {
     for (Value value in Value.values) {
       if (value.index < 13) {
         final hand = [
-          PlayCard(Suit.Clubs, value),
-          PlayCard(Suit.Diamonds, value),
-          PlayCard(Suit.Spades, value),
-          PlayCard(Suit.Hearts, value),
-          PlayCard(Suit.Clubs, value),
+          PlayCard(Suit.clubs, value),
+          PlayCard(Suit.diamonds, value),
+          PlayCard(Suit.spades, value),
+          PlayCard(Suit.hearts, value),
+          PlayCard(Suit.clubs, value),
         ];
         int offset = offsetRank(hand[0]);
         assertCombination(RuleTestInput(
@@ -3035,11 +3035,11 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Six),
-          PlayCard(suit, Value.Eight),
-          PlayCard(suit, Value.Ten),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.six),
+          PlayCard(suit, Value.eight),
+          PlayCard(suit, Value.ten),
         ];
         assertCombination(RuleTestInput(
           hand: hand,
@@ -3058,11 +3058,11 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Ten),
-          PlayCard(suit, Value.Eight),
-          PlayCard(suit, Value.Six),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Two),
+          PlayCard(suit, Value.ten),
+          PlayCard(suit, Value.eight),
+          PlayCard(suit, Value.six),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.two),
         ];
         assertCombination(RuleTestInput(
           hand: hand,
@@ -3081,11 +3081,11 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Eight),
-          PlayCard(suit, Value.Ten),
-          PlayCard(suit, Value.Six),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.eight),
+          PlayCard(suit, Value.ten),
+          PlayCard(suit, Value.six),
         ];
         assertCombination(RuleTestInput(
           hand: hand,
@@ -3104,11 +3104,11 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Eight),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Six),
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Ten),
+          PlayCard(suit, Value.eight),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.six),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.ten),
         ];
         assertCombination(RuleTestInput(
           hand: hand,
@@ -3128,11 +3128,11 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Five),
-          PlayCard(suit, Value.Seven),
-          PlayCard(suit, Value.Nine),
-          PlayCard(suit, Value.Jack),
-          PlayCard(suit, Value.King),
+          PlayCard(suit, Value.five),
+          PlayCard(suit, Value.seven),
+          PlayCard(suit, Value.nine),
+          PlayCard(suit, Value.jack),
+          PlayCard(suit, Value.king),
         ];
         int offset = offsetRank(hand[0]);
         assertCombination(RuleTestInput(
@@ -3152,11 +3152,11 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.King),
-          PlayCard(suit, Value.Jack),
-          PlayCard(suit, Value.Nine),
-          PlayCard(suit, Value.Seven),
-          PlayCard(suit, Value.Five),
+          PlayCard(suit, Value.king),
+          PlayCard(suit, Value.jack),
+          PlayCard(suit, Value.nine),
+          PlayCard(suit, Value.seven),
+          PlayCard(suit, Value.five),
         ];
         int offset = offsetRank(hand[4]);
         assertCombination(RuleTestInput(
@@ -3176,11 +3176,11 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Nine),
-          PlayCard(suit, Value.King),
-          PlayCard(suit, Value.Seven),
-          PlayCard(suit, Value.Jack),
-          PlayCard(suit, Value.Five),
+          PlayCard(suit, Value.nine),
+          PlayCard(suit, Value.king),
+          PlayCard(suit, Value.seven),
+          PlayCard(suit, Value.jack),
+          PlayCard(suit, Value.five),
         ];
         int offset = offsetRank(hand[4]);
         assertCombination(RuleTestInput(
@@ -3200,11 +3200,11 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Nine),
-          PlayCard(suit, Value.Seven),
-          PlayCard(suit, Value.King),
-          PlayCard(suit, Value.Jack),
-          PlayCard(suit, Value.Five),
+          PlayCard(suit, Value.nine),
+          PlayCard(suit, Value.seven),
+          PlayCard(suit, Value.king),
+          PlayCard(suit, Value.jack),
+          PlayCard(suit, Value.five),
         ];
         int offset = offsetRank(hand[4]);
         assertCombination(RuleTestInput(
@@ -3225,11 +3225,11 @@ main() {
     // Basis case
     for (int i = 0; i < 9; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
-        PlayCard(Suit.Hearts, Value.values[i + 2]),
-        PlayCard(Suit.Spades, Value.values[i + 3]),
-        PlayCard(Suit.Clubs, Value.values[i + 4]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
+        PlayCard(Suit.hearts, Value.values[i + 2]),
+        PlayCard(Suit.spades, Value.values[i + 3]),
+        PlayCard(Suit.clubs, Value.values[i + 4]),
       ];
       int offset = offsetRank(hand[0]);
       assertCombination(RuleTestInput(
@@ -3247,11 +3247,11 @@ main() {
     // descending order
     for (int i = 0; i < 9; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i + 4]),
-        PlayCard(Suit.Clubs, Value.values[i + 3]),
-        PlayCard(Suit.Diamonds, Value.values[i + 2]),
-        PlayCard(Suit.Hearts, Value.values[i + 1]),
-        PlayCard(Suit.Spades, Value.values[i]),
+        PlayCard(Suit.clubs, Value.values[i + 4]),
+        PlayCard(Suit.clubs, Value.values[i + 3]),
+        PlayCard(Suit.diamonds, Value.values[i + 2]),
+        PlayCard(Suit.hearts, Value.values[i + 1]),
+        PlayCard(Suit.spades, Value.values[i]),
       ];
       int offset = offsetRank(hand[4]);
       assertCombination(RuleTestInput(
@@ -3269,11 +3269,11 @@ main() {
     // mixed order
     for (int i = 0; i < 9; i++) {
       final hand = [
-        PlayCard(Suit.Diamonds, Value.values[i + 2]),
-        PlayCard(Suit.Clubs, Value.values[i + 1]),
-        PlayCard(Suit.Hearts, Value.values[i + 3]),
-        PlayCard(Suit.Spades, Value.values[i]),
-        PlayCard(Suit.Clubs, Value.values[i + 4]),
+        PlayCard(Suit.diamonds, Value.values[i + 2]),
+        PlayCard(Suit.clubs, Value.values[i + 1]),
+        PlayCard(Suit.hearts, Value.values[i + 3]),
+        PlayCard(Suit.spades, Value.values[i]),
+        PlayCard(Suit.clubs, Value.values[i + 4]),
       ];
       int offset = offsetRank(hand[3]);
       assertCombination(RuleTestInput(
@@ -3293,11 +3293,11 @@ main() {
     // Basis case 1
     {
       final hand = [
-        PlayCard(Suit.Clubs, Value.Two),
-        PlayCard(Suit.Diamonds, Value.Three),
-        PlayCard(Suit.Hearts, Value.Four),
-        PlayCard(Suit.Hearts, Value.Five),
-        PlayCard(Suit.Clubs, Value.Ace),
+        PlayCard(Suit.clubs, Value.two),
+        PlayCard(Suit.diamonds, Value.three),
+        PlayCard(Suit.hearts, Value.four),
+        PlayCard(Suit.hearts, Value.five),
+        PlayCard(Suit.clubs, Value.ace),
       ];
       int offset = offsetRank(hand[1]);
       assertCombination(RuleTestInput(
@@ -3315,11 +3315,11 @@ main() {
     // Basis case 2
     {
       final hand = [
-        PlayCard(Suit.Clubs, Value.Ace),
-        PlayCard(Suit.Hearts, Value.Five),
-        PlayCard(Suit.Hearts, Value.Four),
-        PlayCard(Suit.Diamonds, Value.Three),
-        PlayCard(Suit.Clubs, Value.Two),
+        PlayCard(Suit.clubs, Value.ace),
+        PlayCard(Suit.hearts, Value.five),
+        PlayCard(Suit.hearts, Value.four),
+        PlayCard(Suit.diamonds, Value.three),
+        PlayCard(Suit.clubs, Value.two),
       ];
       int offset = offsetRank(hand[3]);
       assertCombination(RuleTestInput(
@@ -3337,11 +3337,11 @@ main() {
     // descending order 1
     {
       final hand = [
-        PlayCard(Suit.Clubs, Value.Ace),
-        PlayCard(Suit.Hearts, Value.Five),
-        PlayCard(Suit.Hearts, Value.Four),
-        PlayCard(Suit.Diamonds, Value.Three),
-        PlayCard(Suit.Diamonds, Value.Two),
+        PlayCard(Suit.clubs, Value.ace),
+        PlayCard(Suit.hearts, Value.five),
+        PlayCard(Suit.hearts, Value.four),
+        PlayCard(Suit.diamonds, Value.three),
+        PlayCard(Suit.diamonds, Value.two),
       ];
       int offset = offsetRank(hand[3]);
       assertCombination(RuleTestInput(
@@ -3359,11 +3359,11 @@ main() {
     // descending order 2
     {
       final hand = [
-        PlayCard(Suit.Hearts, Value.Five),
-        PlayCard(Suit.Hearts, Value.Four),
-        PlayCard(Suit.Diamonds, Value.Three),
-        PlayCard(Suit.Diamonds, Value.Two),
-        PlayCard(Suit.Clubs, Value.Ace),
+        PlayCard(Suit.hearts, Value.five),
+        PlayCard(Suit.hearts, Value.four),
+        PlayCard(Suit.diamonds, Value.three),
+        PlayCard(Suit.diamonds, Value.two),
+        PlayCard(Suit.clubs, Value.ace),
       ];
       int offset = offsetRank(hand[2]);
       assertCombination(RuleTestInput(
@@ -3381,11 +3381,11 @@ main() {
     // mixed order
     {
       final hand = [
-        PlayCard(Suit.Diamonds, Value.Two),
-        PlayCard(Suit.Hearts, Value.Four),
-        PlayCard(Suit.Diamonds, Value.Ace),
-        PlayCard(Suit.Hearts, Value.Three),
-        PlayCard(Suit.Hearts, Value.Five),
+        PlayCard(Suit.diamonds, Value.two),
+        PlayCard(Suit.hearts, Value.four),
+        PlayCard(Suit.diamonds, Value.ace),
+        PlayCard(Suit.hearts, Value.three),
+        PlayCard(Suit.hearts, Value.five),
       ];
       int offset = offsetRank(hand[3]);
       assertCombination(RuleTestInput(
@@ -3406,11 +3406,11 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Five),
-          PlayCard(suit, Value.Six),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.five),
+          PlayCard(suit, Value.six),
         ];
         assertCombination(RuleTestInput(
           hand: hand,
@@ -3429,11 +3429,11 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Six),
-          PlayCard(suit, Value.Five),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Two),
+          PlayCard(suit, Value.six),
+          PlayCard(suit, Value.five),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.two),
         ];
         assertCombination(RuleTestInput(
           hand: hand,
@@ -3452,11 +3452,11 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Six),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Five),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.six),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.five),
         ];
         assertCombination(RuleTestInput(
           hand: hand,
@@ -3476,11 +3476,11 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Ten),
-          PlayCard(suit, Value.Jack),
-          PlayCard(suit, Value.Queen),
-          PlayCard(suit, Value.King),
-          PlayCard(suit, Value.Ace),
+          PlayCard(suit, Value.ten),
+          PlayCard(suit, Value.jack),
+          PlayCard(suit, Value.queen),
+          PlayCard(suit, Value.king),
+          PlayCard(suit, Value.ace),
         ];
         int offset = offsetRank(hand[0]);
         assertCombination(RuleTestInput(
@@ -3500,11 +3500,11 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Ace),
-          PlayCard(suit, Value.King),
-          PlayCard(suit, Value.Queen),
-          PlayCard(suit, Value.Jack),
-          PlayCard(suit, Value.Ten),
+          PlayCard(suit, Value.ace),
+          PlayCard(suit, Value.king),
+          PlayCard(suit, Value.queen),
+          PlayCard(suit, Value.jack),
+          PlayCard(suit, Value.ten),
         ];
         int offset = offsetRank(hand[4]);
         assertCombination(RuleTestInput(
@@ -3524,11 +3524,11 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.King),
-          PlayCard(suit, Value.Ace),
-          PlayCard(suit, Value.Ten),
-          PlayCard(suit, Value.Queen),
-          PlayCard(suit, Value.Jack),
+          PlayCard(suit, Value.king),
+          PlayCard(suit, Value.ace),
+          PlayCard(suit, Value.ten),
+          PlayCard(suit, Value.queen),
+          PlayCard(suit, Value.jack),
         ];
         int offset = offsetRank(hand[2]);
         assertCombination(RuleTestInput(
@@ -3550,11 +3550,11 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Five),
-          PlayCard(suit, Value.Ace),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.five),
+          PlayCard(suit, Value.ace),
         ];
         int offset = offsetRank(hand[1]);
         assertCombination(RuleTestInput(
@@ -3574,11 +3574,11 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Ace),
-          PlayCard(suit, Value.Five),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Two),
+          PlayCard(suit, Value.ace),
+          PlayCard(suit, Value.five),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.two),
         ];
         int offset = offsetRank(hand[3]);
         assertCombination(RuleTestInput(
@@ -3598,11 +3598,11 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Ace),
-          PlayCard(suit, Value.Five),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Two),
+          PlayCard(suit, Value.ace),
+          PlayCard(suit, Value.five),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.two),
         ];
         int offset = offsetRank(hand[3]);
         assertCombination(RuleTestInput(
@@ -3622,11 +3622,11 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Five),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Ace),
+          PlayCard(suit, Value.five),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.ace),
         ];
         int offset = offsetRank(hand[2]);
         assertCombination(RuleTestInput(
@@ -3646,11 +3646,11 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Five),
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Ace),
-          PlayCard(suit, Value.Three),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.five),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.ace),
+          PlayCard(suit, Value.three),
         ];
         int offset = offsetRank(hand[4]);
         assertCombination(RuleTestInput(
@@ -3671,11 +3671,11 @@ main() {
     // Basic case
     for (int i = 0; i < 11; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Diamonds, Value.values[i]),
-        PlayCard(Suit.Hearts, Value.values[i]),
-        PlayCard(Suit.Spades, Value.values[i + 1]),
-        PlayCard(Suit.Invalid, Value.values[i + 1]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i]),
+        PlayCard(Suit.hearts, Value.values[i]),
+        PlayCard(Suit.spades, Value.values[i + 1]),
+        PlayCard(Suit.invalid, Value.values[i + 1]),
       ];
       int offset = offsetRank(hand[0]) + 2 * offsetRank(hand[4]);
       assertCombination(RuleTestInput(
@@ -3693,11 +3693,11 @@ main() {
     // Other end
     for (int i = 0; i < 11; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Diamonds, Value.values[i]),
-        PlayCard(Suit.Hearts, Value.values[i + 1]),
-        PlayCard(Suit.Spades, Value.values[i + 1]),
-        PlayCard(Suit.Invalid, Value.values[i + 1]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i]),
+        PlayCard(Suit.hearts, Value.values[i + 1]),
+        PlayCard(Suit.spades, Value.values[i + 1]),
+        PlayCard(Suit.invalid, Value.values[i + 1]),
       ];
       int offset = offsetRank(hand[0]) + 2 * offsetRank(hand[4]);
       assertCombination(RuleTestInput(
@@ -3715,11 +3715,11 @@ main() {
     // descending order 1
     for (int i = 0; i < 11; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i + 1]),
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
-        PlayCard(Suit.Hearts, Value.values[i + 1]),
-        PlayCard(Suit.Spades, Value.values[i]),
-        PlayCard(Suit.Invalid, Value.values[i]),
+        PlayCard(Suit.clubs, Value.values[i + 1]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
+        PlayCard(Suit.hearts, Value.values[i + 1]),
+        PlayCard(Suit.spades, Value.values[i]),
+        PlayCard(Suit.invalid, Value.values[i]),
       ];
       int offset = offsetRank(hand[4]) + 2 * offsetRank(hand[0]);
       assertCombination(RuleTestInput(
@@ -3737,11 +3737,11 @@ main() {
     // descending order 2
     for (int i = 0; i < 11; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i + 1]),
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
-        PlayCard(Suit.Hearts, Value.values[i]),
-        PlayCard(Suit.Spades, Value.values[i]),
-        PlayCard(Suit.Invalid, Value.values[i]),
+        PlayCard(Suit.clubs, Value.values[i + 1]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
+        PlayCard(Suit.hearts, Value.values[i]),
+        PlayCard(Suit.spades, Value.values[i]),
+        PlayCard(Suit.invalid, Value.values[i]),
       ];
       int offset = offsetRank(hand[4]) + 2 * offsetRank(hand[0]);
       assertCombination(RuleTestInput(
@@ -3759,11 +3759,11 @@ main() {
     // mixed order 1
     for (int i = 0; i < 11; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
-        PlayCard(Suit.Hearts, Value.values[i]),
-        PlayCard(Suit.Spades, Value.values[i + 1]),
-        PlayCard(Suit.Invalid, Value.values[i]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
+        PlayCard(Suit.hearts, Value.values[i]),
+        PlayCard(Suit.spades, Value.values[i + 1]),
+        PlayCard(Suit.invalid, Value.values[i]),
       ];
       int offset = offsetRank(hand[0]) + 2 * offsetRank(hand[3]);
       assertCombination(RuleTestInput(
@@ -3781,11 +3781,11 @@ main() {
     // mixed order 2
     for (int i = 0; i < 11; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i + 1]),
-        PlayCard(Suit.Diamonds, Value.values[i]),
-        PlayCard(Suit.Hearts, Value.values[i + 1]),
-        PlayCard(Suit.Spades, Value.values[i]),
-        PlayCard(Suit.Invalid, Value.values[i + 1]),
+        PlayCard(Suit.clubs, Value.values[i + 1]),
+        PlayCard(Suit.diamonds, Value.values[i]),
+        PlayCard(Suit.hearts, Value.values[i + 1]),
+        PlayCard(Suit.spades, Value.values[i]),
+        PlayCard(Suit.invalid, Value.values[i + 1]),
       ];
       int offset = offsetRank(hand[3]) + 2 * offsetRank(hand[0]);
       assertCombination(RuleTestInput(

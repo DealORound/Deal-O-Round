@@ -4,63 +4,63 @@ import 'package:deal_o_round/game/logic/suit.dart';
 main() {
   group('Suit tests', () {
     test('Spades has right "value" (index)', () async {
-      expect(Suit.Spades.index, 0);
+      expect(Suit.spades.index, 0);
     });
 
     test('Clubs has right "value" (index)', () async {
-      expect(Suit.Clubs.index, 1);
+      expect(Suit.clubs.index, 1);
     });
 
     test('Diamonds has right "value" (index)', () async {
-      expect(Suit.Diamonds.index, 2);
+      expect(Suit.diamonds.index, 2);
     });
 
     test('Hearts has right "value" (index)', () async {
-      expect(Suit.Hearts.index, 3);
+      expect(Suit.hearts.index, 3);
     });
 
     test('Invalid has right "value" (index)', () async {
-      expect(Suit.Invalid.index, 4);
+      expect(Suit.invalid.index, 4);
     });
 
     test('Spades has right display string', () async {
-      expect(Suit.Spades.toString().split('.').last, "Spades");
+      expect(Suit.spades.toString().split('.').last, "spades");
     });
 
     test('Clubs has right display string', () async {
-      expect(Suit.Clubs.toString().split('.').last, "Clubs");
+      expect(Suit.clubs.toString().split('.').last, "clubs");
     });
 
     test('Diamonds has right display string', () async {
-      expect(Suit.Diamonds.toString().split('.').last, "Diamonds");
+      expect(Suit.diamonds.toString().split('.').last, "diamonds");
     });
 
     test('Hearts has right display string', () async {
-      expect(Suit.Hearts.toString().split('.').last, "Hearts");
+      expect(Suit.hearts.toString().split('.').last, "hearts");
     });
 
     test('Invalid has right display string', () async {
-      expect(Suit.Invalid.toString().split('.').last, "Invalid");
+      expect(Suit.invalid.toString().split('.').last, "invalid");
     });
 
     test('Spades has right character string', () async {
-      expect(suitCharacter(Suit.Spades), "S");
+      expect(suitCharacter(Suit.spades), "S");
     });
 
     test('Clubs has right character string', () async {
-      expect(suitCharacter(Suit.Clubs), "C");
+      expect(suitCharacter(Suit.clubs), "C");
     });
 
     test('Diamonds has right character string', () async {
-      expect(suitCharacter(Suit.Diamonds), "4");
+      expect(suitCharacter(Suit.diamonds), "4");
     });
 
     test('Hearts has right character string', () async {
-      expect(suitCharacter(Suit.Hearts), "3");
+      expect(suitCharacter(Suit.hearts), "3");
     });
 
     test('Invalid has right character string', () async {
-      expect(suitCharacter(Suit.Invalid), "");
+      expect(suitCharacter(Suit.invalid), "");
     });
   });
 }

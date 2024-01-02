@@ -36,7 +36,7 @@ class SwipeAnimationState extends State<SwipeAnimation>
       ..addStatusListener((status) async {
         if (status == AnimationStatus.completed) {
           await Get.find<SoundUtils>()
-              .playSoundEffect(SoundEffect.ShortCardShuffle);
+              .playSoundEffect(SoundEffect.shortCardShuffle);
           _animationController?.reverse();
         } else if (status == AnimationStatus.dismissed) {
           _animationController?.forward();

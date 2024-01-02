@@ -1,21 +1,21 @@
 enum HandClass {
-  None,
-  OnePair,
-  Flush3,
-  Straight3,
-  StraightFlush3,
-  ThreeOfAKind, // Terc
-  Straight4,
-  TwoPair,
-  Flush4,
-  Straight5,
-  StraightFlush4,
-  Flush5,
-  FullHouse,
-  FourOfAKind, // Poker
-  StraightFlush5, // Royal Flush
-  FiveOfAKind,
-  Invalid
+  none,
+  onePair,
+  flush3,
+  straight3,
+  straightFlush3,
+  threeOfAKind, // Terc
+  straight4,
+  twoPair,
+  flush4,
+  straight5,
+  straightFlush4,
+  flush5,
+  fullHouse,
+  fourOfAKind, // Poker
+  straightFlush5, // Royal Flush
+  fiveOfAKind,
+  invalid
 }
 
 const handDisplayStrings = [
@@ -39,7 +39,7 @@ const handDisplayStrings = [
 ];
 
 String handDisplayString(HandClass handClass) {
-  if (handClass == HandClass.Invalid) {
+  if (handClass == HandClass.invalid) {
     return "";
   }
 

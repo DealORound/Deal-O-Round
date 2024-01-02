@@ -19,18 +19,18 @@ class EnumSettings<T> extends StatefulWidget {
   });
 
   @override
-  _EnumSettingsState createState() =>
-      _EnumSettingsState<T>(values, defaultValue, valueTag);
+  EnumSettingsState createState() =>
+      EnumSettingsState<T>(values, defaultValue, valueTag);
 }
 
-class _EnumSettingsState<T> extends State<EnumSettings> {
+class EnumSettingsState<T> extends State<EnumSettings> {
   late SharedPreferences _prefs;
   late List<String> stringValues;
   T enumValue;
   late String stringValue;
   final String valueTag;
 
-  _EnumSettingsState(List<T> values, this.enumValue, this.valueTag) {
+  EnumSettingsState(List<T> values, this.enumValue, this.valueTag) {
     _prefs = Get.find<SharedPreferences>();
     this.stringValues = values.map<String>((T val) {
       return val.toString().split('.').last;

@@ -7,7 +7,7 @@ main() {
     test('Easy difficulty has diagonal selection on all levels', () async {
       final levelManager = LevelManager();
       for (final _ in Iterable<int>.generate(30)) {
-        expect(levelManager.hasDiagonalSelection(Difficulty.Easy), true);
+        expect(levelManager.hasDiagonalSelection(Difficulty.easy), true);
         levelManager.advanceLevel();
       }
     });
@@ -15,7 +15,7 @@ main() {
     test('Medium has diagonal selection on first two levels', () async {
       final levelManager = LevelManager();
       for (final level in Iterable<int>.generate(30)) {
-        expect(levelManager.hasDiagonalSelection(Difficulty.Medium), level < 2);
+        expect(levelManager.hasDiagonalSelection(Difficulty.medium), level < 2);
         levelManager.advanceLevel();
       }
     });
@@ -23,7 +23,7 @@ main() {
     test('Hard does not have diagonal selection', () async {
       final levelManager = LevelManager();
       for (final _ in Iterable<int>.generate(30)) {
-        expect(levelManager.hasDiagonalSelection(Difficulty.Hard), false);
+        expect(levelManager.hasDiagonalSelection(Difficulty.hard), false);
         levelManager.advanceLevel();
       }
     });

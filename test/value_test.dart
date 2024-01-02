@@ -4,183 +4,183 @@ import 'package:deal_o_round/game/logic/value.dart';
 main() {
   group('Value tests', () {
     test('Two has right "value" (index)', () async {
-      expect(Value.Two.index, 0);
+      expect(Value.two.index, 0);
     });
 
     test('Three has right "value" (index)', () async {
-      expect(Value.Three.index, 1);
+      expect(Value.three.index, 1);
     });
 
     test('Four has right "value" (index)', () async {
-      expect(Value.Four.index, 2);
+      expect(Value.four.index, 2);
     });
 
     test('Five has right "value" (index)', () async {
-      expect(Value.Five.index, 3);
+      expect(Value.five.index, 3);
     });
 
     test('Six has right "value" (index)', () async {
-      expect(Value.Six.index, 4);
+      expect(Value.six.index, 4);
     });
 
     test('Seven has right "value" (index)', () async {
-      expect(Value.Seven.index, 5);
+      expect(Value.seven.index, 5);
     });
 
     test('Eight has right "value" (index)', () async {
-      expect(Value.Eight.index, 6);
+      expect(Value.eight.index, 6);
     });
 
     test('Nine has right "value" (index)', () async {
-      expect(Value.Nine.index, 7);
+      expect(Value.nine.index, 7);
     });
 
     test('Ten has right "value" (index)', () async {
-      expect(Value.Ten.index, 8);
+      expect(Value.ten.index, 8);
     });
 
     test('Jack has right "value" (index)', () async {
-      expect(Value.Jack.index, 9);
+      expect(Value.jack.index, 9);
     });
 
     test('Queen has right "value" (index)', () async {
-      expect(Value.Queen.index, 10);
+      expect(Value.queen.index, 10);
     });
 
     test('King has right "value" (index)', () async {
-      expect(Value.King.index, 11);
+      expect(Value.king.index, 11);
     });
 
     test('Ace has right "value" (index)', () async {
-      expect(Value.Ace.index, 12);
+      expect(Value.ace.index, 12);
     });
 
     test('Joker has right "value" (index)', () async {
-      expect(Value.Joker.index, 13);
+      expect(Value.joker.index, 13);
     });
 
     test('Invalid has right "value" (index)', () async {
-      expect(Value.Invalid.index, 14);
+      expect(Value.invalid.index, 14);
     });
 
     test('Two has right string value', () async {
-      expect(Value.Two.toString().split('.').last, "Two");
+      expect(Value.two.toString().split('.').last, "two");
     });
 
     test('Three has right string value', () async {
-      expect(Value.Three.toString().split('.').last, "Three");
+      expect(Value.three.toString().split('.').last, "three");
     });
 
     test('Four has right string value', () async {
-      expect(Value.Four.toString().split('.').last, "Four");
+      expect(Value.four.toString().split('.').last, "four");
     });
 
     test('Five has right string value', () async {
-      expect(Value.Five.toString().split('.').last, "Five");
+      expect(Value.five.toString().split('.').last, "five");
     });
 
     test('Six has right string value', () async {
-      expect(Value.Six.toString().split('.').last, "Six");
+      expect(Value.six.toString().split('.').last, "six");
     });
 
     test('Seven has right string value', () async {
-      expect(Value.Seven.toString().split('.').last, "Seven");
+      expect(Value.seven.toString().split('.').last, "seven");
     });
 
     test('Eight has right string value', () async {
-      expect(Value.Eight.toString().split('.').last, "Eight");
+      expect(Value.eight.toString().split('.').last, "eight");
     });
 
     test('Nine has right string value', () async {
-      expect(Value.Nine.toString().split('.').last, "Nine");
+      expect(Value.nine.toString().split('.').last, "nine");
     });
 
     test('Ten has right string value', () async {
-      expect(Value.Ten.toString().split('.').last, "Ten");
+      expect(Value.ten.toString().split('.').last, "ten");
     });
 
     test('Jack has right string value', () async {
-      expect(Value.Jack.toString().split('.').last, "Jack");
+      expect(Value.jack.toString().split('.').last, "jack");
     });
 
     test('Queen has right string value', () async {
-      expect(Value.Queen.toString().split('.').last, "Queen");
+      expect(Value.queen.toString().split('.').last, "queen");
     });
 
     test('King has right string value', () async {
-      expect(Value.King.toString().split('.').last, "King");
+      expect(Value.king.toString().split('.').last, "king");
     });
 
     test('Ace has right string value', () async {
-      expect(Value.Ace.toString().split('.').last, "Ace");
+      expect(Value.ace.toString().split('.').last, "ace");
     });
 
     test('Joker has right string value', () async {
-      expect(Value.Joker.toString().split('.').last, "Joker");
+      expect(Value.joker.toString().split('.').last, "joker");
     });
 
     test('Invalid has right string value', () async {
-      expect(Value.Invalid.toString().split('.').last, "Invalid");
+      expect(Value.invalid.toString().split('.').last, "invalid");
     });
 
     test('Two has right value character', () async {
-      expect(valueCharacter(Value.Two), "2");
+      expect(valueCharacter(Value.two), "2");
     });
 
     test('Three has right "value" (index)', () async {
-      expect(valueCharacter(Value.Three), "3");
+      expect(valueCharacter(Value.three), "3");
     });
 
     test('Four has right "value" (index)', () async {
-      expect(valueCharacter(Value.Four), "4");
+      expect(valueCharacter(Value.four), "4");
     });
 
     test('Five has right "value" (index)', () async {
-      expect(valueCharacter(Value.Five), "5");
+      expect(valueCharacter(Value.five), "5");
     });
 
     test('Six has right "value" (index)', () async {
-      expect(valueCharacter(Value.Six), "6");
+      expect(valueCharacter(Value.six), "6");
     });
 
     test('Seven has right "value" (index)', () async {
-      expect(valueCharacter(Value.Seven), "7");
+      expect(valueCharacter(Value.seven), "7");
     });
 
     test('Eight has right "value" (index)', () async {
-      expect(valueCharacter(Value.Eight), "8");
+      expect(valueCharacter(Value.eight), "8");
     });
 
     test('Nine has right "value" (index)', () async {
-      expect(valueCharacter(Value.Nine), "9");
+      expect(valueCharacter(Value.nine), "9");
     });
 
     test('Ten has right "value" (index)', () async {
-      expect(valueCharacter(Value.Ten), "10");
+      expect(valueCharacter(Value.ten), "10");
     });
 
     test('Jack has right "value" (index)', () async {
-      expect(valueCharacter(Value.Jack), "J");
+      expect(valueCharacter(Value.jack), "J");
     });
 
     test('Queen has right "value" (index)', () async {
-      expect(valueCharacter(Value.Queen), "Q");
+      expect(valueCharacter(Value.queen), "Q");
     });
 
     test('King has right "value" (index)', () async {
-      expect(valueCharacter(Value.King), "K");
+      expect(valueCharacter(Value.king), "K");
     });
 
     test('Ace has right "value" (index)', () async {
-      expect(valueCharacter(Value.Ace), "A");
+      expect(valueCharacter(Value.ace), "A");
     });
 
     test('Joker has right "value" (index)', () async {
-      expect(valueCharacter(Value.Joker), "*");
+      expect(valueCharacter(Value.joker), "*");
     });
 
     test('Invalid has right "value" (index)', () async {
-      expect(valueCharacter(Value.Invalid), "");
+      expect(valueCharacter(Value.invalid), "");
     });
   });
 }

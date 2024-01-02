@@ -13,12 +13,12 @@ class Board {
   final shoe = Shoe(includeJokers: true);
   late List<List<PlayCard>> board;
   final BoardLayout layout;
-  final indexes = Iterable<int>.generate(GameState.BOARD_SIZE).toList();
+  final indexes = Iterable<int>.generate(GameState.boardSize).toList();
 
   Board(this.layout) {
     board = indexes
-        .map((i) => getRandomCards(GameState.BOARD_SIZE +
-            (layout == BoardLayout.Hexagonal && i % 2 == 0 ? -1 : 0)))
+        .map((i) => getRandomCards(GameState.boardSize +
+            (layout == BoardLayout.hexagonal && i % 2 == 0 ? -1 : 0)))
         .toList();
   }
 
@@ -47,8 +47,8 @@ class Board {
   removeHand(List<GlobalKey<AnimatedListState>> listKeys, int animationDelay) {
     // Step 1: Remove selected cards from the UI / AnimatedLists (animated way)
     for (var x in indexes) {
-      final maxY = GameState.BOARD_SIZE +
-          (layout == BoardLayout.Hexagonal && x % 2 == 0 ? -1 : 0);
+      final maxY = GameState.boardSize +
+          (layout == BoardLayout.hexagonal && x % 2 == 0 ? -1 : 0);
       for (var y = maxY - 1; y >= 0; y--) {
         if (board[x][y].selected) {
           listKeys[x].currentState?.removeItem(
@@ -62,8 +62,8 @@ class Board {
       // Step 2: Remove selected cards from board
       for (var x in indexes) {
         int displacement = 0;
-        final maxY = GameState.BOARD_SIZE +
-            (layout == BoardLayout.Hexagonal && x % 2 == 0 ? -1 : 0);
+        final maxY = GameState.boardSize +
+            (layout == BoardLayout.hexagonal && x % 2 == 0 ? -1 : 0);
         for (var y = maxY - 1; y >= 0; y--) {
           if (board[x][y].selected) {
             displacement += 1;
@@ -78,8 +78,8 @@ class Board {
       // Step 3: deal new cards in place of the removed (selected) cards
       // And insert (animated) them to the AnimatedLists
       for (var x in indexes) {
-        int maxY = GameState.BOARD_SIZE +
-            (layout == BoardLayout.Hexagonal && x % 2 == 0 ? -1 : 0);
+        int maxY = GameState.boardSize +
+            (layout == BoardLayout.hexagonal && x % 2 == 0 ? -1 : 0);
         for (var y = 0; y < maxY; y++) {
           if (board[x][y].selected) {
             board[x][y] = shoe.dealCard();
@@ -97,7 +97,7 @@ class Board {
         5,
         (int i) =>
             Random().nextInt(
-                layout == BoardLayout.Hexagonal && i % 2 == 0 ? 3 : 4) +
+                layout == BoardLayout.hexagonal && i % 2 == 0 ? 3 : 4) +
             1);
 
     // Step 2: spin (slot machine type rotation) by the rotation amounts

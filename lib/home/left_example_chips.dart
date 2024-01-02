@@ -15,16 +15,16 @@ class LeftExampleChips extends StatelessWidget {
       foregroundPainter: SwipePainter(),
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         Row(children: [
-          ChipWidget(card: PlayCard(Suit.Hearts, Value.Queen)),
-          ChipWidget(card: PlayCard(Suit.Clubs, Value.Six)),
+          ChipWidget(card: PlayCard(Suit.hearts, Value.queen)),
+          ChipWidget(card: PlayCard(Suit.clubs, Value.six)),
         ]),
         Row(children: [
-          ChipWidget(card: PlayCard(Suit.Spades, Value.Queen)),
-          ChipWidget(card: PlayCard(Suit.Hearts, Value.Ten)),
+          ChipWidget(card: PlayCard(Suit.spades, Value.queen)),
+          ChipWidget(card: PlayCard(Suit.hearts, Value.ten)),
         ]),
         Row(children: [
-          ChipWidget(card: PlayCard(Suit.Clubs, Value.Queen)),
-          ChipWidget(card: PlayCard(Suit.Diamonds, Value.Six)),
+          ChipWidget(card: PlayCard(Suit.clubs, Value.queen)),
+          ChipWidget(card: PlayCard(Suit.diamonds, Value.six)),
         ]),
       ]),
     );

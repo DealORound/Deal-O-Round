@@ -1,7 +1,7 @@
-enum Suit { Spades, Clubs, Diamonds, Hearts, Invalid }
+enum Suit { spades, clubs, diamonds, hearts, invalid }
 
-const BLACK_SUITES = [Suit.Spades, Suit.Clubs];
-const RED_SUITES = [Suit.Diamonds, Suit.Hearts];
+const blackSuites = [Suit.spades, Suit.clubs];
+const redSuites = [Suit.diamonds, Suit.hearts];
 
 const suitCharacters = ["S", "C", "4", "3", ""];
 

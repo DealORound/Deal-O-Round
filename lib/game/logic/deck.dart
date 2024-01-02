@@ -7,7 +7,7 @@ class Deck {
   late int cardsUsed;
   final bool includeJokers;
   final bool initialShuffle;
-  final index;
+  final int index;
 
   Deck(
       {this.includeJokers = false,
@@ -25,8 +25,8 @@ class Deck {
     }
 
     if (includeJokers) {
-      deck.add(PlayCard(Suit.Spades, Value.Joker, deck: index));
-      deck.add(PlayCard(Suit.Diamonds, Value.Joker, deck: index));
+      deck.add(PlayCard(Suit.spades, Value.joker, deck: index));
+      deck.add(PlayCard(Suit.diamonds, Value.joker, deck: index));
     }
 
     if (initialShuffle) {
@@ -40,7 +40,7 @@ class Deck {
 
   PlayCard dealCard() {
     if (cardsUsed == deck.length) {
-      return PlayCard(Suit.Invalid, Value.Invalid);
+      return PlayCard(Suit.invalid, Value.invalid);
     }
 
     cardsUsed++;

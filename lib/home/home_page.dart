@@ -56,12 +56,12 @@ class HomePageState extends State<HomePage>
   @override
   initState() {
     super.initState();
-    Get.find<SoundUtils>().playSoundTrack(SoundTrack.SaloonMusic);
-    bool? storedSignedIn = _prefs.getBool(GAME_SIGNED_IN);
+    Get.find<SoundUtils>().playSoundTrack(SoundTrack.saloonMusic);
+    bool? storedSignedIn = _prefs.getBool(gameSignedInTag);
     if (storedSignedIn != null) {
       _gameSignedIn = storedSignedIn;
     } else {
-      _prefs.setBool(GAME_SIGNED_IN, false);
+      _prefs.setBool(gameSignedInTag, false);
       _gameSignedIn = false;
     }
     _updateTime();
@@ -90,7 +90,7 @@ class HomePageState extends State<HomePage>
     setState(() {
       _gameSignedIn = on;
     });
-    _prefs.setBool(GAME_SIGNED_IN, _gameSignedIn);
+    _prefs.setBool(gameSignedInTag, _gameSignedIn);
   }
 
   @override

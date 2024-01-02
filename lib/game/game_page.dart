@@ -53,7 +53,7 @@ class GamePage extends StatefulWidget {
 }
 
 class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
-  static const BOARD_SIZE = 5;
+  static const boardSize = 5;
 
   DateTime _rightNow = DateTime.now();
   DateTime _started = DateTime.now();
@@ -64,8 +64,8 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   String _info = "-";
   Timer? _timer;
   late SharedPreferences _prefs;
-  BoardLayout _layout = BoardLayout.Hexagonal;
-  Difficulty _difficulty = Difficulty.Easy;
+  BoardLayout _layout = BoardLayout.hexagonal;
+  Difficulty _difficulty = Difficulty.easy;
   final LevelManager _levelManager = LevelManager();
   late Board _board;
   final Rules _rules = Rules();
@@ -78,8 +78,8 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   bool _paused = false;
   DateTime _pauseStarted = DateTime.now();
   int _totalPaused = 0;
-  final indexes = Iterable<int>.generate(BOARD_SIZE).toList();
-  final indexesEven = Iterable<int>.generate(BOARD_SIZE - 1).toList();
+  final indexes = Iterable<int>.generate(boardSize).toList();
+  final indexesEven = Iterable<int>.generate(boardSize - 1).toList();
   List<GlobalKey<AnimatedListState>> _listKeys = [];
   int _animationDelay = 0;
   bool _shouldUnlock = false;
@@ -101,11 +101,11 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   GameState() {
     _prefs = Get.find<SharedPreferences>();
     _difficulty = enumFromString(Difficulty.values,
-            _prefs.getString(DIFFICULTY) ?? DIFFICULTY_DEFAULT) ??
-        DIFFICULTY_DEFAULT_VALUE;
+            _prefs.getString(difficultyTag) ?? difficultyDefault) ??
+        difficultyDefaultValue;
     _layout = enumFromString(BoardLayout.values,
-            _prefs.getString(BOARD_LAYOUT) ?? BOARD_LAYOUT_DEFAULT) ??
-        BOARD_LAYOUT_DEFAULT_VALUE;
+            _prefs.getString(boardLayoutTag) ?? boardLayoutDefault) ??
+        boardLayoutDefaultValue;
 
     _countDown = _levelManager.getCurrentLevelTimeLimit(_difficulty);
     _nextLevel = _levelManager.getCurrentLevelScoreLimit(_difficulty);
@@ -113,8 +113,8 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     _board = Board(_layout);
     _listKeys = indexes.map((i) => GlobalKey<AnimatedListState>()).toList();
     _animationDelay =
-        (_prefs.getDouble(ANIMATION_SPEED) ?? ANIMATION_SPEED_DEFAULT).toInt();
-    _shouldUnlock = (_prefs.getBool(GAME_SIGNED_IN) ?? false) &&
+        (_prefs.getDouble(animationSpeedTag) ?? animationSpeedDefault).toInt();
+    _shouldUnlock = (_prefs.getBool(gameSignedInTag) ?? false) &&
         (UniversalPlatform.isAndroid || UniversalPlatform.isIOS);
   }
 
@@ -134,20 +134,20 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   }
 
   spin() async {
-    if (countDown <= DELAY_OF_SPIN / 1000 + 1) {
+    if (countDown <= delayOfSpin / 1000 + 1) {
       Get.snackbar("Not enough time for spin", "",
-          colorText: SNACK_TEXT, backgroundColor: snackBack);
+          colorText: snackTextColor, backgroundColor: snackBgColor);
       return;
     }
-    if (score <= PRICE_OF_SPIN) {
+    if (score <= priceOfSpin) {
       Get.snackbar("Not enough points for spin", "",
-          colorText: SNACK_TEXT, backgroundColor: snackBack);
+          colorText: snackTextColor, backgroundColor: snackBgColor);
       return;
     }
-    await Get.find<SoundUtils>().playSoundEffect(SoundEffect.LongCardShuffle);
+    await Get.find<SoundUtils>().playSoundEffect(SoundEffect.longCardShuffle);
     setState(() {
-      _score -= PRICE_OF_SPIN;
-      _board.spin(_listKeys, DELAY_OF_SPIN);
+      _score -= priceOfSpin;
+      _board.spin(_listKeys, delayOfSpin);
       _selection.clear();
       _clearSelection();
     });
@@ -156,12 +156,12 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   List<Point<int>> _getNeighbors(Point<int> cell) {
     final List<Point<int>> neighbors = [];
     final diagonals = _levelManager.hasDiagonalSelection(_difficulty);
-    const maxIndex = BOARD_SIZE - 1;
+    const maxIndex = boardSize - 1;
     final notTop = cell.y > 0;
     if (notTop) {
       neighbors.add(Point(cell.x, cell.y - 1));
     }
-    if (_layout == BoardLayout.Square) {
+    if (_layout == BoardLayout.square) {
       final notLeft = cell.x > 0;
       final notRight = cell.x < maxIndex;
       if (notTop && diagonals) {
@@ -246,7 +246,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
       }
       if (_levelManager.hasNeighborHighlight(_difficulty, true)) {
         for (var x in indexes) {
-          final ixs = (_layout == BoardLayout.Hexagonal && x % 2 == 0)
+          final ixs = (_layout == BoardLayout.hexagonal && x % 2 == 0)
               ? indexesEven
               : indexes;
           for (var y in ixs) {
@@ -276,7 +276,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     final diameter = chipSize(context); // ~80
     final radius = diameter / 2;
     final xIndex = details.localPosition.dx ~/ diameter;
-    final colAdj = _layout == BoardLayout.Hexagonal && xIndex % 2 == 0 ? 1 : 0;
+    final colAdj = _layout == BoardLayout.hexagonal && xIndex % 2 == 0 ? 1 : 0;
     final yAdj = details.localPosition.dy - colAdj * radius;
     final cell = Point<int>(xIndex, yAdj ~/ diameter);
     final dX = radius * (cell.x * 2 + 1) - details.localPosition.dx;
@@ -374,7 +374,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
           try {
             await GamesServices.unlock(
               achievement: Achievement(
-                androidID: HAND_ACHIEVEMENTS[hand.handClass],
+                androidID: handAchievements[hand.handClass],
                 iOSID: 'ios_id',
                 percentComplete: 100,
               ),
@@ -391,7 +391,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
         AdvancingReturn advancing = await _levelManager.advanceLevels(
             _difficulty, _score, handScore, _nextLevel, _shouldUnlock);
 
-        await Get.find<SoundUtils>().playSoundEffect(SoundEffect.PokerChips);
+        await Get.find<SoundUtils>().playSoundEffect(SoundEffect.pokerChips);
         setState(() {
           clear = false;
           _score += handScore;
@@ -446,8 +446,8 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     _populateBoard();
 
     final soundUtils = Get.find<SoundUtils>();
-    soundUtils.playSoundEffect(SoundEffect.LongCardShuffle).then(
-        (c) async => await soundUtils.playSoundTrack(SoundTrack.GuitarMusic));
+    soundUtils.playSoundEffect(SoundEffect.longCardShuffle).then(
+        (c) async => await soundUtils.playSoundTrack(SoundTrack.guitarMusic));
 
     WakelockPlus.enable();
   }
@@ -455,23 +455,23 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   void _populateBoard() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _selectionBlock = true;
-      Timer(Duration(milliseconds: (animationDelay * BOARD_SIZE * 1.5).toInt()),
+      Timer(Duration(milliseconds: (animationDelay * boardSize * 1.5).toInt()),
           () {
         _selectionBlock = false;
       });
 
       var future = Future(() {});
-      for (int i = 0; i < BOARD_SIZE; i++) {
+      for (int i = 0; i < boardSize; i++) {
         future = future.then((_) {
           return Future.delayed(Duration(milliseconds: _animationDelay), () {
-            for (int j = 0; j < BOARD_SIZE; j++) {
-              if (i < BOARD_SIZE - 1 ||
+            for (int j = 0; j < boardSize; j++) {
+              if (i < boardSize - 1 ||
                   j % 2 == 1 ||
-                  layout == BoardLayout.Square) {
+                  layout == BoardLayout.square) {
                 _listKeys[j].currentState?.insertItem(i);
               }
             }
-            if (i == BOARD_SIZE - 1) {
+            if (i == boardSize - 1) {
               _started = DateTime.now();
               _updateTime();
             }
@@ -487,7 +487,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
       try {
         await GamesServices.submitScore(
             score: Score(
-          androidLeaderboardID: LEADER_BOARDS[_layout]![_difficulty],
+          androidLeaderboardID: leaderBoards[_layout]![_difficulty],
           iOSLeaderboardID: "ios_leaderboard_id",
           value: score,
         ));

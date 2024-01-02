@@ -20,7 +20,7 @@ class Shoe {
 
   PlayCard dealCard() {
     if (decks.isEmpty) {
-      return PlayCard(Suit.Invalid, Value.Invalid);
+      return PlayCard(Suit.invalid, Value.invalid);
     }
 
     if (decks[decksUsed].cardsLeft() <= 0) {

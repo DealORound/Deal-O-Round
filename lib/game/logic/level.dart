@@ -5,13 +5,13 @@ class Level {
   late List<int> scoreLimit; // by difficulty
   double timeMultiplier;
   late List<int> timeLimit; // by difficulty
-  static const SCORE_THRESHOLD_BASE = 7000;
-  static const TIME_THRESHOLD_BASE = 120;
+  static const scoreThresholdBase = 7000;
+  static const timeThresholdBase = 120;
 
   Level(this.scoreMultiplier, this.timeMultiplier) {
     final firstLevel = scoreMultiplier < 1.01 && timeMultiplier > 0.99;
-    final scoreLimitFloat = SCORE_THRESHOLD_BASE * scoreMultiplier;
-    final timeLimitFloat = TIME_THRESHOLD_BASE * timeMultiplier;
+    final scoreLimitFloat = scoreThresholdBase * scoreMultiplier;
+    final timeLimitFloat = timeThresholdBase * timeMultiplier;
     final scoreLimitInt = scoreLimitFloat.round();
     final timeLimitInt = timeLimitFloat.round();
     if (firstLevel) {

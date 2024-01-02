@@ -18,16 +18,16 @@ class BooleanSettings extends StatefulWidget {
   });
 
   @override
-  _BooleanSettingsState createState() =>
-      _BooleanSettingsState(defaultValue, valueTag);
+  BooleanSettingsState createState() =>
+      BooleanSettingsState(defaultValue, valueTag);
 }
 
-class _BooleanSettingsState extends State<BooleanSettings> {
+class BooleanSettingsState extends State<BooleanSettings> {
   late SharedPreferences _prefs;
   bool booleanValue;
   final String valueTag;
 
-  _BooleanSettingsState(this.booleanValue, this.valueTag) {
+  BooleanSettingsState(this.booleanValue, this.valueTag) {
     _prefs = Get.find<SharedPreferences>();
   }
 
@@ -55,15 +55,15 @@ class _BooleanSettingsState extends State<BooleanSettings> {
                 booleanValue = newValue;
                 _prefs.setBool(valueTag, newValue);
                 final soundUtils = Get.find<SoundUtils>();
-                if (valueTag == SOUND_EFFECTS) {
+                if (valueTag == soundEffectsTag) {
                   if (newValue) {
                     soundUtils.loadSoundEffects();
                   } else {
                     soundUtils.stopAllSoundEffects();
                   }
-                } else if (valueTag == GAME_MUSIC) {
+                } else if (valueTag == gameMusicTag) {
                   if (newValue) {
-                    soundUtils.playSoundTrack(SoundTrack.SaloonMusic);
+                    soundUtils.playSoundTrack(SoundTrack.saloonMusic);
                   } else {
                     soundUtils.stopAllSoundTracks();
                   }

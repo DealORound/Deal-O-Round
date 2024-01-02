@@ -10,17 +10,17 @@ class Scoring {
   String handDigest;
 
   Scoring(this.handClass, this.lowCard, this.handDigest, {this.highCard}) {
-    if (handClass == HandClass.TwoPair || handClass == HandClass.FullHouse) {
+    if (handClass == HandClass.twoPair || handClass == HandClass.fullHouse) {
       assert(highCard != null);
     }
   }
 
   int score() {
     int score = handBaseValue(handClass);
-    if (lowCard.value != Value.Invalid) {
+    if (lowCard.value != Value.invalid) {
       score += valueScore(lowCard.value);
     }
-    if (highCard != null && highCard?.value != Value.Invalid) {
+    if (highCard != null && highCard?.value != Value.invalid) {
       score += 2 * valueScore(highCard!.value);
     }
     return score;
@@ -28,11 +28,11 @@ class Scoring {
 
   String toStringDisplay() {
     String handString = handDisplayString(handClass);
-    if (handClass == HandClass.None) {
+    if (handClass == HandClass.none) {
       return handString;
     }
 
-    if (lowCard.value == Value.Invalid || lowCard.suit == Suit.Invalid) {
+    if (lowCard.value == Value.invalid || lowCard.suit == Suit.invalid) {
       return "None";
     }
 
@@ -40,51 +40,51 @@ class Scoring {
     final String suitString = lowCard.suit.toString().split('.').last;
     final lowCardValueString = valueDisplay(lowCard.value);
     switch (handClass) {
-      case HandClass.OnePair:
+      case HandClass.onePair:
         displayStr += lowCardValueString;
         break;
-      case HandClass.Flush3:
+      case HandClass.flush3:
         displayStr += suitString;
         break;
-      case HandClass.Straight3:
+      case HandClass.straight3:
         displayStr += "$lowCardValueString and up";
         break;
-      case HandClass.StraightFlush3:
+      case HandClass.straightFlush3:
         displayStr += "$suitString, $lowCardValueString and up";
         break;
-      case HandClass.ThreeOfAKind:
+      case HandClass.threeOfAKind:
         displayStr += lowCardValueString;
         break;
-      case HandClass.Straight4:
+      case HandClass.straight4:
         displayStr += "$lowCardValueString and up";
         break;
-      case HandClass.TwoPair:
+      case HandClass.twoPair:
         displayStr +=
-            "${valueDisplay(highCard?.value ?? Value.Invalid)} + $lowCardValueString";
+            "${valueDisplay(highCard?.value ?? Value.invalid)} + $lowCardValueString";
         break;
-      case HandClass.Flush4:
+      case HandClass.flush4:
         displayStr += suitString;
         break;
-      case HandClass.Straight5:
+      case HandClass.straight5:
         displayStr += "$lowCardValueString and up";
         break;
-      case HandClass.StraightFlush4:
+      case HandClass.straightFlush4:
         displayStr += "$suitString, $lowCardValueString and up";
         break;
-      case HandClass.Flush5:
+      case HandClass.flush5:
         displayStr += suitString;
         break;
-      case HandClass.FullHouse:
+      case HandClass.fullHouse:
         displayStr +=
-            "$suitString, $lowCardValueString and up + ${(highCard?.suit ?? Suit.Invalid).toString().split('.').last}, ${valueDisplay(highCard?.value ?? Value.Invalid)} and up";
+            "$suitString, $lowCardValueString and up + ${(highCard?.suit ?? Suit.invalid).toString().split('.').last}, ${valueDisplay(highCard?.value ?? Value.invalid)} and up";
         break;
-      case HandClass.FourOfAKind:
+      case HandClass.fourOfAKind:
         displayStr += lowCardValueString;
         break;
-      case HandClass.StraightFlush5:
+      case HandClass.straightFlush5:
         displayStr += "$suitString, $lowCardValueString and up";
         break;
-      case HandClass.FiveOfAKind:
+      case HandClass.fiveOfAKind:
         displayStr += lowCardValueString;
         break;
       default:

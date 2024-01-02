@@ -14,7 +14,7 @@ main() {
         ? results[0]
         : Scoring(
             handClass,
-            hand.isNotEmpty ? hand[0] : PlayCard(Suit.Invalid, Value.Invalid),
+            hand.isNotEmpty ? hand[0] : PlayCard(Suit.invalid, Value.invalid),
             "");
     final displayStr = result.toStringDisplay();
     final handDisplayStr = handDisplayString(handClass);
@@ -22,30 +22,30 @@ main() {
   }
 
   test('Empty hand to display', () async {
-    toDisplayHand([], HandClass.None);
+    toDisplayHand([], HandClass.none);
   });
 
   test('Single hand to display', () async {
-    final hand = [PlayCard(Suit.Clubs, Value.Ten)];
-    toDisplayHand(hand, HandClass.None);
+    final hand = [PlayCard(Suit.clubs, Value.ten)];
+    toDisplayHand(hand, HandClass.none);
   });
 
   test('Worthless two hand to display', () async {
     final hand = [
-      PlayCard(Suit.Clubs, Value.Ten),
-      PlayCard(Suit.Diamonds, Value.Nine)
+      PlayCard(Suit.clubs, Value.ten),
+      PlayCard(Suit.diamonds, Value.nine)
     ];
-    toDisplayHand(hand, HandClass.None);
+    toDisplayHand(hand, HandClass.none);
   });
 
   test('Pair to display', () async {
     for (Value value in Value.values) {
       if (value.index < 13) {
         final hand = [
-          PlayCard(Suit.Clubs, value),
-          PlayCard(Suit.Diamonds, value),
+          PlayCard(Suit.clubs, value),
+          PlayCard(Suit.diamonds, value),
         ];
-        toDisplayHand(hand, HandClass.OnePair);
+        toDisplayHand(hand, HandClass.onePair);
       }
     }
   });
@@ -55,11 +55,11 @@ main() {
     for (Value value in Value.values) {
       if (value.index < 13) {
         final hand = [
-          PlayCard(Suit.Clubs, value),
-          PlayCard(Suit.Diamonds, value),
-          PlayCard(Suit.Spades, value),
+          PlayCard(Suit.clubs, value),
+          PlayCard(Suit.diamonds, value),
+          PlayCard(Suit.spades, value),
         ];
-        toDisplayHand(hand, HandClass.ThreeOfAKind);
+        toDisplayHand(hand, HandClass.threeOfAKind);
       }
     }
   });
@@ -69,33 +69,33 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Six),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.six),
         ];
-        toDisplayHand(hand, HandClass.Flush3);
+        toDisplayHand(hand, HandClass.flush3);
       }
     }
     // descending order
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Six),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Two),
+          PlayCard(suit, Value.six),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.two),
         ];
-        toDisplayHand(hand, HandClass.Flush3);
+        toDisplayHand(hand, HandClass.flush3);
       }
     }
     // mixed order
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Six),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.six),
         ];
-        toDisplayHand(hand, HandClass.Flush3);
+        toDisplayHand(hand, HandClass.flush3);
       }
     }
 
@@ -104,33 +104,33 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Seven),
-          PlayCard(suit, Value.Nine),
-          PlayCard(suit, Value.Jack),
+          PlayCard(suit, Value.seven),
+          PlayCard(suit, Value.nine),
+          PlayCard(suit, Value.jack),
         ];
-        toDisplayHand(hand, HandClass.Flush3);
+        toDisplayHand(hand, HandClass.flush3);
       }
     }
     // descending order
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Jack),
-          PlayCard(suit, Value.Nine),
-          PlayCard(suit, Value.Seven),
+          PlayCard(suit, Value.jack),
+          PlayCard(suit, Value.nine),
+          PlayCard(suit, Value.seven),
         ];
-        toDisplayHand(hand, HandClass.Flush3);
+        toDisplayHand(hand, HandClass.flush3);
       }
     }
     // mixed order
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Nine),
-          PlayCard(suit, Value.Seven),
-          PlayCard(suit, Value.Jack),
+          PlayCard(suit, Value.nine),
+          PlayCard(suit, Value.seven),
+          PlayCard(suit, Value.jack),
         ];
-        toDisplayHand(hand, HandClass.Flush3);
+        toDisplayHand(hand, HandClass.flush3);
       }
     }
   });
@@ -139,31 +139,31 @@ main() {
     // Basis case
     for (int i = 0; i < 10; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
-        PlayCard(Suit.Clubs, Value.values[i + 2]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
+        PlayCard(Suit.clubs, Value.values[i + 2]),
       ];
-      toDisplayHand(hand, HandClass.Straight3);
+      toDisplayHand(hand, HandClass.straight3);
     }
 
     // descending order
     for (int i = 0; i < 10; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i + 2]),
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
-        PlayCard(Suit.Diamonds, Value.values[i]),
+        PlayCard(Suit.clubs, Value.values[i + 2]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
+        PlayCard(Suit.diamonds, Value.values[i]),
       ];
-      toDisplayHand(hand, HandClass.Straight3);
+      toDisplayHand(hand, HandClass.straight3);
     }
 
     // mixed order
     for (int i = 0; i < 10; i++) {
       final hand = [
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
-        PlayCard(Suit.Diamonds, Value.values[i + 2]),
-        PlayCard(Suit.Hearts, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
+        PlayCard(Suit.diamonds, Value.values[i + 2]),
+        PlayCard(Suit.hearts, Value.values[i]),
       ];
-      toDisplayHand(hand, HandClass.Straight3);
+      toDisplayHand(hand, HandClass.straight3);
     }
   });
 
@@ -171,51 +171,51 @@ main() {
     // Basis case 1
     {
       final hand = [
-        PlayCard(Suit.Clubs, Value.Two),
-        PlayCard(Suit.Diamonds, Value.Three),
-        PlayCard(Suit.Clubs, Value.Ace),
+        PlayCard(Suit.clubs, Value.two),
+        PlayCard(Suit.diamonds, Value.three),
+        PlayCard(Suit.clubs, Value.ace),
       ];
-      toDisplayHand(hand, HandClass.Straight3);
+      toDisplayHand(hand, HandClass.straight3);
     }
 
     // Basis case 2
     {
       final hand = [
-        PlayCard(Suit.Clubs, Value.Ace),
-        PlayCard(Suit.Diamonds, Value.Three),
-        PlayCard(Suit.Clubs, Value.Two),
+        PlayCard(Suit.clubs, Value.ace),
+        PlayCard(Suit.diamonds, Value.three),
+        PlayCard(Suit.clubs, Value.two),
       ];
-      toDisplayHand(hand, HandClass.Straight3);
+      toDisplayHand(hand, HandClass.straight3);
     }
 
     // descending order 1
     {
       final hand = [
-        PlayCard(Suit.Clubs, Value.Ace),
-        PlayCard(Suit.Diamonds, Value.Three),
-        PlayCard(Suit.Diamonds, Value.Two),
+        PlayCard(Suit.clubs, Value.ace),
+        PlayCard(Suit.diamonds, Value.three),
+        PlayCard(Suit.diamonds, Value.two),
       ];
-      toDisplayHand(hand, HandClass.Straight3);
+      toDisplayHand(hand, HandClass.straight3);
     }
 
     // descending order 2
     {
       final hand = [
-        PlayCard(Suit.Diamonds, Value.Three),
-        PlayCard(Suit.Diamonds, Value.Two),
-        PlayCard(Suit.Clubs, Value.Ace),
+        PlayCard(Suit.diamonds, Value.three),
+        PlayCard(Suit.diamonds, Value.two),
+        PlayCard(Suit.clubs, Value.ace),
       ];
-      toDisplayHand(hand, HandClass.Straight3);
+      toDisplayHand(hand, HandClass.straight3);
     }
 
     // mixed order
     {
       final hand = [
-        PlayCard(Suit.Diamonds, Value.Two),
-        PlayCard(Suit.Diamonds, Value.Ace),
-        PlayCard(Suit.Hearts, Value.Three),
+        PlayCard(Suit.diamonds, Value.two),
+        PlayCard(Suit.diamonds, Value.ace),
+        PlayCard(Suit.hearts, Value.three),
       ];
-      toDisplayHand(hand, HandClass.Straight3);
+      toDisplayHand(hand, HandClass.straight3);
     }
   });
 
@@ -224,11 +224,11 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Four),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.four),
         ];
-        toDisplayHand(hand, HandClass.StraightFlush3);
+        toDisplayHand(hand, HandClass.straightFlush3);
       }
     }
 
@@ -236,11 +236,11 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Two),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.two),
         ];
-        toDisplayHand(hand, HandClass.StraightFlush3);
+        toDisplayHand(hand, HandClass.straightFlush3);
       }
     }
 
@@ -248,11 +248,11 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Four),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.four),
         ];
-        toDisplayHand(hand, HandClass.StraightFlush3);
+        toDisplayHand(hand, HandClass.straightFlush3);
       }
     }
 
@@ -261,11 +261,11 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Queen),
-          PlayCard(suit, Value.King),
-          PlayCard(suit, Value.Ace),
+          PlayCard(suit, Value.queen),
+          PlayCard(suit, Value.king),
+          PlayCard(suit, Value.ace),
         ];
-        toDisplayHand(hand, HandClass.StraightFlush3);
+        toDisplayHand(hand, HandClass.straightFlush3);
       }
     }
 
@@ -273,11 +273,11 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Ace),
-          PlayCard(suit, Value.King),
-          PlayCard(suit, Value.Queen),
+          PlayCard(suit, Value.ace),
+          PlayCard(suit, Value.king),
+          PlayCard(suit, Value.queen),
         ];
-        toDisplayHand(hand, HandClass.StraightFlush3);
+        toDisplayHand(hand, HandClass.straightFlush3);
       }
     }
 
@@ -285,11 +285,11 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.King),
-          PlayCard(suit, Value.Ace),
-          PlayCard(suit, Value.Queen),
+          PlayCard(suit, Value.king),
+          PlayCard(suit, Value.ace),
+          PlayCard(suit, Value.queen),
         ];
-        toDisplayHand(hand, HandClass.StraightFlush3);
+        toDisplayHand(hand, HandClass.straightFlush3);
       }
     }
   });
@@ -299,11 +299,11 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Ace),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.ace),
         ];
-        toDisplayHand(hand, HandClass.StraightFlush3);
+        toDisplayHand(hand, HandClass.straightFlush3);
       }
     }
 
@@ -311,11 +311,11 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Ace),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Two),
+          PlayCard(suit, Value.ace),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.two),
         ];
-        toDisplayHand(hand, HandClass.StraightFlush3);
+        toDisplayHand(hand, HandClass.straightFlush3);
       }
     }
 
@@ -323,11 +323,11 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Ace),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Two),
+          PlayCard(suit, Value.ace),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.two),
         ];
-        toDisplayHand(hand, HandClass.StraightFlush3);
+        toDisplayHand(hand, HandClass.straightFlush3);
       }
     }
 
@@ -335,11 +335,11 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Ace),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.ace),
         ];
-        toDisplayHand(hand, HandClass.StraightFlush3);
+        toDisplayHand(hand, HandClass.straightFlush3);
       }
     }
 
@@ -347,11 +347,11 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Ace),
-          PlayCard(suit, Value.Three),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.ace),
+          PlayCard(suit, Value.three),
         ];
-        toDisplayHand(hand, HandClass.StraightFlush3);
+        toDisplayHand(hand, HandClass.straightFlush3);
       }
     }
   });
@@ -362,12 +362,12 @@ main() {
     for (Value value in Value.values) {
       if (value.index < 13) {
         final hand = [
-          PlayCard(Suit.Clubs, value),
-          PlayCard(Suit.Diamonds, value),
-          PlayCard(Suit.Spades, value),
-          PlayCard(Suit.Hearts, value),
+          PlayCard(Suit.clubs, value),
+          PlayCard(Suit.diamonds, value),
+          PlayCard(Suit.spades, value),
+          PlayCard(Suit.hearts, value),
         ];
-        toDisplayHand(hand, HandClass.FourOfAKind);
+        toDisplayHand(hand, HandClass.fourOfAKind);
       }
     }
   });
@@ -376,41 +376,41 @@ main() {
     // Ascending
     for (int i = 0; i < 11; i++) {
       final List<PlayCard> hand = [];
-      hand.add(PlayCard(Suit.Clubs, Value.values[i]));
-      hand.add(PlayCard(Suit.Diamonds, Value.values[i]));
-      hand.add(PlayCard(Suit.Hearts, Value.values[i + 1]));
-      hand.add(PlayCard(Suit.Spades, Value.values[i + 1]));
-      toDisplayHand(hand, HandClass.TwoPair);
+      hand.add(PlayCard(Suit.clubs, Value.values[i]));
+      hand.add(PlayCard(Suit.diamonds, Value.values[i]));
+      hand.add(PlayCard(Suit.hearts, Value.values[i + 1]));
+      hand.add(PlayCard(Suit.spades, Value.values[i + 1]));
+      toDisplayHand(hand, HandClass.twoPair);
     }
 
     // Descending
     for (int i = 0; i < 11; i++) {
       final List<PlayCard> hand = [];
-      hand.add(PlayCard(Suit.Clubs, Value.values[i + 1]));
-      hand.add(PlayCard(Suit.Diamonds, Value.values[i + 1]));
-      hand.add(PlayCard(Suit.Hearts, Value.values[i]));
-      hand.add(PlayCard(Suit.Spades, Value.values[i]));
-      toDisplayHand(hand, HandClass.TwoPair);
+      hand.add(PlayCard(Suit.clubs, Value.values[i + 1]));
+      hand.add(PlayCard(Suit.diamonds, Value.values[i + 1]));
+      hand.add(PlayCard(Suit.hearts, Value.values[i]));
+      hand.add(PlayCard(Suit.spades, Value.values[i]));
+      toDisplayHand(hand, HandClass.twoPair);
     }
 
     // mixed 1
     for (int i = 0; i < 11; i++) {
       final List<PlayCard> hand = [];
-      hand.add(PlayCard(Suit.Clubs, Value.values[i]));
-      hand.add(PlayCard(Suit.Diamonds, Value.values[i + 1]));
-      hand.add(PlayCard(Suit.Hearts, Value.values[i]));
-      hand.add(PlayCard(Suit.Spades, Value.values[i + 1]));
-      toDisplayHand(hand, HandClass.TwoPair);
+      hand.add(PlayCard(Suit.clubs, Value.values[i]));
+      hand.add(PlayCard(Suit.diamonds, Value.values[i + 1]));
+      hand.add(PlayCard(Suit.hearts, Value.values[i]));
+      hand.add(PlayCard(Suit.spades, Value.values[i + 1]));
+      toDisplayHand(hand, HandClass.twoPair);
     }
 
     // mixed 2
     for (int i = 0; i < 11; i++) {
       final List<PlayCard> hand = [];
-      hand.add(PlayCard(Suit.Clubs, Value.values[i + 1]));
-      hand.add(PlayCard(Suit.Diamonds, Value.values[i]));
-      hand.add(PlayCard(Suit.Hearts, Value.values[i + 1]));
-      hand.add(PlayCard(Suit.Spades, Value.values[i]));
-      toDisplayHand(hand, HandClass.TwoPair);
+      hand.add(PlayCard(Suit.clubs, Value.values[i + 1]));
+      hand.add(PlayCard(Suit.diamonds, Value.values[i]));
+      hand.add(PlayCard(Suit.hearts, Value.values[i + 1]));
+      hand.add(PlayCard(Suit.spades, Value.values[i]));
+      toDisplayHand(hand, HandClass.twoPair);
     }
   });
 
@@ -419,12 +419,12 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Six),
-          PlayCard(suit, Value.Eight),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.six),
+          PlayCard(suit, Value.eight),
         ];
-        toDisplayHand(hand, HandClass.Flush4);
+        toDisplayHand(hand, HandClass.flush4);
       }
     }
 
@@ -432,12 +432,12 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Eight),
-          PlayCard(suit, Value.Six),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Two),
+          PlayCard(suit, Value.eight),
+          PlayCard(suit, Value.six),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.two),
         ];
-        toDisplayHand(hand, HandClass.Flush4);
+        toDisplayHand(hand, HandClass.flush4);
       }
     }
 
@@ -445,12 +445,12 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Eight),
-          PlayCard(suit, Value.Six),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.eight),
+          PlayCard(suit, Value.six),
         ];
-        toDisplayHand(hand, HandClass.Flush4);
+        toDisplayHand(hand, HandClass.flush4);
       }
     }
 
@@ -458,12 +458,12 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Eight),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Six),
-          PlayCard(suit, Value.Two),
+          PlayCard(suit, Value.eight),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.six),
+          PlayCard(suit, Value.two),
         ];
-        toDisplayHand(hand, HandClass.Flush4);
+        toDisplayHand(hand, HandClass.flush4);
       }
     }
 
@@ -472,12 +472,12 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Seven),
-          PlayCard(suit, Value.Nine),
-          PlayCard(suit, Value.Jack),
-          PlayCard(suit, Value.King),
+          PlayCard(suit, Value.seven),
+          PlayCard(suit, Value.nine),
+          PlayCard(suit, Value.jack),
+          PlayCard(suit, Value.king),
         ];
-        toDisplayHand(hand, HandClass.Flush4);
+        toDisplayHand(hand, HandClass.flush4);
       }
     }
 
@@ -485,12 +485,12 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.King),
-          PlayCard(suit, Value.Jack),
-          PlayCard(suit, Value.Nine),
-          PlayCard(suit, Value.Seven),
+          PlayCard(suit, Value.king),
+          PlayCard(suit, Value.jack),
+          PlayCard(suit, Value.nine),
+          PlayCard(suit, Value.seven),
         ];
-        toDisplayHand(hand, HandClass.Flush4);
+        toDisplayHand(hand, HandClass.flush4);
       }
     }
 
@@ -498,12 +498,12 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Nine),
-          PlayCard(suit, Value.King),
-          PlayCard(suit, Value.Seven),
-          PlayCard(suit, Value.Jack),
+          PlayCard(suit, Value.nine),
+          PlayCard(suit, Value.king),
+          PlayCard(suit, Value.seven),
+          PlayCard(suit, Value.jack),
         ];
-        toDisplayHand(hand, HandClass.Flush4);
+        toDisplayHand(hand, HandClass.flush4);
       }
     }
 
@@ -511,12 +511,12 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Nine),
-          PlayCard(suit, Value.Seven),
-          PlayCard(suit, Value.King),
-          PlayCard(suit, Value.Jack),
+          PlayCard(suit, Value.nine),
+          PlayCard(suit, Value.seven),
+          PlayCard(suit, Value.king),
+          PlayCard(suit, Value.jack),
         ];
-        toDisplayHand(hand, HandClass.Flush4);
+        toDisplayHand(hand, HandClass.flush4);
       }
     }
   });
@@ -525,34 +525,34 @@ main() {
     // Basis case
     for (int i = 0; i < 10; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
-        PlayCard(Suit.Hearts, Value.values[i + 2]),
-        PlayCard(Suit.Spades, Value.values[i + 3]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
+        PlayCard(Suit.hearts, Value.values[i + 2]),
+        PlayCard(Suit.spades, Value.values[i + 3]),
       ];
-      toDisplayHand(hand, HandClass.Straight4);
+      toDisplayHand(hand, HandClass.straight4);
     }
 
     // descending order
     for (int i = 0; i < 10; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i + 3]),
-        PlayCard(Suit.Diamonds, Value.values[i + 2]),
-        PlayCard(Suit.Hearts, Value.values[i + 1]),
-        PlayCard(Suit.Spades, Value.values[i]),
+        PlayCard(Suit.clubs, Value.values[i + 3]),
+        PlayCard(Suit.diamonds, Value.values[i + 2]),
+        PlayCard(Suit.hearts, Value.values[i + 1]),
+        PlayCard(Suit.spades, Value.values[i]),
       ];
-      toDisplayHand(hand, HandClass.Straight4);
+      toDisplayHand(hand, HandClass.straight4);
     }
 
     // mixed order
     for (int i = 0; i < 10; i++) {
       final hand = [
-        PlayCard(Suit.Diamonds, Value.values[i + 2]),
-        PlayCard(Suit.Clubs, Value.values[i + 1]),
-        PlayCard(Suit.Hearts, Value.values[i + 3]),
-        PlayCard(Suit.Spades, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i + 2]),
+        PlayCard(Suit.clubs, Value.values[i + 1]),
+        PlayCard(Suit.hearts, Value.values[i + 3]),
+        PlayCard(Suit.spades, Value.values[i]),
       ];
-      toDisplayHand(hand, HandClass.Straight4);
+      toDisplayHand(hand, HandClass.straight4);
     }
   });
 
@@ -560,56 +560,56 @@ main() {
     // Basis case 1
     {
       final hand = [
-        PlayCard(Suit.Clubs, Value.Two),
-        PlayCard(Suit.Diamonds, Value.Three),
-        PlayCard(Suit.Hearts, Value.Four),
-        PlayCard(Suit.Clubs, Value.Ace),
+        PlayCard(Suit.clubs, Value.two),
+        PlayCard(Suit.diamonds, Value.three),
+        PlayCard(Suit.hearts, Value.four),
+        PlayCard(Suit.clubs, Value.ace),
       ];
-      toDisplayHand(hand, HandClass.Straight4);
+      toDisplayHand(hand, HandClass.straight4);
     }
 
     // Basis case 2
     {
       final hand = [
-        PlayCard(Suit.Clubs, Value.Ace),
-        PlayCard(Suit.Hearts, Value.Four),
-        PlayCard(Suit.Diamonds, Value.Three),
-        PlayCard(Suit.Clubs, Value.Two),
+        PlayCard(Suit.clubs, Value.ace),
+        PlayCard(Suit.hearts, Value.four),
+        PlayCard(Suit.diamonds, Value.three),
+        PlayCard(Suit.clubs, Value.two),
       ];
-      toDisplayHand(hand, HandClass.Straight4);
+      toDisplayHand(hand, HandClass.straight4);
     }
 
     // descending order 1
     {
       final hand = [
-        PlayCard(Suit.Clubs, Value.Ace),
-        PlayCard(Suit.Hearts, Value.Four),
-        PlayCard(Suit.Diamonds, Value.Three),
-        PlayCard(Suit.Diamonds, Value.Two),
+        PlayCard(Suit.clubs, Value.ace),
+        PlayCard(Suit.hearts, Value.four),
+        PlayCard(Suit.diamonds, Value.three),
+        PlayCard(Suit.diamonds, Value.two),
       ];
-      toDisplayHand(hand, HandClass.Straight4);
+      toDisplayHand(hand, HandClass.straight4);
     }
 
     // descending order 2
     {
       final hand = [
-        PlayCard(Suit.Hearts, Value.Four),
-        PlayCard(Suit.Diamonds, Value.Three),
-        PlayCard(Suit.Diamonds, Value.Two),
-        PlayCard(Suit.Clubs, Value.Ace),
+        PlayCard(Suit.hearts, Value.four),
+        PlayCard(Suit.diamonds, Value.three),
+        PlayCard(Suit.diamonds, Value.two),
+        PlayCard(Suit.clubs, Value.ace),
       ];
-      toDisplayHand(hand, HandClass.Straight4);
+      toDisplayHand(hand, HandClass.straight4);
     }
 
     // mixed order
     {
       final hand = [
-        PlayCard(Suit.Diamonds, Value.Two),
-        PlayCard(Suit.Hearts, Value.Four),
-        PlayCard(Suit.Diamonds, Value.Ace),
-        PlayCard(Suit.Hearts, Value.Three),
+        PlayCard(Suit.diamonds, Value.two),
+        PlayCard(Suit.hearts, Value.four),
+        PlayCard(Suit.diamonds, Value.ace),
+        PlayCard(Suit.hearts, Value.three),
       ];
-      toDisplayHand(hand, HandClass.Straight4);
+      toDisplayHand(hand, HandClass.straight4);
     }
   });
 
@@ -618,12 +618,12 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Five),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.five),
         ];
-        toDisplayHand(hand, HandClass.StraightFlush4);
+        toDisplayHand(hand, HandClass.straightFlush4);
       }
     }
 
@@ -631,12 +631,12 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Five),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Two),
+          PlayCard(suit, Value.five),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.two),
         ];
-        toDisplayHand(hand, HandClass.StraightFlush4);
+        toDisplayHand(hand, HandClass.straightFlush4);
       }
     }
 
@@ -644,12 +644,12 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Five),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.five),
         ];
-        toDisplayHand(hand, HandClass.StraightFlush4);
+        toDisplayHand(hand, HandClass.straightFlush4);
       }
     }
 
@@ -658,12 +658,12 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Jack),
-          PlayCard(suit, Value.Queen),
-          PlayCard(suit, Value.King),
-          PlayCard(suit, Value.Ace),
+          PlayCard(suit, Value.jack),
+          PlayCard(suit, Value.queen),
+          PlayCard(suit, Value.king),
+          PlayCard(suit, Value.ace),
         ];
-        toDisplayHand(hand, HandClass.StraightFlush4);
+        toDisplayHand(hand, HandClass.straightFlush4);
       }
     }
 
@@ -671,12 +671,12 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Ace),
-          PlayCard(suit, Value.King),
-          PlayCard(suit, Value.Queen),
-          PlayCard(suit, Value.Jack),
+          PlayCard(suit, Value.ace),
+          PlayCard(suit, Value.king),
+          PlayCard(suit, Value.queen),
+          PlayCard(suit, Value.jack),
         ];
-        toDisplayHand(hand, HandClass.StraightFlush4);
+        toDisplayHand(hand, HandClass.straightFlush4);
       }
     }
 
@@ -684,12 +684,12 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.King),
-          PlayCard(suit, Value.Ace),
-          PlayCard(suit, Value.Queen),
-          PlayCard(suit, Value.Jack),
+          PlayCard(suit, Value.king),
+          PlayCard(suit, Value.ace),
+          PlayCard(suit, Value.queen),
+          PlayCard(suit, Value.jack),
         ];
-        toDisplayHand(hand, HandClass.StraightFlush4);
+        toDisplayHand(hand, HandClass.straightFlush4);
       }
     }
   });
@@ -699,12 +699,12 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Ace),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.ace),
         ];
-        toDisplayHand(hand, HandClass.StraightFlush4);
+        toDisplayHand(hand, HandClass.straightFlush4);
       }
     }
 
@@ -712,12 +712,12 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Ace),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Two),
+          PlayCard(suit, Value.ace),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.two),
         ];
-        toDisplayHand(hand, HandClass.StraightFlush4);
+        toDisplayHand(hand, HandClass.straightFlush4);
       }
     }
 
@@ -725,12 +725,12 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Ace),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Two),
+          PlayCard(suit, Value.ace),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.two),
         ];
-        toDisplayHand(hand, HandClass.StraightFlush4);
+        toDisplayHand(hand, HandClass.straightFlush4);
       }
     }
 
@@ -738,12 +738,12 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Ace),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.ace),
         ];
-        toDisplayHand(hand, HandClass.StraightFlush4);
+        toDisplayHand(hand, HandClass.straightFlush4);
       }
     }
 
@@ -751,12 +751,12 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Ace),
-          PlayCard(suit, Value.Three),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.ace),
+          PlayCard(suit, Value.three),
         ];
-        toDisplayHand(hand, HandClass.StraightFlush4);
+        toDisplayHand(hand, HandClass.straightFlush4);
       }
     }
   });
@@ -767,13 +767,13 @@ main() {
     for (Value value in Value.values) {
       if (value.index < 13) {
         final hand = [
-          PlayCard(Suit.Clubs, value),
-          PlayCard(Suit.Diamonds, value),
-          PlayCard(Suit.Spades, value),
-          PlayCard(Suit.Hearts, value),
-          PlayCard(Suit.Clubs, value),
+          PlayCard(Suit.clubs, value),
+          PlayCard(Suit.diamonds, value),
+          PlayCard(Suit.spades, value),
+          PlayCard(Suit.hearts, value),
+          PlayCard(Suit.clubs, value),
         ];
-        toDisplayHand(hand, HandClass.FiveOfAKind);
+        toDisplayHand(hand, HandClass.fiveOfAKind);
       }
     }
   });
@@ -783,13 +783,13 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Six),
-          PlayCard(suit, Value.Eight),
-          PlayCard(suit, Value.Ten),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.six),
+          PlayCard(suit, Value.eight),
+          PlayCard(suit, Value.ten),
         ];
-        toDisplayHand(hand, HandClass.Flush5);
+        toDisplayHand(hand, HandClass.flush5);
       }
     }
 
@@ -797,13 +797,13 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Ten),
-          PlayCard(suit, Value.Eight),
-          PlayCard(suit, Value.Six),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Two),
+          PlayCard(suit, Value.ten),
+          PlayCard(suit, Value.eight),
+          PlayCard(suit, Value.six),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.two),
         ];
-        toDisplayHand(hand, HandClass.Flush5);
+        toDisplayHand(hand, HandClass.flush5);
       }
     }
 
@@ -811,13 +811,13 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Eight),
-          PlayCard(suit, Value.Ten),
-          PlayCard(suit, Value.Six),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.eight),
+          PlayCard(suit, Value.ten),
+          PlayCard(suit, Value.six),
         ];
-        toDisplayHand(hand, HandClass.Flush5);
+        toDisplayHand(hand, HandClass.flush5);
       }
     }
 
@@ -825,13 +825,13 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Eight),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Six),
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Ten),
+          PlayCard(suit, Value.eight),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.six),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.ten),
         ];
-        toDisplayHand(hand, HandClass.Flush5);
+        toDisplayHand(hand, HandClass.flush5);
       }
     }
 
@@ -840,13 +840,13 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Five),
-          PlayCard(suit, Value.Seven),
-          PlayCard(suit, Value.Nine),
-          PlayCard(suit, Value.Jack),
-          PlayCard(suit, Value.King),
+          PlayCard(suit, Value.five),
+          PlayCard(suit, Value.seven),
+          PlayCard(suit, Value.nine),
+          PlayCard(suit, Value.jack),
+          PlayCard(suit, Value.king),
         ];
-        toDisplayHand(hand, HandClass.Flush5);
+        toDisplayHand(hand, HandClass.flush5);
       }
     }
 
@@ -854,13 +854,13 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.King),
-          PlayCard(suit, Value.Jack),
-          PlayCard(suit, Value.Nine),
-          PlayCard(suit, Value.Seven),
-          PlayCard(suit, Value.Five),
+          PlayCard(suit, Value.king),
+          PlayCard(suit, Value.jack),
+          PlayCard(suit, Value.nine),
+          PlayCard(suit, Value.seven),
+          PlayCard(suit, Value.five),
         ];
-        toDisplayHand(hand, HandClass.Flush5);
+        toDisplayHand(hand, HandClass.flush5);
       }
     }
 
@@ -868,13 +868,13 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Nine),
-          PlayCard(suit, Value.King),
-          PlayCard(suit, Value.Seven),
-          PlayCard(suit, Value.Jack),
-          PlayCard(suit, Value.Five),
+          PlayCard(suit, Value.nine),
+          PlayCard(suit, Value.king),
+          PlayCard(suit, Value.seven),
+          PlayCard(suit, Value.jack),
+          PlayCard(suit, Value.five),
         ];
-        toDisplayHand(hand, HandClass.Flush5);
+        toDisplayHand(hand, HandClass.flush5);
       }
     }
 
@@ -882,13 +882,13 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Nine),
-          PlayCard(suit, Value.Seven),
-          PlayCard(suit, Value.King),
-          PlayCard(suit, Value.Jack),
-          PlayCard(suit, Value.Five),
+          PlayCard(suit, Value.nine),
+          PlayCard(suit, Value.seven),
+          PlayCard(suit, Value.king),
+          PlayCard(suit, Value.jack),
+          PlayCard(suit, Value.five),
         ];
-        toDisplayHand(hand, HandClass.Flush5);
+        toDisplayHand(hand, HandClass.flush5);
       }
     }
   });
@@ -897,37 +897,37 @@ main() {
     // Basis case
     for (int i = 0; i < 9; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
-        PlayCard(Suit.Hearts, Value.values[i + 2]),
-        PlayCard(Suit.Spades, Value.values[i + 3]),
-        PlayCard(Suit.Clubs, Value.values[i + 4]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
+        PlayCard(Suit.hearts, Value.values[i + 2]),
+        PlayCard(Suit.spades, Value.values[i + 3]),
+        PlayCard(Suit.clubs, Value.values[i + 4]),
       ];
-      toDisplayHand(hand, HandClass.Straight5);
+      toDisplayHand(hand, HandClass.straight5);
     }
 
     // descending order
     for (int i = 0; i < 9; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i + 4]),
-        PlayCard(Suit.Clubs, Value.values[i + 3]),
-        PlayCard(Suit.Diamonds, Value.values[i + 2]),
-        PlayCard(Suit.Hearts, Value.values[i + 1]),
-        PlayCard(Suit.Spades, Value.values[i]),
+        PlayCard(Suit.clubs, Value.values[i + 4]),
+        PlayCard(Suit.clubs, Value.values[i + 3]),
+        PlayCard(Suit.diamonds, Value.values[i + 2]),
+        PlayCard(Suit.hearts, Value.values[i + 1]),
+        PlayCard(Suit.spades, Value.values[i]),
       ];
-      toDisplayHand(hand, HandClass.Straight5);
+      toDisplayHand(hand, HandClass.straight5);
     }
 
     // mixed order
     for (int i = 0; i < 9; i++) {
       final hand = [
-        PlayCard(Suit.Diamonds, Value.values[i + 2]),
-        PlayCard(Suit.Clubs, Value.values[i + 1]),
-        PlayCard(Suit.Hearts, Value.values[i + 3]),
-        PlayCard(Suit.Spades, Value.values[i]),
-        PlayCard(Suit.Clubs, Value.values[i + 4]),
+        PlayCard(Suit.diamonds, Value.values[i + 2]),
+        PlayCard(Suit.clubs, Value.values[i + 1]),
+        PlayCard(Suit.hearts, Value.values[i + 3]),
+        PlayCard(Suit.spades, Value.values[i]),
+        PlayCard(Suit.clubs, Value.values[i + 4]),
       ];
-      toDisplayHand(hand, HandClass.Straight5);
+      toDisplayHand(hand, HandClass.straight5);
     }
   });
 
@@ -935,61 +935,61 @@ main() {
     // Basis case 1
     {
       final hand = [
-        PlayCard(Suit.Clubs, Value.Two),
-        PlayCard(Suit.Diamonds, Value.Three),
-        PlayCard(Suit.Hearts, Value.Four),
-        PlayCard(Suit.Hearts, Value.Five),
-        PlayCard(Suit.Clubs, Value.Ace),
+        PlayCard(Suit.clubs, Value.two),
+        PlayCard(Suit.diamonds, Value.three),
+        PlayCard(Suit.hearts, Value.four),
+        PlayCard(Suit.hearts, Value.five),
+        PlayCard(Suit.clubs, Value.ace),
       ];
-      toDisplayHand(hand, HandClass.Straight5);
+      toDisplayHand(hand, HandClass.straight5);
     }
 
     // Basis case 2
     {
       final hand = [
-        PlayCard(Suit.Clubs, Value.Ace),
-        PlayCard(Suit.Hearts, Value.Five),
-        PlayCard(Suit.Hearts, Value.Four),
-        PlayCard(Suit.Diamonds, Value.Three),
-        PlayCard(Suit.Clubs, Value.Two),
+        PlayCard(Suit.clubs, Value.ace),
+        PlayCard(Suit.hearts, Value.five),
+        PlayCard(Suit.hearts, Value.four),
+        PlayCard(Suit.diamonds, Value.three),
+        PlayCard(Suit.clubs, Value.two),
       ];
-      toDisplayHand(hand, HandClass.Straight5);
+      toDisplayHand(hand, HandClass.straight5);
     }
 
     // descending order 1
     {
       final hand = [
-        PlayCard(Suit.Clubs, Value.Ace),
-        PlayCard(Suit.Hearts, Value.Five),
-        PlayCard(Suit.Hearts, Value.Four),
-        PlayCard(Suit.Diamonds, Value.Three),
-        PlayCard(Suit.Diamonds, Value.Two),
+        PlayCard(Suit.clubs, Value.ace),
+        PlayCard(Suit.hearts, Value.five),
+        PlayCard(Suit.hearts, Value.four),
+        PlayCard(Suit.diamonds, Value.three),
+        PlayCard(Suit.diamonds, Value.two),
       ];
-      toDisplayHand(hand, HandClass.Straight5);
+      toDisplayHand(hand, HandClass.straight5);
     }
 
     // descending order 2
     {
       final hand = [
-        PlayCard(Suit.Hearts, Value.Five),
-        PlayCard(Suit.Hearts, Value.Four),
-        PlayCard(Suit.Diamonds, Value.Three),
-        PlayCard(Suit.Diamonds, Value.Two),
-        PlayCard(Suit.Clubs, Value.Ace),
+        PlayCard(Suit.hearts, Value.five),
+        PlayCard(Suit.hearts, Value.four),
+        PlayCard(Suit.diamonds, Value.three),
+        PlayCard(Suit.diamonds, Value.two),
+        PlayCard(Suit.clubs, Value.ace),
       ];
-      toDisplayHand(hand, HandClass.Straight5);
+      toDisplayHand(hand, HandClass.straight5);
     }
 
     // mixed order
     {
       final hand = [
-        PlayCard(Suit.Diamonds, Value.Two),
-        PlayCard(Suit.Hearts, Value.Four),
-        PlayCard(Suit.Diamonds, Value.Ace),
-        PlayCard(Suit.Hearts, Value.Three),
-        PlayCard(Suit.Hearts, Value.Five),
+        PlayCard(Suit.diamonds, Value.two),
+        PlayCard(Suit.hearts, Value.four),
+        PlayCard(Suit.diamonds, Value.ace),
+        PlayCard(Suit.hearts, Value.three),
+        PlayCard(Suit.hearts, Value.five),
       ];
-      toDisplayHand(hand, HandClass.Straight5);
+      toDisplayHand(hand, HandClass.straight5);
     }
   });
 
@@ -998,13 +998,13 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Five),
-          PlayCard(suit, Value.Six),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.five),
+          PlayCard(suit, Value.six),
         ];
-        toDisplayHand(hand, HandClass.StraightFlush5);
+        toDisplayHand(hand, HandClass.straightFlush5);
       }
     }
 
@@ -1012,13 +1012,13 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Six),
-          PlayCard(suit, Value.Five),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Two),
+          PlayCard(suit, Value.six),
+          PlayCard(suit, Value.five),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.two),
         ];
-        toDisplayHand(hand, HandClass.StraightFlush5);
+        toDisplayHand(hand, HandClass.straightFlush5);
       }
     }
 
@@ -1026,13 +1026,13 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Six),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Five),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.six),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.five),
         ];
-        toDisplayHand(hand, HandClass.StraightFlush5);
+        toDisplayHand(hand, HandClass.straightFlush5);
       }
     }
 
@@ -1041,13 +1041,13 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Ten),
-          PlayCard(suit, Value.Jack),
-          PlayCard(suit, Value.Queen),
-          PlayCard(suit, Value.King),
-          PlayCard(suit, Value.Ace),
+          PlayCard(suit, Value.ten),
+          PlayCard(suit, Value.jack),
+          PlayCard(suit, Value.queen),
+          PlayCard(suit, Value.king),
+          PlayCard(suit, Value.ace),
         ];
-        toDisplayHand(hand, HandClass.StraightFlush5);
+        toDisplayHand(hand, HandClass.straightFlush5);
       }
     }
 
@@ -1055,13 +1055,13 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Ace),
-          PlayCard(suit, Value.King),
-          PlayCard(suit, Value.Queen),
-          PlayCard(suit, Value.Jack),
-          PlayCard(suit, Value.Ten),
+          PlayCard(suit, Value.ace),
+          PlayCard(suit, Value.king),
+          PlayCard(suit, Value.queen),
+          PlayCard(suit, Value.jack),
+          PlayCard(suit, Value.ten),
         ];
-        toDisplayHand(hand, HandClass.StraightFlush5);
+        toDisplayHand(hand, HandClass.straightFlush5);
       }
     }
 
@@ -1069,13 +1069,13 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.King),
-          PlayCard(suit, Value.Ace),
-          PlayCard(suit, Value.Ten),
-          PlayCard(suit, Value.Queen),
-          PlayCard(suit, Value.Jack),
+          PlayCard(suit, Value.king),
+          PlayCard(suit, Value.ace),
+          PlayCard(suit, Value.ten),
+          PlayCard(suit, Value.queen),
+          PlayCard(suit, Value.jack),
         ];
-        toDisplayHand(hand, HandClass.StraightFlush5);
+        toDisplayHand(hand, HandClass.straightFlush5);
       }
     }
   });
@@ -1085,13 +1085,13 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Five),
-          PlayCard(suit, Value.Ace),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.five),
+          PlayCard(suit, Value.ace),
         ];
-        toDisplayHand(hand, HandClass.StraightFlush5);
+        toDisplayHand(hand, HandClass.straightFlush5);
       }
     }
 
@@ -1099,13 +1099,13 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Ace),
-          PlayCard(suit, Value.Five),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Two),
+          PlayCard(suit, Value.ace),
+          PlayCard(suit, Value.five),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.two),
         ];
-        toDisplayHand(hand, HandClass.StraightFlush5);
+        toDisplayHand(hand, HandClass.straightFlush5);
       }
     }
 
@@ -1113,13 +1113,13 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Ace),
-          PlayCard(suit, Value.Five),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Two),
+          PlayCard(suit, Value.ace),
+          PlayCard(suit, Value.five),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.two),
         ];
-        toDisplayHand(hand, HandClass.StraightFlush5);
+        toDisplayHand(hand, HandClass.straightFlush5);
       }
     }
 
@@ -1127,13 +1127,13 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Five),
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Three),
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Ace),
+          PlayCard(suit, Value.five),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.three),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.ace),
         ];
-        toDisplayHand(hand, HandClass.StraightFlush5);
+        toDisplayHand(hand, HandClass.straightFlush5);
       }
     }
 
@@ -1141,13 +1141,13 @@ main() {
     for (Suit suit in Suit.values) {
       if (suit.index < 4) {
         final hand = [
-          PlayCard(suit, Value.Four),
-          PlayCard(suit, Value.Five),
-          PlayCard(suit, Value.Two),
-          PlayCard(suit, Value.Ace),
-          PlayCard(suit, Value.Three),
+          PlayCard(suit, Value.four),
+          PlayCard(suit, Value.five),
+          PlayCard(suit, Value.two),
+          PlayCard(suit, Value.ace),
+          PlayCard(suit, Value.three),
         ];
-        toDisplayHand(hand, HandClass.StraightFlush5);
+        toDisplayHand(hand, HandClass.straightFlush5);
       }
     }
   });
@@ -1156,73 +1156,73 @@ main() {
     // Basic case
     for (int i = 0; i < 11; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Diamonds, Value.values[i]),
-        PlayCard(Suit.Hearts, Value.values[i]),
-        PlayCard(Suit.Spades, Value.values[i + 1]),
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i]),
+        PlayCard(Suit.hearts, Value.values[i]),
+        PlayCard(Suit.spades, Value.values[i + 1]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
       ];
-      toDisplayHand(hand, HandClass.FullHouse);
+      toDisplayHand(hand, HandClass.fullHouse);
     }
 
     // Other end
     for (int i = 0; i < 11; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Diamonds, Value.values[i]),
-        PlayCard(Suit.Hearts, Value.values[i + 1]),
-        PlayCard(Suit.Spades, Value.values[i + 1]),
-        PlayCard(Suit.Clubs, Value.values[i + 1]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i]),
+        PlayCard(Suit.hearts, Value.values[i + 1]),
+        PlayCard(Suit.spades, Value.values[i + 1]),
+        PlayCard(Suit.clubs, Value.values[i + 1]),
       ];
-      toDisplayHand(hand, HandClass.FullHouse);
+      toDisplayHand(hand, HandClass.fullHouse);
     }
 
     // descending order 1
     for (int i = 0; i < 11; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i + 1]),
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
-        PlayCard(Suit.Hearts, Value.values[i + 1]),
-        PlayCard(Suit.Spades, Value.values[i]),
-        PlayCard(Suit.Hearts, Value.values[i]),
+        PlayCard(Suit.clubs, Value.values[i + 1]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
+        PlayCard(Suit.hearts, Value.values[i + 1]),
+        PlayCard(Suit.spades, Value.values[i]),
+        PlayCard(Suit.hearts, Value.values[i]),
       ];
-      toDisplayHand(hand, HandClass.FullHouse);
+      toDisplayHand(hand, HandClass.fullHouse);
     }
 
     // descending order 2
     for (int i = 0; i < 11; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i + 1]),
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
-        PlayCard(Suit.Hearts, Value.values[i]),
-        PlayCard(Suit.Spades, Value.values[i]),
-        PlayCard(Suit.Diamonds, Value.values[i]),
+        PlayCard(Suit.clubs, Value.values[i + 1]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
+        PlayCard(Suit.hearts, Value.values[i]),
+        PlayCard(Suit.spades, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i]),
       ];
-      toDisplayHand(hand, HandClass.FullHouse);
+      toDisplayHand(hand, HandClass.fullHouse);
     }
 
     // mixed order 1
     for (int i = 0; i < 11; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i]),
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
-        PlayCard(Suit.Hearts, Value.values[i]),
-        PlayCard(Suit.Spades, Value.values[i + 1]),
-        PlayCard(Suit.Spades, Value.values[i]),
+        PlayCard(Suit.clubs, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
+        PlayCard(Suit.hearts, Value.values[i]),
+        PlayCard(Suit.spades, Value.values[i + 1]),
+        PlayCard(Suit.spades, Value.values[i]),
       ];
-      toDisplayHand(hand, HandClass.FullHouse);
+      toDisplayHand(hand, HandClass.fullHouse);
     }
 
     // mixed order 2
     for (int i = 0; i < 11; i++) {
       final hand = [
-        PlayCard(Suit.Clubs, Value.values[i + 1]),
-        PlayCard(Suit.Diamonds, Value.values[i]),
-        PlayCard(Suit.Hearts, Value.values[i + 1]),
-        PlayCard(Suit.Spades, Value.values[i]),
-        PlayCard(Suit.Diamonds, Value.values[i + 1]),
+        PlayCard(Suit.clubs, Value.values[i + 1]),
+        PlayCard(Suit.diamonds, Value.values[i]),
+        PlayCard(Suit.hearts, Value.values[i + 1]),
+        PlayCard(Suit.spades, Value.values[i]),
+        PlayCard(Suit.diamonds, Value.values[i + 1]),
       ];
-      toDisplayHand(hand, HandClass.FullHouse);
+      toDisplayHand(hand, HandClass.fullHouse);
     }
   });
 }

@@ -27,19 +27,16 @@ class SpinnerSettings extends StatefulWidget {
       required this.textStyle});
 
   @override
-  _SpinnerSettingsState createState() =>
-      _SpinnerSettingsState(doubleValue: defaultValue, valueTag: valueTag);
+  SpinnerSettingsState createState() =>
+      SpinnerSettingsState(doubleValue: defaultValue, valueTag: valueTag);
 }
 
-class _SpinnerSettingsState extends State<SpinnerSettings> {
+class SpinnerSettingsState extends State<SpinnerSettings> {
   late SharedPreferences _prefs;
   double doubleValue = 0.0;
   final String valueTag;
 
-  _SpinnerSettingsState({
-    required this.doubleValue,
-    required this.valueTag,
-  }) {
+  SpinnerSettingsState({required this.doubleValue, required this.valueTag}) {
     _prefs = Get.find<SharedPreferences>();
   }
 
@@ -82,7 +79,7 @@ class _SpinnerSettingsState extends State<SpinnerSettings> {
           setState(() {
             doubleValue = newValue;
             _prefs.setDouble(valueTag, newValue);
-            if (valueTag == VOLUME) {
+            if (valueTag == volumeTag) {
               final soundUtils = Get.find<SoundUtils>();
               soundUtils.updateVolume(newValue);
             }

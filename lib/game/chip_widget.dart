@@ -28,7 +28,7 @@ class ChipWidgetState extends State<ChipWidget> {
   @override
   Widget build(BuildContext context) {
     final diameter = chipSize(context); // ~80
-    if (card.suit == Suit.Invalid || card.value == Value.Invalid) {
+    if (card.suit == Suit.invalid || card.value == Value.invalid) {
       return SizedBox(width: diameter, height: diameter);
     }
 
