@@ -48,7 +48,7 @@ main() {
       }
     }
 
-    expect(true, hasExpectedHand);
+    expect(hasExpectedHand, true);
   }
 
   test('Empty hand worth nothing', () async {
@@ -136,15 +136,30 @@ main() {
         PlayCard(Suit.spades, Value.joker),
       ];
       int offset = min(offsetRank(hand[0]), offsetRank(hand[1]));
+      int expected = 0;
+      if (i < 2 || i == 12) {
+        expected = 35;
+      } else if (i == 2) {
+        expected = 30;
+      }
+
       assertCombination(RuleTestInput(
         hand: hand,
         subHandDrillDownLevel: 0,
-        expectedScore: 30 + offset,
+        expectedScore: expected + offset,
       ));
+
+      expected = 5 * i + 1; // Low card value + pair base value
+      if (i < 2) {
+        expected = 35;
+      } else if (i == 2) {
+        expected = 30;
+      }
+
       assertCombination(RuleTestInput(
         hand: hand,
         subHandDrillDownLevel: 1,
-        expectedScore: 30 + offset,
+        expectedScore: expected + offset,
       ));
     }
 
@@ -156,15 +171,30 @@ main() {
         PlayCard(Suit.spades, Value.joker),
       ];
       int offset = min(offsetRank(hand[0]), offsetRank(hand[1]));
+      int expected = 0;
+      if (i < 2 || i == 12) {
+        expected = 35;
+      } else if (i == 2) {
+        expected = 30;
+      }
+
       assertCombination(RuleTestInput(
         hand: hand,
         subHandDrillDownLevel: 0,
-        expectedScore: 35 + offset,
+        expectedScore: expected + offset,
       ));
+
+      expected = 5 * i + 1; // Low card value + pair base value
+      if (i < 2) {
+        expected = 35;
+      } else if (i == 2) {
+        expected = 30;
+      }
+
       assertCombination(RuleTestInput(
         hand: hand,
         subHandDrillDownLevel: 1,
-        expectedScore: 35 + offset,
+        expectedScore: expected + offset,
       ));
     }
 
@@ -176,15 +206,31 @@ main() {
         PlayCard(Suit.spades, Value.values[i == 0 ? 1 : 0]),
       ];
       int offset = min(offsetRank(hand[0]), offsetRank(hand[1]));
+      int expected = 0;
+      if (i == 0) {
+        expected = 35 + offset;
+      } else if (i == 1) {
+        expected = 30 + offset;
+      } else if (i == 2) {
+        expected = 20 + offset;
+      } else if (i == 12) {
+        expected = 35;
+      }
+
       assertCombination(RuleTestInput(
         hand: hand,
         subHandDrillDownLevel: 0,
-        expectedScore: 30 + offset,
+        expectedScore: expected,
       ));
+
+      if (i > 2) {
+        expected = 5 * i + 1; // Low card value + pair base value
+      }
+
       assertCombination(RuleTestInput(
         hand: hand,
         subHandDrillDownLevel: 1,
-        expectedScore: 30 + offset,
+        expectedScore: expected,
       ));
     }
   });
