@@ -482,10 +482,10 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
   }
 
   @override
-  dispose() async {
+  dispose() {
     if (_shouldUnlock) {
       try {
-        await GamesServices.submitScore(
+        GamesServices.submitScore(
             score: Score(
           androidLeaderboardID: leaderBoards[_layout]![_difficulty],
           iOSLeaderboardID: "ios_leaderboard_id",
@@ -504,19 +504,25 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     setState(() {
       _rightNow = DateTime.now();
       if (!_paused) {
-        Duration difference = _rightNow.difference(_started);
-        _elapsed = difference.inSeconds - _totalPaused;
+        if (countDown >= 0) {
+          Duration difference = _rightNow.difference(_started);
+          _elapsed = difference.inSeconds - _totalPaused;
+        }
+
         if (countDown <= 0) {
           Get.close(1);
           Get.to(() => GameOverPage(score: _score));
         }
       }
-      // Update once per second, but make sure to do it at the beginning
-      // of each new second, so that the clock is accurate.
-      _timer = Timer(
-        Duration(milliseconds: 1000 - _rightNow.millisecond),
-        _updateTime,
-      );
+
+      if (countDown >= 0) {
+        // Update once per second, but make sure to do it at the beginning
+        // of each new second, so that the clock is accurate.
+        _timer = Timer(
+          Duration(milliseconds: 1000 - _rightNow.millisecond),
+          _updateTime,
+        );
+      }
     });
   }
 
