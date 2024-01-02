@@ -18,57 +18,58 @@ class BooleanSettings extends StatefulWidget {
   });
 
   @override
-  BooleanSettingsState createState() =>
-      BooleanSettingsState(defaultValue, valueTag);
+  BooleanSettingsState createState() => BooleanSettingsState();
 }
 
 class BooleanSettingsState extends State<BooleanSettings> {
   late SharedPreferences _prefs;
-  bool booleanValue;
-  final String valueTag;
+  late bool _booleanValue;
 
-  BooleanSettingsState(this.booleanValue, this.valueTag) {
+  BooleanSettingsState() {
     _prefs = Get.find<SharedPreferences>();
   }
 
   @override
   initState() {
     super.initState();
-    bool? storedValue = _prefs.getBool(valueTag);
+    bool? storedValue = _prefs.getBool(widget.valueTag);
     if (storedValue != null) {
-      booleanValue = storedValue;
+      _booleanValue = storedValue;
+    } else {
+      _booleanValue = widget.defaultValue;
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Transform.scale(
-        scale: widget.scale,
-        child: Switch(
-            value: booleanValue,
-            activeColor: Colors.lightGreenAccent,
-            activeTrackColor: Colors.green,
-            inactiveThumbColor: Colors.red,
-            inactiveTrackColor: Colors.brown,
-            onChanged: (newValue) {
-              setState(() {
-                booleanValue = newValue;
-                _prefs.setBool(valueTag, newValue);
-                final soundUtils = Get.find<SoundUtils>();
-                if (valueTag == soundEffectsTag) {
-                  if (newValue) {
-                    soundUtils.loadSoundEffects();
-                  } else {
-                    soundUtils.stopAllSoundEffects();
-                  }
-                } else if (valueTag == gameMusicTag) {
-                  if (newValue) {
-                    soundUtils.playSoundTrack(SoundTrack.saloonMusic);
-                  } else {
-                    soundUtils.stopAllSoundTracks();
-                  }
+      scale: widget.scale,
+      child: Switch(
+          value: _booleanValue,
+          activeColor: Colors.lightGreenAccent,
+          activeTrackColor: Colors.green,
+          inactiveThumbColor: Colors.red,
+          inactiveTrackColor: Colors.brown,
+          onChanged: (newValue) {
+            setState(() {
+              _booleanValue = newValue;
+              _prefs.setBool(widget.valueTag, newValue);
+              final soundUtils = Get.find<SoundUtils>();
+              if (widget.valueTag == soundEffectsTag) {
+                if (newValue) {
+                  soundUtils.loadSoundEffects();
+                } else {
+                  soundUtils.stopAllSoundEffects();
                 }
-              });
-            }));
+              } else if (widget.valueTag == gameMusicTag) {
+                if (newValue) {
+                  soundUtils.playSoundTrack(SoundTrack.saloonMusic);
+                } else {
+                  soundUtils.stopAllSoundTracks();
+                }
+              }
+            });
+          }),
+    );
   }
 }

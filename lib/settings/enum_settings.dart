@@ -19,40 +19,39 @@ class EnumSettings<T> extends StatefulWidget {
   });
 
   @override
-  EnumSettingsState createState() =>
-      EnumSettingsState<T>(values, defaultValue, valueTag);
+  EnumSettingsState createState() => EnumSettingsState<T>();
 }
 
 class EnumSettingsState<T> extends State<EnumSettings> {
   late SharedPreferences _prefs;
-  late List<String> stringValues;
-  T enumValue;
-  late String stringValue;
-  final String valueTag;
+  late List<String> _stringValues;
+  late String _stringValue;
 
-  EnumSettingsState(List<T> values, this.enumValue, this.valueTag) {
+  EnumSettingsState() {
     _prefs = Get.find<SharedPreferences>();
-    this.stringValues = values.map<String>((T val) {
-      return val.toString().split('.').last;
-    }).toList();
-    this.stringValue = enumValue.toString().split('.').last;
   }
 
   @override
   initState() {
     super.initState();
-    String? storedValue = _prefs.getString(valueTag);
+    String? storedValue = _prefs.getString(widget.valueTag);
     if (storedValue != null) {
       _stringValue = storedValue.toLowerCase();
     } else {
       _stringValue = widget.defaultValue.toString().split('.').last;
     }
+
+    _stringValues = widget.values.map((v0) {
+      return v0.toString();
+    }).map((v1) {
+      return v1.split('.').last;
+    }).toList();
   }
 
   @override
   Widget build(BuildContext context) {
     return DropdownButton<String>(
-      value: stringValue,
+      value: _stringValue,
       icon: const Icon(Icons.arrow_downward, color: Colors.green),
       iconSize: chipRadius(context),
       style: TextStyle(
@@ -65,12 +64,12 @@ class EnumSettingsState<T> extends State<EnumSettings> {
       onChanged: (String? newValue) {
         setState(() {
           if (newValue != null) {
-            stringValue = newValue;
-            _prefs.setString(valueTag, newValue);
+            _stringValue = newValue;
+            _prefs.setString(widget.valueTag, newValue);
           }
         });
       },
-      items: stringValues.map<DropdownMenuItem<String>>((String value) {
+      items: _stringValues.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value, style: widget.textStyle),

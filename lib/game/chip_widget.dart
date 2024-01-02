@@ -12,23 +12,27 @@ class ChipWidget extends StatefulWidget {
   const ChipWidget({super.key, required this.card});
 
   @override
-  State<StatefulWidget> createState() => ChipWidgetState(card);
+  State<StatefulWidget> createState() => ChipWidgetState();
 }
 
 class ChipWidgetState extends State<ChipWidget> {
-  final PlayCard card;
   late String _suit;
   late String _value;
 
-  ChipWidgetState(this.card) {
-    _suit = suitCharacter(card.suit);
-    _value = valueCharacter(card.value);
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      _suit = suitCharacter(widget.card.suit);
+      _value = valueCharacter(widget.card.value);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final diameter = chipSize(context); // ~80
-    if (card.suit == Suit.invalid || card.value == Value.invalid) {
+    if (widget.card.suit == Suit.invalid ||
+        widget.card.value == Value.invalid) {
       return SizedBox(width: diameter, height: diameter);
     }
 
@@ -51,7 +55,8 @@ class ChipWidgetState extends State<ChipWidget> {
       height: diameter,
       child: CustomPaint(
         painter: ChipPainter(),
-        foregroundPainter: ChipSelectionPainter(card.selected, card.neighbor),
+        foregroundPainter:
+            ChipSelectionPainter(widget.card.selected, widget.card.neighbor),
         child: Center(
           child: RichText(
             maxLines: 1,

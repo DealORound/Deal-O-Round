@@ -27,25 +27,25 @@ class SpinnerSettings extends StatefulWidget {
       required this.textStyle});
 
   @override
-  SpinnerSettingsState createState() =>
-      SpinnerSettingsState(doubleValue: defaultValue, valueTag: valueTag);
+  SpinnerSettingsState createState() => SpinnerSettingsState();
 }
 
 class SpinnerSettingsState extends State<SpinnerSettings> {
   late SharedPreferences _prefs;
-  double doubleValue = 0.0;
-  final String valueTag;
+  late double _doubleValue;
 
-  SpinnerSettingsState({required this.doubleValue, required this.valueTag}) {
+  SpinnerSettingsState() {
     _prefs = Get.find<SharedPreferences>();
   }
 
   @override
   initState() {
     super.initState();
-    double? storedValue = _prefs.getDouble(valueTag);
+    double? storedValue = _prefs.getDouble(widget.valueTag);
     if (storedValue != null) {
-      doubleValue = storedValue;
+      _doubleValue = storedValue;
+    } else {
+      _doubleValue = widget.defaultValue;
     }
   }
 
@@ -55,7 +55,7 @@ class SpinnerSettingsState extends State<SpinnerSettings> {
     final iconSize = radius - 10; // ~30
     final numberWidth = radius * 2 + 15; // ~95
     return SpinnerInput(
-        spinnerValue: doubleValue,
+        spinnerValue: _doubleValue,
         minValue: widget.minValue,
         maxValue: widget.maxValue,
         step: widget.stepValue,
@@ -77,9 +77,9 @@ class SpinnerSettingsState extends State<SpinnerSettings> {
         middleNumberBackground: Colors.green.shade800,
         onChange: (newValue) {
           setState(() {
-            doubleValue = newValue;
-            _prefs.setDouble(valueTag, newValue);
-            if (valueTag == volumeTag) {
+            _doubleValue = newValue;
+            _prefs.setDouble(widget.valueTag, newValue);
+            if (widget.valueTag == volumeTag) {
               final soundUtils = Get.find<SoundUtils>();
               soundUtils.updateVolume(newValue);
             }
