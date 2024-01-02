@@ -3,10 +3,10 @@ import 'package:collection/collection.dart';
 import '../game/logic/game_constants.dart';
 
 const difficultyTag = 'difficulty';
-const difficultyDefault = "Easy";
+const difficultyDefault = "easy";
 const difficultyDefaultValue = Difficulty.easy;
 const boardLayoutTag = 'layout';
-const boardLayoutDefault = "Hexagonal";
+const boardLayoutDefault = "hexagonal";
 const boardLayoutDefaultValue = BoardLayout.hexagonal;
 const gameMusicTag = 'music';
 const gameMusicDefault = false;

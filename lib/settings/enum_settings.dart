@@ -43,7 +43,9 @@ class EnumSettingsState<T> extends State<EnumSettings> {
     super.initState();
     String? storedValue = _prefs.getString(valueTag);
     if (storedValue != null) {
-      stringValue = storedValue;
+      _stringValue = storedValue.toLowerCase();
+    } else {
+      _stringValue = widget.defaultValue.toString().split('.').last;
     }
   }
 
