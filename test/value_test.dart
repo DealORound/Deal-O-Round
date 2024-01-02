@@ -182,5 +182,65 @@ main() {
     test('Invalid has right "value" (index)', () async {
       expect(valueCharacter(Value.invalid), "");
     });
+
+    test('Two has right "valueScore"', () async {
+      expect(valueScore(Value.two), 5 * 0);
+    });
+
+    test('Three has right "valueScore"', () async {
+      expect(valueScore(Value.three), 5 * 1);
+    });
+
+    test('Four has right "valueScore"', () async {
+      expect(valueScore(Value.four), 5 * 2);
+    });
+
+    test('Five has right "valueScore"', () async {
+      expect(valueScore(Value.five), 5 * 3);
+    });
+
+    test('Six has right "valueScore"', () async {
+      expect(valueScore(Value.six), 5 * 4);
+    });
+
+    test('Seven has right "valueScore"', () async {
+      expect(valueScore(Value.seven), 5 * 5);
+    });
+
+    test('Eight has right "valueScore"', () async {
+      expect(valueScore(Value.eight), 5 * 6);
+    });
+
+    test('Nine has right "valueScore"', () async {
+      expect(valueScore(Value.nine), 5 * 7);
+    });
+
+    test('Ten has right "valueScore"', () async {
+      expect(valueScore(Value.ten), 5 * 8);
+    });
+
+    test('Jack has right "valueScore"', () async {
+      expect(valueScore(Value.jack), 5 * 9);
+    });
+
+    test('Queen has right "valueScore"', () async {
+      expect(valueScore(Value.queen), 5 * 10);
+    });
+
+    test('King has right "valueScore"', () async {
+      expect(valueScore(Value.king), 5 * 11);
+    });
+
+    test('Ace has right "valueScore"', () async {
+      expect(valueScore(Value.ace), 5 * 12);
+    });
+
+    test('Joker has right "valueScore"', () async {
+      expect(valueScore(Value.joker), 5 * 13);
+    });
+
+    test('Invalid has right "valueScore"', () async {
+      expect(valueScore(Value.invalid), 5 * 14);
+    });
   });
 }
