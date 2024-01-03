@@ -1,0 +1,31 @@
+name: Flutter Test & Build
+on: [push, pull_request]
+concurrency:
+  group: pr-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  flutter_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: 'beta'
+      - name: Install Flutter dependencies
+        run: flutter pub get
+      - name: Format files
+        run: dart format --set-exit-if-changed .
+      - name: Analyze files
+        run: flutter analyze .
+      - name: Run the tests
+        run: flutter test
+      #- name: Build App Bundle (debug)
+      #  run: flutter build appbundle
