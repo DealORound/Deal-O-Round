@@ -18,7 +18,7 @@ dependencies:
   soundpool: ^2.4.1
   spinner_input_plus: ^0.0.3
   universal_platform: ^1.0.0+1
-  url_launcher: ^6.2.2
+  url_launcher: ^6.2.3
   wakelock_plus: ^1.1.4
   flutter:
     sdk: flutter
