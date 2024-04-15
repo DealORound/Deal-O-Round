@@ -14,7 +14,7 @@ dependencies:
   games_services: ^4.0.1
   get: ^4.6.6
   intl: ^0.19.0
-  shared_preferences: ^2.2.2
+  shared_preferences: ^2.2.3
   soundpool: ^2.4.1
   spinner_input_plus: ^0.0.3
   universal_platform: ^1.0.0+1
