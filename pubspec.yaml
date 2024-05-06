@@ -19,7 +19,7 @@ dependencies:
   spinner_input_plus: ^0.0.3
   universal_platform: ^1.0.0+1
   url_launcher: ^6.2.6
-  wakelock_plus: ^1.2.4
+  wakelock_plus: ^1.2.5
   flutter:
     sdk: flutter
 
