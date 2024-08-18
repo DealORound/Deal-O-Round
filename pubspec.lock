@@ -161,18 +161,18 @@ packages:
     dependency: "direct main"
     description:
       name: games_services
-      sha256: "9ad3c102670d3c944d23db94713abb09d4d78caa398ef4209968f6817660a64c"
+      sha256: b01cbe11e3a73a19d56a9164154659eb1bce282005d8465e6d02682b7c0df24d
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.1"
+    version: "4.0.2"
   games_services_platform_interface:
     dependency: transitive
     description:
       name: games_services_platform_interface
-      sha256: be5a69656d0b76dd03a7d3d3db5c3eec5d85c51d44c862d83761576fa6cb4f13
+      sha256: "3742c23afdd5ebd5498612b13dc251853fccf935f6f56ef6bf13c6e8c0c89a8d"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.1"
+    version: "4.0.2"
   get:
     dependency: "direct main"
     description:
@@ -401,10 +401,10 @@ packages:
     dependency: "direct main"
     description:
       name: shared_preferences
-      sha256: c272f9cabca5a81adc9b0894381e9c1def363e980f960fa903c604c471b22f68
+      sha256: "746e5369a43170c25816cc472ee016d3a66bc13fcf430c0bc41ad7b4b2922051"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.1"
+    version: "2.3.2"
   shared_preferences_android:
     dependency: transitive
     description:
@@ -654,10 +654,10 @@ packages:
     dependency: "direct main"
     description:
       name: wakelock_plus
-      sha256: "4fa83a128b4127619e385f686b4f080a5d2de46cff8e8c94eccac5fcf76550e5"
+      sha256: bf4ee6f17a2fa373ed3753ad0e602b7603f8c75af006d5b9bdade263928c0484
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.7"
+    version: "1.2.8"
   wakelock_plus_platform_interface:
     dependency: transitive
     description:
