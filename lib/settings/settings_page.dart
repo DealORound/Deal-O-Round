@@ -5,6 +5,7 @@ import '../game/logic/game_constants.dart';
 import '../services/settings_constants.dart';
 import '../services/size.dart';
 import '../utils/background_gradient.dart';
+import '../utils/color_ex.dart';
 import 'boolean_settings.dart';
 import 'enum_settings.dart';
 import 'spinner_settings.dart';
@@ -35,7 +36,7 @@ class SettingsPageState extends State<SettingsPage> {
       color: Colors.white,
     );
     final boxDecoration = BoxDecoration(
-      color: Colors.green.shade900.withOpacity(0.5),
+      color: Colors.green.shade900.withOpacityEx(0.5),
       borderRadius: BorderRadius.circular(5.0),
       border: Border.all(color: Colors.green.shade900, width: 3.0),
     );
