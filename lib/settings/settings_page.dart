@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../game/logic/game_constants.dart';
 import '../services/settings_constants.dart';
 import '../services/size.dart';
-import '../background_gradient.dart';
+import '../utils/background_gradient.dart';
 import 'boolean_settings.dart';
 import 'enum_settings.dart';
 import 'spinner_settings.dart';

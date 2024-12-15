@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-import '../background_gradient.dart';
+import '../utils/background_gradient.dart';
 
 class BackgroundPainter extends CustomPainter {
   Path _diamondShape(Canvas canvas, Size size) {
