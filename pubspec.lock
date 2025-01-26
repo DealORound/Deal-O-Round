@@ -265,10 +265,10 @@ packages:
     dependency: "direct main"
     description:
       name: intl
-      sha256: d6f56758b7d3014a48af9701c085700aac781a92a87a62b1333b46d8879661cf
+      sha256: "3df61194eb431efc39c4ceba583b95633a403f46c9fd341e550ce0bfa50e9aa5"
       url: "https://pub.dev"
     source: hosted
-    version: "0.19.0"
+    version: "0.20.2"
   leak_tracker:
     dependency: transitive
     description:
@@ -457,10 +457,10 @@ packages:
     dependency: "direct main"
     description:
       name: shared_preferences
-      sha256: a752ce92ea7540fc35a0d19722816e04d0e72828a4200e83a98cf1a1eb524c9a
+      sha256: c59819dacc6669a1165d54d2735a9543f136f9b3cec94ca65cea6ab8dffc422e
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.5"
+    version: "2.4.0"
   shared_preferences_android:
     dependency: transitive
     description:
@@ -526,10 +526,10 @@ packages:
     dependency: "direct main"
     description:
       name: spinner_input_plus
-      sha256: "4306d7a2edf9d9333a4692dc47ace68671be022defbc4294d6ade35f3a69b55d"
+      sha256: "901601e2b493d4a6fc526be2a0eddf291ec6a11860f9694ed1c617aaf19c02c1"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.3"
+    version: "0.0.4"
   stack_trace:
     dependency: transitive
     description:
@@ -748,4 +748,4 @@ packages:
     version: "3.1.3"
 sdks:
   dart: ">=3.6.1 <4.0.0"
-  flutter: ">=3.27.2"
+  flutter: ">=3.27.3"

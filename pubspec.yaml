@@ -6,7 +6,7 @@ version: 2.0.25+25
 
 environment:
   sdk: ">=3.6.1"
-  flutter: ">=3.27.2"
+  flutter: ">=3.27.3"
 
 dependency_overrides:
   collection: ^1.19.1  # Flutter SDK
@@ -17,9 +17,9 @@ dependencies:
   collection: ^1.19.0
   games_services: ^4.0.3
   get: ^4.6.6
-  intl: ^0.19.0
-  shared_preferences: ^2.3.5
-  spinner_input_plus: ^0.0.3
+  intl: ^0.20.2
+  shared_preferences: ^2.4.0
+  spinner_input_plus: ^0.0.4
   universal_platform: ^1.1.0
   url_launcher: ^6.3.1
   wakelock_plus: ^1.2.10
