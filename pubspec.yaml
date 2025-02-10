@@ -13,7 +13,7 @@ dependency_overrides:
 
 dependencies:
   assets_audio_player: ^3.1.1
-  audioplayers: ^6.1.1
+  audioplayers: ^6.1.2
   collection: ^1.19.0
   games_services: ^4.0.3
   get: ^4.6.6
