@@ -5,16 +5,13 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 2.0.25+25
 
 environment:
-  sdk: ">=3.6.1"
-  flutter: ">=3.27.3"
-
-dependency_overrides:
-  collection: ^1.19.1  # Flutter SDK
+  sdk: ">=3.7.0"
+  flutter: ">=3.29.0"
 
 dependencies:
   assets_audio_player: ^3.1.1
   audioplayers: ^6.1.2
-  collection: ^1.19.0
+  collection: ^1.19.1
   games_services: ^4.0.3
   get: ^4.6.6
   intl: ^0.20.2
