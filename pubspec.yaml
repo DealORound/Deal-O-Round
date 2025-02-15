@@ -13,9 +13,9 @@ dependencies:
   audioplayers: ^6.1.2
   collection: ^1.19.1
   games_services: ^4.0.3
-  get: ^4.6.6
+  get: ^4.7.2
   intl: ^0.20.2
-  shared_preferences: ^2.5.1
+  shared_preferences: ^2.5.2
   spinner_input_plus: ^0.0.4
   universal_platform: ^1.1.0
   url_launcher: ^6.3.1
