@@ -9,18 +9,21 @@ class Deck {
   final bool initialShuffle;
   final int index;
 
-  Deck(
-      {this.includeJokers = false,
-      this.initialShuffle = true,
-      this.index = 0}) {
+  Deck({
+    this.includeJokers = false,
+    this.initialShuffle = true,
+    this.index = 0,
+  }) {
     deck = [];
     for (int suitIndex = 0; suitIndex < 4; suitIndex++) {
       for (int valueIndex = 0; valueIndex < 13; valueIndex++) {
-        deck.add(PlayCard(
-          Suit.values[suitIndex],
-          Value.values[valueIndex],
-          deck: index,
-        ));
+        deck.add(
+          PlayCard(
+            Suit.values[suitIndex],
+            Value.values[valueIndex],
+            deck: index,
+          ),
+        );
       }
     }
 

@@ -12,18 +12,21 @@ class DealORoundApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-    SystemChrome.setPreferredOrientations(
-        [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
     return GetMaterialApp(
-        // debugShowCheckedModeBanner: false,
-        title: 'Deal-O-Round',
-        theme: ThemeData(
-          visualDensity: VisualDensity.adaptivePlatformDensity,
+      // debugShowCheckedModeBanner: false,
+      title: 'Deal-O-Round',
+      theme: ThemeData(visualDensity: VisualDensity.adaptivePlatformDensity),
+      home: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Container(
+          decoration: BoxDecoration(gradient: getBackgroundGradient()),
+          child: const HomePage(child: HomePageWidget()),
         ),
-        home: Scaffold(
-            backgroundColor: Colors.transparent,
-            body: Container(
-                decoration: BoxDecoration(gradient: getBackgroundGradient()),
-                child: const HomePage(child: HomePageWidget()))));
+      ),
+    );
   }
 }

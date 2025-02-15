@@ -20,8 +20,9 @@ class HomeCenter extends StatelessWidget {
     return AlertDialog(
       title: const Text('Game Services', style: textStyle),
       content: const Text(
-          'Without signing in the end score cannot be recorded and no achievement could be administered. Is it OK to continue?',
-          style: textStyle),
+        'Without signing in the end score cannot be recorded and no achievement could be administered. Is it OK to continue?',
+        style: textStyle,
+      ),
       actions: [
         TextButton(
           child: const Text('Yes', style: textStyle),
@@ -75,96 +76,123 @@ class HomeCenter extends StatelessWidget {
         SizedBox(height: bigSpacing),
         Row(
           children: [
-            Column(children: [
-              ElevatedButton.icon(
-                onPressed: () async {
-                  if (UniversalPlatform.isAndroid || UniversalPlatform.isIOS) {
-                    try {
-                      await GamesServices.signIn().then((String? result) {
-                        state.updateSignedIn(true);
-                      });
-                    } on Exception catch (e) {
-                      debugPrint("Error signing in: $e");
-                      Get.snackbar("Error", "Could not sign in",
-                          colorText: snackTextColor,
-                          backgroundColor: snackBgColor);
-                      state.updateSignedIn(false);
-                    }
-                  } else {
-                    Get.snackbar(
-                      "Sign In",
-                      "Game Services is only available on Android "
-                          "and Game Center is only available on iOS",
-                      colorText: snackTextColor,
-                      backgroundColor: snackBgColor,
-                    );
-                  }
-                },
-                style: buttonStyle,
-                icon: Icon(Icons.person, size: radius, color: Colors.white),
-                label: Text("Login", style: textStyle),
-              ),
-              SizedBox(height: spacing),
-              ElevatedButton.icon(
-                onPressed: () async {
-                  if (UniversalPlatform.isAndroid || UniversalPlatform.isIOS) {
-                    if (state.gameSignedIn) {
+            Column(
+              children: [
+                ElevatedButton.icon(
+                  onPressed: () async {
+                    if (UniversalPlatform.isAndroid ||
+                        UniversalPlatform.isIOS) {
                       try {
-                        await GamesServices.showLeaderboards();
-                        // iOS requires iOSLeaderboardID
+                        await GamesServices.signIn().then((String? result) {
+                          state.updateSignedIn(true);
+                        });
                       } on Exception catch (e) {
-                        debugPrint("Error showing lb: $e");
-                        Get.snackbar("Error", "Could not fetch board",
-                            colorText: snackTextColor,
-                            backgroundColor: snackBgColor);
+                        debugPrint("Error signing in: $e");
+                        Get.snackbar(
+                          "Error",
+                          "Could not sign in",
+                          colorText: snackTextColor,
+                          backgroundColor: snackBgColor,
+                        );
+                        state.updateSignedIn(false);
                       }
                     } else {
-                      Get.snackbar("Warning", "Sign-in needed",
-                          colorText: snackTextColor,
-                          backgroundColor: snackBgColor);
-                    }
-                  } else {
-                    Get.snackbar("Leaderboards:",
-                        "Only available on Android or iOS devices",
+                      Get.snackbar(
+                        "Sign In",
+                        "Game Services is only available on Android "
+                            "and Game Center is only available on iOS",
                         colorText: snackTextColor,
-                        backgroundColor: snackBgColor);
-                  }
-                },
-                style: buttonStyle,
-                icon: Icon(Icons.format_list_numbered,
-                    size: radius, color: Colors.white),
-                label: Text("Scores", style: textStyle),
-              ),
-              SizedBox(height: spacing),
-              ElevatedButton.icon(
-                onPressed: () async {
-                  if (UniversalPlatform.isAndroid || UniversalPlatform.isIOS) {
-                    if (state.gameSignedIn) {
-                      try {
-                        await GamesServices.showAchievements();
-                      } on Exception catch (e) {
-                        debugPrint("Error showing achievements: $e");
-                        Get.snackbar("Error", "Could not fetch achievement",
+                        backgroundColor: snackBgColor,
+                      );
+                    }
+                  },
+                  style: buttonStyle,
+                  icon: Icon(Icons.person, size: radius, color: Colors.white),
+                  label: Text("Login", style: textStyle),
+                ),
+                SizedBox(height: spacing),
+                ElevatedButton.icon(
+                  onPressed: () async {
+                    if (UniversalPlatform.isAndroid ||
+                        UniversalPlatform.isIOS) {
+                      if (state.gameSignedIn) {
+                        try {
+                          await GamesServices.showLeaderboards();
+                          // iOS requires iOSLeaderboardID
+                        } on Exception catch (e) {
+                          debugPrint("Error showing lb: $e");
+                          Get.snackbar(
+                            "Error",
+                            "Could not fetch board",
                             colorText: snackTextColor,
-                            backgroundColor: snackBgColor);
+                            backgroundColor: snackBgColor,
+                          );
+                        }
+                      } else {
+                        Get.snackbar(
+                          "Warning",
+                          "Sign-in needed",
+                          colorText: snackTextColor,
+                          backgroundColor: snackBgColor,
+                        );
                       }
                     } else {
-                      Get.snackbar("Warning", "Sign-in needed",
-                          colorText: snackTextColor,
-                          backgroundColor: snackBgColor);
-                    }
-                  } else {
-                    Get.snackbar("Achievements:",
+                      Get.snackbar(
+                        "Leaderboards:",
                         "Only available on Android or iOS devices",
                         colorText: snackTextColor,
-                        backgroundColor: snackBgColor);
-                  }
-                },
-                style: buttonStyle,
-                icon: Icon(Icons.grade, size: radius, color: Colors.white),
-                label: Text("Grades", style: textStyle),
-              ),
-            ]),
+                        backgroundColor: snackBgColor,
+                      );
+                    }
+                  },
+                  style: buttonStyle,
+                  icon: Icon(
+                    Icons.format_list_numbered,
+                    size: radius,
+                    color: Colors.white,
+                  ),
+                  label: Text("Scores", style: textStyle),
+                ),
+                SizedBox(height: spacing),
+                ElevatedButton.icon(
+                  onPressed: () async {
+                    if (UniversalPlatform.isAndroid ||
+                        UniversalPlatform.isIOS) {
+                      if (state.gameSignedIn) {
+                        try {
+                          await GamesServices.showAchievements();
+                        } on Exception catch (e) {
+                          debugPrint("Error showing achievements: $e");
+                          Get.snackbar(
+                            "Error",
+                            "Could not fetch achievement",
+                            colorText: snackTextColor,
+                            backgroundColor: snackBgColor,
+                          );
+                        }
+                      } else {
+                        Get.snackbar(
+                          "Warning",
+                          "Sign-in needed",
+                          colorText: snackTextColor,
+                          backgroundColor: snackBgColor,
+                        );
+                      }
+                    } else {
+                      Get.snackbar(
+                        "Achievements:",
+                        "Only available on Android or iOS devices",
+                        colorText: snackTextColor,
+                        backgroundColor: snackBgColor,
+                      );
+                    }
+                  },
+                  style: buttonStyle,
+                  icon: Icon(Icons.grade, size: radius, color: Colors.white),
+                  label: Text("Grades", style: textStyle),
+                ),
+              ],
+            ),
             SizedBox(width: spacing),
             Column(
               children: [
@@ -173,15 +201,20 @@ class HomeCenter extends StatelessWidget {
                     if (!state.gameSignedIn &&
                         (UniversalPlatform.isAndroid ||
                             UniversalPlatform.isIOS)) {
-                      await Get.dialog(_alertDialog(),
-                          barrierDismissible: false);
+                      await Get.dialog(
+                        _alertDialog(),
+                        barrierDismissible: false,
+                      );
                     } else {
                       await Get.to(() => const GamePage(child: GameWidget()));
                     }
                   },
                   style: buttonStyle,
-                  icon:
-                      Icon(Icons.play_arrow, size: radius, color: Colors.white),
+                  icon: Icon(
+                    Icons.play_arrow,
+                    size: radius,
+                    color: Colors.white,
+                  ),
                   label: Text("Play", style: textStyle),
                 ),
                 SizedBox(height: spacing),
@@ -197,9 +230,12 @@ class HomeCenter extends StatelessWidget {
                     if (await canLaunchUrlString(helpUrl)) {
                       launchUrlString(helpUrl);
                     } else {
-                      Get.snackbar("Attention", "Cannot open URL",
-                          colorText: snackTextColor,
-                          backgroundColor: snackBgColor);
+                      Get.snackbar(
+                        "Attention",
+                        "Cannot open URL",
+                        colorText: snackTextColor,
+                        backgroundColor: snackBgColor,
+                      );
                     }
                   },
                   style: buttonStyle,

@@ -10,12 +10,14 @@ main() {
   toDisplayHand(List<PlayCard> hand, HandClass handClass) {
     final rules = Rules();
     final results = rules.rankHand(hand, 0, true, true);
-    final result = results.isNotEmpty
-        ? results[0]
-        : Scoring(
-            handClass,
-            hand.isNotEmpty ? hand[0] : PlayCard(Suit.invalid, Value.invalid),
-            "");
+    final result =
+        results.isNotEmpty
+            ? results[0]
+            : Scoring(
+              handClass,
+              hand.isNotEmpty ? hand[0] : PlayCard(Suit.invalid, Value.invalid),
+              "",
+            );
     final displayStr = result.toStringDisplay();
     final handDisplayStr = handDisplayString(handClass);
     expect(displayStr.startsWith(handDisplayStr), true);
@@ -33,7 +35,7 @@ main() {
   test('Worthless two hand to display', () async {
     final hand = [
       PlayCard(Suit.clubs, Value.ten),
-      PlayCard(Suit.diamonds, Value.nine)
+      PlayCard(Suit.diamonds, Value.nine),
     ];
     toDisplayHand(hand, HandClass.none);
   });

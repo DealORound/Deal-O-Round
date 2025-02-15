@@ -85,8 +85,9 @@ class SoundUtils {
       }
 
       _trackPlaying = track;
-      await _assetsPlayer
-          ?.setVolume((pref.getDouble(volumeTag) ?? volumeDefault) / 100.0);
+      await _assetsPlayer?.setVolume(
+        (pref.getDouble(volumeTag) ?? volumeDefault) / 100.0,
+      );
       await _assetsPlayer?.open(Audio("assets/$trackPath"));
     }
     return;

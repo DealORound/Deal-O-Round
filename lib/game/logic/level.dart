@@ -21,12 +21,12 @@ class Level {
       scoreLimit = [
         scoreLimitInt,
         (scoreLimitFloat * 1.5).round(),
-        (scoreLimitFloat * 2).round()
+        (scoreLimitFloat * 2).round(),
       ];
       timeLimit = [
         timeLimitInt,
         (timeLimitFloat * 0.75).round(),
-        (timeLimitFloat * 0.5).round()
+        (timeLimitFloat * 0.5).round(),
       ];
     }
   }

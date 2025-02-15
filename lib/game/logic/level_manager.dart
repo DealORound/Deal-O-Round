@@ -78,8 +78,13 @@ class LevelManager {
     currentLevel = 0;
   }
 
-  Future<AdvancingReturn> advanceLevels(Difficulty difficulty, int currentScore,
-      int handScore, int nextLevelScore, bool shouldUnlock) async {
+  Future<AdvancingReturn> advanceLevels(
+    Difficulty difficulty,
+    int currentScore,
+    int handScore,
+    int nextLevelScore,
+    bool shouldUnlock,
+  ) async {
     final newScore = currentScore + handScore;
     int countDown = 0;
     while (newScore > nextLevelScore) {
@@ -89,10 +94,12 @@ class LevelManager {
         if (level <= 25) {
           try {
             GamesServices.unlock(
-                achievement: Achievement(
-                    androidID: levelAchievements[level - 2],
-                    iOSID: 'ios_id',
-                    percentComplete: 100));
+              achievement: Achievement(
+                androidID: levelAchievements[level - 2],
+                iOSID: 'ios_id',
+                percentComplete: 100,
+              ),
+            );
           } on Exception catch (e, stack) {
             debugPrint("Error while submitting level achievement: $e");
             debugPrintStack(stackTrace: stack, label: "trace:");

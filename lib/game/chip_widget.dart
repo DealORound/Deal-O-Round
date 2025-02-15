@@ -39,8 +39,11 @@ class ChipWidgetState extends State<ChipWidget> {
     final textColor =
         (_suit == 'c' || _suit == 's') ? Colors.black : Colors.red;
     final fontSize = diameter * (_value == '*' ? 1.0 : 0.625); // ~64 / ~50
-    final suitStyle =
-        TextStyle(fontSize: fontSize, fontFamily: 'Cards', color: textColor);
+    final suitStyle = TextStyle(
+      fontSize: fontSize,
+      fontFamily: 'Cards',
+      color: textColor,
+    );
     final valueStyle = TextStyle(
       fontSize: fontSize,
       fontFamily: 'Stint-Ultra-Condensed',
@@ -55,8 +58,10 @@ class ChipWidgetState extends State<ChipWidget> {
       height: diameter,
       child: CustomPaint(
         painter: ChipPainter(),
-        foregroundPainter:
-            ChipSelectionPainter(widget.card.selected, widget.card.neighbor),
+        foregroundPainter: ChipSelectionPainter(
+          widget.card.selected,
+          widget.card.neighbor,
+        ),
         child: Center(
           child: RichText(
             maxLines: 1,

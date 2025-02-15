@@ -42,8 +42,13 @@ class Rules {
     return true;
   }
 
-  void rankHandCore(List<PlayCard> cards, List<Scoring> results,
-      int subHandDrillDown, bool bestOnTop, bool fast) {
+  void rankHandCore(
+    List<PlayCard> cards,
+    List<Scoring> results,
+    int subHandDrillDown,
+    bool bestOnTop,
+    bool fast,
+  ) {
     if (cards.length <= 1) {
       return;
     }
@@ -88,7 +93,11 @@ class Rules {
   }
 
   List<Scoring> rankHand(
-      List<PlayCard> cards, int subHandDrillDown, bool bestOnTop, bool fast) {
+    List<PlayCard> cards,
+    int subHandDrillDown,
+    bool bestOnTop,
+    bool fast,
+  ) {
     List<Scoring> results = [];
 
     if (cards.length <= 1) {
@@ -119,8 +128,12 @@ class Rules {
     }
   }
 
-  rankThreeCards(List<PlayCard> hand, int subHandDrillDown,
-      List<Scoring> results, bool fast) {
+  rankThreeCards(
+    List<PlayCard> hand,
+    int subHandDrillDown,
+    List<Scoring> results,
+    bool fast,
+  ) {
     if (hand.length <= 2) {
       return;
     }
@@ -181,8 +194,12 @@ class Rules {
     }
   }
 
-  rankFourCards(List<PlayCard> hand, int subHandDrillDown,
-      List<Scoring> results, bool fast) {
+  rankFourCards(
+    List<PlayCard> hand,
+    int subHandDrillDown,
+    List<Scoring> results,
+    bool fast,
+  ) {
     if (hand.length <= 3) {
       return;
     }
@@ -197,9 +214,10 @@ class Rules {
         fast,
       );
     }
-    bool flush = (hand[0].suit == hand[1].suit &&
-        hand[1].suit == hand[2].suit &&
-        hand[2].suit == hand[3].suit);
+    bool flush =
+        (hand[0].suit == hand[1].suit &&
+            hand[1].suit == hand[2].suit &&
+            hand[2].suit == hand[3].suit);
     hand.sort((hi, hj) => hi.value.index.compareTo(hj.value.index));
     bool possibleWheel =
         (hand[0].value == Value.two && hand[3].value == Value.ace);
@@ -266,8 +284,12 @@ class Rules {
     }
   }
 
-  rankFiveCards(List<PlayCard> hand, int subHandDrillDown,
-      List<Scoring> results, bool fast) {
+  rankFiveCards(
+    List<PlayCard> hand,
+    int subHandDrillDown,
+    List<Scoring> results,
+    bool fast,
+  ) {
     if (hand.length <= 4) {
       return;
     }
@@ -295,10 +317,11 @@ class Rules {
 		}*/
     bool possibleWheel =
         (hand[0].value == Value.two && hand[4].value == Value.ace);
-    bool flush = (hand[0].suit == hand[1].suit &&
-        hand[1].suit == hand[2].suit &&
-        hand[2].suit == hand[3].suit &&
-        hand[3].suit == hand[4].suit);
+    bool flush =
+        (hand[0].suit == hand[1].suit &&
+            hand[1].suit == hand[2].suit &&
+            hand[2].suit == hand[3].suit &&
+            hand[3].suit == hand[4].suit);
     if (hand[0].value.index + 1 == hand[1].value.index &&
         hand[1].value.index + 1 == hand[2].value.index &&
         hand[2].value.index + 1 == hand[3].value.index &&
@@ -329,11 +352,7 @@ class Rules {
     if (flush) {
       addToResults(
         results,
-        Scoring(
-          HandClass.flush5,
-          hand[0],
-          getHandDigest(hand, fast),
-        ),
+        Scoring(HandClass.flush5, hand[0], getHandDigest(hand, fast)),
         fast,
       );
     }

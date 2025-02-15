@@ -16,15 +16,16 @@ class SpinnerSettings extends StatefulWidget {
   final String valueTag;
   final TextStyle textStyle;
 
-  const SpinnerSettings(
-      {super.key,
-      required this.minValue,
-      required this.maxValue,
-      this.stepValue = 1,
-      this.fractionDigits = 0,
-      required this.defaultValue,
-      required this.valueTag,
-      required this.textStyle});
+  const SpinnerSettings({
+    super.key,
+    required this.minValue,
+    required this.maxValue,
+    this.stepValue = 1,
+    this.fractionDigits = 0,
+    required this.defaultValue,
+    required this.valueTag,
+    required this.textStyle,
+  });
 
   @override
   SpinnerSettingsState createState() => SpinnerSettingsState();
@@ -55,35 +56,36 @@ class SpinnerSettingsState extends State<SpinnerSettings> {
     final iconSize = radius - 10; // ~30
     final numberWidth = radius * 2 + 15; // ~95
     return SpinnerInput(
-        spinnerValue: _doubleValue,
-        minValue: widget.minValue,
-        maxValue: widget.maxValue,
-        step: widget.stepValue,
-        fractionDigits: widget.fractionDigits,
-        plusButton: SpinnerButtonStyle(
-          color: Colors.green,
-          height: radius,
-          width: radius,
-          child: Icon(Icons.add, size: iconSize),
-        ),
-        minusButton: SpinnerButtonStyle(
-          color: Colors.green,
-          height: radius,
-          width: radius,
-          child: Icon(Icons.remove, size: iconSize),
-        ),
-        middleNumberWidth: numberWidth,
-        middleNumberStyle: widget.textStyle,
-        middleNumberBackground: Colors.green.shade800,
-        onChange: (newValue) {
-          setState(() {
-            _doubleValue = newValue;
-            _prefs.setDouble(widget.valueTag, newValue);
-            if (widget.valueTag == volumeTag) {
-              final soundUtils = Get.find<SoundUtils>();
-              soundUtils.updateVolume(newValue);
-            }
-          });
+      spinnerValue: _doubleValue,
+      minValue: widget.minValue,
+      maxValue: widget.maxValue,
+      step: widget.stepValue,
+      fractionDigits: widget.fractionDigits,
+      plusButton: SpinnerButtonStyle(
+        color: Colors.green,
+        height: radius,
+        width: radius,
+        child: Icon(Icons.add, size: iconSize),
+      ),
+      minusButton: SpinnerButtonStyle(
+        color: Colors.green,
+        height: radius,
+        width: radius,
+        child: Icon(Icons.remove, size: iconSize),
+      ),
+      middleNumberWidth: numberWidth,
+      middleNumberStyle: widget.textStyle,
+      middleNumberBackground: Colors.green.shade800,
+      onChange: (newValue) {
+        setState(() {
+          _doubleValue = newValue;
+          _prefs.setDouble(widget.valueTag, newValue);
+          if (widget.valueTag == volumeTag) {
+            final soundUtils = Get.find<SoundUtils>();
+            soundUtils.updateVolume(newValue);
+          }
         });
+      },
+    );
   }
 }

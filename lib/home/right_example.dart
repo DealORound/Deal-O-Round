@@ -13,16 +13,14 @@ class RightExample extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Row(children: [
-          ChipWidget(card: PlayCard(Suit.hearts, Value.two)),
-        ]),
-        Row(children: [
-          ChipWidget(card: PlayCard(Suit.spades, Value.ace)),
-          ChipWidget(card: PlayCard(Suit.clubs, Value.jack)),
-        ]),
-        Row(children: [
-          ChipWidget(card: PlayCard(Suit.diamonds, Value.king)),
-        ]),
+        Row(children: [ChipWidget(card: PlayCard(Suit.hearts, Value.two))]),
+        Row(
+          children: [
+            ChipWidget(card: PlayCard(Suit.spades, Value.ace)),
+            ChipWidget(card: PlayCard(Suit.clubs, Value.jack)),
+          ],
+        ),
+        Row(children: [ChipWidget(card: PlayCard(Suit.diamonds, Value.king))]),
       ],
     );
   }

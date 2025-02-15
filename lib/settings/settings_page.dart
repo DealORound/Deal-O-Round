@@ -116,10 +116,13 @@ class SettingsPageState extends State<SettingsPage> {
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(
-                              vertical: 0, horizontal: separatorSize),
+                            vertical: 0,
+                            horizontal: separatorSize,
+                          ),
                           child: const BooleanSettings(
-                              defaultValue: gameMusicDefault,
-                              valueTag: gameMusicTag),
+                            defaultValue: gameMusicDefault,
+                            valueTag: gameMusicTag,
+                          ),
                         ),
                         Align(
                           alignment: Alignment.centerLeft,
@@ -127,10 +130,13 @@ class SettingsPageState extends State<SettingsPage> {
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(
-                              vertical: 0, horizontal: separatorSize),
+                            vertical: 0,
+                            horizontal: separatorSize,
+                          ),
                           child: const BooleanSettings(
-                              defaultValue: soundEffectsDefault,
-                              valueTag: soundEffectsTag),
+                            defaultValue: soundEffectsDefault,
+                            valueTag: soundEffectsTag,
+                          ),
                         ),
                       ],
                     ),
@@ -188,7 +194,7 @@ class SettingsPageState extends State<SettingsPage> {
                           defaultValue: animationSpeedDefault,
                           valueTag: animationSpeedTag,
                           textStyle: textStyle,
-                        )
+                        ),
                       ],
                     ),
                   ),

@@ -21,6 +21,7 @@ const animationSpeedDefault = 200.0;
 const gameSignedInTag = 'game_signed_in';
 
 T? enumFromString<T>(Iterable<T> values, String value) {
-  return values
-      .firstWhereOrNull((type) => type.toString().split(".").last == value);
+  return values.firstWhereOrNull(
+    (type) => type.toString().split(".").last == value,
+  );
 }

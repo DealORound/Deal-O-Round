@@ -15,22 +15,26 @@ class RightDisplay extends StatelessWidget {
 
     final radius = chipRadius(context); // ~40
     final textStyle = TextStyle(
-        fontSize: radius * 0.7, // ~28
-        fontFamily: 'Roboto Condensed',
-        color: Colors.white);
+      fontSize: radius * 0.7, // ~28
+      fontFamily: 'Roboto Condensed',
+      color: Colors.white,
+    );
     final infoStyle = TextStyle(
-        fontSize: radius * 0.5, // ~20
-        fontFamily: 'Roboto Condensed',
-        color: Colors.white);
+      fontSize: radius * 0.5, // ~20
+      fontFamily: 'Roboto Condensed',
+      color: Colors.white,
+    );
 
     final greenDecoration = BoxDecoration(
-        color: Colors.green.shade900,
-        borderRadius: BorderRadius.circular(5.0),
-        border: Border.all(color: Colors.green.shade700, width: 3.0));
+      color: Colors.green.shade900,
+      borderRadius: BorderRadius.circular(5.0),
+      border: Border.all(color: Colors.green.shade700, width: 3.0),
+    );
     final blueDecoration = BoxDecoration(
-        color: Colors.blue.shade900,
-        borderRadius: BorderRadius.circular(5.0),
-        border: Border.all(color: Colors.blue.shade700, width: 3.0));
+      color: Colors.blue.shade900,
+      borderRadius: BorderRadius.circular(5.0),
+      border: Border.all(color: Colors.blue.shade700, width: 3.0),
+    );
     final spacing = radius / 8; // ~5
     final width = radius * 4; // 160
 
@@ -51,8 +55,9 @@ class RightDisplay extends StatelessWidget {
           padding: const EdgeInsets.all(2.0),
           child: SizedBox(
             width: width,
-            child:
-                Center(child: Text("Level ${state.level}", style: textStyle)),
+            child: Center(
+              child: Text("Level ${state.level}", style: textStyle),
+            ),
           ),
         ),
         SizedBox(height: spacing),
