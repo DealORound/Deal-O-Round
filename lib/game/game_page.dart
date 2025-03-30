@@ -383,11 +383,13 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
       List<Scoring> hands = _rankHands([]);
       if (hands.isNotEmpty) {
         Scoring hand = hands.first;
-        if (_shouldUnlock) {
+        if (_shouldUnlock &&
+            hand.handClass != HandClass.none &&
+            handAchievements[hand.handClass] != null) {
           try {
             await GamesServices.unlock(
               achievement: Achievement(
-                androidID: handAchievements[hand.handClass],
+                androidID: handAchievements[hand.handClass]!,
                 iOSID: 'ios_id',
                 percentComplete: 100,
               ),
@@ -396,6 +398,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
             debugPrint("Error while submitting hand achievement: $e");
           }
         }
+
         final selectedHand = _getSelectedHand();
         final jokerCount = selectedHand.fold<int>(
           0,
