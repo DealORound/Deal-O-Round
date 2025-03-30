@@ -12,14 +12,14 @@ dependencies:
   assets_audio_player: ^3.1.1
   audioplayers: ^6.4.0
   collection: ^1.19.1
-  games_services: ^4.0.3
+  games_services: ^4.1.0
   get: ^4.7.2
   intl: ^0.20.2
-  shared_preferences: ^2.5.2
+  shared_preferences: ^2.5.3
   spinner_input_plus: ^0.0.4
   universal_platform: ^1.1.0
   url_launcher: ^6.3.1
-  wakelock_plus: ^1.2.10
+  wakelock_plus: ^1.2.11
   flutter:
     sdk: flutter
 
