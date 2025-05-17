@@ -12,7 +12,7 @@ dependencies:
   assets_audio_player: ^3.1.1
   audioplayers: ^6.4.0
   collection: ^1.19.1
-  games_services: ^4.1.0
+  games_services: ^4.1.1
   get: ^4.7.2
   intl: ^0.20.2
   shared_preferences: ^2.5.3
