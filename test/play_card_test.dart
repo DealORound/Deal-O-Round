@@ -91,54 +91,58 @@ main() {
       }
     });
 
-    test('Neighborhood influence equality, does not influence compare',
-        () async {
-      for (int deck = 0; deck < maxDeckCount; deck++) {
-        for (Value value in Value.values) {
-          for (Suit suit in Suit.values) {
-            for (bool selected in [true, false]) {
-              for (bool neighbor in [true, false]) {
-                final card1 = PlayCard(suit, value, deck: deck);
-                card1.selected = selected;
-                card1.neighbor = neighbor;
-                final card2 = PlayCard(suit, value, deck: deck);
-                card2.selected = selected;
-                card2.neighbor = !neighbor;
-                expect(card1 == card2, false);
-                expect(card1.compareTo(card2), 0);
+    test(
+      'Neighborhood influence equality, does not influence compare',
+      () async {
+        for (int deck = 0; deck < maxDeckCount; deck++) {
+          for (Value value in Value.values) {
+            for (Suit suit in Suit.values) {
+              for (bool selected in [true, false]) {
+                for (bool neighbor in [true, false]) {
+                  final card1 = PlayCard(suit, value, deck: deck);
+                  card1.selected = selected;
+                  card1.neighbor = neighbor;
+                  final card2 = PlayCard(suit, value, deck: deck);
+                  card2.selected = selected;
+                  card2.neighbor = !neighbor;
+                  expect(card1 == card2, false);
+                  expect(card1.compareTo(card2), 0);
+                }
               }
             }
           }
         }
-      }
-    });
+      },
+    );
 
-    test('Deck number influence equality, does not influence compare',
-        () async {
-      for (int deck = 0; deck < maxDeckCount; deck++) {
-        for (Value value in Value.values) {
-          for (Suit suit in Suit.values) {
-            for (bool selected in [true, false]) {
-              for (bool neighbor in [true, false]) {
-                final card1 = PlayCard(suit, value, deck: deck);
-                card1.selected = selected;
-                card1.neighbor = neighbor;
-                int deck2;
-                do {
-                  deck2 = Random().nextInt(maxDeckCount);
-                } while (deck2 == deck);
+    test(
+      'Deck number influence equality, does not influence compare',
+      () async {
+        for (int deck = 0; deck < maxDeckCount; deck++) {
+          for (Value value in Value.values) {
+            for (Suit suit in Suit.values) {
+              for (bool selected in [true, false]) {
+                for (bool neighbor in [true, false]) {
+                  final card1 = PlayCard(suit, value, deck: deck);
+                  card1.selected = selected;
+                  card1.neighbor = neighbor;
+                  int deck2;
+                  do {
+                    deck2 = Random().nextInt(maxDeckCount);
+                  } while (deck2 == deck);
 
-                final card2 = PlayCard(suit, value, deck: deck2);
-                card2.selected = selected;
-                card2.neighbor = neighbor;
-                expect(card1 == card2, false);
-                expect(card1.compareTo(card2), 0);
+                  final card2 = PlayCard(suit, value, deck: deck2);
+                  card2.selected = selected;
+                  card2.neighbor = neighbor;
+                  expect(card1 == card2, false);
+                  expect(card1.compareTo(card2), 0);
+                }
               }
             }
           }
         }
-      }
-    });
+      },
+    );
 
     test('Different suit cards are not equal', () async {
       for (int deck = 0; deck < maxDeckCount; deck++) {

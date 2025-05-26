@@ -11,10 +11,13 @@ class Shoe {
 
   Shoe({this.includeJokers = false, this.initialShuffle = true}) {
     decks = [];
-    decks.add(Deck(
+    decks.add(
+      Deck(
         includeJokers: includeJokers,
         initialShuffle: initialShuffle,
-        index: 0));
+        index: 0,
+      ),
+    );
     decksUsed = 0;
   }
 
@@ -25,10 +28,13 @@ class Shoe {
 
     if (decks[decksUsed].cardsLeft() <= 0) {
       decksUsed += 1;
-      decks.add(Deck(
+      decks.add(
+        Deck(
           includeJokers: includeJokers,
           initialShuffle: initialShuffle,
-          index: decksUsed));
+          index: decksUsed,
+        ),
+      );
     }
     return decks[decksUsed].dealCard();
   }

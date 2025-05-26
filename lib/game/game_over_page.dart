@@ -37,12 +37,16 @@ class GameOverPageState extends State<GameOverPage> {
     final titleSize = radius * 1.5; // ~60
     final buttonSize = radius * 1.2; // ~48
     final titleStyle = TextStyle(
-        fontSize: titleSize, fontFamily: 'Musicals', color: Colors.white);
+      fontSize: titleSize,
+      fontFamily: 'Musicals',
+      color: Colors.white,
+    );
     final fontSize = radius * 0.8; // ~32
     final textStyle = TextStyle(
-        fontSize: fontSize,
-        fontFamily: 'Roboto Condensed',
-        color: Colors.white);
+      fontSize: fontSize,
+      fontFamily: 'Roboto Condensed',
+      color: Colors.white,
+    );
 
     return Scaffold(
       backgroundColor: Colors.transparent,

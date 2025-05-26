@@ -38,7 +38,9 @@ main() {
       final playCard = deck.dealCard();
       for (PlayCard card in cards) {
         expect(
-            card.suit == playCard.suit && card.value == playCard.value, false);
+          card.suit == playCard.suit && card.value == playCard.value,
+          false,
+        );
         expect(playCard.suit != Suit.invalid, true);
         expect(playCard.value != Value.invalid, true);
       }
@@ -161,15 +163,19 @@ main() {
       testDeckCanGiveXCardsCore(true, true);
     });
 
-    test('Deck w/o Joker cannot deal more than 52 cards (initially shuffled)',
-        () async {
-      testDeckCannotGiveMoreThanXCardsCore(true, false);
-    });
+    test(
+      'Deck w/o Joker cannot deal more than 52 cards (initially shuffled)',
+      () async {
+        testDeckCannotGiveMoreThanXCardsCore(true, false);
+      },
+    );
 
-    test('Deck w Joker cannot deal more than 54 cards (initially shuffled)',
-        () async {
-      testDeckCannotGiveMoreThanXCardsCore(true, true);
-    });
+    test(
+      'Deck w Joker cannot deal more than 54 cards (initially shuffled)',
+      () async {
+        testDeckCannotGiveMoreThanXCardsCore(true, true);
+      },
+    );
 
     test('Deck deals different cards (initially shuffled)', () async {
       testDeckSuppliesDifferentCardsCore(true, false);

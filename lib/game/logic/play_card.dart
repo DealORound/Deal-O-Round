@@ -11,12 +11,15 @@ class PlayCard implements Comparable<PlayCard> {
   PlayCard(this.suit, this.value, {this.deck = 0});
 
   PlayCard.fromString(
-      String suitStr, String valueStr, String selectedChar, String neighborChar)
-      : suit = suitFromCharacter(suitStr),
-        value = valueFromCharacter(valueStr),
-        deck = 0,
-        selected = selectedChar == '1',
-        neighbor = neighborChar == '1';
+    String suitStr,
+    String valueStr,
+    String selectedChar,
+    String neighborChar,
+  ) : suit = suitFromCharacter(suitStr),
+      value = valueFromCharacter(valueStr),
+      deck = 0,
+      selected = selectedChar == '1',
+      neighbor = neighborChar == '1';
 
   @override
   int compareTo(PlayCard other) {

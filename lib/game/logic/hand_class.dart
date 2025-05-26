@@ -15,7 +15,7 @@ enum HandClass {
   fourOfAKind, // Poker
   straightFlush5, // Royal Flush
   fiveOfAKind,
-  invalid
+  invalid,
 }
 
 const handDisplayStrings = [
@@ -35,7 +35,7 @@ const handDisplayStrings = [
   "Four of a kind",
   "Straight Flush",
   "Five of a kind",
-  "Invalid"
+  "Invalid",
 ];
 
 String handDisplayString(HandClass handClass) {
@@ -63,7 +63,7 @@ const baseValueList = [
   2000,
   5000,
   8000,
-  0
+  0,
 ];
 
 int handBaseValue(HandClass handClass) {

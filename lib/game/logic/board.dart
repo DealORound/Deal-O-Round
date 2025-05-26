@@ -16,10 +16,15 @@ class Board {
   final indexes = Iterable<int>.generate(GameState.boardSize).toList();
 
   Board(this.layout) {
-    board = indexes
-        .map((i) => getRandomCards(GameState.boardSize +
-            (layout == BoardLayout.hexagonal && i % 2 == 0 ? -1 : 0)))
-        .toList();
+    board =
+        indexes
+            .map(
+              (i) => getRandomCards(
+                GameState.boardSize +
+                    (layout == BoardLayout.hexagonal && i % 2 == 0 ? -1 : 0),
+              ),
+            )
+            .toList();
   }
 
   @override
@@ -47,13 +52,16 @@ class Board {
   removeHand(List<GlobalKey<AnimatedListState>> listKeys, int animationDelay) {
     // Step 1: Remove selected cards from the UI / AnimatedLists (animated way)
     for (var x in indexes) {
-      final maxY = GameState.boardSize +
+      final maxY =
+          GameState.boardSize +
           (layout == BoardLayout.hexagonal && x % 2 == 0 ? -1 : 0);
       for (var y = maxY - 1; y >= 0; y--) {
         if (board[x][y].selected) {
           listKeys[x].currentState?.removeItem(
-              y, (context, animation) => buildItem(board[x][y], animation),
-              duration: Duration(milliseconds: animationDelay));
+            y,
+            (context, animation) => buildItem(board[x][y], animation),
+            duration: Duration(milliseconds: animationDelay),
+          );
         }
       }
     }
@@ -62,7 +70,8 @@ class Board {
       // Step 2: Remove selected cards from board
       for (var x in indexes) {
         int displacement = 0;
-        final maxY = GameState.boardSize +
+        final maxY =
+            GameState.boardSize +
             (layout == BoardLayout.hexagonal && x % 2 == 0 ? -1 : 0);
         for (var y = maxY - 1; y >= 0; y--) {
           if (board[x][y].selected) {
@@ -78,7 +87,8 @@ class Board {
       // Step 3: deal new cards in place of the removed (selected) cards
       // And insert (animated) them to the AnimatedLists
       for (var x in indexes) {
-        int maxY = GameState.boardSize +
+        int maxY =
+            GameState.boardSize +
             (layout == BoardLayout.hexagonal && x % 2 == 0 ? -1 : 0);
         for (var y = 0; y < maxY; y++) {
           if (board[x][y].selected) {
@@ -94,19 +104,23 @@ class Board {
     // Step 1: determine random rotation amount per each column
     // (slot machine type rotation)
     final spin = List<int>.generate(
-        5,
-        (int i) =>
-            Random().nextInt(
-                layout == BoardLayout.hexagonal && i % 2 == 0 ? 3 : 4) +
-            1);
+      5,
+      (int i) =>
+          Random().nextInt(
+            layout == BoardLayout.hexagonal && i % 2 == 0 ? 3 : 4,
+          ) +
+          1,
+    );
 
     // Step 2: spin (slot machine type rotation) by the rotation amounts
     // Step 2.1: visual removal
     for (var x in indexes) {
       for (var y = 0; y < spin[x]; y++) {
         listKeys[x].currentState?.removeItem(
-            0, (context, animation) => buildItem(board[x][y], animation),
-            duration: Duration(milliseconds: animationDelay));
+          0,
+          (context, animation) => buildItem(board[x][y], animation),
+          duration: Duration(milliseconds: animationDelay),
+        );
       }
     }
 
@@ -119,9 +133,10 @@ class Board {
     // Step 2.3: re-insert removed cards
     for (var x in indexes) {
       for (var y = 0; y < spin[x]; y++) {
-        listKeys[x]
-            .currentState
-            ?.insertItem(y, duration: Duration(milliseconds: animationDelay));
+        listKeys[x].currentState?.insertItem(
+          y,
+          duration: Duration(milliseconds: animationDelay),
+        );
       }
     }
   }

@@ -4,7 +4,8 @@ import 'package:get/get.dart';
 import '../game/logic/game_constants.dart';
 import '../services/settings_constants.dart';
 import '../services/size.dart';
-import '../background_gradient.dart';
+import '../utils/background_gradient.dart';
+import '../utils/color_ex.dart';
 import 'boolean_settings.dart';
 import 'enum_settings.dart';
 import 'spinner_settings.dart';
@@ -35,7 +36,7 @@ class SettingsPageState extends State<SettingsPage> {
       color: Colors.white,
     );
     final boxDecoration = BoxDecoration(
-      color: Colors.green.shade900.withOpacity(0.5),
+      color: Colors.green.shade900.withOpacityEx(0.5),
       borderRadius: BorderRadius.circular(5.0),
       border: Border.all(color: Colors.green.shade900, width: 3.0),
     );
@@ -115,10 +116,13 @@ class SettingsPageState extends State<SettingsPage> {
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(
-                              vertical: 0, horizontal: separatorSize),
+                            vertical: 0,
+                            horizontal: separatorSize,
+                          ),
                           child: const BooleanSettings(
-                              defaultValue: gameMusicDefault,
-                              valueTag: gameMusicTag),
+                            defaultValue: gameMusicDefault,
+                            valueTag: gameMusicTag,
+                          ),
                         ),
                         Align(
                           alignment: Alignment.centerLeft,
@@ -126,10 +130,13 @@ class SettingsPageState extends State<SettingsPage> {
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(
-                              vertical: 0, horizontal: separatorSize),
+                            vertical: 0,
+                            horizontal: separatorSize,
+                          ),
                           child: const BooleanSettings(
-                              defaultValue: soundEffectsDefault,
-                              valueTag: soundEffectsTag),
+                            defaultValue: soundEffectsDefault,
+                            valueTag: soundEffectsTag,
+                          ),
                         ),
                       ],
                     ),
@@ -187,7 +194,7 @@ class SettingsPageState extends State<SettingsPage> {
                           defaultValue: animationSpeedDefault,
                           valueTag: animationSpeedTag,
                           textStyle: textStyle,
-                        )
+                        ),
                       ],
                     ),
                   ),

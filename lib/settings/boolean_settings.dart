@@ -45,31 +45,32 @@ class BooleanSettingsState extends State<BooleanSettings> {
     return Transform.scale(
       scale: widget.scale,
       child: Switch(
-          value: _booleanValue,
-          activeColor: Colors.lightGreenAccent,
-          activeTrackColor: Colors.green,
-          inactiveThumbColor: Colors.red,
-          inactiveTrackColor: Colors.brown,
-          onChanged: (newValue) {
-            setState(() {
-              _booleanValue = newValue;
-              _prefs.setBool(widget.valueTag, newValue);
-              final soundUtils = Get.find<SoundUtils>();
-              if (widget.valueTag == soundEffectsTag) {
-                if (newValue) {
-                  soundUtils.loadSoundEffects();
-                } else {
-                  soundUtils.stopAllSoundEffects();
-                }
-              } else if (widget.valueTag == gameMusicTag) {
-                if (newValue) {
-                  soundUtils.playSoundTrack(SoundTrack.saloonMusic);
-                } else {
-                  soundUtils.stopAllSoundTracks();
-                }
+        value: _booleanValue,
+        activeColor: Colors.lightGreenAccent,
+        activeTrackColor: Colors.green,
+        inactiveThumbColor: Colors.red,
+        inactiveTrackColor: Colors.brown,
+        onChanged: (newValue) {
+          setState(() async {
+            _booleanValue = newValue;
+            _prefs.setBool(widget.valueTag, newValue);
+            final soundUtils = Get.find<SoundUtils>();
+            if (widget.valueTag == soundEffectsTag) {
+              if (newValue) {
+                await soundUtils.loadSoundEffects();
+              } else {
+                await soundUtils.stopSoundEffects();
               }
-            });
-          }),
+            } else if (widget.valueTag == gameMusicTag) {
+              if (newValue) {
+                await soundUtils.playSoundTrack(SoundTrack.saloonMusic);
+              } else {
+                await soundUtils.stopAllSoundTracks();
+              }
+            }
+          });
+        },
+      ),
     );
   }
 }

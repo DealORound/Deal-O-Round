@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../utils/color_ex.dart';
 import 'hand_class.dart';
 
 enum Difficulty { easy, medium, hard }
@@ -67,6 +68,6 @@ const Map<BoardLayout, Map<Difficulty, String>> leaderBoards = {
 const aboutUrl = "https://mrcsabatoth.github.io/DealORoundWebsite/about.html";
 const helpUrl = "https://mrcsabatoth.github.io/DealORoundWebsite/help.html";
 const Color snackTextColor = Colors.white;
-final Color snackBgColor = Colors.redAccent.withOpacity(0.5);
+final Color snackBgColor = Colors.redAccent.withOpacityEx(0.5);
 const priceOfSpin = 200;
 const delayOfSpin = 2000;

@@ -9,8 +9,13 @@ import 'game_page.dart';
 class GameBoard extends StatelessWidget {
   const GameBoard({super.key});
 
-  Column getColumn(List<PlayCard> column, int index, BoardLayout layout,
-      GlobalKey<AnimatedListState> listKey, double diameter) {
+  Column getColumn(
+    List<PlayCard> column,
+    int index,
+    BoardLayout layout,
+    GlobalKey<AnimatedListState> listKey,
+    double diameter,
+  ) {
     var height = 0.0;
     var itemCount = GameState.boardSize;
     if (index % 2 == 0 && layout == BoardLayout.hexagonal) {
@@ -18,25 +23,32 @@ class GameBoard extends StatelessWidget {
       itemCount--;
     }
     return Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-              height: itemCount * diameter,
-              width: diameter,
-              child: AnimatedList(
-                key: listKey,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index, animation) =>
+      mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: itemCount * diameter,
+          width: diameter,
+          child: AnimatedList(
+            key: listKey,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder:
+                (context, index, animation) =>
                     buildItem(context, index, animation, column),
-              )),
-          SizedBox(height: height, width: diameter)
-        ]);
+          ),
+        ),
+        SizedBox(height: height, width: diameter),
+      ],
+    );
   }
 
-  Widget buildItem(BuildContext context, int index, Animation<double> animation,
-      List<PlayCard> column) {
+  Widget buildItem(
+    BuildContext context,
+    int index,
+    Animation<double> animation,
+    List<PlayCard> column,
+  ) {
     if (index > column.length - 1) {
       return const SizedBox(width: 40, height: 0);
     }
@@ -51,8 +63,11 @@ class GameBoard extends StatelessWidget {
     double diameter,
   ) {
     List<Widget> columns = [];
-    board.board.asMap().forEach((index, column) => columns
-        .add(getColumn(column, index, layout, listKeys[index], diameter)));
+    board.board.asMap().forEach(
+      (index, column) => columns.add(
+        getColumn(column, index, layout, listKeys[index], diameter),
+      ),
+    );
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.end,
@@ -91,13 +106,17 @@ class GameBoard extends StatelessWidget {
           children: [
             Center(child: Text("Paused\u{2026}", style: textStyle)),
             Listener(
-              onPointerDown: (PointerEvent details) =>
-                  state.onPointerDown(details),
-              onPointerMove: (PointerEvent details) =>
-                  state.onPointerMove(details),
+              onPointerDown:
+                  (PointerEvent details) => state.onPointerDown(details),
+              onPointerMove:
+                  (PointerEvent details) => state.onPointerMove(details),
               onPointerUp: (PointerEvent details) => state.onPointerUp(details),
               child: getColumns(
-                  state.board, state.layout, state.listKeys, diameter),
+                state.board,
+                state.layout,
+                state.listKeys,
+                diameter,
+              ),
             ),
           ],
         ),

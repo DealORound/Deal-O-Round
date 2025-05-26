@@ -25,6 +25,10 @@
 
 -keep class com.github.florent37.assets_audio_player.** { *; }
 -keepclassmembernames class com.github.florent37.assets_audio_player.* { *; }
+-keep class com.github.florent37.assets_audio_player_web.** { *; }
+-keepclassmembernames class com.github.florent37.assets_audio_player_web.* { *; }
+-keep class xyz.luan.audioplayers.** { *; }
+-keepclassmembernames class xyz.luan.audioplayers.* { *; }
 -keep class com.abedalkareem.games_services.** { *; }
 -keepclassmembernames class com.abedalkareem.games_services.** { *; }
 -keep class dev.fluttercommunity.plus.packageinfo.** { *; }
@@ -33,8 +37,6 @@
 -keepclassmembernames class io.flutter.plugins.pathprovider.** { *; }
 -keep class io.flutter.plugins.sharedpreferences.** { *; }
 -keepclassmembernames class io.flutter.plugins.sharedpreferences.** { *; }
--keep class pl.ukaszapps.soundpool.SoundpoolPlugin.** { *; }
--keepclassmembernames class pl.ukaszapps.soundpool.SoundpoolPlugin.** { *; }
 -keep class io.flutter.plugins.urllauncher.** { *; }
 -keepclassmembernames class io.flutter.plugins.urllauncher.** { *; }
 -keep class dev.fluttercommunity.plus.wakelock.** { *; }

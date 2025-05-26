@@ -25,9 +25,10 @@ class LeftDisplay extends StatelessWidget {
     );
 
     final greenDecoration = BoxDecoration(
-        color: Colors.green.shade900,
-        borderRadius: BorderRadius.circular(5.0),
-        border: Border.all(color: Colors.green.shade700, width: 3.0));
+      color: Colors.green.shade900,
+      borderRadius: BorderRadius.circular(5.0),
+      border: Border.all(color: Colors.green.shade700, width: 3.0),
+    );
     final spacing = radius / 8; // ~5
     final width = radius * 4; // ~160
     const buttonPadding = EdgeInsets.all(4.0);
@@ -51,9 +52,7 @@ class LeftDisplay extends StatelessWidget {
           padding: const EdgeInsets.all(2.0),
           child: SizedBox(
             width: width,
-            child: Center(
-              child: Text("${state.countDown}", style: textStyle),
-            ),
+            child: Center(child: Text("${state.countDown}", style: textStyle)),
           ),
         ),
         SizedBox(height: spacing),
@@ -66,7 +65,7 @@ class LeftDisplay extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text("Next level", style: textStyle),
-                Text("${state.nextLevel}", style: textStyle)
+                Text("${state.nextLevel}", style: textStyle),
               ],
             ),
           ),
@@ -103,8 +102,12 @@ class LeftDisplay extends StatelessWidget {
               state.togglePause();
               launchUrlString(helpUrl);
             } else {
-              Get.snackbar("Attention", "Cannot open URL",
-                  colorText: snackTextColor, backgroundColor: snackBgColor);
+              Get.snackbar(
+                "Attention",
+                "Cannot open URL",
+                colorText: snackTextColor,
+                backgroundColor: snackBgColor,
+              );
             }
           },
           style: buttonStyle,

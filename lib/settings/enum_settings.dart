@@ -41,11 +41,15 @@ class EnumSettingsState<T> extends State<EnumSettings> {
       _stringValue = widget.defaultValue.toString().split('.').last;
     }
 
-    _stringValues = widget.values.map((v0) {
-      return v0.toString();
-    }).map((v1) {
-      return v1.split('.').last;
-    }).toList();
+    _stringValues =
+        widget.values
+            .map((v0) {
+              return v0.toString();
+            })
+            .map((v1) {
+              return v1.split('.').last;
+            })
+            .toList();
   }
 
   @override
@@ -55,11 +59,10 @@ class EnumSettingsState<T> extends State<EnumSettings> {
       icon: const Icon(Icons.arrow_downward, color: Colors.green),
       iconSize: chipRadius(context),
       style: TextStyle(
-          color: Colors.lightGreen, fontSize: widget.textStyle.fontSize),
-      underline: Container(
-        height: 2,
-        color: Colors.lightGreenAccent,
+        color: Colors.lightGreen,
+        fontSize: widget.textStyle.fontSize,
       ),
+      underline: Container(height: 2, color: Colors.lightGreenAccent),
       dropdownColor: Colors.green.shade800,
       onChanged: (String? newValue) {
         setState(() {
@@ -69,12 +72,13 @@ class EnumSettingsState<T> extends State<EnumSettings> {
           }
         });
       },
-      items: _stringValues.map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value, style: widget.textStyle),
-        );
-      }).toList(),
+      items:
+          _stringValues.map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value, style: widget.textStyle),
+            );
+          }).toList(),
     );
   }
 }

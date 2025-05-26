@@ -8,10 +8,7 @@ import '../services/settings_constants.dart';
 import '../services/sound.dart';
 
 class _HomePageInherited extends InheritedWidget {
-  const _HomePageInherited({
-    required super.child,
-    required this.data,
-  });
+  const _HomePageInherited({required super.child, required this.data});
 
   final HomePageState data;
 
@@ -22,10 +19,7 @@ class _HomePageInherited extends InheritedWidget {
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({
-    super.key,
-    required this.child,
-  });
+  const HomePage({super.key, required this.child});
 
   final Widget child;
 
@@ -95,9 +89,6 @@ class HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    return _HomePageInherited(
-      data: this,
-      child: widget.child,
-    );
+    return _HomePageInherited(data: this, child: widget.child);
   }
 }
