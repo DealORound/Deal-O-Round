@@ -40,8 +40,8 @@ class GamePage extends StatefulWidget {
   GameState createState() => GameState();
 
   static GameState? of(BuildContext context) {
-    final state =
-        context.dependOnInheritedWidgetOfExactType<_GamePageInherited>();
+    final state = context
+        .dependOnInheritedWidgetOfExactType<_GamePageInherited>();
     return state?.data;
   }
 }
@@ -258,10 +258,9 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
       }
       if (_levelManager.hasNeighborHighlight(_difficulty, true)) {
         for (var x in indexes) {
-          final ixs =
-              (_layout == BoardLayout.hexagonal && x % 2 == 0)
-                  ? indexesEven
-                  : indexes;
+          final ixs = (_layout == BoardLayout.hexagonal && x % 2 == 0)
+              ? indexesEven
+              : indexes;
           for (var y in ixs) {
             _board.board[x][y].neighbor = false;
           }
@@ -319,8 +318,9 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
             if (_selection.length > 1) {
               neighbors = _getNeighbors(cell);
               if (neighbors.length > 1) {
-                List<int> vs =
-                    neighbors.map((c) => _getNeighbors(c).length).toList();
+                List<int> vs = neighbors
+                    .map((c) => _getNeighbors(c).length)
+                    .toList();
                 int vProd = vs.fold<int>(1, (f, n) => f * n);
                 // If any selected don't have selected neighbors OR
                 // If more than 2 selected but there are no selection with

@@ -35,12 +35,11 @@ class TitleLine extends StatelessWidget {
               style: TextStyle(
                 fontSize: fontSize,
                 fontFamily: 'Musicals',
-                color:
-                    idx == highlightIdx
-                        ? Colors.white
-                        : ((idx == preHighlight || idx == postHighlight)
-                            ? Colors.lightGreenAccent
-                            : ((idx == prePreHighlight ||
+                color: idx == highlightIdx
+                    ? Colors.white
+                    : ((idx == preHighlight || idx == postHighlight)
+                          ? Colors.lightGreenAccent
+                          : ((idx == prePreHighlight ||
                                     idx == postPostHighlight)
                                 ? Colors.lightGreen
                                 : Colors.green)),

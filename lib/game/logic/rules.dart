@@ -63,8 +63,9 @@ class Rules {
         jokerIndex++;
       }
       final jokerCard = hand[jokerIndex];
-      final jokerSuites =
-          blackSuites.contains(jokerCard.suit) ? blackSuites : redSuites;
+      final jokerSuites = blackSuites.contains(jokerCard.suit)
+          ? blackSuites
+          : redSuites;
       for (Suit suit in jokerSuites) {
         final nonJoker = Value.values.sublist(0, 13);
         for (Value value in nonJoker) {
@@ -216,8 +217,8 @@ class Rules {
     }
     bool flush =
         (hand[0].suit == hand[1].suit &&
-            hand[1].suit == hand[2].suit &&
-            hand[2].suit == hand[3].suit);
+        hand[1].suit == hand[2].suit &&
+        hand[2].suit == hand[3].suit);
     hand.sort((hi, hj) => hi.value.index.compareTo(hj.value.index));
     bool possibleWheel =
         (hand[0].value == Value.two && hand[3].value == Value.ace);
@@ -319,9 +320,9 @@ class Rules {
         (hand[0].value == Value.two && hand[4].value == Value.ace);
     bool flush =
         (hand[0].suit == hand[1].suit &&
-            hand[1].suit == hand[2].suit &&
-            hand[2].suit == hand[3].suit &&
-            hand[3].suit == hand[4].suit);
+        hand[1].suit == hand[2].suit &&
+        hand[2].suit == hand[3].suit &&
+        hand[3].suit == hand[4].suit);
     if (hand[0].value.index + 1 == hand[1].value.index &&
         hand[1].value.index + 1 == hand[2].value.index &&
         hand[2].value.index + 1 == hand[3].value.index &&

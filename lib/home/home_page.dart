@@ -27,8 +27,8 @@ class HomePage extends StatefulWidget {
   HomePageState createState() => HomePageState();
 
   static HomePageState? of(BuildContext context) {
-    final state =
-        context.dependOnInheritedWidgetOfExactType<_HomePageInherited>();
+    final state = context
+        .dependOnInheritedWidgetOfExactType<_HomePageInherited>();
     return state?.data;
   }
 }

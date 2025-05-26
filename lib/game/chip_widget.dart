@@ -36,8 +36,9 @@ class ChipWidgetState extends State<ChipWidget> {
       return SizedBox(width: diameter, height: diameter);
     }
 
-    final textColor =
-        (_suit == 'c' || _suit == 's') ? Colors.black : Colors.red;
+    final textColor = (_suit == 'c' || _suit == 's')
+        ? Colors.black
+        : Colors.red;
     final fontSize = diameter * (_value == '*' ? 1.0 : 0.625); // ~64 / ~50
     final suitStyle = TextStyle(
       fontSize: fontSize,

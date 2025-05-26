@@ -41,15 +41,14 @@ class EnumSettingsState<T> extends State<EnumSettings> {
       _stringValue = widget.defaultValue.toString().split('.').last;
     }
 
-    _stringValues =
-        widget.values
-            .map((v0) {
-              return v0.toString();
-            })
-            .map((v1) {
-              return v1.split('.').last;
-            })
-            .toList();
+    _stringValues = widget.values
+        .map((v0) {
+          return v0.toString();
+        })
+        .map((v1) {
+          return v1.split('.').last;
+        })
+        .toList();
   }
 
   @override
@@ -72,13 +71,12 @@ class EnumSettingsState<T> extends State<EnumSettings> {
           }
         });
       },
-      items:
-          _stringValues.map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value, style: widget.textStyle),
-            );
-          }).toList(),
+      items: _stringValues.map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value, style: widget.textStyle),
+        );
+      }).toList(),
     );
   }
 }

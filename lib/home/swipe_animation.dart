@@ -29,21 +29,20 @@ class SwipeAnimationState extends State<SwipeAnimation>
       reverseDuration: const Duration(milliseconds: 1000),
     );
     super.initState();
-    _animation =
-        Tween(begin: 0.0, end: 1.0).animate(_animationController!)
-          ..addListener(() {
-            setState(() {});
-          })
-          ..addStatusListener((status) async {
-            if (status == AnimationStatus.completed) {
-              await Get.find<SoundUtils>().playSoundEffect(
-                SoundEffect.shortCardShuffle,
-              );
-              _animationController?.reverse();
-            } else if (status == AnimationStatus.dismissed) {
-              _animationController?.forward();
-            }
-          });
+    _animation = Tween(begin: 0.0, end: 1.0).animate(_animationController!)
+      ..addListener(() {
+        setState(() {});
+      })
+      ..addStatusListener((status) async {
+        if (status == AnimationStatus.completed) {
+          await Get.find<SoundUtils>().playSoundEffect(
+            SoundEffect.shortCardShuffle,
+          );
+          _animationController?.reverse();
+        } else if (status == AnimationStatus.dismissed) {
+          _animationController?.forward();
+        }
+      });
     _animationController?.forward();
   }
 

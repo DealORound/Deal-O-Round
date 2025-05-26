@@ -33,9 +33,8 @@ class GameBoard extends StatelessWidget {
             key: listKey,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemBuilder:
-                (context, index, animation) =>
-                    buildItem(context, index, animation, column),
+            itemBuilder: (context, index, animation) =>
+                buildItem(context, index, animation, column),
           ),
         ),
         SizedBox(height: height, width: diameter),
@@ -106,10 +105,10 @@ class GameBoard extends StatelessWidget {
           children: [
             Center(child: Text("Paused\u{2026}", style: textStyle)),
             Listener(
-              onPointerDown:
-                  (PointerEvent details) => state.onPointerDown(details),
-              onPointerMove:
-                  (PointerEvent details) => state.onPointerMove(details),
+              onPointerDown: (PointerEvent details) =>
+                  state.onPointerDown(details),
+              onPointerMove: (PointerEvent details) =>
+                  state.onPointerMove(details),
               onPointerUp: (PointerEvent details) => state.onPointerUp(details),
               child: getColumns(
                 state.board,

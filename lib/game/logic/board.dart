@@ -16,15 +16,14 @@ class Board {
   final indexes = Iterable<int>.generate(GameState.boardSize).toList();
 
   Board(this.layout) {
-    board =
-        indexes
-            .map(
-              (i) => getRandomCards(
-                GameState.boardSize +
-                    (layout == BoardLayout.hexagonal && i % 2 == 0 ? -1 : 0),
-              ),
-            )
-            .toList();
+    board = indexes
+        .map(
+          (i) => getRandomCards(
+            GameState.boardSize +
+                (layout == BoardLayout.hexagonal && i % 2 == 0 ? -1 : 0),
+          ),
+        )
+        .toList();
   }
 
   @override
