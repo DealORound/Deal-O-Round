@@ -25,7 +25,7 @@ dependencies:
 
 dev_dependencies:
   analyzer: ^7.4.5
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter
 

@@ -68,7 +68,7 @@ class SoundUtils {
     await _audioPlayer.stop();
   }
 
-  Future<void> updateVolume(newVolume) async {
+  Future<void> updateVolume(double newVolume) async {
     await _assetsPlayer?.setVolume(newVolume / 100.0);
   }
 
@@ -93,7 +93,7 @@ class SoundUtils {
     return;
   }
 
-  stopAllSoundTracks() async {
+  Future<void> stopAllSoundTracks() async {
     await _assetsPlayer?.stop();
     _trackPlaying = null;
   }

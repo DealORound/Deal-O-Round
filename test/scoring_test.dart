@@ -6,7 +6,7 @@ import 'package:deal_o_round/game/logic/scoring.dart';
 import 'package:deal_o_round/game/logic/suit.dart';
 import 'package:deal_o_round/game/logic/value.dart';
 
-main() {
+void main() {
   toDisplayHand(List<PlayCard> hand, HandClass handClass) {
     final rules = Rules();
     final results = rules.rankHand(hand, 0, true, true);

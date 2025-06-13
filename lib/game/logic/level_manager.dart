@@ -70,11 +70,11 @@ class LevelManager {
     return currentLevel + 1;
   }
 
-  advanceLevel() {
+  void advanceLevel() {
     currentLevel++;
   }
 
-  resetLevel() {
+  void resetLevel() {
     currentLevel = 0;
   }
 

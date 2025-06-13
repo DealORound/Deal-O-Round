@@ -2,7 +2,7 @@ import 'package:deal_o_round/game/logic/game_constants.dart';
 import 'package:deal_o_round/game/logic/level_manager.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-main() {
+void main() {
   group('Neighbor highlight tests', () {
     test('Easy difficulty has neighbor highlight on all levels', () async {
       final levelManager = LevelManager();

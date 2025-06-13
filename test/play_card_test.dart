@@ -5,7 +5,7 @@ import 'package:deal_o_round/game/logic/suit.dart';
 import 'package:deal_o_round/game/logic/value.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-main() {
+void main() {
   const maxDeckCount = 8;
 
   group('PlayCard tests', () {

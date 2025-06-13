@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:deal_o_round/game/logic/suit.dart';
 
-main() {
+void main() {
   group('Suit tests', () {
     test('Spades has right "value" (index)', () async {
       expect(Suit.spades.index, 0);

@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:deal_o_round/game/logic/value.dart';
 
-main() {
+void main() {
   group('Value tests', () {
     test('Two has right "value" (index)', () async {
       expect(Value.two.index, 0);

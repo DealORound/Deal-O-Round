@@ -48,7 +48,10 @@ class Board {
     );
   }
 
-  removeHand(List<GlobalKey<AnimatedListState>> listKeys, int animationDelay) {
+  void removeHand(
+    List<GlobalKey<AnimatedListState>> listKeys,
+    int animationDelay,
+  ) {
     // Step 1: Remove selected cards from the UI / AnimatedLists (animated way)
     for (var x in indexes) {
       final maxY =
@@ -99,7 +102,7 @@ class Board {
     });
   }
 
-  spin(List<GlobalKey<AnimatedListState>> listKeys, int animationDelay) {
+  void spin(List<GlobalKey<AnimatedListState>> listKeys, int animationDelay) {
     // Step 1: determine random rotation amount per each column
     // (slot machine type rotation)
     final spin = List<int>.generate(

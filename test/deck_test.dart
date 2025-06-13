@@ -4,7 +4,7 @@ import 'package:deal_o_round/game/logic/play_card.dart';
 import 'package:deal_o_round/game/logic/suit.dart';
 import 'package:deal_o_round/game/logic/value.dart';
 
-main() {
+void main() {
   Deck testDeckCanGiveXCardsCore(bool shuffle, bool hasJokers) {
     final deck = Deck(includeJokers: hasJokers, initialShuffle: shuffle);
     final maxVal = hasJokers && shuffle ? 14 : 13;

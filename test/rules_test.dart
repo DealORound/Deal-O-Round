@@ -20,7 +20,7 @@ class RuleTestInput {
   });
 }
 
-main() {
+void main() {
   int offsetRank(PlayCard card) {
     return valueScore(card.value);
   }

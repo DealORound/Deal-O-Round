@@ -5,7 +5,7 @@ import 'package:deal_o_round/game/logic/shoe.dart';
 import 'package:deal_o_round/game/logic/suit.dart';
 import 'package:deal_o_round/game/logic/value.dart';
 
-main() {
+void main() {
   testShoeWithoutJokerUnshuffledDecksAreSortedCore(int deckCount) {
     final shoe = Shoe(includeJokers: false, initialShuffle: false);
     for (int deck = 0; deck < deckCount; deck++) {

@@ -119,7 +119,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
         (UniversalPlatform.isAndroid || UniversalPlatform.isIOS);
   }
 
-  togglePause() {
+  void togglePause() {
     if (countDown <= 0) {
       return;
     }
@@ -134,7 +134,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     });
   }
 
-  spin() async {
+  Future<void> spin() async {
     if (countDown <= delayOfSpin / 1000 + 1) {
       Get.snackbar(
         "Not enough time for spin",
@@ -242,7 +242,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     );
   }
 
-  _correctNeighbors(List<Point<int>> neighbors) {
+  void _correctNeighbors(List<Point<int>> neighbors) {
     for (Point<int> neighbor in neighbors) {
       final neighborsOfNeighbor = _getNeighbors(neighbor);
       _board.board[neighbor.x][neighbor.y].neighbor = _hasSelected(
@@ -251,7 +251,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     }
   }
 
-  _clearSelection() {
+  void _clearSelection() {
     setState(() {
       for (var cell in _selection) {
         _board.board[cell.x][cell.y].selected = false;
@@ -281,7 +281,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     return _rules.rankHand(selectedHand, 0, true, true);
   }
 
-  _hitTest(PointerEvent details) {
+  void _hitTest(PointerEvent details) {
     if (!_inGesture || _selectionBlock) {
       return;
     }
@@ -374,7 +374,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     }
   }
 
-  evaluateAndProcessHand() async {
+  Future<void> evaluateAndProcessHand() async {
     if (countDown <= 0) {
       return;
     }
@@ -442,7 +442,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     });
   }
 
-  onPointerDown(PointerEvent details) async {
+  Future<void> onPointerDown(PointerEvent details) async {
     _inGesture = true;
     _swipeGesture = false;
     _firstTouched = const Point<int>(-1, -1);
@@ -450,11 +450,11 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     _hitTest(details);
   }
 
-  onPointerMove(PointerEvent details) async {
+  Future<void> onPointerMove(PointerEvent details) async {
     _hitTest(details);
   }
 
-  onPointerUp(PointerEvent details) async {
+  Future<void> onPointerUp(PointerEvent details) async {
     _hitTest(details);
     if (_inGesture && _swipeGesture) {
       await evaluateAndProcessHand();
@@ -529,7 +529,7 @@ class GameState extends State<GamePage> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
-  _updateTime() {
+  void _updateTime() {
     setState(() {
       _rightNow = DateTime.now();
       if (!_paused) {

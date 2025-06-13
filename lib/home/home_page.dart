@@ -67,7 +67,7 @@ class HomePageState extends State<HomePage>
     super.dispose();
   }
 
-  _updateTime() {
+  void _updateTime() {
     setState(() {
       _rightNow = DateTime.now();
       // Update once per second, but make sure to do it at the beginning of each
@@ -80,7 +80,7 @@ class HomePageState extends State<HomePage>
     });
   }
 
-  updateSignedIn(bool on) {
+  void updateSignedIn(bool on) {
     setState(() {
       _gameSignedIn = on;
     });
