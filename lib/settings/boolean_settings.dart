@@ -46,7 +46,7 @@ class BooleanSettingsState extends State<BooleanSettings> {
       scale: widget.scale,
       child: Switch(
         value: _booleanValue,
-        activeColor: Colors.lightGreenAccent,
+        activeThumbColor: Colors.lightGreenAccent,
         activeTrackColor: Colors.green,
         inactiveThumbColor: Colors.red,
         inactiveTrackColor: Colors.brown,
