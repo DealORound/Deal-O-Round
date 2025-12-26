@@ -50,25 +50,27 @@ class BooleanSettingsState extends State<BooleanSettings> {
         activeTrackColor: Colors.green,
         inactiveThumbColor: Colors.red,
         inactiveTrackColor: Colors.brown,
-        onChanged: (newValue) {
-          setState(() async {
-            _booleanValue = newValue;
-            _prefs.setBool(widget.valueTag, newValue);
-            final soundUtils = Get.find<SoundUtils>();
-            if (widget.valueTag == soundEffectsTag) {
-              if (newValue) {
-                await soundUtils.loadSoundEffects();
-              } else {
-                await soundUtils.stopSoundEffects();
-              }
-            } else if (widget.valueTag == gameMusicTag) {
-              if (newValue) {
-                await soundUtils.playSoundTrack(SoundTrack.saloonMusic);
-              } else {
-                await soundUtils.stopAllSoundTracks();
-              }
+        onChanged: (newValue) async {
+          await _prefs.setBool(widget.valueTag, newValue);
+          final soundUtils = Get.find<SoundUtils>();
+          if (widget.valueTag == soundEffectsTag) {
+            if (newValue) {
+              await soundUtils.loadSoundEffects();
+            } else {
+              await soundUtils.stopSoundEffects();
             }
-          });
+          } else if (widget.valueTag == gameMusicTag) {
+            if (newValue) {
+              await soundUtils.playSoundTrack(SoundTrack.saloonMusic);
+            } else {
+              await soundUtils.stopAllSoundTracks();
+            }
+          }
+          if (mounted) {
+            setState(() {
+              _booleanValue = newValue;
+            });
+          }
         },
       ),
     );
