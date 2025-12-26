@@ -9,12 +9,13 @@ environment:
   flutter: ">=3.38.5"
 
 dependencies:
-  assets_audio_player: ^3.1.1
-  audioplayers: ^6.5.1
   collection: ^1.19.1
+  flutter_soloud: ^2.0.0
   games_services: ^5.0.0
   get: ^4.7.3
   intl: ^0.20.2
+  just_audio: ^0.9.42
+  just_audio_background: ^0.0.1-beta.13
   shared_preferences: ^2.5.4
   spinner_input_plus: ^0.0.4
   universal_platform: ^1.1.0

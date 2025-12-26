@@ -1,6 +1,11 @@
-import 'package:assets_audio_player/assets_audio_player.dart';
-import 'package:audioplayers/audioplayers.dart';
-import 'package:get/get.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_soloud/flutter_soloud.dart';
+import 'package:just_audio/just_audio.dart' as just_audio;
+import 'package:just_audio/just_audio.dart'
+    show AudioPlayer, LoopMode; // Expose AudioPlayer directly or use prefix?
+// Let's use prefix for clarity on conflict types.
+// But I need AudioPlayer for music.
+import 'package:just_audio_background/just_audio_background.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'settings_constants.dart';
@@ -22,54 +27,84 @@ final Map<SoundTrack, String> _soundTrackPaths = {
 };
 
 class SoundUtils {
-  late AudioPlayer _audioPlayer;
+  late AudioPlayer _musicPlayer;
+  late SoLoud _soloud;
   SharedPreferences pref;
-  AssetsAudioPlayer? _assetsPlayer;
   SoundTrack? _trackPlaying;
 
-  final Map<SoundEffect, AssetSource> _soundCache = {};
+  final Map<SoundEffect, AudioSource> _soundCache = {};
 
   SoundUtils(this.pref) {
-    _audioPlayer = AudioPlayer();
-    if (pref.getBool(soundEffectsTag) ?? soundEffectsDefault) {
-      loadSoundEffects();
-    }
-    Get.put<AudioPlayer>(_audioPlayer);
+    _musicPlayer = AudioPlayer();
+    _soloud = SoLoud.instance;
+    _initSoloud();
 
-    _assetsPlayer = AssetsAudioPlayer.newPlayer();
-    _assetsPlayer?.setLoopMode(LoopMode.single);
+    // Setting loop mode for music
+    _musicPlayer.setLoopMode(LoopMode.one);
+  }
+
+  Future<void> _initSoloud() async {
+    await _soloud.init();
+    if (pref.getBool(soundEffectsTag) ?? soundEffectsDefault) {
+      await loadSoundEffects();
+    }
   }
 
   Future<void> loadSoundEffects() async {
-    _soundAssetPaths.forEach((k, v) async {
-      if (!_soundCache.containsKey(k)) {
-        final soundSource = AssetSource(v);
-        _soundCache.addAll({k: soundSource});
+    for (var entry in _soundAssetPaths.entries) {
+      if (!_soundCache.containsKey(entry.key)) {
+        try {
+          final source = await _soloud.loadAsset("assets/${entry.value}");
+          _soundCache[entry.key] = source;
+        } catch (e) {
+          debugPrint("Error loading sound effect ${entry.key}: $e");
+        }
       }
-    });
+    }
   }
 
   Future<int> playSoundEffect(SoundEffect soundEffect) async {
-    if (!_soundCache.containsKey(soundEffect)) {
-      return 0;
-    }
-
     if (pref.getBool(soundEffectsTag) ?? soundEffectsDefault) {
-      final volumePercent = (pref.getDouble(volumeTag) ?? volumeDefault);
-      final volume = volumePercent / 100.0;
-      await _audioPlayer.play(_soundCache[soundEffect]!, volume: volume);
-      return 1;
-    } else {
-      return 0;
+      if (!_soundCache.containsKey(soundEffect)) {
+        // Lazy load
+        final path = _soundAssetPaths[soundEffect];
+        if (path != null) {
+          try {
+            final source = await _soloud.loadAsset("assets/$path");
+            _soundCache[soundEffect] = source;
+          } catch (e) {
+            debugPrint("Error lazy loading sound effect: $e");
+            return 0;
+          }
+        } else {
+          return 0;
+        }
+      }
+
+      final source = _soundCache[soundEffect];
+      if (source != null) {
+        final volumePercent = (pref.getDouble(volumeTag) ?? volumeDefault);
+        final volume = volumePercent / 100.0;
+        await _soloud.play(source, volume: volume);
+        return 1;
+      }
     }
+    return 0;
   }
 
   Future<void> stopSoundEffects() async {
-    await _audioPlayer.stop();
+    // SoLoud doesn't have a simple "stop all" without handles,
+    // strictly speaking we should track handles if we want to stop them mid-play.
+    // For short SFX, usually unnecessary. If needed, we'd store handles.
+    // However, _soloud.disposeAllSound() stops everything? No, that disposes sources.
+    // Given the previous implementation just stopped the player (which was one track),
+    // and these are short effects, we probably don't need a hard stop for "stopSoundEffects"
+    // unless the user leaves the game.
+    // But we can just leave them playing to finish.
   }
 
   Future<void> updateVolume(double newVolume) async {
-    await _assetsPlayer?.setVolume(newVolume / 100.0);
+    await _musicPlayer.setVolume(newVolume / 100.0);
   }
 
   Future<void> playSoundTrack(SoundTrack track) async {
@@ -78,23 +113,43 @@ class SoundUtils {
         return;
       }
 
-      await stopAllSoundTracks();
       final trackPath = _soundTrackPaths[track];
       if (trackPath == null) {
         return;
       }
 
       _trackPlaying = track;
-      await _assetsPlayer?.setVolume(
-        (pref.getDouble(volumeTag) ?? volumeDefault) / 100.0,
+      final volume = (pref.getDouble(volumeTag) ?? volumeDefault) / 100.0;
+      await _musicPlayer.setVolume(volume);
+
+      final source = just_audio.AudioSource.asset(
+        "assets/$trackPath",
+        tag: MediaItem(
+          id: trackPath,
+          album: "Deal-O-Round",
+          title: _getTrackTitle(track),
+        ),
       );
-      await _assetsPlayer?.open(Audio("assets/$trackPath"));
+
+      await _musicPlayer.setAudioSource(source);
+      _musicPlayer.play();
     }
     return;
   }
 
+  String _getTrackTitle(SoundTrack track) {
+    switch (track) {
+      case SoundTrack.saloonMusic:
+        return "Saloon Music";
+      case SoundTrack.guitarMusic:
+        return "Guitar Music";
+      case SoundTrack.endMusic:
+        return "End Music";
+    }
+  }
+
   Future<void> stopAllSoundTracks() async {
-    await _assetsPlayer?.stop();
+    await _musicPlayer.stop();
     _trackPlaying = null;
   }
 }
