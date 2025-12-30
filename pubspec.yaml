@@ -14,7 +14,7 @@ dependencies:
   games_services: ^5.0.0
   get: ^4.7.3
   intl: ^0.20.2
-  just_audio: ^0.9.42
+  just_audio: ^0.10.5
   just_audio_background: ^0.0.1-beta.13
   shared_preferences: ^2.5.4
   spinner_input_plus: ^0.0.4
