@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Deal-O-Round",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart"
+        },
+        {
+            "name": "Run All Tests",
+            "request": "launch",
+            "type": "dart",
+            "program": "test/"
+        }
+    ]
+}
