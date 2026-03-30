@@ -16,7 +16,7 @@ dependencies:
   intl: ^0.20.2
   just_audio: ^0.10.5
   just_audio_background: ^0.0.1-beta.13
-  shared_preferences: ^2.5.4
+  shared_preferences: ^2.5.5
   spinner_input_plus: ^0.0.4
   universal_platform: ^1.1.0
   url_launcher: ^6.3.2
