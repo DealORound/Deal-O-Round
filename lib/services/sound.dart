@@ -85,7 +85,7 @@ class SoundUtils {
       if (source != null) {
         final volumePercent = (pref.getDouble(volumeTag) ?? volumeDefault);
         final volume = volumePercent / 100.0;
-        await _soloud.play(source, volume: volume);
+        _soloud.play(source, volume: volume);
         return 1;
       }
     }
