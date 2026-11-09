@@ -194,10 +194,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_soloud
-      sha256: "4a5ff74c0d3e4e59540bd14ff9a50fa892c49ac7171ebdcd1ce59b12662ef1c1"
+      sha256: "9a439ebd477ee7b1c5cdf0f70765fbfae21b484b5b5bfd1446057f61b4111003"
       url: "https://pub.dev"
     source: hosted
-    version: "5.2.2"
+    version: "5.2.3"
   flutter_test:
     dependency: "direct dev"
     description: flutter
